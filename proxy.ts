@@ -19,11 +19,23 @@ const publicRoutes = [
     "/api/service-pricing",
     "/api/care-types",
     "/api/service-packages",
+    "/api/category-groups",
     "/api/category-items",
     "/api/source-settings",
+    "/api/departments",
+    "/api/service-groups",
+    "/api/resolve-maps-url",
+    // Dynamic API routes
+    "/api/customers/",
+    "/api/positions/",
+    "/api/departments/",
+    "/api/service-groups/",
+    "/api/source-settings/",
+    "/api/category-groups/",
+    "/api/category-items/",
 ];
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
     const { pathname } = request.nextUrl;
 
     // Allow public routes
