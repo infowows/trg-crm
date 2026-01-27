@@ -23,13 +23,25 @@ interface SourceSetting {
 const SourceSettingDetail = () => {
     const router = useRouter();
     const params = useParams();
-    const { id } = params as { id: string };
+    const [id, setId] = useState<string>("");
 
     const [sourceSetting, setSourceSetting] = useState<SourceSetting | null>(
         null,
     );
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+
+    useEffect(() => {
+        const initializeId = async () => {
+            const resolvedParams = await params;
+            const resolvedId = Array.isArray(resolvedParams.id)
+                ? resolvedParams.id[0]
+                : resolvedParams.id;
+            setId(resolvedId || "");
+        };
+
+        initializeId();
+    }, [params]);
 
     useEffect(() => {
         if (id) {

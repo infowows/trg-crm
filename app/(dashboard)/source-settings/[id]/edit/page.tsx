@@ -16,7 +16,7 @@ interface SourceSetting {
 const EditSourceSetting = () => {
     const router = useRouter();
     const params = useParams();
-    const { id } = params as { id: string };
+    const [id, setId] = useState<string>("");
 
     const [formData, setFormData] = useState({
         name: "",
@@ -26,6 +26,18 @@ const EditSourceSetting = () => {
     const [loading, setLoading] = useState(false);
     const [initialLoading, setInitialLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+
+    useEffect(() => {
+        const initializeId = async () => {
+            const resolvedParams = await params;
+            const resolvedId = Array.isArray(resolvedParams.id)
+                ? resolvedParams.id[0]
+                : resolvedParams.id;
+            setId(resolvedId || "");
+        };
+
+        initializeId();
+    }, [params]);
 
     useEffect(() => {
         if (id) {

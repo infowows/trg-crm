@@ -18,7 +18,7 @@ async function verifyAuth(request: NextRequest) {
 // GET - Lấy chi tiết chức vụ
 export async function GET(
     request: NextRequest,
-    { params }: { params: { id: string } },
+    { params }: { params: Promise<{ id: string }> },
 ) {
     try {
         const auth = await verifyAuth(request);
@@ -30,8 +30,7 @@ export async function GET(
         }
 
         await dbConnect();
-
-        const { id } = params;
+        const { id } = await params;
 
         if (!mongoose.Types.ObjectId.isValid(id)) {
             return NextResponse.json(
@@ -65,7 +64,7 @@ export async function GET(
 // PUT - Cập nhật chức vụ
 export async function PUT(
     request: NextRequest,
-    { params }: { params: { id: string } },
+    { params }: { params: Promise<{ id: string }> },
 ) {
     try {
         const auth = await verifyAuth(request);
@@ -77,8 +76,7 @@ export async function PUT(
         }
 
         await dbConnect();
-
-        const { id } = params;
+        const { id } = await params;
         const body = await request.json();
 
         if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -118,7 +116,7 @@ export async function PUT(
 // DELETE - Xóa chức vụ
 export async function DELETE(
     request: NextRequest,
-    { params }: { params: { id: string } },
+    { params }: { params: Promise<{ id: string }> },
 ) {
     try {
         const auth = await verifyAuth(request);
@@ -130,8 +128,7 @@ export async function DELETE(
         }
 
         await dbConnect();
-
-        const { id } = params;
+        const { id } = await params;
 
         if (!mongoose.Types.ObjectId.isValid(id)) {
             return NextResponse.json(

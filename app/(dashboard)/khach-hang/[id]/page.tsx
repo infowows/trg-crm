@@ -64,7 +64,7 @@ interface User {
 const CustomerUpdate = () => {
     const router = useRouter();
     const params = useParams();
-    const customerId = Array.isArray(params.id) ? params.id[0] : params.id;
+    const [customerId, setCustomerId] = useState<string>("");
 
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
@@ -88,6 +88,18 @@ const CustomerUpdate = () => {
         lat: "",
         lng: "",
     });
+
+    useEffect(() => {
+        const initializeCustomerId = async () => {
+            const resolvedParams = await params;
+            const id = Array.isArray(resolvedParams.id)
+                ? resolvedParams.id[0]
+                : resolvedParams.id;
+            setCustomerId(id || "");
+        };
+
+        initializeCustomerId();
+    }, [params]);
 
     useEffect(() => {
         if (!customerId) {

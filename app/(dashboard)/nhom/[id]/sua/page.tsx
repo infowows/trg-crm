@@ -33,12 +33,20 @@ const EditCategoryGroupPage = () => {
     const [success, setSuccess] = useState<string | null>(null);
 
     useEffect(() => {
-        if (params.id) {
-            fetchCategoryGroup();
-        }
-    }, [params.id]);
+        const loadCategoryGroup = async () => {
+            const resolvedParams = await params;
+            const id = Array.isArray(resolvedParams.id)
+                ? resolvedParams.id[0]
+                : resolvedParams.id;
+            if (id) {
+                fetchCategoryGroup(id);
+            }
+        };
 
-    const fetchCategoryGroup = async () => {
+        loadCategoryGroup();
+    }, [params]);
+
+    const fetchCategoryGroup = async (id: string) => {
         try {
             setFetchLoading(true);
             const token = localStorage.getItem("token");
@@ -47,7 +55,7 @@ const EditCategoryGroupPage = () => {
                 return;
             }
 
-            const response = await fetch(`/api/category-groups/${params.id}`, {
+            const response = await fetch(`/api/category-groups/${id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -75,10 +83,10 @@ const EditCategoryGroupPage = () => {
     };
 
     const handleInputChange = (
-        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     ) => {
         const { name, value, type } = e.target;
-        
+
         if (type === "checkbox") {
             const checked = (e.target as HTMLInputElement).checked;
             setFormData((prev) => ({
@@ -140,7 +148,12 @@ const EditCategoryGroupPage = () => {
                 return;
             }
 
-            const response = await fetch(`/api/category-groups/${params.id}`, {
+            const resolvedParams = await params;
+            const id = Array.isArray(resolvedParams.id)
+                ? resolvedParams.id[0]
+                : resolvedParams.id;
+
+            const response = await fetch(`/api/category-groups/${id}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -157,7 +170,7 @@ const EditCategoryGroupPage = () => {
             if (!response.ok) {
                 const errorData = await response.json();
                 throw new Error(
-                    errorData.error || "Không thể cập nhật nhóm hạng mục"
+                    errorData.error || "Không thể cập nhật nhóm hạng mục",
                 );
             }
 

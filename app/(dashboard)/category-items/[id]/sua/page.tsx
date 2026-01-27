@@ -33,12 +33,20 @@ const EditCategoryItemPage = () => {
     const [success, setSuccess] = useState<string | null>(null);
 
     useEffect(() => {
-        if (params.id) {
-            fetchCategoryItem();
-        }
-    }, [params.id]);
+        const loadCategoryItem = async () => {
+            const resolvedParams = await params;
+            const id = Array.isArray(resolvedParams.id)
+                ? resolvedParams.id[0]
+                : resolvedParams.id;
+            if (id) {
+                fetchCategoryItem(id);
+            }
+        };
 
-    const fetchCategoryItem = async () => {
+        loadCategoryItem();
+    }, [params]);
+
+    const fetchCategoryItem = async (id: string) => {
         try {
             setFetchLoading(true);
             const token = localStorage.getItem("token");
@@ -47,7 +55,7 @@ const EditCategoryItemPage = () => {
                 return;
             }
 
-            const response = await fetch(`/api/category-items/${params.id}`, {
+            const response = await fetch(`/api/category-items/${id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -75,10 +83,10 @@ const EditCategoryItemPage = () => {
     };
 
     const handleInputChange = (
-        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     ) => {
         const { name, value, type } = e.target;
-        
+
         if (type === "checkbox") {
             const checked = (e.target as HTMLInputElement).checked;
             setFormData((prev) => ({
@@ -140,7 +148,12 @@ const EditCategoryItemPage = () => {
                 return;
             }
 
-            const response = await fetch(`/api/category-items/${params.id}`, {
+            const resolvedParams = await params;
+            const id = Array.isArray(resolvedParams.id)
+                ? resolvedParams.id[0]
+                : resolvedParams.id;
+
+            const response = await fetch(`/api/category-items/${id}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -157,7 +170,7 @@ const EditCategoryItemPage = () => {
             if (!response.ok) {
                 const errorData = await response.json();
                 throw new Error(
-                    errorData.error || "Không thể cập nhật hạng mục"
+                    errorData.error || "Không thể cập nhật hạng mục",
                 );
             }
 
@@ -231,7 +244,8 @@ const EditCategoryItemPage = () => {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-2">
-                                Tên hạng mục <span className="text-red-500">*</span>
+                                Tên hạng mục{" "}
+                                <span className="text-red-500">*</span>
                             </label>
                             <input
                                 type="text"
@@ -246,7 +260,8 @@ const EditCategoryItemPage = () => {
 
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-2">
-                                Mã hạng mục <span className="text-red-500">*</span>
+                                Mã hạng mục{" "}
+                                <span className="text-red-500">*</span>
                             </label>
                             <input
                                 type="text"
