@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///D:/WOWS_DEV/TruongGiang_CRM/TruongGiang_CRM_NextJS/trg-crm-webapp/app/%28dashboard%29/employees/page.tsx"],"sourcesContent":["\"use client\"; export default function EmployeesPage() { return <div className=\"p-6\"><h1 className=\"text-2xl font-bold\">Quản lý nhân viên</h1><p>Trang employees đang hoạt động!</p></div>; }\r\n"],"names":[],"mappings":";;;;;AAAA;;AAA6B,SAAS;IAAkB,qBAAO,6LAAC;QAAI,WAAU;;0BAAM,6LAAC;gBAAG,WAAU;0BAAqB;;;;;;0BAAsB,6LAAC;0BAAE;;;;;;;;;;;;AAA2C;KAArJ"}}]
+}

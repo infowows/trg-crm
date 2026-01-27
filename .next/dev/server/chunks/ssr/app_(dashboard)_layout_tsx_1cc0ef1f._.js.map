@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///D:/WOWS_DEV/TruongGiang_CRM/TruongGiang_CRM_NextJS/trg-crm-webapp/app/%28dashboard%29/layout.tsx"],"sourcesContent":["import Navigation from \"../components/Navigation\";\r\n\r\nexport default function DashboardLayout({\r\n    children,\r\n}: {\r\n    children: React.ReactNode;\r\n}) {\r\n    return (\r\n        <div className=\"min-h-screen bg-gray-50\">\r\n            <Navigation />\r\n            <div className=\"lg:pl-64\">{children}</div>\r\n        </div>\r\n    );\r\n}\r\n"],"names":[],"mappings":";;;;;;;;;;;;AAEe,SAAS,gBAAgB,EACpC,QAAQ,EAGX;IACG,qBACI,8OAAC;QAAI,WAAU;;0BACX,8OAAC;;;;;0BACD,8OAAC;gBAAI,WAAU;0BAAY;;;;;;;;;;;;AAGvC"}}]
+}

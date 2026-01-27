@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///D:/WOWS_DEV/TruongGiang_CRM/TruongGiang_CRM_NextJS/trg-crm-webapp/app/login/layout.tsx"],"sourcesContent":["export default function LoginLayout({\r\n    children,\r\n}: {\r\n    children: React.ReactNode;\r\n}) {\r\n    return <div className=\"min-h-screen\">{children}</div>;\r\n}\r\n"],"names":[],"mappings":";;;;;;AAAe,SAAS,YAAY,EAChC,QAAQ,EAGX;IACG,qBAAO,8OAAC;QAAI,WAAU;kBAAgB;;;;;;AAC1C"}}]
+}

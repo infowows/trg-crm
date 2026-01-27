@@ -1,0 +1,3 @@
+{
+  "/(dashboard)/source-settings/[id]/edit/page": "app/(dashboard)/source-settings/[id]/edit/page.js"
+}

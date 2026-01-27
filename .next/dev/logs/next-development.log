@@ -1,0 +1,72 @@
+[00:00:01.780] Server  WARN    ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+[00:00:02.051] Server  LOG     ✓ Ready in 1541ms
+[00:00:03.687] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:04.112] Browser WARN    Image with src "http://localhost:3000/images/logos/logo_trg.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:00:04.817] Server  LOG     📡 Connecting to MongoDB...
+[00:00:05.527] Server  LOG     ✅ MongoDB connected successfully
+[00:00:05.528] Server  LOG     📊 Database name: "trg-crm"
+[00:00:10.937] Server  LOG     ♻️ Using existing MongoDB connection
+[00:00:11.004] Server  LOG     ♻️ Using existing MongoDB connection
+[00:00:38.901] Server  LOG     ♻️ Using existing MongoDB connection
+[00:00:41.091] Server  LOG     ♻️ Using existing MongoDB connection
+[00:00:41.155] Server  LOG     ♻️ Using existing MongoDB connection
+[00:00:52.831] Server  LOG     ♻️ Using existing MongoDB connection
+[00:00:55.022] Server  LOG     ♻️ Using existing MongoDB connection
+[00:00:55.096] Server  LOG     ♻️ Using existing MongoDB connection
+[00:00:56.387] Server  LOG     ♻️ Using existing MongoDB connection
+[00:00:56.453] Server  LOG     ♻️ Using existing MongoDB connection
+[00:01:10.092] Server  LOG     ♻️ Using existing MongoDB connection
+[00:01:12.284] Server  LOG     ♻️ Using existing MongoDB connection
+[00:01:12.352] Server  LOG     ♻️ Using existing MongoDB connection
+[00:01:24.379] Server  LOG     ♻️ Using existing MongoDB connection
+[00:01:26.569] Server  LOG     ♻️ Using existing MongoDB connection
+[00:01:26.636] Server  LOG     ♻️ Using existing MongoDB connection
+[00:01:34.174] Server  LOG     ♻️ Using existing MongoDB connection
+[00:01:34.236] Server  LOG     ♻️ Using existing MongoDB connection
+[00:01:35.857] Server  LOG     ♻️ Using existing MongoDB connection
+[00:01:35.938] Server  LOG     ♻️ Using existing MongoDB connection
+[00:01:36.902] Server  LOG     ♻️ Using existing MongoDB connection
+[00:01:36.967] Server  LOG     ♻️ Using existing MongoDB connection
+[00:08:40.598] Server  LOG     ✓ Compiled in 180ms
+[00:08:40.850] Browser ERROR   ./app/globals.css
+Error evaluating Node.js code
+CssSyntaxError: D:\WOWS_DEV\TruongGiang_CRM\TruongGiang_CRM_NextJS\trg-crm-webapp\app\globals.css:120:1: Unknown word .devtools-indicator
+    [at Input.error (turbopack:///[project]/node_modules/postcss/lib/input.js:135:16)]
+    [at Parser.unknownWord (turbopack:///[project]/node_modules/postcss/lib/parser.js:595:22)]
+    [at Parser.other (turbopack:///[project]/node_modules/postcss/lib/parser.js:437:12)]
+    [at Parser.parse (turbopack:///[project]/node_modules/postcss/lib/parser.js:472:16)]
+    [at parse (turbopack:///[project]/node_modules/postcss/lib/parse.js:11:12)]
+    [at new LazyResult (turbopack:///[project]/node_modules/postcss/lib/lazy-result.js:165:16)]
+    [at Processor.process (turbopack:///[project]/node_modules/postcss/lib/processor.js:53:14)]
+    [at transform (turbopack:///[turbopack-node]/transforms/postcss.ts:70:51)]
+    [at run (turbopack:///[turbopack-node]/ipc/evaluate.ts:92:29)]
+    [at run (turbopack:///[turbopack-node]/ipc/evaluate.ts:115:11)]
+
+Import trace:
+  Client Component Browser:
+    ./app/globals.css [Client Component Browser]
+    ./app/layout.tsx [Server Component]
+[00:08:46.149] Server  LOG     ✓ Compiled in 98ms
+[00:08:46.848] Browser ERROR   ./app/globals.css
+Error evaluating Node.js code
+CssSyntaxError: D:\WOWS_DEV\TruongGiang_CRM\TruongGiang_CRM_NextJS\trg-crm-webapp\app\globals.css:121:5: Unknown word dis
+    [at Input.error (turbopack:///[project]/node_modules/postcss/lib/input.js:135:16)]
+    [at Parser.unknownWord (turbopack:///[project]/node_modules/postcss/lib/parser.js:595:22)]
+    [at Parser.other (turbopack:///[project]/node_modules/postcss/lib/parser.js:437:12)]
+    [at Parser.parse (turbopack:///[project]/node_modules/postcss/lib/parser.js:472:16)]
+    [at parse (turbopack:///[project]/node_modules/postcss/lib/parse.js:11:12)]
+    [at new LazyResult (turbopack:///[project]/node_modules/postcss/lib/lazy-result.js:165:16)]
+    [at Processor.process (turbopack:///[project]/node_modules/postcss/lib/processor.js:53:14)]
+    [at transform (turbopack:///[turbopack-node]/transforms/postcss.ts:70:51)]
+    [at run (turbopack:///[turbopack-node]/ipc/evaluate.ts:92:29)]
+    [at run (turbopack:///[turbopack-node]/ipc/evaluate.ts:115:11)]
+
+Import trace:
+  Client Component Browser:
+    ./app/globals.css [Client Component Browser]
+    ./app/layout.tsx [Server Component]
+[00:08:49.168] Server  LOG     ✓ Compiled in 201ms
+[00:08:55.976] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:08:56.274] Server  LOG     ♻️ Using existing MongoDB connection
+[00:08:56.371] Browser WARN    Image with src "http://localhost:3000/images/logos/logo_trg.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:09:21.314] Server  LOG     ✓ Compiled in 188ms

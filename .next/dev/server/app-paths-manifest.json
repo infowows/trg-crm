@@ -1,0 +1,10 @@
+{
+  "/(dashboard)/category-items/page": "app/(dashboard)/category-items/page.js",
+  "/(dashboard)/category-items/tao-moi/page": "app/(dashboard)/category-items/tao-moi/page.js",
+  "/(dashboard)/nhom/page": "app/(dashboard)/nhom/page.js",
+  "/(dashboard)/nhom/tao-moi/page": "app/(dashboard)/nhom/tao-moi/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/api/category-groups/route": "app/api/category-groups/route.js",
+  "/api/category-items/route": "app/api/category-items/route.js",
+  "/login/page": "app/login/page.js"
+}

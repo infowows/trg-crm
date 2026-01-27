@@ -1,0 +1,51 @@
+/* [project]/styles/leaflet.css [app-client] (css) */
+.custom-marker-icon, .custom-cluster-icon {
+  background: none !important;
+  border: none !important;
+}
+
+.leaflet-container {
+  font-family: inherit;
+}
+
+.leaflet-popup-content-wrapper {
+  border-radius: 8px;
+  box-shadow: 0 4px 6px -1px #0000001a, 0 2px 4px -1px #0000000f;
+}
+
+.leaflet-popup-content {
+  min-width: 200px;
+  margin: 0;
+}
+
+.leaflet-popup-tip {
+  background: #fff;
+}
+
+.leaflet-control-zoom {
+  box-shadow: 0 1px 3px #0000001f, 0 1px 2px #0000003d;
+  border: none !important;
+}
+
+.leaflet-control-zoom a {
+  color: #374151 !important;
+  background: #fff !important;
+  border: 1px solid #e5e7eb !important;
+  border-bottom: none !important;
+}
+
+.leaflet-control-zoom a:first-child {
+  border-radius: 4px 4px 0 0;
+}
+
+.leaflet-control-zoom a:last-child {
+  border-radius: 0 0 4px 4px;
+  border-bottom: 1px solid #e5e7eb !important;
+}
+
+.leaflet-control-zoom a:hover {
+  color: #111827 !important;
+  background: #f3f4f6 !important;
+}
+
+/*# sourceMappingURL=styles_leaflet_css_bad6b30c._.single.css.map*/
