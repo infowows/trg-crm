@@ -28,6 +28,10 @@ import {
     LayoutPanelLeft,
     LayoutPanelTop,
     PersonStanding,
+    Layers,
+    LayoutTemplate,
+    Leaf,
+    Lectern,
 } from "lucide-react";
 
 interface NavigationItem {
@@ -82,6 +86,27 @@ const navigationItems: NavigationItem[] = [
                 text: "Kế hoạch CSKH",
                 icon: Users,
                 path: "/customer-care",
+            },
+        ],
+    },
+    {
+        id: "category",
+        text: "Hạng mục",
+        icon: Package,
+        path: "/",
+        children: [
+            {
+                id: "category",
+                text: "Danh sách Hạng mục",
+                // icon: LayoutTemplate,
+                icon: LayoutList,
+                path: "/nhom-hang-muc",
+            },
+            {
+                id: "category-item",
+                text: "Danh sách Hạng mục chi tiết",
+                icon: LayoutPanelTop,
+                path: "/category-items",
             },
         ],
     },
@@ -153,7 +178,8 @@ const navigationItems: NavigationItem[] = [
             {
                 id: "service-packages",
                 text: "Gói dịch vụ",
-                icon: Package,
+                // icon: Package,
+                icon: Layers,
                 path: "/services/goi-dich-vu",
             },
             {
@@ -268,8 +294,8 @@ export default function Navigation() {
             {/* Sidebar */}
             <div
                 className={`
-        fixed inset-y-0 left-0 z-40 w-64 bg-white shadow-xl transform transition-transform duration-300 ease-in-out
-        lg:relative lg:translate-x-0
+        fixed top-0 left-0 z-50 w-64 h-screen bg-white shadow-xl transform transition-transform duration-300 ease-in-out overflow-y-auto
+        lg:translate-x-0
         ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"}
       `}
             >
@@ -279,7 +305,7 @@ export default function Navigation() {
                         <div className="flex items-center">
                             {isMounted ? (
                                 <Image
-                                    src="/images/logo_trg.png"
+                                    src="/images/logo.png"
                                     alt="Trường Giang CRM"
                                     width={40}
                                     height={40}

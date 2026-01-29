@@ -24,119 +24,183 @@ const CustomerUpdate = ()=>{
     _s();
     const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"])();
     const params = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useParams"])();
-    const customerId = Array.isArray(params.id) ? params.id[0] : params.id;
+    const [customerId, setCustomerId] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("");
     const [loading, setLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(true);
     const [saving, setSaving] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
+    const [serviceGroups, setServiceGroups] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
     const [sources, setSources] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
-    const [departments, setDepartments] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
-    const [users, setUsers] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
-    const [selectedDepartment, setSelectedDepartment] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("all");
-    const [selectedSalesPersonId, setSelectedSalesPersonId] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("");
     const [customer, setCustomer] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
     const [formData, setFormData] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])({
+        registrationDate: "",
         fullName: "",
-        companyName: "",
+        shortName: "",
         address: "",
         phone: "",
-        email: "",
+        image: "",
+        googleMapsUrl: "",
         source: "",
-        potentialLevel: "",
+        referrer: "",
+        referrerPhone: "",
+        serviceGroup: "",
+        marketingClassification: "",
+        potentialLevel: "Trung bình",
         salesPerson: "",
-        status: "prospect",
-        lat: "",
-        lng: ""
+        needsNote: "",
+        isActive: true,
+        latitude: "",
+        longitude: ""
     });
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "CustomerUpdate.useEffect": ()=>{
-            if (!customerId) {
-                __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$toastify$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].error("ID khách hàng không hợp lệ");
-                router.push("/khach-hang");
+            const initializeCustomerId = {
+                "CustomerUpdate.useEffect.initializeCustomerId": async ()=>{
+                    const resolvedParams = await params;
+                    const id = Array.isArray(resolvedParams.id) ? resolvedParams.id[0] : resolvedParams.id;
+                    setCustomerId(id || "");
+                }
+            }["CustomerUpdate.useEffect.initializeCustomerId"];
+            initializeCustomerId();
+        }
+    }["CustomerUpdate.useEffect"], [
+        params
+    ]);
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
+        "CustomerUpdate.useEffect": ()=>{
+            if (!customerId || customerId.trim() === "") {
+                console.log("ID khách hàng rỗng, chờ initialization...");
                 return;
             }
+            console.log("ID khách hàng hợp lệ:", customerId);
             loadSources();
-            loadDepartments();
-            loadUsers("all");
+            loadServiceGroups();
             loadCustomer();
         }
     }["CustomerUpdate.useEffect"], [
         customerId
     ]);
+    // useEffect để xử lý trường hợp ID không hợp lệ sau khi đã initialization
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
+        "CustomerUpdate.useEffect": ()=>{
+            // Chỉ kiểm tra sau khi params đã được resolve
+            if (params && typeof params.then !== "function") {
+                const resolvedParams = params;
+                const id = Array.isArray(resolvedParams.id) ? resolvedParams.id[0] : resolvedParams.id;
+                if (!id || id.trim() === "") {
+                    console.log("ID không hợp lệ sau initialization, redirect về danh sách");
+                    __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$toastify$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].error("ID khách hàng không hợp lệ");
+                    router.push("/khach-hang");
+                }
+            }
+        }
+    }["CustomerUpdate.useEffect"], [
+        params,
+        router
+    ]);
+    // useEffect để debug khi customer đã được tải
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
+        "CustomerUpdate.useEffect": ()=>{
+            console.log("Customer loaded:", {
+                customer: !!customer,
+                salesPerson: customer?.salesPerson
+            });
+            if (customer && customer.salesPerson) {
+                console.log("Sales person string:", customer.salesPerson);
+            }
+        }
+    }["CustomerUpdate.useEffect"], [
+        customer
+    ]);
     const loadSources = async ()=>{
         try {
-            const response = await fetch("/api/source-settings");
+            const token = localStorage.getItem("token");
+            const response = await fetch("/api/source-settings", {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
             const data = await response.json();
             if (data.success) {
-                setSources(data.data.filter((s)=>s.isActive));
+                setSources(data.data.filter((s)=>s.active));
             }
+            console.log("nguồn khách:", data);
         } catch (error) {
             console.error("Error loading sources:", error);
         }
     };
-    const loadDepartments = async ()=>{
+    const loadServiceGroups = async ()=>{
         try {
-            const response = await fetch("/api/departments");
+            const token = localStorage.getItem("token");
+            const response = await fetch("/api/service-groups", {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
             const data = await response.json();
             if (data.success) {
-                setDepartments(data.data);
+                setServiceGroups(data.data);
             }
         } catch (error) {
-            console.error("Error loading departments:", error);
-        }
-    };
-    const loadUsers = async (departmentId)=>{
-        try {
-            const url = departmentId === "all" ? "/api/users" : `/api/users?departmentId=${departmentId}`;
-            const response = await fetch(url);
-            const data = await response.json();
-            if (data.success) {
-                setUsers(data.data);
-            }
-        } catch (error) {
-            console.error("Error loading users:", error);
+            console.error("Error loading service groups:", error);
         }
     };
     const loadCustomer = async ()=>{
         try {
             console.log("Loading customer with ID:", customerId);
             console.log("Customer ID type:", typeof customerId);
-            const response = await fetch(`/api/customers/${customerId}`);
+            const token = localStorage.getItem("token");
+            if (!token) {
+                console.error("No token found in localStorage");
+                router.push("/login");
+                return;
+            }
+            const response = await fetch(`/api/customers/${customerId}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            console.log("Response status:", response.status);
+            if (!response.ok) {
+                console.error("Response not OK:", response.status, response.statusText);
+                if (response.status === 401) {
+                    router.push("/login");
+                    return;
+                }
+                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+            }
             const data = await response.json();
             console.log("API Response:", data);
             if (data.success) {
                 const customerData = data.data;
                 setCustomer(customerData);
                 setFormData({
+                    registrationDate: customerData.registrationDate ? new Date(customerData.registrationDate).toISOString().split("T")[0] : "",
                     fullName: customerData.fullName || "",
-                    companyName: customerData.companyName || "",
+                    shortName: customerData.shortName || "",
                     address: customerData.address || "",
                     phone: customerData.phone || "",
-                    email: customerData.email || "",
+                    image: customerData.image || "",
+                    googleMapsUrl: "",
                     source: customerData.source || "",
-                    potentialLevel: customerData.potentialLevel || "",
+                    referrer: customerData.referrer || "",
+                    referrerPhone: customerData.referrerPhone || "",
+                    serviceGroup: customerData.serviceGroup || "",
+                    marketingClassification: customerData.marketingClassification || "",
+                    potentialLevel: customerData.potentialLevel || "Trung bình",
                     salesPerson: customerData.salesPerson || "",
-                    status: customerData.status || "prospect",
-                    lat: customerData.lat?.toString() || "",
-                    lng: customerData.lng?.toString() || ""
+                    needsNote: customerData.needsNote || "",
+                    isActive: customerData.isActive !== false,
+                    latitude: customerData.latitude?.toString() || "",
+                    longitude: customerData.longitude?.toString() || ""
                 });
-                // Tìm và set selectedSalesPersonId dựa trên tên sales person
-                if (customerData.salesPerson && users.length > 0) {
-                    const matchingUser = users.find((user)=>user.fullName === customerData.salesPerson);
-                    if (matchingUser) {
-                        setSelectedSalesPersonId(matchingUser._id);
-                        // Nếu tìm thấy user, cũng set department của user đó
-                        if (matchingUser.department) {
-                            setSelectedDepartment(matchingUser.department);
-                            await loadUsers(matchingUser.department);
-                        }
-                    }
-                }
+                console.log("formdata:", customerData);
             } else {
+                console.error("API returned error:", data);
                 __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$toastify$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].error(data.message || "Không thể tải thông tin khách hàng");
                 router.push("/khach-hang");
             }
         } catch (error) {
             console.error("Error loading customer:", error);
-            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$toastify$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].error("Không thể tải thông tin khách hàng");
+            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$toastify$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].error(`Không thể tải thông tin khách hàng: ${error instanceof Error ? error.message : "Lỗi không xác định"}`);
             router.push("/khach-hang");
         } finally{
             setLoading(false);
@@ -149,39 +213,34 @@ const CustomerUpdate = ()=>{
                 [name]: value
             }));
     };
-    const handleDepartmentChange = async (e)=>{
-        const departmentId = e.target.value;
-        setSelectedDepartment(departmentId);
-        setSelectedSalesPersonId(""); // Reset sales person khi đổi department
-        await loadUsers(departmentId);
-    };
-    const handleSalesPersonChange = (e)=>{
-        const salesPersonId = e.target.value;
-        setSelectedSalesPersonId(salesPersonId);
-        // Tìm user được chọn và cập nhật formData.salesPerson với tên
-        const selectedUser = users.find((user)=>user._id === salesPersonId);
-        setFormData((prev)=>({
-                ...prev,
-                salesPerson: selectedUser ? selectedUser.fullName : ""
-            }));
-    };
     const handleSubmit = async (e)=>{
         e.preventDefault();
+        // Validation các trường required
         if (!formData.fullName.trim()) {
             __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$toastify$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].error("Vui lòng nhập tên khách hàng");
+            return;
+        }
+        if (!formData.shortName.trim()) {
+            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$toastify$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].error("Vui lòng nhập tên ngắn");
+            return;
+        }
+        if (!formData.phone.trim()) {
+            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$toastify$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].error("Vui lòng nhập số điện thoại");
             return;
         }
         setSaving(true);
         try {
             const submitData = {
                 ...formData,
-                lat: formData.lat ? parseFloat(formData.lat) : undefined,
-                lng: formData.lng ? parseFloat(formData.lng) : undefined
+                latitude: formData.latitude ? parseFloat(formData.latitude) : undefined,
+                longitude: formData.longitude ? parseFloat(formData.longitude) : undefined
             };
+            const token = localStorage.getItem("token");
             const response = await fetch(`/api/customers/${customerId}`, {
                 method: "PUT",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`
                 },
                 body: JSON.stringify(submitData)
             });
@@ -209,7 +268,7 @@ const CustomerUpdate = ()=>{
                         className: "animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"
                     }, void 0, false, {
                         fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                        lineNumber: 280,
+                        lineNumber: 344,
                         columnNumber: 21
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -217,18 +276,18 @@ const CustomerUpdate = ()=>{
                         children: "Đang tải thông tin khách hàng..."
                     }, void 0, false, {
                         fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                        lineNumber: 281,
+                        lineNumber: 345,
                         columnNumber: 21
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                lineNumber: 279,
+                lineNumber: 343,
                 columnNumber: 17
             }, ("TURBOPACK compile-time value", void 0))
         }, void 0, false, {
             fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-            lineNumber: 278,
+            lineNumber: 342,
             columnNumber: 13
         }, ("TURBOPACK compile-time value", void 0));
     }
@@ -243,7 +302,7 @@ const CustomerUpdate = ()=>{
                         children: "Không tìm thấy khách hàng"
                     }, void 0, false, {
                         fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                        lineNumber: 293,
+                        lineNumber: 357,
                         columnNumber: 21
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -252,18 +311,18 @@ const CustomerUpdate = ()=>{
                         children: "Quay lại danh sách"
                     }, void 0, false, {
                         fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                        lineNumber: 294,
+                        lineNumber: 358,
                         columnNumber: 21
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                lineNumber: 292,
+                lineNumber: 356,
                 columnNumber: 17
             }, ("TURBOPACK compile-time value", void 0))
         }, void 0, false, {
             fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-            lineNumber: 291,
+            lineNumber: 355,
             columnNumber: 13
         }, ("TURBOPACK compile-time value", void 0));
     }
@@ -284,19 +343,19 @@ const CustomerUpdate = ()=>{
                                     className: "w-5 h-5"
                                 }, void 0, false, {
                                     fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                                    lineNumber: 315,
+                                    lineNumber: 379,
                                     columnNumber: 29
                                 }, ("TURBOPACK compile-time value", void 0))
                             }, void 0, false, {
                                 fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                                lineNumber: 311,
+                                lineNumber: 375,
                                 columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$user$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__User$3e$__["User"], {
                                 className: "w-8 h-8 text-blue-600 mr-3"
                             }, void 0, false, {
                                 fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                                lineNumber: 317,
+                                lineNumber: 381,
                                 columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -306,7 +365,7 @@ const CustomerUpdate = ()=>{
                                         children: "Cập nhật khách hàng"
                                     }, void 0, false, {
                                         fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                                        lineNumber: 319,
+                                        lineNumber: 383,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -314,24 +373,24 @@ const CustomerUpdate = ()=>{
                                         children: "Chỉnh sửa thông tin khách hàng"
                                     }, void 0, false, {
                                         fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                                        lineNumber: 322,
+                                        lineNumber: 386,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                                lineNumber: 318,
+                                lineNumber: 382,
                                 columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                        lineNumber: 310,
+                        lineNumber: 374,
                         columnNumber: 21
                     }, ("TURBOPACK compile-time value", void 0))
                 }, void 0, false, {
                     fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                    lineNumber: 309,
+                    lineNumber: 373,
                     columnNumber: 17
                 }, ("TURBOPACK compile-time value", void 0)),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -347,7 +406,7 @@ const CustomerUpdate = ()=>{
                                         children: "Thông tin cơ bản"
                                     }, void 0, false, {
                                         fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                                        lineNumber: 334,
+                                        lineNumber: 398,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -365,13 +424,13 @@ const CustomerUpdate = ()=>{
                                                                 children: "*"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                                                                lineNumber: 341,
+                                                                lineNumber: 405,
                                                                 columnNumber: 41
                                                             }, ("TURBOPACK compile-time value", void 0))
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                                                        lineNumber: 339,
+                                                        lineNumber: 403,
                                                         columnNumber: 37
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -384,51 +443,74 @@ const CustomerUpdate = ()=>{
                                                         required: true
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                                                        lineNumber: 343,
+                                                        lineNumber: 407,
                                                         columnNumber: 37
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                                                lineNumber: 338,
+                                                lineNumber: 402,
                                                 columnNumber: 33
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
                                                         className: "block text-sm font-medium text-gray-700 mb-2",
-                                                        children: "Tên công ty"
-                                                    }, void 0, false, {
+                                                        children: [
+                                                            "Tên ngắn",
+                                                            " ",
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                className: "text-red-500",
+                                                                children: "*"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
+                                                                lineNumber: 421,
+                                                                columnNumber: 41
+                                                            }, ("TURBOPACK compile-time value", void 0))
+                                                        ]
+                                                    }, void 0, true, {
                                                         fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                                                        lineNumber: 355,
+                                                        lineNumber: 419,
                                                         columnNumber: 37
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                                         type: "text",
-                                                        name: "companyName",
-                                                        value: formData.companyName,
+                                                        name: "shortName",
+                                                        value: formData.shortName,
                                                         onChange: handleInputChange,
                                                         className: "w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none",
-                                                        placeholder: "Nhập tên công ty"
+                                                        placeholder: "Nhập tên ngắn",
+                                                        required: true
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                                                        lineNumber: 358,
+                                                        lineNumber: 423,
                                                         columnNumber: 37
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                                                lineNumber: 354,
+                                                lineNumber: 418,
                                                 columnNumber: 33
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
                                                         className: "block text-sm font-medium text-gray-700 mb-2",
-                                                        children: "Số điện thoại"
-                                                    }, void 0, false, {
+                                                        children: [
+                                                            "Số điện thoại",
+                                                            " ",
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                className: "text-red-500",
+                                                                children: "*"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
+                                                                lineNumber: 437,
+                                                                columnNumber: 41
+                                                            }, ("TURBOPACK compile-time value", void 0))
+                                                        ]
+                                                    }, void 0, true, {
                                                         fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                                                        lineNumber: 369,
+                                                        lineNumber: 435,
                                                         columnNumber: 37
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -437,50 +519,23 @@ const CustomerUpdate = ()=>{
                                                         value: formData.phone,
                                                         onChange: handleInputChange,
                                                         className: "w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none",
-                                                        placeholder: "Nhập số điện thoại"
+                                                        placeholder: "Nhập số điện thoại",
+                                                        required: true
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                                                        lineNumber: 372,
+                                                        lineNumber: 439,
                                                         columnNumber: 37
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                                                lineNumber: 368,
-                                                columnNumber: 33
-                                            }, ("TURBOPACK compile-time value", void 0)),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                children: [
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                                        className: "block text-sm font-medium text-gray-700 mb-2",
-                                                        children: "Email"
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                                                        lineNumber: 383,
-                                                        columnNumber: 37
-                                                    }, ("TURBOPACK compile-time value", void 0)),
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                                        type: "email",
-                                                        name: "email",
-                                                        value: formData.email,
-                                                        onChange: handleInputChange,
-                                                        className: "w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none",
-                                                        placeholder: "Nhập email"
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                                                        lineNumber: 386,
-                                                        columnNumber: 37
-                                                    }, ("TURBOPACK compile-time value", void 0))
-                                                ]
-                                            }, void 0, true, {
-                                                fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                                                lineNumber: 382,
+                                                lineNumber: 434,
                                                 columnNumber: 33
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                                        lineNumber: 337,
+                                        lineNumber: 401,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -491,7 +546,7 @@ const CustomerUpdate = ()=>{
                                                 children: "Địa chỉ"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                                                lineNumber: 398,
+                                                lineNumber: 466,
                                                 columnNumber: 33
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
@@ -503,19 +558,19 @@ const CustomerUpdate = ()=>{
                                                 placeholder: "Nhập địa chỉ khách hàng"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                                                lineNumber: 401,
+                                                lineNumber: 469,
                                                 columnNumber: 33
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                                        lineNumber: 397,
+                                        lineNumber: 465,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                                lineNumber: 333,
+                                lineNumber: 397,
                                 columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -525,7 +580,7 @@ const CustomerUpdate = ()=>{
                                         children: "Thông tin kinh doanh"
                                     }, void 0, false, {
                                         fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                                        lineNumber: 414,
+                                        lineNumber: 482,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -538,7 +593,7 @@ const CustomerUpdate = ()=>{
                                                         children: "Nguồn khách hàng"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                                                        lineNumber: 419,
+                                                        lineNumber: 487,
                                                         columnNumber: 37
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -552,7 +607,7 @@ const CustomerUpdate = ()=>{
                                                                 children: "Chọn nguồn"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                                                                lineNumber: 428,
+                                                                lineNumber: 496,
                                                                 columnNumber: 41
                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                             sources.map((source)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -560,73 +615,29 @@ const CustomerUpdate = ()=>{
                                                                     children: source.name
                                                                 }, source._id, false, {
                                                                     fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                                                                    lineNumber: 430,
+                                                                    lineNumber: 498,
                                                                     columnNumber: 45
                                                                 }, ("TURBOPACK compile-time value", void 0)))
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                                                        lineNumber: 422,
+                                                        lineNumber: 490,
                                                         columnNumber: 37
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                                                lineNumber: 418,
+                                                lineNumber: 486,
                                                 columnNumber: 33
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
                                                         className: "block text-sm font-medium text-gray-700 mb-2",
-                                                        children: "Trạng thái"
+                                                        children: "Mức độ tiềm năng"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                                                        lineNumber: 441,
-                                                        columnNumber: 37
-                                                    }, ("TURBOPACK compile-time value", void 0)),
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
-                                                        name: "status",
-                                                        value: formData.status,
-                                                        onChange: handleInputChange,
-                                                        className: "w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none",
-                                                        children: [
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
-                                                                value: "prospect",
-                                                                children: "Tiềm năng"
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                                                                lineNumber: 450,
-                                                                columnNumber: 41
-                                                            }, ("TURBOPACK compile-time value", void 0)),
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
-                                                                value: "customer",
-                                                                children: "Khách hàng"
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                                                                lineNumber: 453,
-                                                                columnNumber: 41
-                                                            }, ("TURBOPACK compile-time value", void 0))
-                                                        ]
-                                                    }, void 0, true, {
-                                                        fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                                                        lineNumber: 444,
-                                                        columnNumber: 37
-                                                    }, ("TURBOPACK compile-time value", void 0))
-                                                ]
-                                            }, void 0, true, {
-                                                fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                                                lineNumber: 440,
-                                                columnNumber: 33
-                                            }, ("TURBOPACK compile-time value", void 0)),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                children: [
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                                        className: "block text-sm font-medium text-gray-700 mb-2",
-                                                        children: "Đánh giá tiềm năng"
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                                                        lineNumber: 460,
+                                                        lineNumber: 509,
                                                         columnNumber: 37
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -636,106 +647,47 @@ const CustomerUpdate = ()=>{
                                                         className: "w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none",
                                                         children: [
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
-                                                                value: "",
-                                                                children: "Chọn đánh giá"
+                                                                value: "Ngắn hạn",
+                                                                children: "Ngắn hạn"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                                                                lineNumber: 469,
+                                                                lineNumber: 518,
                                                                 columnNumber: 41
                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
-                                                                value: "⭐",
-                                                                children: "1 sao"
+                                                                value: "Trung hạn",
+                                                                children: "Trung hạn"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                                                                lineNumber: 470,
+                                                                lineNumber: 521,
                                                                 columnNumber: 41
                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
-                                                                value: "⭐⭐",
-                                                                children: "2 sao"
+                                                                value: "Dài hạn",
+                                                                children: "Dài hạn"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                                                                lineNumber: 471,
+                                                                lineNumber: 524,
                                                                 columnNumber: 41
                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
-                                                                value: "⭐⭐⭐",
-                                                                children: "3 sao"
+                                                                value: "Không phù hợp",
+                                                                children: "Không phù hợp"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                                                                lineNumber: 472,
-                                                                columnNumber: 41
-                                                            }, ("TURBOPACK compile-time value", void 0)),
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
-                                                                value: "⭐⭐⭐⭐",
-                                                                children: "4 sao"
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                                                                lineNumber: 473,
-                                                                columnNumber: 41
-                                                            }, ("TURBOPACK compile-time value", void 0)),
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
-                                                                value: "⭐⭐⭐⭐⭐",
-                                                                children: "5 sao"
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                                                                lineNumber: 474,
+                                                                lineNumber: 525,
                                                                 columnNumber: 41
                                                             }, ("TURBOPACK compile-time value", void 0))
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                                                        lineNumber: 463,
+                                                        lineNumber: 512,
                                                         columnNumber: 37
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                                                lineNumber: 459,
-                                                columnNumber: 33
-                                            }, ("TURBOPACK compile-time value", void 0)),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                children: [
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                                        className: "block text-sm font-medium text-gray-700 mb-2",
-                                                        children: "Phòng ban"
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                                                        lineNumber: 481,
-                                                        columnNumber: 37
-                                                    }, ("TURBOPACK compile-time value", void 0)),
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
-                                                        value: selectedDepartment,
-                                                        onChange: handleDepartmentChange,
-                                                        className: "w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none",
-                                                        children: [
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
-                                                                value: "all",
-                                                                children: "Tất cả phòng ban"
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                                                                lineNumber: 489,
-                                                                columnNumber: 41
-                                                            }, ("TURBOPACK compile-time value", void 0)),
-                                                            departments.map((dept)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
-                                                                    value: dept._id,
-                                                                    children: dept.name
-                                                                }, dept._id, false, {
-                                                                    fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                                                                    lineNumber: 493,
-                                                                    columnNumber: 45
-                                                                }, ("TURBOPACK compile-time value", void 0)))
-                                                        ]
-                                                    }, void 0, true, {
-                                                        fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                                                        lineNumber: 484,
-                                                        columnNumber: 37
-                                                    }, ("TURBOPACK compile-time value", void 0))
-                                                ]
-                                            }, void 0, true, {
-                                                fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                                                lineNumber: 480,
+                                                lineNumber: 508,
                                                 columnNumber: 33
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -745,61 +697,337 @@ const CustomerUpdate = ()=>{
                                                         children: "Sales phụ trách"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                                                        lineNumber: 504,
+                                                        lineNumber: 555,
                                                         columnNumber: 37
                                                     }, ("TURBOPACK compile-time value", void 0)),
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
-                                                        value: selectedSalesPersonId,
-                                                        onChange: handleSalesPersonChange,
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                        type: "text",
+                                                        name: "salesPerson",
+                                                        value: formData.salesPerson,
+                                                        onChange: handleInputChange,
                                                         className: "w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none",
-                                                        disabled: users.length === 0,
-                                                        children: [
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
-                                                                value: "",
-                                                                children: "Chọn nhân viên"
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                                                                lineNumber: 513,
-                                                                columnNumber: 41
-                                                            }, ("TURBOPACK compile-time value", void 0)),
-                                                            users.map((user)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
-                                                                    value: user._id,
-                                                                    children: user.fullName
-                                                                }, user._id, false, {
-                                                                    fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                                                                    lineNumber: 515,
-                                                                    columnNumber: 45
-                                                                }, ("TURBOPACK compile-time value", void 0)))
-                                                        ]
-                                                    }, void 0, true, {
-                                                        fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                                                        lineNumber: 507,
-                                                        columnNumber: 37
-                                                    }, ("TURBOPACK compile-time value", void 0)),
-                                                    users.length === 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                        className: "text-xs text-gray-500 mt-1",
-                                                        children: selectedDepartment === "all" ? "Đang tải danh sách nhân viên..." : "Không có nhân viên trong phòng ban này"
+                                                        placeholder: "Nhập tên nhân viên phụ trách"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                                                        lineNumber: 524,
-                                                        columnNumber: 41
+                                                        lineNumber: 558,
+                                                        columnNumber: 37
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                                                lineNumber: 503,
+                                                lineNumber: 554,
                                                 columnNumber: 33
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                                        lineNumber: 417,
+                                        lineNumber: 485,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                                lineNumber: 413,
+                                lineNumber: 481,
+                                columnNumber: 25
+                            }, ("TURBOPACK compile-time value", void 0)),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                                        className: "text-lg font-semibold text-gray-900 mb-4",
+                                        children: "Thông tin bổ sung"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
+                                        lineNumber: 572,
+                                        columnNumber: 29
+                                    }, ("TURBOPACK compile-time value", void 0)),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "grid grid-cols-1 md:grid-cols-2 gap-6",
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                        className: "block text-sm font-medium text-gray-700 mb-2",
+                                                        children: "Ngày đăng ký"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
+                                                        lineNumber: 577,
+                                                        columnNumber: 37
+                                                    }, ("TURBOPACK compile-time value", void 0)),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                        type: "date",
+                                                        name: "registrationDate",
+                                                        value: formData.registrationDate,
+                                                        onChange: handleInputChange,
+                                                        className: "w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
+                                                        lineNumber: 580,
+                                                        columnNumber: 37
+                                                    }, ("TURBOPACK compile-time value", void 0))
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
+                                                lineNumber: 576,
+                                                columnNumber: 33
+                                            }, ("TURBOPACK compile-time value", void 0)),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                        className: "block text-sm font-medium text-gray-700 mb-2",
+                                                        children: "Tên ngắn"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
+                                                        lineNumber: 590,
+                                                        columnNumber: 37
+                                                    }, ("TURBOPACK compile-time value", void 0)),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                        type: "text",
+                                                        name: "shortName",
+                                                        value: formData.shortName,
+                                                        onChange: handleInputChange,
+                                                        className: "w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none",
+                                                        placeholder: "Nhập tên ngắn"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
+                                                        lineNumber: 593,
+                                                        columnNumber: 37
+                                                    }, ("TURBOPACK compile-time value", void 0))
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
+                                                lineNumber: 589,
+                                                columnNumber: 33
+                                            }, ("TURBOPACK compile-time value", void 0)),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                        className: "block text-sm font-medium text-gray-700 mb-2",
+                                                        children: "Người giới thiệu"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
+                                                        lineNumber: 604,
+                                                        columnNumber: 37
+                                                    }, ("TURBOPACK compile-time value", void 0)),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                        type: "text",
+                                                        name: "referrer",
+                                                        value: formData.referrer,
+                                                        onChange: handleInputChange,
+                                                        className: "w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none",
+                                                        placeholder: "Nhập người giới thiệu"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
+                                                        lineNumber: 607,
+                                                        columnNumber: 37
+                                                    }, ("TURBOPACK compile-time value", void 0))
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
+                                                lineNumber: 603,
+                                                columnNumber: 33
+                                            }, ("TURBOPACK compile-time value", void 0)),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                        className: "block text-sm font-medium text-gray-700 mb-2",
+                                                        children: "Điện thoại người giới thiệu"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
+                                                        lineNumber: 618,
+                                                        columnNumber: 37
+                                                    }, ("TURBOPACK compile-time value", void 0)),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                        type: "tel",
+                                                        name: "referrerPhone",
+                                                        value: formData.referrerPhone,
+                                                        onChange: handleInputChange,
+                                                        className: "w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none",
+                                                        placeholder: "Nhập điện thoại người giới thiệu"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
+                                                        lineNumber: 621,
+                                                        columnNumber: 37
+                                                    }, ("TURBOPACK compile-time value", void 0))
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
+                                                lineNumber: 617,
+                                                columnNumber: 33
+                                            }, ("TURBOPACK compile-time value", void 0)),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                        className: "block text-sm font-medium text-gray-700 mb-2",
+                                                        children: "Nhóm dịch vụ"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
+                                                        lineNumber: 632,
+                                                        columnNumber: 37
+                                                    }, ("TURBOPACK compile-time value", void 0)),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
+                                                        name: "serviceGroup",
+                                                        value: formData.serviceGroup,
+                                                        onChange: handleInputChange,
+                                                        className: "w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none",
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                                value: "",
+                                                                children: "Chọn nhóm dịch vụ"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
+                                                                lineNumber: 641,
+                                                                columnNumber: 41
+                                                            }, ("TURBOPACK compile-time value", void 0)),
+                                                            serviceGroups.map((group)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                                    value: group.name,
+                                                                    children: group.name
+                                                                }, group._id, false, {
+                                                                    fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
+                                                                    lineNumber: 645,
+                                                                    columnNumber: 45
+                                                                }, ("TURBOPACK compile-time value", void 0)))
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
+                                                        lineNumber: 635,
+                                                        columnNumber: 37
+                                                    }, ("TURBOPACK compile-time value", void 0))
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
+                                                lineNumber: 631,
+                                                columnNumber: 33
+                                            }, ("TURBOPACK compile-time value", void 0)),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                        className: "block text-sm font-medium text-gray-700 mb-2",
+                                                        children: "Phân loại marketing"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
+                                                        lineNumber: 656,
+                                                        columnNumber: 37
+                                                    }, ("TURBOPACK compile-time value", void 0)),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
+                                                        name: "marketingClassification",
+                                                        value: formData.marketingClassification,
+                                                        onChange: handleInputChange,
+                                                        className: "w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none",
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                                value: "Phù hợp",
+                                                                children: "Phù hợp"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
+                                                                lineNumber: 665,
+                                                                columnNumber: 41
+                                                            }, ("TURBOPACK compile-time value", void 0)),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                                value: "Chưa phù hợp",
+                                                                children: "Chưa phù hợp"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
+                                                                lineNumber: 666,
+                                                                columnNumber: 41
+                                                            }, ("TURBOPACK compile-time value", void 0))
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
+                                                        lineNumber: 659,
+                                                        columnNumber: 37
+                                                    }, ("TURBOPACK compile-time value", void 0))
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
+                                                lineNumber: 655,
+                                                columnNumber: 33
+                                            }, ("TURBOPACK compile-time value", void 0)),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                        className: "block text-sm font-medium text-gray-700 mb-2",
+                                                        children: "Trạng thái"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
+                                                        lineNumber: 674,
+                                                        columnNumber: 37
+                                                    }, ("TURBOPACK compile-time value", void 0)),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
+                                                        name: "isActive",
+                                                        value: formData.isActive.toString(),
+                                                        onChange: (e)=>setFormData({
+                                                                ...formData,
+                                                                isActive: e.target.value === "true"
+                                                            }),
+                                                        className: "w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none",
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                                value: "true",
+                                                                children: "Hoạt động"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
+                                                                lineNumber: 689,
+                                                                columnNumber: 41
+                                                            }, ("TURBOPACK compile-time value", void 0)),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                                value: "false",
+                                                                children: "Không hoạt động"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
+                                                                lineNumber: 690,
+                                                                columnNumber: 41
+                                                            }, ("TURBOPACK compile-time value", void 0))
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
+                                                        lineNumber: 677,
+                                                        columnNumber: 37
+                                                    }, ("TURBOPACK compile-time value", void 0))
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
+                                                lineNumber: 673,
+                                                columnNumber: 33
+                                            }, ("TURBOPACK compile-time value", void 0))
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
+                                        lineNumber: 575,
+                                        columnNumber: 29
+                                    }, ("TURBOPACK compile-time value", void 0)),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "mt-6",
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                className: "block text-sm font-medium text-gray-700 mb-2",
+                                                children: "Ghi chú nhu cầu"
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
+                                                lineNumber: 698,
+                                                columnNumber: 33
+                                            }, ("TURBOPACK compile-time value", void 0)),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
+                                                name: "needsNote",
+                                                value: formData.needsNote,
+                                                onChange: handleInputChange,
+                                                rows: 3,
+                                                className: "w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none",
+                                                placeholder: "Nhập ghi chú về nhu cầu khách hàng"
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
+                                                lineNumber: 701,
+                                                columnNumber: 33
+                                            }, ("TURBOPACK compile-time value", void 0))
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
+                                        lineNumber: 697,
+                                        columnNumber: 29
+                                    }, ("TURBOPACK compile-time value", void 0))
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
+                                lineNumber: 571,
                                 columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -809,7 +1037,7 @@ const CustomerUpdate = ()=>{
                                         children: "Vị trí"
                                     }, void 0, false, {
                                         fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                                        lineNumber: 536,
+                                        lineNumber: 714,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -822,26 +1050,26 @@ const CustomerUpdate = ()=>{
                                                         children: "Vĩ độ (Latitude)"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                                                        lineNumber: 541,
+                                                        lineNumber: 719,
                                                         columnNumber: 37
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                                         type: "number",
                                                         step: "any",
-                                                        name: "lat",
-                                                        value: formData.lat,
+                                                        name: "latitude",
+                                                        value: formData.latitude,
                                                         onChange: handleInputChange,
                                                         className: "w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none",
                                                         placeholder: "10.8231"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                                                        lineNumber: 544,
+                                                        lineNumber: 722,
                                                         columnNumber: 37
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                                                lineNumber: 540,
+                                                lineNumber: 718,
                                                 columnNumber: 33
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -851,38 +1079,38 @@ const CustomerUpdate = ()=>{
                                                         children: "Kinh độ (Longitude)"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                                                        lineNumber: 556,
+                                                        lineNumber: 734,
                                                         columnNumber: 37
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                                         type: "number",
                                                         step: "any",
-                                                        name: "lng",
-                                                        value: formData.lng,
+                                                        name: "longitude",
+                                                        value: formData.longitude,
                                                         onChange: handleInputChange,
                                                         className: "w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none",
                                                         placeholder: "106.6297"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                                                        lineNumber: 559,
+                                                        lineNumber: 737,
                                                         columnNumber: 37
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                                                lineNumber: 555,
+                                                lineNumber: 733,
                                                 columnNumber: 33
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                                        lineNumber: 539,
+                                        lineNumber: 717,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                                lineNumber: 535,
+                                lineNumber: 713,
                                 columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -895,7 +1123,7 @@ const CustomerUpdate = ()=>{
                                         children: "Hủy"
                                     }, void 0, false, {
                                         fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                                        lineNumber: 574,
+                                        lineNumber: 752,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -909,14 +1137,14 @@ const CustomerUpdate = ()=>{
                                                     className: "animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                                                    lineNumber: 588,
+                                                    lineNumber: 766,
                                                     columnNumber: 41
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 "Đang lưu..."
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                                            lineNumber: 587,
+                                            lineNumber: 765,
                                             columnNumber: 37
                                         }, ("TURBOPACK compile-time value", void 0)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                             className: "flex items-center",
@@ -925,51 +1153,51 @@ const CustomerUpdate = ()=>{
                                                     className: "w-4 h-4 mr-2"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                                                    lineNumber: 593,
+                                                    lineNumber: 771,
                                                     columnNumber: 41
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 "Lưu thay đổi"
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                                            lineNumber: 592,
+                                            lineNumber: 770,
                                             columnNumber: 37
                                         }, ("TURBOPACK compile-time value", void 0))
                                     }, void 0, false, {
                                         fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                                        lineNumber: 581,
+                                        lineNumber: 759,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                                lineNumber: 573,
+                                lineNumber: 751,
                                 columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                        lineNumber: 331,
+                        lineNumber: 395,
                         columnNumber: 21
                     }, ("TURBOPACK compile-time value", void 0))
                 }, void 0, false, {
                     fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-                    lineNumber: 330,
+                    lineNumber: 394,
                     columnNumber: 17
                 }, ("TURBOPACK compile-time value", void 0))
             ]
         }, void 0, true, {
             fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-            lineNumber: 307,
+            lineNumber: 371,
             columnNumber: 13
         }, ("TURBOPACK compile-time value", void 0))
     }, void 0, false, {
         fileName: "[project]/app/(dashboard)/khach-hang/[id]/page.tsx",
-        lineNumber: 306,
+        lineNumber: 370,
         columnNumber: 9
     }, ("TURBOPACK compile-time value", void 0));
 };
-_s(CustomerUpdate, "StqYaqYxe2ENGM3Es15kcqpc+HM=", false, function() {
+_s(CustomerUpdate, "FHoAF8TqBGO7Drr8+6l5/JCAFCM=", false, function() {
     return [
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"],
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useParams"]

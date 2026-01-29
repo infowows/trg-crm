@@ -97,6 +97,11 @@ const ServiceSchema = new __TURBOPACK__imported__module__$5b$externals$5d2f$mong
         uppercase: true,
         trim: true
     },
+    serviceGroup: {
+        type: String,
+        required: true,
+        trim: true
+    },
     description: {
         type: String,
         trim: true
@@ -107,7 +112,7 @@ const ServiceSchema = new __TURBOPACK__imported__module__$5b$externals$5d2f$mong
     }
 }, {
     timestamps: true,
-    collection: "services"
+    collection: "Dịch vụ"
 });
 const __TURBOPACK__default__export__ = __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].models.Service || __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].model("Service", ServiceSchema);
 }),
@@ -134,13 +139,20 @@ async function GET(request) {
         const limit = parseInt(searchParams.get("limit") || "10");
         const active = searchParams.get("active");
         const category = searchParams.get("category");
+        console.log("API Services - Query params:", {
+            page,
+            limit,
+            active,
+            category
+        });
         const query = {};
         if (active !== null && active !== undefined) {
-            query.active = active === "true";
+            query.isActive = active === "true";
         }
         if (category) {
-            query.category = category;
+            query.serviceGroup = category;
         }
+        console.log("API Services - MongoDB query:", query);
         const skip = (page - 1) * limit;
         const [data, total] = await Promise.all([
             __TURBOPACK__imported__module__$5b$project$5d2f$models$2f$Service$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].find(query).sort({
@@ -148,6 +160,7 @@ async function GET(request) {
             }).skip(skip).limit(limit),
             __TURBOPACK__imported__module__$5b$project$5d2f$models$2f$Service$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].countDocuments(query)
         ]);
+        console.log("API Services - Found services:", data.length);
         return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
             success: true,
             data,
@@ -176,8 +189,9 @@ async function POST(request) {
         const serviceData = {
             serviceName: body.serviceName,
             code: body.code || generateServiceCode(body.serviceName),
+            serviceGroup: body.serviceGroup,
             description: body.description,
-            active: body.isActive
+            isActive: body.isActive
         };
         const service = new __TURBOPACK__imported__module__$5b$project$5d2f$models$2f$Service$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"](serviceData);
         await service.save();

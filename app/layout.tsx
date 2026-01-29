@@ -20,12 +20,12 @@ export const metadata: Metadata = {
     icons: {
         icon: [
             { url: "/favicon.ico", sizes: "any" },
-            { url: "/images/logo_trg.png", sizes: "32x32", type: "image/png" },
-            { url: "/images/logo_trg.png", sizes: "16x16", type: "image/png" },
+            { url: "/images/logo.png", sizes: "32x32", type: "image/png" },
+            { url: "/images/logo.png", sizes: "16x16", type: "image/png" },
         ],
         apple: [
             {
-                url: "/images/logo_trg.png",
+                url: "/images/logo.png",
                 sizes: "180x180",
                 type: "image/png",
             },

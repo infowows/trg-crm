@@ -2,31 +2,31 @@
   "[project]/components/map/MapContainer.tsx [app-client] (ecmascript, next/dynamic entry)": {
     "id": "[project]/components/map/MapContainer.tsx [app-client] (ecmascript, next/dynamic entry)",
     "files": [
-      "static/chunks/node_modules_react-leaflet_lib_index_0fca6303.js",
+      "static/chunks/node_modules_react-leaflet_lib_index_20a52bd2.js",
       "static/chunks/node_modules_leaflet_dist_leaflet-src_8608e1e4.js",
       "static/chunks/components_map_MapContainer_tsx_13deed43._.js",
-      "static/chunks/components_map_MapContainer_tsx_a256a8be._.js"
+      "static/chunks/components_map_MapContainer_tsx_a67060ea._.js"
     ]
   },
   "[project]/components/map/FilterPanel.tsx [app-client] (ecmascript, next/dynamic entry)": {
     "id": "[project]/components/map/FilterPanel.tsx [app-client] (ecmascript, next/dynamic entry)",
     "files": [
       "static/chunks/components_map_FilterPanel_tsx_8d1c9cc2._.js",
-      "static/chunks/components_map_FilterPanel_tsx_a256a8be._.js"
+      "static/chunks/components_map_FilterPanel_tsx_a67060ea._.js"
     ]
   },
   "[project]/components/map/StatisticsPanel.tsx [app-client] (ecmascript, next/dynamic entry)": {
     "id": "[project]/components/map/StatisticsPanel.tsx [app-client] (ecmascript, next/dynamic entry)",
     "files": [
       "static/chunks/_cbb33b00._.js",
-      "static/chunks/components_map_StatisticsPanel_tsx_a256a8be._.js"
+      "static/chunks/components_map_StatisticsPanel_tsx_a67060ea._.js"
     ]
   },
   "[project]/components/map/CustomerDetailModal.tsx [app-client] (ecmascript, next/dynamic entry)": {
     "id": "[project]/components/map/CustomerDetailModal.tsx [app-client] (ecmascript, next/dynamic entry)",
     "files": [
-      "static/chunks/_9e7727b2._.js",
-      "static/chunks/components_map_CustomerDetailModal_tsx_a256a8be._.js"
+      "static/chunks/_c320435f._.js",
+      "static/chunks/components_map_CustomerDetailModal_tsx_a67060ea._.js"
     ]
   }
 }

@@ -84,54 +84,91 @@ __turbopack_context__.s([
 ]);
 var __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__ = __turbopack_context__.i("[externals]/mongoose [external] (mongoose, cjs, [project]/node_modules/mongoose)");
 ;
+// Schema cho báo giá (chứa thông tin giá và tính toán)
+const quotationPackageSchema = new __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].Schema({
+    serviceGroup: {
+        type: String,
+        required: true
+    },
+    service: {
+        type: String,
+        required: true
+    },
+    volume: {
+        type: Number,
+        required: true
+    },
+    packages: [
+        {
+            packageName: {
+                type: String,
+                required: true
+            },
+            servicePricing: {
+                type: Number,
+                required: true
+            },
+            totalPrice: {
+                type: Number,
+                required: true
+            },
+            isSelected: {
+                type: Boolean,
+                default: false
+            }
+        }
+    ]
+});
 const quotationSchema = new __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].Schema({
     quotationNo: {
         type: String,
-        unique: true
-    },
-    customer: {
-        type: String
+        unique: true,
+        required: true
     },
     date: {
-        type: Date
+        type: Date,
+        required: true
     },
-    validTo: {
-        type: Date
+    customer: {
+        type: String,
+        required: true
     },
-    items: [
-        {
-            product: {
-                type: String
-            },
-            quantity: {
-                type: Number
-            },
-            unit: {
-                type: String
-            },
-            unitPrice: {
-                type: Number
-            },
-            total: {
-                type: Number
-            }
-        }
+    customerRef: {
+        type: __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].Schema.Types.ObjectId,
+        ref: "Customer"
+    },
+    surveyRef: {
+        type: __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].Schema.Types.ObjectId,
+        ref: "ProjectSurvey"
+    },
+    packages: [
+        quotationPackageSchema
     ],
     totalAmount: {
-        type: Number
-    },
-    taxAmount: {
-        type: Number
+        type: Number,
+        default: 0
     },
     grandTotal: {
-        type: Number
+        type: Number,
+        default: 0
     },
     status: {
         type: String,
+        enum: [
+            "draft",
+            "sent",
+            "approved",
+            "rejected",
+            "completed"
+        ],
         default: "draft"
     },
-    createdBy: {
+    notes: {
         type: String
+    },
+    createdBy: {
+        type: String,
+        required: true
     },
     createdAt: {
         type: Date,
@@ -142,9 +179,9 @@ const quotationSchema = new __TURBOPACK__imported__module__$5b$externals$5d2f$mo
         default: Date.now
     }
 }, {
-    collection: "BAOGIA"
+    collection: "BAOGIA_V2"
 });
-const Quotation = __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].models.BAOGIA || __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].model("BAOGIA", quotationSchema);
+const Quotation = __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].models.BAOGIA_V2 || __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].model("BAOGIA_V2", quotationSchema);
 const __TURBOPACK__default__export__ = Quotation;
 }),
 "[externals]/buffer [external] (buffer, cjs)", ((__turbopack_context__, module, exports) => {
@@ -314,42 +351,95 @@ async function POST(request) {
         await (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$dbConnect$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"])();
         await __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].connection.db;
         const body = await request.json();
-        const { quotationNo, customer, date, validTo, items, totalAmount, taxAmount, grandTotal } = body;
-        if (!quotationNo || !customer) {
+        const { customer, customerRef, surveyRef, date, packages, notes } = body;
+        if (!customer) {
             return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
                 success: false,
-                message: "Vui lòng nhập số báo giá và tên khách hàng"
+                message: "Vui lòng nhập tên khách hàng"
             }, {
                 status: 400
             });
         }
-        // Check if quotation number already exists
-        const existingQuotation = await __TURBOPACK__imported__module__$5b$project$5d2f$models$2f$Quotation$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].findOne({
-            quotationNo
+        // Tạo số báo giá tự động
+        const lastQuotation = await __TURBOPACK__imported__module__$5b$project$5d2f$models$2f$Quotation$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].findOne().sort({
+            createdAt: -1
         });
-        if (existingQuotation) {
-            return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
-                success: false,
-                message: "Số báo giá đã tồn tại"
-            }, {
-                status: 400
-            });
+        let quotationNo = "BG001";
+        if (lastQuotation && lastQuotation.quotationNo) {
+            const lastNumber = parseInt(lastQuotation.quotationNo.replace("BG", ""));
+            quotationNo = `BG${String(lastNumber + 1).padStart(3, "0")}`;
         }
+        console.log("=== CREATING QUOTATION ===");
+        console.log("Request body:", body);
+        console.log("Packages:", packages);
+        // Tính toán totalAmount và grandTotal manual
+        let totalAmount = 0;
+        const processedPackages = packages?.map((service)=>{
+            const processedService = {
+                ...service,
+                packages: service.packages.map((pkg)=>{
+                    const totalPrice = service.volume * pkg.servicePricing;
+                    totalAmount += totalPrice;
+                    return {
+                        ...pkg,
+                        totalPrice
+                    };
+                })
+            };
+            return processedService;
+        }) || [];
+        console.log("Processed packages:", processedPackages);
+        console.log("Calculated totalAmount:", totalAmount);
         const quotation = new __TURBOPACK__imported__module__$5b$project$5d2f$models$2f$Quotation$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"]({
             quotationNo,
             customer,
+            customerRef,
+            surveyRef,
             date: date ? new Date(date) : new Date(),
-            validTo: validTo ? new Date(validTo) : null,
-            items: items || [],
-            totalAmount: totalAmount || 0,
-            taxAmount: taxAmount || 0,
-            grandTotal: grandTotal || 0,
+            packages: processedPackages,
+            totalAmount,
+            grandTotal: totalAmount,
             status: "draft",
-            createdBy: auth.username,
-            createdAt: new Date(),
-            updatedAt: new Date()
+            notes,
+            createdBy: auth.username
         });
+        console.log("Quotation object before save:", quotation);
+        console.log("Quotation packages before save:", quotation.packages);
         await quotation.save();
+        // Cập nhật isUsed = true cho các service pricing đã sử dụng
+        const ServicePricing = __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].models.ServicePricing;
+        if (ServicePricing && packages && packages.length > 0) {
+            const pricingIds = [];
+            // Lấy tất cả pricing IDs từ packages
+            packages.forEach((service)=>{
+                service.packages.forEach((pkg)=>{
+                    if (pkg._id) {
+                        pricingIds.push(pkg._id.toString());
+                    }
+                });
+            });
+            // Cập nhật isUsed = true cho các pricing đã sử dụng
+            if (pricingIds.length > 0) {
+                await ServicePricing.updateMany({
+                    _id: {
+                        $in: pricingIds
+                    }
+                }, {
+                    isUsed: true
+                });
+            }
+        }
+        // Nếu có surveyRef, cập nhật quotationNo trong survey
+        if (surveyRef) {
+            const ProjectSurvey = __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].models.PROJECT_SURVEY;
+            if (ProjectSurvey) {
+                await ProjectSurvey.findByIdAndUpdate(surveyRef, {
+                    quotationNo,
+                    status: "quoted",
+                    updatedAt: new Date()
+                });
+            }
+        }
         return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
             success: true,
             message: "Thêm báo giá thành công",
@@ -357,6 +447,14 @@ async function POST(request) {
         });
     } catch (error) {
         console.error("POST quotation error:", error);
+        if (error.code === 11000) {
+            return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
+                success: false,
+                message: "Số báo giá đã tồn tại"
+            }, {
+                status: 400
+            });
+        }
         return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
             success: false,
             message: "Có lỗi xảy ra. Vui lòng thử lại."

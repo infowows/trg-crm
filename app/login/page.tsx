@@ -2,8 +2,10 @@
 
 import { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import Image from "next/image";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
 import {
     Eye,
     EyeOff,
@@ -121,13 +123,13 @@ function LoginContent() {
         },
         {
             icon: FileText,
-            title: "Quản lý hợp đồng",
-            description: "Tạo và quản lý hợp đồng",
+            title: "Quản lý báo giá",
+            description: "Tạo và quản lý khảo sát - báo giá",
         },
         {
             icon: Package,
-            title: "Quản lý sản phẩm",
-            description: "Danh mục hàng hóa dịch vụ",
+            title: "Quản lý dịch vụ",
+            description: "Danh mục dịch vụ",
         },
         {
             icon: TrendingUp,
@@ -143,10 +145,18 @@ function LoginContent() {
                 <div className="lg:w-1/2 bg-gradient-to-br from-blue-600 to-indigo-700 p-8 lg:p-12 text-white">
                     <div className="mb-8">
                         <div className="flex items-center mb-4">
-                            <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center mr-3">
-                                <BarChart3 className="w-8 h-8 text-blue-600" />
+                            <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center mr-3 overflow-hidden">
+                                <Image
+                                    src="/images/logo.png"
+                                    alt="Trường Giang CRM"
+                                    width={40}
+                                    height={40}
+                                    className="object-contain"
+                                    priority
+                                    unoptimized
+                                />
                             </div>
-                            <h1 className="text-2xl font-bold">TRG CRM</h1>
+                            <h1 className="text-2xl font-bold">Trường Giang CRM</h1>
                         </div>
                         <h2 className="text-3xl font-bold mb-2">
                             Hệ thống Quản lý Khách hàng
@@ -288,7 +298,7 @@ function LoginContent() {
                         {/* Footer */}
                         <div className="mt-8 text-center">
                             <p className="text-sm text-gray-500">
-                                © 2024 TRG CRM. All rights reserved.
+                                © 2024 Trường Giang CRM. All rights reserved.
                             </p>
                         </div>
                     </div>

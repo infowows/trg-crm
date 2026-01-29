@@ -222,54 +222,91 @@ __turbopack_context__.s([
 ]);
 var __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__ = __turbopack_context__.i("[externals]/mongoose [external] (mongoose, cjs, [project]/node_modules/mongoose)");
 ;
+// Schema cho báo giá (chứa thông tin giá và tính toán)
+const quotationPackageSchema = new __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].Schema({
+    serviceGroup: {
+        type: String,
+        required: true
+    },
+    service: {
+        type: String,
+        required: true
+    },
+    volume: {
+        type: Number,
+        required: true
+    },
+    packages: [
+        {
+            packageName: {
+                type: String,
+                required: true
+            },
+            servicePricing: {
+                type: Number,
+                required: true
+            },
+            totalPrice: {
+                type: Number,
+                required: true
+            },
+            isSelected: {
+                type: Boolean,
+                default: false
+            }
+        }
+    ]
+});
 const quotationSchema = new __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].Schema({
     quotationNo: {
         type: String,
-        unique: true
-    },
-    customer: {
-        type: String
+        unique: true,
+        required: true
     },
     date: {
-        type: Date
+        type: Date,
+        required: true
     },
-    validTo: {
-        type: Date
+    customer: {
+        type: String,
+        required: true
     },
-    items: [
-        {
-            product: {
-                type: String
-            },
-            quantity: {
-                type: Number
-            },
-            unit: {
-                type: String
-            },
-            unitPrice: {
-                type: Number
-            },
-            total: {
-                type: Number
-            }
-        }
+    customerRef: {
+        type: __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].Schema.Types.ObjectId,
+        ref: "Customer"
+    },
+    surveyRef: {
+        type: __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].Schema.Types.ObjectId,
+        ref: "ProjectSurvey"
+    },
+    packages: [
+        quotationPackageSchema
     ],
     totalAmount: {
-        type: Number
-    },
-    taxAmount: {
-        type: Number
+        type: Number,
+        default: 0
     },
     grandTotal: {
-        type: Number
+        type: Number,
+        default: 0
     },
     status: {
         type: String,
+        enum: [
+            "draft",
+            "sent",
+            "approved",
+            "rejected",
+            "completed"
+        ],
         default: "draft"
     },
-    createdBy: {
+    notes: {
         type: String
+    },
+    createdBy: {
+        type: String,
+        required: true
     },
     createdAt: {
         type: Date,
@@ -280,9 +317,9 @@ const quotationSchema = new __TURBOPACK__imported__module__$5b$externals$5d2f$mo
         default: Date.now
     }
 }, {
-    collection: "BAOGIA"
+    collection: "BAOGIA_V2"
 });
-const Quotation = __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].models.BAOGIA || __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].model("BAOGIA", quotationSchema);
+const Quotation = __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].models.BAOGIA_V2 || __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].model("BAOGIA_V2", quotationSchema);
 const __TURBOPACK__default__export__ = Quotation;
 }),
 "[project]/models/CustomerCare.ts [app-route] (ecmascript)", ((__turbopack_context__) => {
@@ -401,6 +438,11 @@ const ServiceSchema = new __TURBOPACK__imported__module__$5b$externals$5d2f$mong
         uppercase: true,
         trim: true
     },
+    serviceGroup: {
+        type: String,
+        required: true,
+        trim: true
+    },
     description: {
         type: String,
         trim: true
@@ -411,7 +453,7 @@ const ServiceSchema = new __TURBOPACK__imported__module__$5b$externals$5d2f$mong
     }
 }, {
     timestamps: true,
-    collection: "services"
+    collection: "Dịch vụ"
 });
 const __TURBOPACK__default__export__ = __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].models.Service || __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].model("Service", ServiceSchema);
 }),

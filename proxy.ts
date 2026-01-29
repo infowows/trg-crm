@@ -25,6 +25,10 @@ const publicRoutes = [
     "/api/departments",
     "/api/service-groups",
     "/api/resolve-maps-url",
+    // Static assets
+    "/images/",
+    "/favicon.ico",
+    "/site.webmanifest",
     // Dynamic API routes
     "/api/customers/",
     "/api/positions/",
@@ -67,8 +71,9 @@ export const config = {
          * - _next/static (static files)
          * - _next/image (image optimization files)
          * - favicon.ico (favicon file)
+         * - images folder
          * - public folder
          */
-        "/((?!_next/static|_next/image|favicon.ico|public).*)",
+        "/((?!_next/static|_next/image|favicon\\.ico|images|public).*)",
     ],
 };
