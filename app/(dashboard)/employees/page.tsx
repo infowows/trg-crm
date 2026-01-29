@@ -19,6 +19,7 @@ import {
     ChevronLeft,
     ChevronRight,
     User,
+    X,
 } from "lucide-react";
 
 interface Employee {
@@ -48,6 +49,41 @@ const EmployeeManagement = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
     const [total, setTotal] = useState(0);
+    const [positions, setPositions] = useState<string[]>([]);
+    const [searchTimeoutId, setSearchTimeoutId] =
+        useState<NodeJS.Timeout | null>(null);
+    const [selectedEmployee, setSelectedEmployee] = useState<Employee | null>(
+        null,
+    );
+    const [showViewModal, setShowViewModal] = useState(false);
+
+    // Fetch positions
+    const fetchPositions = async () => {
+        try {
+            const token = localStorage.getItem("token");
+            if (!token) {
+                router.push("/login");
+                return;
+            }
+
+            const response = await fetch("/api/positions", {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error("Không thể tải danh sách chức vụ");
+            }
+
+            const data = await response.json();
+            if (data.success) {
+                setPositions(data.data.map((pos: any) => pos.positionName));
+            }
+        } catch (err) {
+            console.error("Error fetching positions:", err);
+        }
+    };
 
     // Fetch employees
     const fetchEmployees = async (
@@ -99,12 +135,29 @@ const EmployeeManagement = () => {
 
     useEffect(() => {
         fetchEmployees(currentPage, searchQuery, statusFilter, positionFilter);
-    }, [currentPage, searchQuery, statusFilter, positionFilter]);
+    }, [currentPage, statusFilter, positionFilter]);
 
-    // Handle search
+    useEffect(() => {
+        fetchEmployees();
+        fetchPositions();
+    }, []);
+
+    // Handle search with debounce
     const handleSearch = (value: string) => {
         setSearchQuery(value);
         setCurrentPage(1);
+
+        // Clear previous timeout
+        if (searchTimeoutId) {
+            clearTimeout(searchTimeoutId);
+        }
+
+        // Set new timeout for 2 seconds
+        const timeoutId = setTimeout(() => {
+            fetchEmployees(1, value, statusFilter, positionFilter);
+        }, 2000);
+
+        setSearchTimeoutId(timeoutId);
     };
 
     // Handle filters
@@ -125,6 +178,12 @@ const EmployeeManagement = () => {
         }
     };
 
+    // Handle view employee
+    const handleViewEmployee = (employee: Employee) => {
+        setSelectedEmployee(employee);
+        setShowViewModal(true);
+    };
+
     // Handle delete
     const handleDelete = async (id: string) => {
         if (!confirm("Bạn có chắc chắn muốn xóa nhân viên này?")) {
@@ -133,7 +192,7 @@ const EmployeeManagement = () => {
 
         try {
             const token = localStorage.getItem("token");
-            const response = await fetch(`/api/employees/${id}`, {
+            const response = await fetch(`/api/employees?id=${id}`, {
                 method: "DELETE",
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -251,9 +310,7 @@ const EmployeeManagement = () => {
                     </div>
 
                     <button
-                        onClick={() =>
-                            router.push("/employees/tao-moi")
-                        }
+                        onClick={() => router.push("/employees/tao-moi")}
                         className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
                     >
                         <Plus className="w-5 h-5 mr-2" />
@@ -307,15 +364,11 @@ const EmployeeManagement = () => {
                                 className="px-3 py-1 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
                             >
                                 <option value="all">Tất cả</option>
-                                <option value="Sales Manager">
-                                    Sales Manager
-                                </option>
-                                <option value="Sales Executive">
-                                    Sales Executive
-                                </option>
-                                <option value="Designer">Designer</option>
-                                <option value="Developer">Developer</option>
-                                <option value="Admin">Admin</option>
+                                {positions.map((position) => (
+                                    <option key={position} value={position}>
+                                        {position}
+                                    </option>
+                                ))}
                             </select>
                         </div>
                     </div>
@@ -346,9 +399,7 @@ const EmployeeManagement = () => {
                             positionFilter === "all" && (
                                 <button
                                     onClick={() =>
-                                        router.push(
-                                            "/employees/tao-moi",
-                                        )
+                                        router.push("/employees/tao-moi")
                                     }
                                     className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition mx-auto"
                                 >
@@ -454,8 +505,8 @@ const EmployeeManagement = () => {
                                                 <div className="flex items-center justify-end space-x-2">
                                                     <button
                                                         onClick={() =>
-                                                            router.push(
-                                                                `/employees/${employee._id}`,
+                                                            handleViewEmployee(
+                                                                employee,
                                                             )
                                                         }
                                                         className="text-blue-600 hover:text-blue-900"
@@ -466,7 +517,7 @@ const EmployeeManagement = () => {
                                                     <button
                                                         onClick={() =>
                                                             router.push(
-                                                                `/employees/${employee._id}/edit`,
+                                                                `/employees/${employee._id}/sua`,
                                                             )
                                                         }
                                                         className="text-green-600 hover:text-green-900"
@@ -623,6 +674,177 @@ const EmployeeManagement = () => {
                             </div>
                         )}
                     </>
+                )}
+
+                {/* View Employee Modal */}
+                {showViewModal && selectedEmployee && (
+                    <div
+                        className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4"
+                        onClick={() => setShowViewModal(false)}
+                    >
+                        <div
+                            className="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            <div className="p-6">
+                                <div className="flex items-center justify-between mb-6">
+                                    <h2 className="text-2xl font-bold text-gray-900">
+                                        Thông tin nhân viên
+                                    </h2>
+                                    <button
+                                        onClick={() => setShowViewModal(false)}
+                                        className="text-gray-400 hover:text-gray-600"
+                                    >
+                                        <X className="w-6 h-6" />
+                                    </button>
+                                </div>
+
+                                <div className="space-y-6">
+                                    {/* Thông tin cơ bản */}
+                                    <div>
+                                        <h3 className="text-lg font-medium text-gray-900 mb-4">
+                                            Thông tin cơ bản
+                                        </h3>
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                            <div>
+                                                <label className="block text-sm font-medium text-gray-500">
+                                                    Họ và tên
+                                                </label>
+                                                <p className="mt-1 text-sm text-gray-900">
+                                                    {selectedEmployee.fullName}
+                                                </p>
+                                            </div>
+                                            <div>
+                                                <label className="block text-sm font-medium text-gray-500">
+                                                    Mã nhân viên
+                                                </label>
+                                                <p className="mt-1 text-sm text-gray-900">
+                                                    {
+                                                        selectedEmployee.employeeId
+                                                    }
+                                                </p>
+                                            </div>
+                                            <div>
+                                                <label className="block text-sm font-medium text-gray-500">
+                                                    Chức vụ
+                                                </label>
+                                                <p className="mt-1 text-sm text-gray-900">
+                                                    {selectedEmployee.position ||
+                                                        "Chưa cập nhật"}
+                                                </p>
+                                            </div>
+                                            <div>
+                                                <label className="block text-sm font-medium text-gray-500">
+                                                    Phòng ban
+                                                </label>
+                                                <p className="mt-1 text-sm text-gray-900">
+                                                    {selectedEmployee.department ||
+                                                        "Chưa cập nhật"}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* Thông tin liên hệ */}
+                                    <div>
+                                        <h3 className="text-lg font-medium text-gray-900 mb-4">
+                                            Thông tin liên hệ
+                                        </h3>
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                            <div>
+                                                <label className="block text-sm font-medium text-gray-500">
+                                                    Điện thoại
+                                                </label>
+                                                <p className="mt-1 text-sm text-gray-900">
+                                                    {selectedEmployee.phone ||
+                                                        "Chưa cập nhật"}
+                                                </p>
+                                            </div>
+                                            <div>
+                                                <label className="block text-sm font-medium text-gray-500">
+                                                    Email
+                                                </label>
+                                                <p className="mt-1 text-sm text-gray-900">
+                                                    {selectedEmployee.email ||
+                                                        "Chưa cập nhật"}
+                                                </p>
+                                            </div>
+                                            <div className="md:col-span-2">
+                                                <label className="block text-sm font-medium text-gray-500">
+                                                    Địa chỉ
+                                                </label>
+                                                <p className="mt-1 text-sm text-gray-900">
+                                                    {selectedEmployee.address ||
+                                                        "Chưa cập nhật"}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* Thông tin công việc */}
+                                    <div>
+                                        <h3 className="text-lg font-medium text-gray-900 mb-4">
+                                            Thông tin công việc
+                                        </h3>
+                                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                            <div>
+                                                <label className="block text-sm font-medium text-gray-500">
+                                                    Ngày vào làm
+                                                </label>
+                                                <p className="mt-1 text-sm text-gray-900">
+                                                    {selectedEmployee.hireDate
+                                                        ? formatDate(
+                                                              selectedEmployee.hireDate,
+                                                          )
+                                                        : "Chưa cập nhật"}
+                                                </p>
+                                            </div>
+                                            <div>
+                                                <label className="block text-sm font-medium text-gray-500">
+                                                    Lương
+                                                </label>
+                                                <p className="mt-1 text-sm text-gray-900">
+                                                    {formatCurrency(
+                                                        selectedEmployee.salary,
+                                                    )}
+                                                </p>
+                                            </div>
+                                            <div>
+                                                <label className="block text-sm font-medium text-gray-500">
+                                                    Trạng thái
+                                                </label>
+                                                <div className="mt-1">
+                                                    {getStatusBadge(
+                                                        selectedEmployee.isActive,
+                                                    )}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="flex justify-end space-x-4 mt-8 pt-6 border-t border-gray-200">
+                                    <button
+                                        onClick={() => setShowViewModal(false)}
+                                        className="px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition"
+                                    >
+                                        Đóng
+                                    </button>
+                                    <button
+                                        onClick={() => {
+                                            setShowViewModal(false);
+                                            router.push(
+                                                `/employees/${selectedEmployee._id}/sua`,
+                                            );
+                                        }}
+                                        className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+                                    >
+                                        Chỉnh sửa
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 )}
             </div>
         </div>

@@ -40,6 +40,8 @@ const PhongBanManagement = ()=>{
     const [filters, setFilters] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])({
         isActive: ""
     });
+    const [selectedDepartment, setSelectedDepartment] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
+    const [showViewModal, setShowViewModal] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
     // Fetch departments from API
     const fetchDepartments = async ()=>{
         try {
@@ -108,6 +110,11 @@ const PhongBanManagement = ()=>{
             setSelectedDepartments(departments.map((dept)=>dept._id));
         }
     };
+    // Handle view department
+    const handleViewDepartment = (department)=>{
+        setSelectedDepartment(department);
+        setShowViewModal(true);
+    };
     // Handle delete
     const handleDelete = async (id)=>{
         if (!confirm("Bạn có chắc chắn muốn xóa phòng ban này?")) {
@@ -115,7 +122,7 @@ const PhongBanManagement = ()=>{
         }
         try {
             const token = localStorage.getItem("token");
-            const response = await fetch(`/api/departments/${id}`, {
+            const response = await fetch(`/api/departments?id=${id}`, {
                 method: "DELETE",
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -165,7 +172,7 @@ const PhongBanManagement = ()=>{
             children: isActive ? "Hoạt động" : "Ngừng hoạt động"
         }, void 0, false, {
             fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-            lineNumber: 191,
+            lineNumber: 201,
             columnNumber: 13
         }, ("TURBOPACK compile-time value", void 0));
     };
@@ -179,7 +186,7 @@ const PhongBanManagement = ()=>{
                         className: "animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"
                     }, void 0, false, {
                         fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                        lineNumber: 207,
+                        lineNumber: 217,
                         columnNumber: 21
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -187,18 +194,18 @@ const PhongBanManagement = ()=>{
                         children: "Đang tải danh sách phòng ban..."
                     }, void 0, false, {
                         fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                        lineNumber: 208,
+                        lineNumber: 218,
                         columnNumber: 21
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                lineNumber: 206,
+                lineNumber: 216,
                 columnNumber: 17
             }, ("TURBOPACK compile-time value", void 0))
         }, void 0, false, {
             fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-            lineNumber: 205,
+            lineNumber: 215,
             columnNumber: 13
         }, ("TURBOPACK compile-time value", void 0));
     }
@@ -218,7 +225,7 @@ const PhongBanManagement = ()=>{
                                         className: "w-8 h-8 text-blue-600 mr-3"
                                     }, void 0, false, {
                                         fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                                        lineNumber: 222,
+                                        lineNumber: 232,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -228,7 +235,7 @@ const PhongBanManagement = ()=>{
                                                 children: "Quản lý phòng ban"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                                                lineNumber: 224,
+                                                lineNumber: 234,
                                                 columnNumber: 29
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -236,19 +243,19 @@ const PhongBanManagement = ()=>{
                                                 children: "Quản lý thông tin phòng ban và nhân sự"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                                                lineNumber: 227,
+                                                lineNumber: 237,
                                                 columnNumber: 29
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                                        lineNumber: 223,
+                                        lineNumber: 233,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                                lineNumber: 221,
+                                lineNumber: 231,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -262,14 +269,14 @@ const PhongBanManagement = ()=>{
                                                 className: "w-5 h-5 mr-2"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                                                lineNumber: 238,
+                                                lineNumber: 248,
                                                 columnNumber: 29
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             "Bộ lọc"
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                                        lineNumber: 234,
+                                        lineNumber: 244,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -280,26 +287,26 @@ const PhongBanManagement = ()=>{
                                                 className: "w-5 h-5 mr-2"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                                                lineNumber: 245,
+                                                lineNumber: 255,
                                                 columnNumber: 29
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             "Thêm phòng ban"
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                                        lineNumber: 241,
+                                        lineNumber: 251,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                                lineNumber: 233,
+                                lineNumber: 243,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                        lineNumber: 220,
+                        lineNumber: 230,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0)),
                     showFilters && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -314,7 +321,7 @@ const PhongBanManagement = ()=>{
                                             children: "Tìm kiếm"
                                         }, void 0, false, {
                                             fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                                            lineNumber: 256,
+                                            lineNumber: 266,
                                             columnNumber: 33
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -324,7 +331,7 @@ const PhongBanManagement = ()=>{
                                                     className: "absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                                                    lineNumber: 260,
+                                                    lineNumber: 270,
                                                     columnNumber: 37
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -335,19 +342,19 @@ const PhongBanManagement = ()=>{
                                                     className: "pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none w-full"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                                                    lineNumber: 261,
+                                                    lineNumber: 271,
                                                     columnNumber: 37
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                                            lineNumber: 259,
+                                            lineNumber: 269,
                                             columnNumber: 33
                                         }, ("TURBOPACK compile-time value", void 0))
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                                    lineNumber: 255,
+                                    lineNumber: 265,
                                     columnNumber: 29
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -357,7 +364,7 @@ const PhongBanManagement = ()=>{
                                             children: "Trạng thái"
                                         }, void 0, false, {
                                             fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                                            lineNumber: 273,
+                                            lineNumber: 283,
                                             columnNumber: 33
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -370,7 +377,7 @@ const PhongBanManagement = ()=>{
                                                     children: "Tất cả"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                                                    lineNumber: 283,
+                                                    lineNumber: 293,
                                                     columnNumber: 37
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -378,7 +385,7 @@ const PhongBanManagement = ()=>{
                                                     children: "Hoạt động"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                                                    lineNumber: 284,
+                                                    lineNumber: 294,
                                                     columnNumber: 37
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -386,19 +393,19 @@ const PhongBanManagement = ()=>{
                                                     children: "Ngừng hoạt động"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                                                    lineNumber: 285,
+                                                    lineNumber: 295,
                                                     columnNumber: 37
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                                            lineNumber: 276,
+                                            lineNumber: 286,
                                             columnNumber: 33
                                         }, ("TURBOPACK compile-time value", void 0))
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                                    lineNumber: 272,
+                                    lineNumber: 282,
                                     columnNumber: 29
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -416,36 +423,36 @@ const PhongBanManagement = ()=>{
                                                 className: "w-4 h-4 mr-2"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                                                lineNumber: 298,
+                                                lineNumber: 308,
                                                 columnNumber: 37
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             "Đặt lại"
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                                        lineNumber: 291,
+                                        lineNumber: 301,
                                         columnNumber: 33
                                     }, ("TURBOPACK compile-time value", void 0))
                                 }, void 0, false, {
                                     fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                                    lineNumber: 290,
+                                    lineNumber: 300,
                                     columnNumber: 29
                                 }, ("TURBOPACK compile-time value", void 0))
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                            lineNumber: 254,
+                            lineNumber: 264,
                             columnNumber: 25
                         }, ("TURBOPACK compile-time value", void 0))
                     }, void 0, false, {
                         fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                        lineNumber: 253,
+                        lineNumber: 263,
                         columnNumber: 21
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                lineNumber: 219,
+                lineNumber: 229,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             selectedDepartments.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -462,7 +469,7 @@ const PhongBanManagement = ()=>{
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                            lineNumber: 311,
+                            lineNumber: 321,
                             columnNumber: 25
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -475,30 +482,30 @@ const PhongBanManagement = ()=>{
                                         className: "w-4 h-4 mr-2"
                                     }, void 0, false, {
                                         fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                                        lineNumber: 319,
+                                        lineNumber: 329,
                                         columnNumber: 33
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     "Xóa đã chọn"
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                                lineNumber: 315,
+                                lineNumber: 325,
                                 columnNumber: 29
                             }, ("TURBOPACK compile-time value", void 0))
                         }, void 0, false, {
                             fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                            lineNumber: 314,
+                            lineNumber: 324,
                             columnNumber: 25
                         }, ("TURBOPACK compile-time value", void 0))
                     ]
                 }, void 0, true, {
                     fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                    lineNumber: 310,
+                    lineNumber: 320,
                     columnNumber: 21
                 }, ("TURBOPACK compile-time value", void 0))
             }, void 0, false, {
                 fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                lineNumber: 309,
+                lineNumber: 319,
                 columnNumber: 17
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -522,12 +529,12 @@ const PhongBanManagement = ()=>{
                                                     className: "rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                                                    lineNumber: 334,
+                                                    lineNumber: 344,
                                                     columnNumber: 37
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             }, void 0, false, {
                                                 fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                                                lineNumber: 333,
+                                                lineNumber: 343,
                                                 columnNumber: 33
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -535,7 +542,7 @@ const PhongBanManagement = ()=>{
                                                 children: "Phòng ban"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                                                lineNumber: 344,
+                                                lineNumber: 354,
                                                 columnNumber: 33
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -543,7 +550,7 @@ const PhongBanManagement = ()=>{
                                                 children: "Người quản lý"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                                                lineNumber: 347,
+                                                lineNumber: 357,
                                                 columnNumber: 33
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -551,7 +558,7 @@ const PhongBanManagement = ()=>{
                                                 children: "Số nhân viên"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                                                lineNumber: 350,
+                                                lineNumber: 360,
                                                 columnNumber: 33
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -559,7 +566,7 @@ const PhongBanManagement = ()=>{
                                                 children: "Trạng thái"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                                                lineNumber: 353,
+                                                lineNumber: 363,
                                                 columnNumber: 33
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -567,18 +574,18 @@ const PhongBanManagement = ()=>{
                                                 children: "Thao tác"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                                                lineNumber: 356,
+                                                lineNumber: 366,
                                                 columnNumber: 33
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                                        lineNumber: 332,
+                                        lineNumber: 342,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0))
                                 }, void 0, false, {
                                     fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                                    lineNumber: 331,
+                                    lineNumber: 341,
                                     columnNumber: 25
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
@@ -595,12 +602,12 @@ const PhongBanManagement = ()=>{
                                                         className: "rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                                                        lineNumber: 368,
+                                                        lineNumber: 378,
                                                         columnNumber: 41
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                                                    lineNumber: 367,
+                                                    lineNumber: 377,
                                                     columnNumber: 37
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -612,7 +619,7 @@ const PhongBanManagement = ()=>{
                                                                 className: "w-5 h-5 text-gray-400 mr-3"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                                                                lineNumber: 383,
+                                                                lineNumber: 393,
                                                                 columnNumber: 45
                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -622,7 +629,7 @@ const PhongBanManagement = ()=>{
                                                                         children: department.name
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                                                                        lineNumber: 385,
+                                                                        lineNumber: 395,
                                                                         columnNumber: 49
                                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                                     department.description && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -630,24 +637,24 @@ const PhongBanManagement = ()=>{
                                                                         children: department.description
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                                                                        lineNumber: 389,
+                                                                        lineNumber: 399,
                                                                         columnNumber: 53
                                                                     }, ("TURBOPACK compile-time value", void 0))
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                                                                lineNumber: 384,
+                                                                lineNumber: 394,
                                                                 columnNumber: 45
                                                             }, ("TURBOPACK compile-time value", void 0))
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                                                        lineNumber: 382,
+                                                        lineNumber: 392,
                                                         columnNumber: 41
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                                                    lineNumber: 381,
+                                                    lineNumber: 391,
                                                     columnNumber: 37
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -659,7 +666,7 @@ const PhongBanManagement = ()=>{
                                                                 className: "w-4 h-4 text-gray-400 mr-2"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                                                                lineNumber: 399,
+                                                                lineNumber: 409,
                                                                 columnNumber: 49
                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -667,25 +674,25 @@ const PhongBanManagement = ()=>{
                                                                 children: department.manager
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                                                                lineNumber: 400,
+                                                                lineNumber: 410,
                                                                 columnNumber: 49
                                                             }, ("TURBOPACK compile-time value", void 0))
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                                                        lineNumber: 398,
+                                                        lineNumber: 408,
                                                         columnNumber: 45
                                                     }, ("TURBOPACK compile-time value", void 0)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                         className: "text-gray-400",
                                                         children: "Chưa phân công"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                                                        lineNumber: 405,
+                                                        lineNumber: 415,
                                                         columnNumber: 45
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                                                    lineNumber: 396,
+                                                    lineNumber: 406,
                                                     columnNumber: 37
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -697,19 +704,19 @@ const PhongBanManagement = ()=>{
                                                                 className: "w-4 h-4 text-gray-400 mr-2"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                                                                lineNumber: 412,
+                                                                lineNumber: 422,
                                                                 columnNumber: 45
                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                             department.employeeCount || 0
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                                                        lineNumber: 411,
+                                                        lineNumber: 421,
                                                         columnNumber: 41
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                                                    lineNumber: 410,
+                                                    lineNumber: 420,
                                                     columnNumber: 37
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -717,7 +724,7 @@ const PhongBanManagement = ()=>{
                                                     children: getStatusBadge(department.isActive)
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                                                    lineNumber: 416,
+                                                    lineNumber: 426,
                                                     columnNumber: 37
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -726,35 +733,35 @@ const PhongBanManagement = ()=>{
                                                         className: "flex items-center justify-end space-x-2",
                                                         children: [
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                                onClick: ()=>router.push(`/phong-ban/${department._id}`),
+                                                                onClick: ()=>handleViewDepartment(department),
                                                                 className: "text-blue-600 hover:text-blue-900",
                                                                 title: "Xem chi tiết",
                                                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$eye$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Eye$3e$__["Eye"], {
                                                                     className: "w-4 h-4"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                                                                    lineNumber: 430,
+                                                                    lineNumber: 440,
                                                                     columnNumber: 49
                                                                 }, ("TURBOPACK compile-time value", void 0))
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                                                                lineNumber: 421,
+                                                                lineNumber: 431,
                                                                 columnNumber: 45
                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                                onClick: ()=>router.push(`/phong-ban/${department._id}/edit`),
+                                                                onClick: ()=>router.push(`/phong-ban/${department._id}/sua`),
                                                                 className: "text-green-600 hover:text-green-900",
                                                                 title: "Chỉnh sửa",
                                                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$square$2d$pen$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Edit$3e$__["Edit"], {
                                                                     className: "w-4 h-4"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                                                                    lineNumber: 441,
+                                                                    lineNumber: 451,
                                                                     columnNumber: 49
                                                                 }, ("TURBOPACK compile-time value", void 0))
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                                                                lineNumber: 432,
+                                                                lineNumber: 442,
                                                                 columnNumber: 45
                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -765,45 +772,45 @@ const PhongBanManagement = ()=>{
                                                                     className: "w-4 h-4"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                                                                    lineNumber: 450,
+                                                                    lineNumber: 460,
                                                                     columnNumber: 49
                                                                 }, ("TURBOPACK compile-time value", void 0))
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                                                                lineNumber: 443,
+                                                                lineNumber: 453,
                                                                 columnNumber: 45
                                                             }, ("TURBOPACK compile-time value", void 0))
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                                                        lineNumber: 420,
+                                                        lineNumber: 430,
                                                         columnNumber: 41
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                                                    lineNumber: 419,
+                                                    lineNumber: 429,
                                                     columnNumber: 37
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             ]
                                         }, department._id, true, {
                                             fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                                            lineNumber: 363,
+                                            lineNumber: 373,
                                             columnNumber: 33
                                         }, ("TURBOPACK compile-time value", void 0)))
                                 }, void 0, false, {
                                     fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                                    lineNumber: 361,
+                                    lineNumber: 371,
                                     columnNumber: 25
                                 }, ("TURBOPACK compile-time value", void 0))
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                            lineNumber: 330,
+                            lineNumber: 340,
                             columnNumber: 21
                         }, ("TURBOPACK compile-time value", void 0))
                     }, void 0, false, {
                         fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                        lineNumber: 329,
+                        lineNumber: 339,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -819,7 +826,7 @@ const PhongBanManagement = ()=>{
                                         children: "Trước"
                                     }, void 0, false, {
                                         fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                                        lineNumber: 463,
+                                        lineNumber: 473,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -829,13 +836,13 @@ const PhongBanManagement = ()=>{
                                         children: "Sau"
                                     }, void 0, false, {
                                         fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                                        lineNumber: 470,
+                                        lineNumber: 480,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                                lineNumber: 462,
+                                lineNumber: 472,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -851,7 +858,7 @@ const PhongBanManagement = ()=>{
                                                     children: "1"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                                                    lineNumber: 481,
+                                                    lineNumber: 491,
                                                     columnNumber: 42
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 " ",
@@ -862,7 +869,7 @@ const PhongBanManagement = ()=>{
                                                     children: departments.length
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                                                    lineNumber: 483,
+                                                    lineNumber: 493,
                                                     columnNumber: 33
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 " ",
@@ -873,7 +880,7 @@ const PhongBanManagement = ()=>{
                                                     children: departments.length
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                                                    lineNumber: 487,
+                                                    lineNumber: 497,
                                                     columnNumber: 33
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 " ",
@@ -881,12 +888,12 @@ const PhongBanManagement = ()=>{
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                                            lineNumber: 480,
+                                            lineNumber: 490,
                                             columnNumber: 29
                                         }, ("TURBOPACK compile-time value", void 0))
                                     }, void 0, false, {
                                         fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                                        lineNumber: 479,
+                                        lineNumber: 489,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -902,12 +909,12 @@ const PhongBanManagement = ()=>{
                                                         className: "w-4 h-4"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                                                        lineNumber: 505,
+                                                        lineNumber: 515,
                                                         columnNumber: 37
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                                                    lineNumber: 498,
+                                                    lineNumber: 508,
                                                     columnNumber: 33
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -918,47 +925,47 @@ const PhongBanManagement = ()=>{
                                                         className: "w-4 h-4"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                                                        lineNumber: 514,
+                                                        lineNumber: 524,
                                                         columnNumber: 37
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                                                    lineNumber: 507,
+                                                    lineNumber: 517,
                                                     columnNumber: 33
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                                            lineNumber: 494,
+                                            lineNumber: 504,
                                             columnNumber: 29
                                         }, ("TURBOPACK compile-time value", void 0))
                                     }, void 0, false, {
                                         fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                                        lineNumber: 493,
+                                        lineNumber: 503,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                                lineNumber: 478,
+                                lineNumber: 488,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                        lineNumber: 461,
+                        lineNumber: 471,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-                lineNumber: 328,
+                lineNumber: 338,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0))
         ]
     }, void 0, true, {
         fileName: "[project]/app/(dashboard)/phong-ban/page.tsx",
-        lineNumber: 217,
+        lineNumber: 227,
         columnNumber: 9
     }, ("TURBOPACK compile-time value", void 0));
 };

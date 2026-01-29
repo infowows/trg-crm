@@ -189,10 +189,14 @@ async function comparePassword(password, hashedPassword) {
 "use strict";
 
 __turbopack_context__.s([
+    "DELETE",
+    ()=>DELETE,
     "GET",
     ()=>GET,
     "POST",
-    ()=>POST
+    ()=>POST,
+    "PUT",
+    ()=>PUT
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/server.js [app-route] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$dbConnect$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/lib/dbConnect.ts [app-route] (ecmascript)");
@@ -225,9 +229,38 @@ async function GET(request) {
         const { searchParams } = new URL(request.url);
         const page = parseInt(searchParams.get("page") || "1");
         const limit = parseInt(searchParams.get("limit") || "10");
+        const search = searchParams.get("search") || "";
         const active = searchParams.get("active");
         const position = searchParams.get("position");
         const query = {};
+        if (search) {
+            query.$or = [
+                {
+                    fullName: {
+                        $regex: search,
+                        $options: "i"
+                    }
+                },
+                {
+                    employeeId: {
+                        $regex: search,
+                        $options: "i"
+                    }
+                },
+                {
+                    phone: {
+                        $regex: search,
+                        $options: "i"
+                    }
+                },
+                {
+                    email: {
+                        $regex: search,
+                        $options: "i"
+                    }
+                }
+            ];
+        }
         if (active !== null && active !== undefined) {
             query.isActive = active === "true";
         }
@@ -266,6 +299,15 @@ async function GET(request) {
 }
 async function POST(request) {
     try {
+        const auth = await verifyAuth(request);
+        if (!auth) {
+            return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
+                success: false,
+                message: "Không được phép truy cập"
+            }, {
+                status: 401
+            });
+        }
         await (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$dbConnect$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"])();
         const body = await request.json();
         const employee = new __TURBOPACK__imported__module__$5b$project$5d2f$models$2f$Employee$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"](body);
@@ -289,6 +331,104 @@ async function POST(request) {
         return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
             success: false,
             error: "Failed to create employee"
+        }, {
+            status: 500
+        });
+    }
+}
+async function PUT(request) {
+    try {
+        const auth = await verifyAuth(request);
+        if (!auth) {
+            return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
+                success: false,
+                message: "Không được phép truy cập"
+            }, {
+                status: 401
+            });
+        }
+        await (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$dbConnect$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"])();
+        const { searchParams } = new URL(request.url);
+        const id = searchParams.get("id");
+        if (!id) {
+            return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
+                success: false,
+                message: "Thiếu ID nhân viên"
+            }, {
+                status: 400
+            });
+        }
+        const body = await request.json();
+        const employee = await __TURBOPACK__imported__module__$5b$project$5d2f$models$2f$Employee$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].findByIdAndUpdate(id, {
+            ...body,
+            updatedAt: new Date()
+        }, {
+            new: true,
+            runValidators: true
+        });
+        if (!employee) {
+            return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
+                success: false,
+                message: "Không tìm thấy nhân viên"
+            }, {
+                status: 404
+            });
+        }
+        return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
+            success: true,
+            data: employee,
+            message: "Cập nhật nhân viên thành công"
+        });
+    } catch (error) {
+        console.error("Error updating employee:", error);
+        return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
+            success: false,
+            message: "Có lỗi xảy ra. Vui lòng thử lại."
+        }, {
+            status: 500
+        });
+    }
+}
+async function DELETE(request) {
+    try {
+        const auth = await verifyAuth(request);
+        if (!auth) {
+            return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
+                success: false,
+                message: "Không được phép truy cập"
+            }, {
+                status: 401
+            });
+        }
+        await (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$dbConnect$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"])();
+        const { searchParams } = new URL(request.url);
+        const id = searchParams.get("id");
+        if (!id) {
+            return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
+                success: false,
+                message: "Thiếu ID nhân viên"
+            }, {
+                status: 400
+            });
+        }
+        const employee = await __TURBOPACK__imported__module__$5b$project$5d2f$models$2f$Employee$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].findByIdAndDelete(id);
+        if (!employee) {
+            return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
+                success: false,
+                message: "Không tìm thấy nhân viên"
+            }, {
+                status: 404
+            });
+        }
+        return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
+            success: true,
+            message: "Xóa nhân viên thành công"
+        });
+    } catch (error) {
+        console.error("Error deleting employee:", error);
+        return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
+            success: false,
+            message: "Có lỗi xảy ra. Vui lòng thử lại."
         }, {
             status: 500
         });

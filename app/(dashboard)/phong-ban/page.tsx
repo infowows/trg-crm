@@ -19,6 +19,9 @@ import {
     ChevronLeft,
     ChevronRight,
     ChevronUp,
+    X,
+    CheckCircle,
+    AlertCircle,
 } from "lucide-react";
 import { toast } from "react-toastify";
 
@@ -47,6 +50,9 @@ const PhongBanManagement = () => {
     const [filters, setFilters] = useState({
         isActive: "",
     });
+    const [selectedDepartment, setSelectedDepartment] =
+        useState<Department | null>(null);
+    const [showViewModal, setShowViewModal] = useState(false);
 
     // Fetch departments from API
     const fetchDepartments = async () => {
@@ -122,6 +128,12 @@ const PhongBanManagement = () => {
         }
     };
 
+    // Handle view department
+    const handleViewDepartment = (department: Department) => {
+        setSelectedDepartment(department);
+        setShowViewModal(true);
+    };
+
     // Handle delete
     const handleDelete = async (id: string) => {
         if (!confirm("Bạn có chắc chắn muốn xóa phòng ban này?")) {
@@ -130,7 +142,7 @@ const PhongBanManagement = () => {
 
         try {
             const token = localStorage.getItem("token");
-            const response = await fetch(`/api/departments/${id}`, {
+            const response = await fetch(`/api/departments?id=${id}`, {
                 method: "DELETE",
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -420,8 +432,8 @@ const PhongBanManagement = () => {
                                         <div className="flex items-center justify-end space-x-2">
                                             <button
                                                 onClick={() =>
-                                                    router.push(
-                                                        `/phong-ban/${department._id}`,
+                                                    handleViewDepartment(
+                                                        department,
                                                     )
                                                 }
                                                 className="text-blue-600 hover:text-blue-900"
@@ -518,6 +530,156 @@ const PhongBanManagement = () => {
                     </div>
                 </div>
             </div>
+
+            {/* View Department Modal */}
+            {showViewModal && selectedDepartment && (
+                <div
+                    className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4"
+                    onClick={() => setShowViewModal(false)}
+                >
+                    <div
+                        className="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        <div className="p-6">
+                            <div className="flex items-center justify-between mb-6">
+                                <h2 className="text-2xl font-bold text-gray-900">
+                                    Thông tin phòng ban
+                                </h2>
+                                <button
+                                    onClick={() => setShowViewModal(false)}
+                                    className="text-gray-400 hover:text-gray-600"
+                                >
+                                    <X className="w-6 h-6" />
+                                </button>
+                            </div>
+
+                            <div className="space-y-6">
+                                {/* Thông tin cơ bản */}
+                                <div>
+                                    <h3 className="text-lg font-medium text-gray-900 mb-4">
+                                        Thông tin cơ bản
+                                    </h3>
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-500">
+                                                Tên phòng ban
+                                            </label>
+                                            <p className="mt-1 text-sm text-gray-900">
+                                                {selectedDepartment.name}
+                                            </p>
+                                        </div>
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-500">
+                                                Trạng thái
+                                            </label>
+                                            <div className="mt-1">
+                                                {selectedDepartment.isActive ? (
+                                                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                                        <CheckCircle className="w-3 h-3 mr-1" />
+                                                        Đang hoạt động
+                                                    </span>
+                                                ) : (
+                                                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                                                        <AlertCircle className="w-3 h-3 mr-1" />
+                                                        Ngừng hoạt động
+                                                    </span>
+                                                )}
+                                            </div>
+                                        </div>
+                                        <div className="md:col-span-2">
+                                            <label className="block text-sm font-medium text-gray-500">
+                                                Mô tả
+                                            </label>
+                                            <p className="mt-1 text-sm text-gray-900">
+                                                {selectedDepartment.description ||
+                                                    "Chưa có mô tả"}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Thông tin quản lý */}
+                                <div>
+                                    <h3 className="text-lg font-medium text-gray-900 mb-4">
+                                        Thông tin quản lý
+                                    </h3>
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-500">
+                                                Trưởng phòng
+                                            </label>
+                                            <p className="mt-1 text-sm text-gray-900">
+                                                {selectedDepartment.manager ||
+                                                    "Chưa phân công"}
+                                            </p>
+                                        </div>
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-500">
+                                                Số lượng nhân viên
+                                            </label>
+                                            <p className="mt-1 text-sm text-gray-900">
+                                                {selectedDepartment.employeeCount ||
+                                                    0}{" "}
+                                                nhân viên
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Thông tin thời gian */}
+                                <div>
+                                    <h3 className="text-lg font-medium text-gray-900 mb-4">
+                                        Thông tin thời gian
+                                    </h3>
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-500">
+                                                Ngày tạo
+                                            </label>
+                                            <p className="mt-1 text-sm text-gray-900">
+                                                {new Date(
+                                                    selectedDepartment.createdAt,
+                                                ).toLocaleDateString("vi-VN")}
+                                            </p>
+                                        </div>
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-500">
+                                                Cập nhật lần cuối
+                                            </label>
+                                            <p className="mt-1 text-sm text-gray-900">
+                                                {new Date(
+                                                    selectedDepartment.updatedAt,
+                                                ).toLocaleDateString("vi-VN")}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="flex justify-end space-x-4 mt-8 pt-6 border-t border-gray-200">
+                                <button
+                                    onClick={() => setShowViewModal(false)}
+                                    className="px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition"
+                                >
+                                    Đóng
+                                </button>
+                                <button
+                                    onClick={() => {
+                                        setShowViewModal(false);
+                                        router.push(
+                                            `/phong-ban/${selectedDepartment._id}/edit`,
+                                        );
+                                    }}
+                                    className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+                                >
+                                    Chỉnh sửa
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

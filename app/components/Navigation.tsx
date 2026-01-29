@@ -32,6 +32,9 @@ import {
     LayoutTemplate,
     Leaf,
     Lectern,
+    Handshake,
+    Birdhouse,
+    HousePlug,
 } from "lucide-react";
 
 interface NavigationItem {
@@ -58,21 +61,27 @@ const navigationItems: NavigationItem[] = [
             {
                 id: "departments",
                 text: "Phòng ban",
-                icon: User,
+                icon: HousePlug,
                 path: "/phong-ban",
             },
             {
                 id: "position",
                 text: "Chức vụ",
-                icon: PersonStanding,
+                icon: Briefcase,
                 path: "/chuc-vu",
+            },
+            {
+                id: "employees",
+                text: "Nhân viên",
+                icon: User,
+                path: "/employees",
             },
         ],
     },
     {
         id: "customers",
         text: "Khách hàng",
-        icon: Users,
+        icon: PersonStanding,
         path: "/",
         children: [
             {
@@ -84,7 +93,7 @@ const navigationItems: NavigationItem[] = [
             {
                 id: "customer-care",
                 text: "Kế hoạch CSKH",
-                icon: Users,
+                icon: Handshake,
                 path: "/customer-care",
             },
         ],

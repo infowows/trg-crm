@@ -424,10 +424,10 @@ const KhachHangManagement = () => {
                                 }
                                 className="px-3 py-1 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
                             >
-                                <option value="all">Tất cả</option>
-                                <option value="Cao">Cao</option>
-                                <option value="Trung bình">Trung bình</option>
-                                <option value="Thấp">Thấp</option>
+                                <option value="Ngắn hạn">Ngắn hạn</option>
+                                <option value="Trung hạn">Trung hạn</option>
+                                <option value="Dài hạn">Dài hạn</option>
+                                <option value="Không Phù Hợp">Không Phù Hợp</option>
                             </select>
                         </div>
 

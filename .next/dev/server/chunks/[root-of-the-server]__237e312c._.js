@@ -185,10 +185,14 @@ async function comparePassword(password, hashedPassword) {
 "use strict";
 
 __turbopack_context__.s([
+    "DELETE",
+    ()=>DELETE,
     "GET",
     ()=>GET,
     "POST",
-    ()=>POST
+    ()=>POST,
+    "PUT",
+    ()=>PUT
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/server.js [app-route] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$dbConnect$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/lib/dbConnect.ts [app-route] (ecmascript)");
@@ -222,11 +226,54 @@ async function GET(request) {
         await __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$dbConnect$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"];
         await __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].connection.db;
         const { searchParams } = new URL(request.url);
+        const id = searchParams.get("id");
         const isActive = searchParams.get("isActive");
-        // Build query
+        const search = searchParams.get("search") || "";
+        // Nếu có id, trả về chi tiết một phòng ban
+        if (id) {
+            const department = await __TURBOPACK__imported__module__$5b$project$5d2f$models$2f$Department$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].findById(id);
+            if (!department) {
+                return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
+                    success: false,
+                    message: "Không tìm thấy phòng ban"
+                }, {
+                    status: 404
+                });
+            }
+            return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
+                success: true,
+                data: department
+            });
+        }
+        // Ngược lại, trả về danh sách
         let query = {};
+        if (search) {
+            query = {
+                $or: [
+                    {
+                        name: {
+                            $regex: search,
+                            $options: "i"
+                        }
+                    },
+                    {
+                        description: {
+                            $regex: search,
+                            $options: "i"
+                        }
+                    },
+                    {
+                        manager: {
+                            $regex: search,
+                            $options: "i"
+                        }
+                    }
+                ]
+            };
+        }
         if (isActive !== null) {
             query = {
+                ...query,
                 isActive: isActive === "true"
             };
         }
@@ -278,8 +325,7 @@ async function POST(request) {
         }
         // Check duplicate name
         const existingDepartment = await __TURBOPACK__imported__module__$5b$project$5d2f$models$2f$Department$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].findOne({
-            name: name.trim(),
-            isActive: true
+            name: name.trim()
         });
         if (existingDepartment) {
             return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
@@ -320,6 +366,134 @@ async function POST(request) {
             success: false,
             message: "Có lỗi xảy ra. Vui lòng thử lại.",
             error: errorMessage
+        }, {
+            status: 500
+        });
+    }
+}
+async function PUT(request) {
+    try {
+        const auth = await verifyAuth(request);
+        if (!auth) {
+            return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
+                success: false,
+                message: "Không được phép truy cập"
+            }, {
+                status: 401
+            });
+        }
+        await __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$dbConnect$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"];
+        await __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].connection.db;
+        const { searchParams } = new URL(request.url);
+        const id = searchParams.get("id");
+        if (!id) {
+            return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
+                success: false,
+                message: "Thiếu ID phòng ban"
+            }, {
+                status: 400
+            });
+        }
+        const body = await request.json();
+        const { name, description, manager, isActive } = body;
+        // Validation
+        if (!name || name.trim() === "") {
+            return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
+                success: false,
+                message: "Tên phòng ban là bắt buộc"
+            }, {
+                status: 400
+            });
+        }
+        // Check duplicate name (excluding current department)
+        const existingDepartment = await __TURBOPACK__imported__module__$5b$project$5d2f$models$2f$Department$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].findOne({
+            _id: {
+                $ne: id
+            },
+            name: name.trim()
+        });
+        if (existingDepartment) {
+            return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
+                success: false,
+                message: "Tên phòng ban đã tồn tại"
+            }, {
+                status: 400
+            });
+        }
+        const department = await __TURBOPACK__imported__module__$5b$project$5d2f$models$2f$Department$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].findByIdAndUpdate(id, {
+            name: name.trim(),
+            description: description?.trim() || "",
+            manager: manager || null,
+            isActive: isActive !== undefined ? isActive : true,
+            updatedAt: new Date()
+        }, {
+            new: true,
+            runValidators: true
+        });
+        if (!department) {
+            return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
+                success: false,
+                message: "Không tìm thấy phòng ban"
+            }, {
+                status: 404
+            });
+        }
+        return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
+            success: true,
+            data: department,
+            message: "Cập nhật phòng ban thành công"
+        });
+    } catch (error) {
+        console.error("PUT department error:", error);
+        return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
+            success: false,
+            message: "Có lỗi xảy ra. Vui lòng thử lại."
+        }, {
+            status: 500
+        });
+    }
+}
+async function DELETE(request) {
+    try {
+        const auth = await verifyAuth(request);
+        if (!auth) {
+            return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
+                success: false,
+                message: "Không được phép truy cập"
+            }, {
+                status: 401
+            });
+        }
+        await __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$dbConnect$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"];
+        await __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].connection.db;
+        const { searchParams } = new URL(request.url);
+        const id = searchParams.get("id");
+        if (!id) {
+            return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
+                success: false,
+                message: "Thiếu ID phòng ban"
+            }, {
+                status: 400
+            });
+        }
+        const department = await __TURBOPACK__imported__module__$5b$project$5d2f$models$2f$Department$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].findByIdAndDelete(id);
+        if (!department) {
+            return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
+                success: false,
+                message: "Không tìm thấy phòng ban"
+            }, {
+                status: 404
+            });
+        }
+        return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
+            success: true,
+            message: "Xóa phòng ban thành công"
+        });
+    } catch (error) {
+        console.error("DELETE department error:", error);
+        return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
+            success: false,
+            message: "Có lỗi xảy ra. Vui lòng thử lại."
         }, {
             status: 500
         });
