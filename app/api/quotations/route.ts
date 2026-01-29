@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import dbConnect from "../../../lib/dbConnect";
 import Quotation from "../../../models/Quotation";
+import ProjectSurvey from "../../../models/ProjectSurvey";
 import { verifyToken } from "../../../lib/auth";
 import mongoose from "mongoose";
 
@@ -92,60 +93,124 @@ export async function POST(request: NextRequest) {
         await mongoose.connection.db;
 
         const body = await request.json();
-        const {
-            quotationNo,
-            customer,
-            date,
-            validTo,
-            items,
-            totalAmount,
-            taxAmount,
-            grandTotal,
-        } = body;
+        const { customer, customerRef, surveyRef, date, packages, notes } =
+            body;
 
-        if (!quotationNo || !customer) {
+        if (!customer) {
             return NextResponse.json(
                 {
                     success: false,
-                    message: "Vui lòng nhập số báo giá và tên khách hàng",
+                    message: "Vui lòng nhập tên khách hàng",
                 },
                 { status: 400 },
             );
         }
 
-        // Check if quotation number already exists
-        const existingQuotation = await Quotation.findOne({ quotationNo });
-        if (existingQuotation) {
-            return NextResponse.json(
-                { success: false, message: "Số báo giá đã tồn tại" },
-                { status: 400 },
+        // Tạo số báo giá tự động
+        const lastQuotation = await Quotation.findOne().sort({ createdAt: -1 });
+        let quotationNo = "BG001";
+
+        if (lastQuotation && lastQuotation.quotationNo) {
+            const lastNumber = parseInt(
+                lastQuotation.quotationNo.replace("BG", ""),
             );
+            quotationNo = `BG${String(lastNumber + 1).padStart(3, "0")}`;
         }
+
+        console.log("=== CREATING QUOTATION ===");
+        console.log("Request body:", body);
+        console.log("Packages:", packages);
+
+        // Tính toán totalAmount và grandTotal manual
+        let totalAmount = 0;
+        const processedPackages =
+            packages?.map((service: any) => {
+                const processedService = {
+                    ...service,
+                    packages: service.packages.map((pkg: any) => {
+                        const totalPrice = service.volume * pkg.servicePricing;
+                        totalAmount += totalPrice;
+                        return {
+                            ...pkg,
+                            totalPrice,
+                        };
+                    }),
+                };
+                return processedService;
+            }) || [];
+
+        console.log("Processed packages:", processedPackages);
+        console.log("Calculated totalAmount:", totalAmount);
 
         const quotation = new Quotation({
             quotationNo,
             customer,
+            customerRef,
+            surveyRef,
             date: date ? new Date(date) : new Date(),
-            validTo: validTo ? new Date(validTo) : null,
-            items: items || [],
-            totalAmount: totalAmount || 0,
-            taxAmount: taxAmount || 0,
-            grandTotal: grandTotal || 0,
+            packages: processedPackages,
+            totalAmount,
+            grandTotal: totalAmount, // GrandTotal = totalAmount (không có thuế)
             status: "draft",
+            notes,
             createdBy: auth.username,
-            createdAt: new Date(),
-            updatedAt: new Date(),
         });
 
+        console.log("Quotation object before save:", quotation);
+        console.log("Quotation packages before save:", quotation.packages);
+
         await quotation.save();
+
+        // Cập nhật isUsed = true cho các service pricing đã sử dụng
+        const ServicePricing = mongoose.models.ServicePricing;
+        if (ServicePricing && packages && packages.length > 0) {
+            const pricingIds: string[] = [];
+
+            // Lấy tất cả pricing IDs từ packages
+            packages.forEach((service: any) => {
+                service.packages.forEach((pkg: any) => {
+                    if (pkg._id) {
+                        pricingIds.push(pkg._id.toString());
+                    }
+                });
+            });
+
+            // Cập nhật isUsed = true cho các pricing đã sử dụng
+            if (pricingIds.length > 0) {
+                await ServicePricing.updateMany(
+                    { _id: { $in: pricingIds } },
+                    { isUsed: true },
+                );
+            }
+        }
+
+        // Nếu có surveyRef, cập nhật quotationNo trong survey
+        if (surveyRef) {
+            const ProjectSurvey = mongoose.models.PROJECT_SURVEY;
+            if (ProjectSurvey) {
+                await ProjectSurvey.findByIdAndUpdate(surveyRef, {
+                    quotationNo,
+                    status: "quoted",
+                    updatedAt: new Date(),
+                });
+            }
+        }
 
         return NextResponse.json({
             success: true,
             message: "Thêm báo giá thành công",
             data: quotation,
         });
-    } catch (error) {
+    } catch (error: any) {
         console.error("POST quotation error:", error);
+
+        if (error.code === 11000) {
+            return NextResponse.json(
+                { success: false, message: "Số báo giá đã tồn tại" },
+                { status: 400 },
+            );
+        }
+
         return NextResponse.json(
             { success: false, message: "Có lỗi xảy ra. Vui lòng thử lại." },
             { status: 500 },

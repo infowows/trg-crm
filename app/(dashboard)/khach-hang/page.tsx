@@ -39,6 +39,7 @@ interface Customer {
     address?: string;
     phone?: string;
     email?: string;
+    image?: string;
     source?: string;
     referrer?: string;
     referrerPhone?: string;
@@ -55,6 +56,7 @@ interface Customer {
 const KhachHangManagement = () => {
     const router = useRouter();
     const [customers, setCustomers] = useState<Customer[]>([]);
+    const [sources, setSources] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [searchQuery, setSearchQuery] = useState("");
@@ -111,11 +113,27 @@ const KhachHangManagement = () => {
                 setTotalPages(data.pagination.pages);
                 setCurrentPage(data.pagination.page);
             }
+            console.log(data.data);
         } catch (err) {
             console.error("Error fetching customers:", err);
             setError(err instanceof Error ? err.message : "Có lỗi xảy ra");
         } finally {
             setLoading(false);
+        }
+    };
+
+    // Fetch sources
+    const fetchSources = async () => {
+        try {
+            const response = await fetch(
+                "/api/source-settings?isActive=true&limit=100",
+            );
+            const data = await response.json();
+            if (data.success) {
+                setSources(data.data);
+            }
+        } catch (err) {
+            console.error("Error fetching sources:", err);
         }
     };
 
@@ -127,6 +145,7 @@ const KhachHangManagement = () => {
             potentialFilter,
             sourceFilter,
         );
+        fetchSources();
     }, [currentPage, searchQuery, statusFilter, potentialFilter, sourceFilter]);
 
     // Handle search
@@ -424,15 +443,14 @@ const KhachHangManagement = () => {
                                 className="px-3 py-1 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
                             >
                                 <option value="all">Tất cả</option>
-                                <option value="Google Ads">Google Ads</option>
-                                <option value="Facebook">Facebook</option>
-                                <option value="Sales tự tìm">
-                                    Sales tự tìm
-                                </option>
-                                <option value="BGĐ giao">BGĐ giao</option>
-                                <option value="CTV/ Referrals">
-                                    CTV/ Referrals
-                                </option>
+                                {sources.map((source) => (
+                                    <option
+                                        key={source._id}
+                                        value={source.name}
+                                    >
+                                        {source.name}
+                                    </option>
+                                ))}
                             </select>
                         </div>
                     </div>
@@ -509,7 +527,18 @@ const KhachHangManagement = () => {
                                         >
                                             <td className="px-6 py-4 whitespace-nowrap">
                                                 <div className="flex items-center">
-                                                    <Building className="w-5 h-5 text-gray-400 mr-3" />
+                                                    {customer.image ? (
+                                                        <img
+                                                            className="w-10 h-10 object-cover mr-3"
+                                                            src={customer.image}
+                                                            alt={
+                                                                customer.fullName ||
+                                                                ""
+                                                            }
+                                                        />
+                                                    ) : (
+                                                        <Building className="w-6 h-6 text-gray-400 mr-3" />
+                                                    )}
                                                     <div>
                                                         <div className="text-sm font-medium text-gray-900">
                                                             {customer.fullName}
@@ -538,12 +567,12 @@ const KhachHangManagement = () => {
                                                             {customer.email}
                                                         </div>
                                                     )}
-                                                    {customer.address && (
+                                                    {/* {customer.address && (
                                                         <div className="flex items-center text-sm text-gray-500">
                                                             <MapPin className="w-4 h-4 text-gray-400 mr-2" />
                                                             {customer.address}
                                                         </div>
-                                                    )}
+                                                    )} */}
                                                 </div>
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap">

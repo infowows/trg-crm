@@ -27,6 +27,7 @@ import {
     LayoutList,
     LayoutPanelLeft,
     LayoutPanelTop,
+    PersonStanding,
 } from "lucide-react";
 
 interface NavigationItem {
@@ -48,24 +49,18 @@ const navigationItems: NavigationItem[] = [
         id: "system",
         text: "Hệ thống",
         icon: Settings,
-        path: "/he-thong",
+        path: "/",
         children: [
-            // {
-            //     id: "users",
-            //     text: "Người dùng",
-            //     icon: Users,
-            //     path: "/nguoi-dung",
-            // },
             {
                 id: "departments",
                 text: "Phòng ban",
-                icon: Building,
+                icon: User,
                 path: "/phong-ban",
             },
             {
-                id: "positions",
+                id: "position",
                 text: "Chức vụ",
-                icon: Briefcase,
+                icon: PersonStanding,
                 path: "/chuc-vu",
             },
         ],
@@ -77,112 +72,66 @@ const navigationItems: NavigationItem[] = [
         path: "/",
         children: [
             {
-                id: "customer-list",
-                text: "Danh sách khách hàng",
+                id: "customers",
+                text: "Danh sách Khách hàng",
                 icon: Users,
                 path: "/khach-hang",
             },
             {
-                id: "cskh-plan",
+                id: "customer-care",
                 text: "Kế hoạch CSKH",
-                icon: Calendar,
-                path: "/ke-hoach-cskh",
+                icon: Users,
+                path: "/customer-care",
             },
         ],
     },
-    // {
-    //     id: "products",
-    //     text: "Sản phẩm",
-    //     icon: Package,
-    //     path: "/san-pham",
-    //     children: [
-    //         {
-    //             id: "categories",
-    //             text: "Phân loại hàng hóa",
-    //             icon: Package,
-    //             path: "/phan-loai-hang-hoa",
-    //         },
-    //         {
-    //             id: "products",
-    //             text: "Danh mục hàng hóa",
-    //             icon: Package,
-    //             path: "/danh-muc-hang-hoa",
-    //         },
-    //     ],
-    // },
     {
-        id: "quotes",
-        text: "Báo giá",
-        icon: FileText,
+        id: "khao-sat-va-bao-gia",
+        text: "Khảo sát và báo giá",
+        icon: Building,
         path: "/",
         children: [
             {
-                id: "quotes",
+                id: "surveys",
+                text: "Khảo sát",
+                icon: Map,
+                path: "/khao-sat",
+            },
+            {
+                id: "quotations",
                 text: "Báo giá",
                 icon: FileText,
                 path: "/bao-gia",
             },
-            {
-                id: "contracts",
-                text: "Hợp đồng",
-                icon: FileText,
-                path: "/hop-dong",
-            },
-            // {
-            //     id: "contract-appendix",
-            //     text: "Phụ lục hợp đồng",
-            //     icon: FileText,
-            //     path: "/phu-luc-hop-dong",
-            // },
         ],
     },
-    // danh mục 
-    {
-        id: "category",
-        text: "Hạng mục",
-        icon: LayoutPanelLeft,
-        path: "/",
-        children: [
-            {
-                id: "category-group",
-                text: "Nhóm",
-                icon: LayoutList,
-                path: "/nhom",
-            },
-            {
-                id: "category-items",
-                text: "Hạng mục",
-                icon: LayoutPanelTop,
-                path: "/category-items",
-            },
-        ],
-    },
-    {
-        id: "finance",
-        text: "Tài chính",
-        icon: DollarSign,
-        path: "/tai-chinh",
-        children: [
-            {
-                id: "payment-requests",
-                text: "Đề nghị thanh toán",
-                icon: DollarSign,
-                path: "/de-nghi-thanh-toan",
-            },
-            {
-                id: "payment-history",
-                text: "Lịch sử thanh toán",
-                icon: DollarSign,
-                path: "/lich-su-thanh-toan",
-            },
-            {
-                id: "invoices",
-                text: "Hóa đơn VAT",
-                icon: FileText,
-                path: "/hoa-don-vat",
-            },
-        ],
-    },
+
+    // {
+    //     id: "payments",
+    //     text: "Thanh toán",
+    //     icon: DollarSign,
+    //     path: "/thanh-toan",
+    //     children: [
+    //         {
+    //             id: "payment-schedule",
+    //             text: "Lịch thanh toán",
+    //             icon: Calendar,
+    //             path: "/lich-thanh-toan",
+    //         },
+    //         {
+    //             id: "payment-history",
+    //             text: "Lịch sử thanh toán",
+    //             icon: DollarSign,
+    //             path: "/lich-su-thanh-toan",
+    //         },
+    //         {
+    //             id: "invoices",
+    //             text: "Hóa đơn VAT",
+    //             icon: FileText,
+    //             path: "/hoa-don-vat",
+    //         },
+    //     ],
+    // },
     {
         id: "services",
         text: "Quản lý dịch vụ",
@@ -330,7 +279,7 @@ export default function Navigation() {
                         <div className="flex items-center">
                             {isMounted ? (
                                 <Image
-                                    src="/images/logos/logo_trg.png"
+                                    src="/images/logo_trg.png"
                                     alt="Trường Giang CRM"
                                     width={40}
                                     height={40}

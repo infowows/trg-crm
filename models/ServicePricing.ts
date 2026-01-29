@@ -1,24 +1,19 @@
 import mongoose, { Schema, Document } from "mongoose";
 
 export interface IServicePricing extends Document {
-    serviceGroupName: string;  // Tên nhóm dịch vụ (lưu string để xem ngay)
-    serviceName: string;       // Tên dịch vụ
-    packageName?: string;      // Tên gói (ví dụ: "Gói Cao Cấp")
-    unitPrice: number;         // Đơn giá được thiết lập tại đây
-    effectiveFrom: Date;       // Hiệu lực từ
-    effectiveTo?: Date;        // Hiệu lực đến
+    serviceName: string; // Tên dịch vụ
+    packageName?: string; // Tên gói (ví dụ: "Gói Cao Cấp")
+    unitPrice: number; // Đơn giá được thiết lập tại đây
+    effectiveFrom: Date; // Hiệu lực từ
+    effectiveTo?: Date; // Hiệu lực đến
     isActive: boolean;
+    isUsed: boolean;
     createdAt?: Date;
     updatedAt?: Date;
 }
 
 const ServicePricingSchema: Schema = new Schema(
     {
-        serviceGroupName: {
-            type: String,
-            required: true,
-            trim: true,
-        },
         serviceName: {
             type: String,
             required: true,
@@ -46,6 +41,10 @@ const ServicePricingSchema: Schema = new Schema(
         isActive: {
             type: Boolean,
             default: true,
+        },
+        isUsed: {
+            type: Boolean,
+            default: false,
         },
     },
     {

@@ -25,13 +25,16 @@ import {
     Calendar,
     Save,
 } from "lucide-react";
+import Popup from "@/components/Popup";
 
 interface CustomerFormData {
+    registrationDate: string;
     fullName: string;
     shortName: string;
     address: string;
     phone: string;
     image: string;
+    googleMapsUrl: string;
     source: string;
     referrer: string;
     referrerPhone: string;
@@ -51,17 +54,29 @@ const CreateCustomer = () => {
     const [error, setError] = useState<string | null>(null);
     const [success, setSuccess] = useState<string | null>(null);
     const [uploadingImage, setUploadingImage] = useState(false);
+    const [popup, setPopup] = useState<{
+        isOpen: boolean;
+        title: string;
+        message: string;
+        type: "success" | "error" | "warning";
+    }>({
+        isOpen: false,
+        title: "",
+        message: "",
+        type: "success",
+    });
     const [salesPersons, setSalesPersons] = useState<
         Array<{ _id: string; fullName: string; position: string }>
     >([]);
     const [serviceGroups, setServiceGroups] = useState<
         Array<{ _id: string; name: string }>
     >([]);
+    const [sources, setSources] = useState<any[]>([]);
 
     // Mapbox state
     const mapRef = useRef<mapboxgl.Map | null>(null);
     const [mapCenter, setMapCenter] = useState({ lat: 21.0285, lng: 105.8542 }); // Default: Hanoi
-    const [showMap, setShowMap] = useState(false);
+    const [showMap, setShowMap] = useState(true); // Always show map
     const [searchResults, setSearchResults] = useState<
         Array<{ display_name: string; lat: string; lon: string }>
     >([]);
@@ -71,11 +86,13 @@ const CreateCustomer = () => {
     const searchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
     const [formData, setFormData] = useState<CustomerFormData>({
+        registrationDate: new Date().toISOString().split("T")[0], // Format as YYYY-MM-DD for input date
         fullName: "",
         shortName: "",
         address: "",
         phone: "",
         image: "",
+        googleMapsUrl: "",
         source: "",
         referrer: "",
         referrerPhone: "",
@@ -116,6 +133,16 @@ const CreateCustomer = () => {
                     },
                 );
 
+                // Fetch sources
+                const sourcesResponse = await fetch(
+                    "/api/source-settings?isActive=true&limit=100",
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    },
+                );
+
                 if (salesResponse.ok) {
                     const salesData = await salesResponse.json();
                     if (salesData.success) {
@@ -129,6 +156,13 @@ const CreateCustomer = () => {
                         await serviceGroupsResponse.json();
                     setServiceGroups(serviceGroupsData.data || []);
                     // console.log("data:", serviceGroupsData.data);
+                }
+
+                if (sourcesResponse.ok) {
+                    const sourcesData = await sourcesResponse.json();
+                    if (sourcesData.success) {
+                        setSources(sourcesData.data);
+                    }
                 }
             } catch (err) {
                 console.error("Error fetching data:", err);
@@ -624,13 +658,22 @@ const CreateCustomer = () => {
                     }
                 }
             } else {
-                setError(
-                    "Không thể lấy tọa độ từ đường dẫn Google Maps. Vui lòng kiểm tra lại URL.",
-                );
+                setPopup({
+                    isOpen: true,
+                    title: "Lỗi",
+                    message:
+                        "Không thể lấy tọa độ từ đường dẫn Google Maps. Vui lòng kiểm tra lại URL.",
+                    type: "error",
+                });
             }
         } catch (error) {
             console.error("Error processing Google Maps URL:", error);
-            setError("Có lỗi xảy ra khi xử lý đường dẫn Google Maps.");
+            setPopup({
+                isOpen: true,
+                title: "Lỗi",
+                message: "Có lỗi xảy ra khi xử lý đường dẫn Google Maps.",
+                type: "error",
+            });
         } finally {
             setIsSearching(false);
         }
@@ -703,6 +746,7 @@ const CreateCustomer = () => {
             // Clean form data
             const submitData = {
                 ...formData,
+                registrationDate: new Date(formData.registrationDate),
                 shortName: formData.shortName.trim() || undefined,
                 address: formData.address.trim() || undefined,
                 phone: formData.phone.trim() || undefined,
@@ -735,14 +779,24 @@ const CreateCustomer = () => {
 
             const data = await response.json();
             if (data.success) {
-                setSuccess("Tạo khách hàng mới thành công!");
+                setPopup({
+                    isOpen: true,
+                    title: "Thành công",
+                    message: "Tạo khách hàng mới thành công!",
+                    type: "success",
+                });
                 setTimeout(() => {
                     router.push("/khach-hang");
                 }, 2000);
             }
         } catch (err) {
             console.error("Error creating customer:", err);
-            setError(err instanceof Error ? err.message : "Có lỗi xảy ra");
+            setPopup({
+                isOpen: true,
+                title: "Lỗi",
+                message: err instanceof Error ? err.message : "Có lỗi xảy ra",
+                type: "error",
+            });
         } finally {
             setLoading(false);
         }
@@ -824,7 +878,7 @@ const CreateCustomer = () => {
                         Thông tin cơ bản
                     </h2>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-2">
                                 Tên đầy đủ{" "}
@@ -840,10 +894,26 @@ const CreateCustomer = () => {
                                 required
                             />
                         </div>
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                                Ngày đăng ký
+                            </label>
+                            <div className="relative">
+                                <input
+                                    type="date"
+                                    name="registrationDate"
+                                    value={formData.registrationDate}
+                                    onChange={handleInputChange}
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                                />
+                                <Calendar className="absolute right-3 top-3 w-4 h-4 text-gray-400 pointer-events-none" />
+                            </div>
+                        </div>
 
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-2">
-                                Tên viết tắt
+                                Tên viết tắt{" "}
+                                <span className="text-red-600">*</span>
                             </label>
                             <input
                                 type="text"
@@ -851,54 +921,50 @@ const CreateCustomer = () => {
                                 value={formData.shortName}
                                 onChange={handleInputChange}
                                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
-                                placeholder="Tên viết tắt (không bắt buộc)"
+                                placeholder="Tên viết tắt"
+                                required
                             />
                         </div>
 
-                        <div className="md:col-span-2">
+                        <div className="md:col-span-1">
                             <label className="block text-sm font-medium text-gray-700 mb-2">
                                 Đường dẫn Google Maps
                             </label>
-                            <div className="flex gap-2">
-                                <input
-                                    type="url"
-                                    placeholder="https://maps.app.goo.gl/w4yMSQyzwbDirjSg9 hoặc iframe embed code"
-                                    className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
-                                    onKeyPress={(e) => {
-                                        if (e.key === "Enter") {
-                                            handleGoogleMapsUrl(
-                                                (e.target as HTMLInputElement)
-                                                    .value,
-                                            );
-                                        }
-                                    }}
-                                />
-                                <button
-                                    type="button"
-                                    onClick={(e) => {
-                                        const input =
-                                            e.currentTarget.parentElement?.querySelector(
-                                                "input",
-                                            ) as HTMLInputElement;
-                                        handleGoogleMapsUrl(input.value);
-                                    }}
-                                    disabled={isSearching}
-                                    className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center disabled:opacity-50"
-                                >
-                                    {isSearching ? (
-                                        <Loader2 className="w-4 h-4 animate-spin" />
-                                    ) : (
-                                        <MapPin className="w-4 h-4" />
-                                    )}
-                                </button>
-                            </div>
+                            <input
+                                type="url"
+                                placeholder="https://maps.app.goo.gl/w4yMSQyzwbDirjSg9 hoặc iframe embed code"
+                                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                                value={formData.googleMapsUrl || ""}
+                                onChange={(e) => {
+                                    const value = e.target.value;
+                                    setFormData((prev) => ({
+                                        ...prev,
+                                        googleMapsUrl: value,
+                                    }));
+
+                                    // Auto-execute if it looks like a valid URL
+                                    if (
+                                        value &&
+                                        (value.includes("maps.app.goo.gl") ||
+                                            value.includes("google.com/maps") ||
+                                            value.includes("<iframe"))
+                                    ) {
+                                        handleGoogleMapsUrl(value);
+                                    }
+                                }}
+                            />
+                            {error && error.includes("Google Maps") && (
+                                <p className="text-xs text-red-500 mt-1">
+                                    {error}
+                                </p>
+                            )}
                             <p className="text-xs text-gray-500 mt-1">
                                 Dán đường dẫn Google Maps hoặc iframe embed code
                                 để tự động lấy tọa độ và địa chỉ
                             </p>
                         </div>
 
-                        <div className="md:col-span-2">
+                        <div className="md:col-span-1">
                             <label className="block text-sm font-medium text-gray-700 mb-2">
                                 Địa chỉ
                             </label>
@@ -1009,36 +1075,11 @@ const CreateCustomer = () => {
                             />
                         </div>
 
-                        <div className="md:col-span-2">
-                            <button
-                                type="button"
-                                onClick={() => setShowMap(!showMap)}
-                                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center"
-                            >
-                                <MapPin className="w-4 h-4 mr-2" />
-                                {showMap ? "Ẩn bản đồ" : "Hiển thị bản đồ"}
-                            </button>
-                        </div>
-
-                        {showMap && (
-                            <div className="md:col-span-2">
-                                <div
-                                    id="mapbox-map"
-                                    className="border border-gray-300 rounded-lg overflow-hidden"
-                                    style={{ height: "400px" }}
-                                />
-                                <p className="text-sm text-gray-500 mt-2">
-                                    Click vào bản đồ để chọn vị trí hoặc sử dụng
-                                    ô tìm kiếm địa chỉ ở trên
-                                </p>
-                            </div>
-                        )}
-
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-2">
                                 Trạng thái
                             </label>
-                            <div className="flex items-center">
+                            <div className="flex items-center h-10">
                                 <input
                                     type="checkbox"
                                     name="isActive"
@@ -1056,6 +1097,19 @@ const CreateCustomer = () => {
                             </div>
                         </div>
                     </div>
+
+                    {/* Map Section */}
+                    <div className="mt-6">
+                        <div
+                            id="mapbox-map"
+                            className="border border-gray-300 rounded-lg overflow-hidden"
+                            style={{ height: "400px" }}
+                        />
+                        <p className="text-sm text-gray-500 mt-2">
+                            Click vào bản đồ để chọn vị trí hoặc sử dụng ô tìm
+                            kiếm địa chỉ ở trên
+                        </p>
+                    </div>
                 </div>
 
                 {/* Contact Information */}
@@ -1068,7 +1122,8 @@ const CreateCustomer = () => {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-2">
-                                Số điện thoại
+                                Số điện thoại{" "}
+                                <span className="text-red-600">*</span>
                             </label>
                             <input
                                 type="tel"
@@ -1077,6 +1132,7 @@ const CreateCustomer = () => {
                                 onChange={handleInputChange}
                                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
                                 placeholder="Số điện thoại liên hệ"
+                                required
                             />
                         </div>
 
@@ -1190,15 +1246,14 @@ const CreateCustomer = () => {
                                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
                             >
                                 <option value="">-- Chọn nguồn --</option>
-                                <option value="Google Ads">Google Ads</option>
-                                <option value="Facebook">Facebook</option>
-                                <option value="Sales tự tìm">
-                                    Sales tự tìm
-                                </option>
-                                <option value="BGĐ giao">BGĐ giao</option>
-                                <option value="CTV/ Referrals">
-                                    CTV/ Referrals
-                                </option>
+                                {sources.map((source) => (
+                                    <option
+                                        key={source._id}
+                                        value={source.name}
+                                    >
+                                        {source.name}
+                                    </option>
+                                ))}
                             </select>
                         </div>
 
@@ -1212,9 +1267,12 @@ const CreateCustomer = () => {
                                 onChange={handleInputChange}
                                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
                             >
-                                <option value="Cao">Cao</option>
-                                <option value="Trung bình">Trung bình</option>
-                                <option value="Thấp">Thấp</option>
+                                <option value="Ngắn hạn">Ngắn hạn</option>
+                                <option value="Trung hạn">Trung hạn</option>
+                                <option value="Dài hạn">Dài hạn</option>
+                                <option value="Không phù hợp">
+                                    Không phù hợp
+                                </option>
                             </select>
                         </div>
 
@@ -1237,19 +1295,31 @@ const CreateCustomer = () => {
                             </select>
                         </div>
 
-                        {/* <div>
+                        <div>
                             <label className="block text-sm font-medium text-gray-700 mb-2">
                                 Phân loại marketing
                             </label>
-                            <input
+                            {/* <input
                                 type="text"
                                 name="marketingClassification"
                                 value={formData.marketingClassification}
                                 onChange={handleInputChange}
                                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
                                 placeholder="Phân loại marketing"
-                            />
-                        </div> */}
+                            /> */}
+                            <select
+                                name="marketingClassification"
+                                value={formData.marketingClassification}
+                                onChange={handleInputChange}
+                                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                            >
+                                <option value="Phù hợp">Phù hợp</option>
+                                <option value="Chưa phù hợp">
+                                    Chưa phù hợp
+                                </option>
+                                {/* <option value="Rác">Rác</option> */}
+                            </select>
+                        </div>
                     </div>
                 </div>
 
@@ -1360,6 +1430,15 @@ const CreateCustomer = () => {
                     </div>
                 </div>
             </form>
+
+            {/* Popup Component */}
+            <Popup
+                isOpen={popup.isOpen}
+                onClose={() => setPopup((prev) => ({ ...prev, isOpen: false }))}
+                title={popup.title}
+                message={popup.message}
+                type={popup.type}
+            />
         </div>
     );
 };

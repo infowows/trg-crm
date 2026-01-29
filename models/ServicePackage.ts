@@ -1,8 +1,8 @@
 import mongoose, { Schema, Document } from "mongoose";
 
 export interface IServicePackage extends Document {
-    name: string;        // Ví dụ: Gói Tiêu Chuẩn, Gói Cao Cấp
-    code: string;        // Ví dụ: STANDARD, PREMIUM
+    packageName: string; // Ví dụ: Gói Tiêu Chuẩn, Gói Cao Cấp
+    code: string; // Ví dụ: STANDARD, PREMIUM
     description?: string;
     active: boolean;
     createdAt?: Date;
@@ -11,7 +11,7 @@ export interface IServicePackage extends Document {
 
 const ServicePackageSchema: Schema = new Schema(
     {
-        name: {
+        packageName: {
             type: String,
             required: true,
             trim: true,

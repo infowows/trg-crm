@@ -36,6 +36,9 @@ const publicRoutes = [
 ];
 
 export function proxy(request: NextRequest) {
+    // Tạm thời disable authentication để test routing
+    // return NextResponse.next();
+
     const { pathname } = request.nextUrl;
 
     // Allow public routes

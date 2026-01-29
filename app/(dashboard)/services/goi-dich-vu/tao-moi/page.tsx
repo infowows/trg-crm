@@ -13,7 +13,7 @@ import {
 } from "lucide-react";
 
 interface ServicePackageFormData {
-    name: string;
+    packageName: string;
     code: string;
     description: string;
     active: boolean;
@@ -25,7 +25,7 @@ const CreateServicePackage = () => {
     const [error, setError] = useState<string | null>(null);
     const [success, setSuccess] = useState(false);
     const [formData, setFormData] = useState<ServicePackageFormData>({
-        name: "",
+        packageName: "",
         code: "",
         description: "",
         active: true,
@@ -61,7 +61,7 @@ const CreateServicePackage = () => {
     };
 
     const validateForm = () => {
-        if (!formData.name.trim()) {
+        if (!formData.packageName.trim()) {
             setError("Vui lòng nhập tên gói dịch vụ");
             return false;
         }
@@ -105,7 +105,7 @@ const CreateServicePackage = () => {
             }
 
             const payload = {
-                name: formData.name.trim(),
+                packageName: formData.packageName.trim(),
                 code: formData.code.toUpperCase().trim(),
                 description: formData.description.trim(),
                 active: formData.active,
@@ -208,8 +208,8 @@ const CreateServicePackage = () => {
                                 <Package className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
                                 <input
                                     type="text"
-                                    name="name"
-                                    value={formData.name}
+                                    name="packageName"
+                                    value={formData.packageName}
                                     onChange={handleInputChange}
                                     className="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                                     placeholder="Nhập tên gói dịch vụ"

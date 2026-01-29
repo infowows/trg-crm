@@ -3,6 +3,7 @@ import mongoose, { Schema, Document } from "mongoose";
 export interface IService extends Document {
     name: string;
     code: string;
+    serviceGroup: string;
     description?: string;
     active: boolean;
     createdAt?: Date;
@@ -23,6 +24,11 @@ const ServiceSchema: Schema = new Schema(
             uppercase: true,
             trim: true,
         },
+        serviceGroup: {
+            type: String,
+            required: true,
+            trim: true,
+        },
         description: {
             type: String,
             trim: true,
@@ -34,7 +40,7 @@ const ServiceSchema: Schema = new Schema(
     },
     {
         timestamps: true,
-        collection: "services",
+        collection: "Dịch vụ",
     },
 );
 

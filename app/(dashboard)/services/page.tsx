@@ -23,6 +23,7 @@ interface Service {
     _id: string;
     serviceId: string;
     serviceName: string;
+    serviceGroup?: string;
     description?: string;
     isActive: boolean;
     createdAt: string;
@@ -197,7 +198,11 @@ const ServiceManagement = () => {
                     <p className="text-red-600 mb-4">{error}</p>
                     <button
                         onClick={() =>
-                            fetchServices(currentPage, searchQuery, statusFilter)
+                            fetchServices(
+                                currentPage,
+                                searchQuery,
+                                statusFilter,
+                            )
                         }
                         className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
                     >
@@ -226,9 +231,7 @@ const ServiceManagement = () => {
                     </div>
 
                     <button
-                        onClick={() =>
-                            router.push("/services/tao-moi")
-                        }
+                        onClick={() => router.push("/services/tao-moi")}
                         className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
                     >
                         <Plus className="w-5 h-5 mr-2" />
@@ -269,7 +272,6 @@ const ServiceManagement = () => {
                                 <option value="false">Ngừng hoạt động</option>
                             </select>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -319,6 +321,9 @@ const ServiceManagement = () => {
                                             Dịch vụ
                                         </th>
                                         <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Nhóm dịch vụ
+                                        </th>
+                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                             Mô tả
                                         </th>
                                         <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -348,6 +353,12 @@ const ServiceManagement = () => {
                                                             {service.serviceId}
                                                         </div>
                                                     </div>
+                                                </div>
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap">
+                                                <div className="text-sm text-gray-900">
+                                                    {service.serviceGroup ||
+                                                        "-"}
                                                 </div>
                                             </td>
                                             <td className="px-6 py-4">

@@ -43,7 +43,7 @@ interface SourceSetting {
     _id: string;
     name: string;
     description?: string;
-    isActive: boolean;
+    active: boolean;
 }
 
 interface Department {
@@ -68,25 +68,30 @@ const CustomerUpdate = () => {
 
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
+    const [serviceGroups, setServiceGroups] = useState<
+        Array<{ _id: string; name: string }>
+    >([]);
     const [sources, setSources] = useState<SourceSetting[]>([]);
-    const [departments, setDepartments] = useState<Department[]>([]);
-    const [users, setUsers] = useState<User[]>([]);
-    const [selectedDepartment, setSelectedDepartment] = useState<string>("all");
-    const [selectedSalesPersonId, setSelectedSalesPersonId] =
-        useState<string>("");
     const [customer, setCustomer] = useState<Customer | null>(null);
     const [formData, setFormData] = useState({
+        registrationDate: "",
         fullName: "",
-        companyName: "",
+        shortName: "",
         address: "",
         phone: "",
-        email: "",
+        image: "",
+        googleMapsUrl: "",
         source: "",
-        potentialLevel: "",
+        referrer: "",
+        referrerPhone: "",
+        serviceGroup: "",
+        marketingClassification: "",
+        potentialLevel: "Trung bình",
         salesPerson: "",
-        status: "prospect",
-        lat: "",
-        lng: "",
+        needsNote: "",
+        isActive: true,
+        latitude: "",
+        longitude: "",
     });
 
     useEffect(() => {
@@ -102,55 +107,80 @@ const CustomerUpdate = () => {
     }, [params]);
 
     useEffect(() => {
-        if (!customerId) {
-            toast.error("ID khách hàng không hợp lệ");
-            router.push("/khach-hang");
+        if (!customerId || customerId.trim() === "") {
+            console.log("ID khách hàng rỗng, chờ initialization...");
             return;
         }
 
+        console.log("ID khách hàng hợp lệ:", customerId);
         loadSources();
-        loadDepartments();
-        loadUsers("all");
+        loadServiceGroups();
         loadCustomer();
     }, [customerId]);
 
+    // useEffect để xử lý trường hợp ID không hợp lệ sau khi đã initialization
+    useEffect(() => {
+        // Chỉ kiểm tra sau khi params đã được resolve
+        if (params && typeof params.then !== "function") {
+            const resolvedParams = params as { id: string | string[] };
+            const id = Array.isArray(resolvedParams.id)
+                ? resolvedParams.id[0]
+                : resolvedParams.id;
+
+            if (!id || id.trim() === "") {
+                console.log(
+                    "ID không hợp lệ sau initialization, redirect về danh sách",
+                );
+                toast.error("ID khách hàng không hợp lệ");
+                router.push("/khach-hang");
+            }
+        }
+    }, [params, router]);
+
+    // useEffect để debug khi customer đã được tải
+    useEffect(() => {
+        console.log("Customer loaded:", {
+            customer: !!customer,
+            salesPerson: customer?.salesPerson,
+        });
+
+        if (customer && customer.salesPerson) {
+            console.log("Sales person string:", customer.salesPerson);
+        }
+    }, [customer]);
+
     const loadSources = async () => {
         try {
-            const response = await fetch("/api/source-settings");
+            const token = localStorage.getItem("token");
+            const response = await fetch("/api/source-settings", {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
             const data = await response.json();
             if (data.success) {
-                setSources(data.data.filter((s: SourceSetting) => s.isActive));
+                setSources(data.data.filter((s: SourceSetting) => s.active));
             }
+            console.log("nguồn khách:", data);
         } catch (error) {
             console.error("Error loading sources:", error);
         }
     };
 
-    const loadDepartments = async () => {
+    const loadServiceGroups = async () => {
         try {
-            const response = await fetch("/api/departments");
+            const token = localStorage.getItem("token");
+            const response = await fetch("/api/service-groups", {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
             const data = await response.json();
             if (data.success) {
-                setDepartments(data.data);
+                setServiceGroups(data.data);
             }
         } catch (error) {
-            console.error("Error loading departments:", error);
-        }
-    };
-
-    const loadUsers = async (departmentId: string) => {
-        try {
-            const url =
-                departmentId === "all"
-                    ? "/api/users"
-                    : `/api/users?departmentId=${departmentId}`;
-            const response = await fetch(url);
-            const data = await response.json();
-            if (data.success) {
-                setUsers(data.data);
-            }
-        } catch (error) {
-            console.error("Error loading users:", error);
+            console.error("Error loading service groups:", error);
         }
     };
 
@@ -159,43 +189,69 @@ const CustomerUpdate = () => {
             console.log("Loading customer with ID:", customerId);
             console.log("Customer ID type:", typeof customerId);
 
-            const response = await fetch(`/api/customers/${customerId}`);
-            const data = await response.json();
+            const token = localStorage.getItem("token");
+            if (!token) {
+                console.error("No token found in localStorage");
+                router.push("/login");
+                return;
+            }
 
+            const response = await fetch(`/api/customers/${customerId}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            console.log("Response status:", response.status);
+
+            if (!response.ok) {
+                console.error(
+                    "Response not OK:",
+                    response.status,
+                    response.statusText,
+                );
+                if (response.status === 401) {
+                    router.push("/login");
+                    return;
+                }
+                throw new Error(
+                    `HTTP ${response.status}: ${response.statusText}`,
+                );
+            }
+
+            const data = await response.json();
             console.log("API Response:", data);
 
             if (data.success) {
                 const customerData = data.data;
                 setCustomer(customerData);
                 setFormData({
+                    registrationDate: customerData.registrationDate
+                        ? new Date(customerData.registrationDate)
+                              .toISOString()
+                              .split("T")[0]
+                        : "",
                     fullName: customerData.fullName || "",
-                    companyName: customerData.companyName || "",
+                    shortName: customerData.shortName || "",
                     address: customerData.address || "",
                     phone: customerData.phone || "",
-                    email: customerData.email || "",
+                    image: customerData.image || "",
+                    googleMapsUrl: "", // Không có trong model, để trống
                     source: customerData.source || "",
-                    potentialLevel: customerData.potentialLevel || "",
+                    referrer: customerData.referrer || "",
+                    referrerPhone: customerData.referrerPhone || "",
+                    serviceGroup: customerData.serviceGroup || "",
+                    marketingClassification:
+                        customerData.marketingClassification || "",
+                    potentialLevel: customerData.potentialLevel || "Trung bình",
                     salesPerson: customerData.salesPerson || "",
-                    status: customerData.status || "prospect",
-                    lat: customerData.lat?.toString() || "",
-                    lng: customerData.lng?.toString() || "",
+                    needsNote: customerData.needsNote || "",
+                    isActive: customerData.isActive !== false,
+                    latitude: customerData.latitude?.toString() || "",
+                    longitude: customerData.longitude?.toString() || "",
                 });
-
-                // Tìm và set selectedSalesPersonId dựa trên tên sales person
-                if (customerData.salesPerson && users.length > 0) {
-                    const matchingUser = users.find(
-                        (user) => user.fullName === customerData.salesPerson,
-                    );
-                    if (matchingUser) {
-                        setSelectedSalesPersonId(matchingUser._id);
-                        // Nếu tìm thấy user, cũng set department của user đó
-                        if (matchingUser.department) {
-                            setSelectedDepartment(matchingUser.department);
-                            await loadUsers(matchingUser.department);
-                        }
-                    }
-                }
+                console.log("formdata:", customerData);
             } else {
+                console.error("API returned error:", data);
                 toast.error(
                     data.message || "Không thể tải thông tin khách hàng",
                 );
@@ -203,7 +259,9 @@ const CustomerUpdate = () => {
             }
         } catch (error) {
             console.error("Error loading customer:", error);
-            toast.error("Không thể tải thông tin khách hàng");
+            toast.error(
+                `Không thể tải thông tin khách hàng: ${error instanceof Error ? error.message : "Lỗi không xác định"}`,
+            );
             router.push("/khach-hang");
         } finally {
             setLoading(false);
@@ -222,34 +280,22 @@ const CustomerUpdate = () => {
         }));
     };
 
-    const handleDepartmentChange = async (
-        e: React.ChangeEvent<HTMLSelectElement>,
-    ) => {
-        const departmentId = e.target.value;
-        setSelectedDepartment(departmentId);
-        setSelectedSalesPersonId(""); // Reset sales person khi đổi department
-        await loadUsers(departmentId);
-    };
-
-    const handleSalesPersonChange = (
-        e: React.ChangeEvent<HTMLSelectElement>,
-    ) => {
-        const salesPersonId = e.target.value;
-        setSelectedSalesPersonId(salesPersonId);
-
-        // Tìm user được chọn và cập nhật formData.salesPerson với tên
-        const selectedUser = users.find((user) => user._id === salesPersonId);
-        setFormData((prev) => ({
-            ...prev,
-            salesPerson: selectedUser ? selectedUser.fullName : "",
-        }));
-    };
-
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
+        // Validation các trường required
         if (!formData.fullName.trim()) {
             toast.error("Vui lòng nhập tên khách hàng");
+            return;
+        }
+
+        if (!formData.shortName.trim()) {
+            toast.error("Vui lòng nhập tên ngắn");
+            return;
+        }
+
+        if (!formData.phone.trim()) {
+            toast.error("Vui lòng nhập số điện thoại");
             return;
         }
 
@@ -257,14 +303,20 @@ const CustomerUpdate = () => {
         try {
             const submitData = {
                 ...formData,
-                lat: formData.lat ? parseFloat(formData.lat) : undefined,
-                lng: formData.lng ? parseFloat(formData.lng) : undefined,
+                latitude: formData.latitude
+                    ? parseFloat(formData.latitude)
+                    : undefined,
+                longitude: formData.longitude
+                    ? parseFloat(formData.longitude)
+                    : undefined,
             };
 
+            const token = localStorage.getItem("token");
             const response = await fetch(`/api/customers/${customerId}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
                 },
                 body: JSON.stringify(submitData),
             });
@@ -365,21 +417,24 @@ const CustomerUpdate = () => {
 
                                 <div>
                                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                                        Tên công ty
+                                        Tên ngắn{" "}
+                                        <span className="text-red-500">*</span>
                                     </label>
                                     <input
                                         type="text"
-                                        name="companyName"
-                                        value={formData.companyName}
+                                        name="shortName"
+                                        value={formData.shortName}
                                         onChange={handleInputChange}
                                         className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
-                                        placeholder="Nhập tên công ty"
+                                        placeholder="Nhập tên ngắn"
+                                        required
                                     />
                                 </div>
 
                                 <div>
                                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                                        Số điện thoại
+                                        Số điện thoại{" "}
+                                        <span className="text-red-500">*</span>
                                     </label>
                                     <input
                                         type="tel"
@@ -388,10 +443,11 @@ const CustomerUpdate = () => {
                                         onChange={handleInputChange}
                                         className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
                                         placeholder="Nhập số điện thoại"
+                                        required
                                     />
                                 </div>
 
-                                <div>
+                                {/* <div>
                                     <label className="block text-sm font-medium text-gray-700 mb-2">
                                         Email
                                     </label>
@@ -403,7 +459,7 @@ const CustomerUpdate = () => {
                                         className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
                                         placeholder="Nhập email"
                                     />
-                                </div>
+                                </div> */}
                             </div>
 
                             <div className="mt-6">
@@ -451,26 +507,7 @@ const CustomerUpdate = () => {
 
                                 <div>
                                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                                        Trạng thái
-                                    </label>
-                                    <select
-                                        name="status"
-                                        value={formData.status}
-                                        onChange={handleInputChange}
-                                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
-                                    >
-                                        <option value="prospect">
-                                            Tiềm năng
-                                        </option>
-                                        <option value="customer">
-                                            Khách hàng
-                                        </option>
-                                    </select>
-                                </div>
-
-                                <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                                        Đánh giá tiềm năng
+                                        Mức độ tiềm năng
                                     </label>
                                     <select
                                         name="potentialLevel"
@@ -478,18 +515,20 @@ const CustomerUpdate = () => {
                                         onChange={handleInputChange}
                                         className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
                                     >
-                                        <option value="">Chọn đánh giá</option>
-                                        <option value="⭐">1 sao</option>
-                                        <option value="⭐⭐">2 sao</option>
-                                        <option value="⭐⭐⭐">3 sao</option>
-                                        <option value="⭐⭐⭐⭐">4 sao</option>
-                                        <option value="⭐⭐⭐⭐⭐">
-                                            5 sao
+                                        <option value="Ngắn hạn">
+                                            Ngắn hạn
+                                        </option>
+                                        <option value="Trung hạn">
+                                            Trung hạn
+                                        </option>
+                                        <option value="Dài hạn">Dài hạn</option>
+                                        <option value="Không phù hợp">
+                                            Không phù hợp
                                         </option>
                                     </select>
                                 </div>
 
-                                <div>
+                                {/* <div>
                                     <label className="block text-sm font-medium text-gray-700 mb-2">
                                         Phòng ban
                                     </label>
@@ -510,36 +549,163 @@ const CustomerUpdate = () => {
                                             </option>
                                         ))}
                                     </select>
-                                </div>
+                                </div> */}
 
                                 <div>
                                     <label className="block text-sm font-medium text-gray-700 mb-2">
                                         Sales phụ trách
                                     </label>
-                                    <select
-                                        value={selectedSalesPersonId}
-                                        onChange={handleSalesPersonChange}
+                                    <input
+                                        type="text"
+                                        name="salesPerson"
+                                        value={formData.salesPerson}
+                                        onChange={handleInputChange}
                                         className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
-                                        disabled={users.length === 0}
+                                        placeholder="Nhập tên nhân viên phụ trách"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Additional Information */}
+                        <div>
+                            <h3 className="text-lg font-semibold text-gray-900 mb-4">
+                                Thông tin bổ sung
+                            </h3>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                                        Ngày đăng ký
+                                    </label>
+                                    <input
+                                        type="date"
+                                        name="registrationDate"
+                                        value={formData.registrationDate}
+                                        onChange={handleInputChange}
+                                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                                    />
+                                </div>
+
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                                        Tên ngắn
+                                    </label>
+                                    <input
+                                        type="text"
+                                        name="shortName"
+                                        value={formData.shortName}
+                                        onChange={handleInputChange}
+                                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                                        placeholder="Nhập tên ngắn"
+                                    />
+                                </div>
+
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                                        Người giới thiệu
+                                    </label>
+                                    <input
+                                        type="text"
+                                        name="referrer"
+                                        value={formData.referrer}
+                                        onChange={handleInputChange}
+                                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                                        placeholder="Nhập người giới thiệu"
+                                    />
+                                </div>
+
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                                        Điện thoại người giới thiệu
+                                    </label>
+                                    <input
+                                        type="tel"
+                                        name="referrerPhone"
+                                        value={formData.referrerPhone}
+                                        onChange={handleInputChange}
+                                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                                        placeholder="Nhập điện thoại người giới thiệu"
+                                    />
+                                </div>
+
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                                        Nhóm dịch vụ
+                                    </label>
+                                    <select
+                                        name="serviceGroup"
+                                        value={formData.serviceGroup}
+                                        onChange={handleInputChange}
+                                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
                                     >
-                                        <option value="">Chọn nhân viên</option>
-                                        {users.map((user) => (
+                                        <option value="">
+                                            Chọn nhóm dịch vụ
+                                        </option>
+                                        {serviceGroups.map((group) => (
                                             <option
-                                                key={user._id}
-                                                value={user._id}
+                                                key={group._id}
+                                                value={group.name}
                                             >
-                                                {user.fullName}
+                                                {group.name}
                                             </option>
                                         ))}
                                     </select>
-                                    {users.length === 0 && (
-                                        <p className="text-xs text-gray-500 mt-1">
-                                            {selectedDepartment === "all"
-                                                ? "Đang tải danh sách nhân viên..."
-                                                : "Không có nhân viên trong phòng ban này"}
-                                        </p>
-                                    )}
                                 </div>
+
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                                        Phân loại marketing
+                                    </label>
+                                    <select
+                                        name="marketingClassification"
+                                        value={formData.marketingClassification}
+                                        onChange={handleInputChange}
+                                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                                    >
+                                        <option value="Phù hợp">Phù hợp</option>
+                                        <option value="Chưa phù hợp">
+                                            Chưa phù hợp
+                                        </option>
+                                        {/* <option value="Rác">Rác</option> */}
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                                        Trạng thái
+                                    </label>
+                                    <select
+                                        name="isActive"
+                                        value={formData.isActive.toString()}
+                                        onChange={(e) =>
+                                            setFormData({
+                                                ...formData,
+                                                isActive:
+                                                    e.target.value === "true",
+                                            })
+                                        }
+                                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                                    >
+                                        <option value="true">Hoạt động</option>
+                                        <option value="false">
+                                            Không hoạt động
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div className="mt-6">
+                                <label className="block text-sm font-medium text-gray-700 mb-2">
+                                    Ghi chú nhu cầu
+                                </label>
+                                <textarea
+                                    name="needsNote"
+                                    value={formData.needsNote}
+                                    onChange={handleInputChange}
+                                    rows={3}
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                                    placeholder="Nhập ghi chú về nhu cầu khách hàng"
+                                />
                             </div>
                         </div>
 
@@ -556,8 +722,8 @@ const CustomerUpdate = () => {
                                     <input
                                         type="number"
                                         step="any"
-                                        name="lat"
-                                        value={formData.lat}
+                                        name="latitude"
+                                        value={formData.latitude}
                                         onChange={handleInputChange}
                                         className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
                                         placeholder="10.8231"
@@ -571,8 +737,8 @@ const CustomerUpdate = () => {
                                     <input
                                         type="number"
                                         step="any"
-                                        name="lng"
-                                        value={formData.lng}
+                                        name="longitude"
+                                        value={formData.longitude}
                                         onChange={handleInputChange}
                                         className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
                                         placeholder="106.6297"

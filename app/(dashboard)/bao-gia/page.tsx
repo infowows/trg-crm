@@ -22,16 +22,36 @@ import {
     ChevronRight,
 } from "lucide-react";
 
+interface Package {
+    name: string;
+    unit: "m2" | "m3";
+    length: number;
+    width: number;
+    area: number;
+    coefficient: number;
+    volume: number;
+    unitPrice: number;
+    totalPrice: number;
+    note?: string;
+}
+
+interface Service {
+    name: string;
+    packages: Package[];
+}
+
 interface Quotation {
     _id: string;
     quotationNo: string;
     customer: string;
+    customerRef?: string;
     date: string;
     validTo?: string;
+    services: Service[];
     totalAmount: number;
     taxAmount: number;
     grandTotal: number;
-    status: "draft" | "sent" | "approved" | "rejected" | "expired";
+    status: "draft" | "sent" | "approved" | "rejected" | "completed";
     createdBy: string;
     createdAt: string;
     updatedAt: string;
@@ -166,10 +186,10 @@ const BaoGiaManagement = () => {
                 icon: XCircle,
                 label: "Từ chối",
             },
-            expired: {
-                color: "bg-orange-100 text-orange-800",
-                icon: Clock,
-                label: "Hết hạn",
+            completed: {
+                color: "bg-purple-100 text-purple-800",
+                icon: CheckCircle,
+                label: "Hoàn thành",
             },
         };
 
@@ -256,7 +276,7 @@ const BaoGiaManagement = () => {
 
                     <button
                         onClick={() =>
-                            router.push("/dashboard/bao-gia/tao-moi")
+                            router.push("/bao-gia/tao-moi")
                         }
                         className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
                     >
@@ -290,7 +310,7 @@ const BaoGiaManagement = () => {
                             <option value="sent">Đã gửi</option>
                             <option value="approved">Đã duyệt</option>
                             <option value="rejected">Từ chối</option>
-                            <option value="expired">Hết hạn</option>
+                            <option value="completed">Hoàn thành</option>
                         </select>
                     </div>
                 </div>
@@ -314,7 +334,7 @@ const BaoGiaManagement = () => {
                         {!searchQuery && statusFilter === "all" && (
                             <button
                                 onClick={() =>
-                                    router.push("/dashboard/bao-gia/tao-moi")
+                                    router.push("/bao-gia/tao-moi")
                                 }
                                 className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition mx-auto"
                             >
@@ -417,7 +437,7 @@ const BaoGiaManagement = () => {
                                                     <button
                                                         onClick={() =>
                                                             router.push(
-                                                                `/dashboard/bao-gia/${quotation._id}`,
+                                                                `/bao-gia/${quotation._id}`,
                                                             )
                                                         }
                                                         className="text-blue-600 hover:text-blue-900"
@@ -428,7 +448,7 @@ const BaoGiaManagement = () => {
                                                     <button
                                                         onClick={() =>
                                                             router.push(
-                                                                `/dashboard/bao-gia/${quotation._id}/edit`,
+                                                                `/bao-gia/${quotation._id}/edit`,
                                                             )
                                                         }
                                                         className="text-green-600 hover:text-green-900"

@@ -17,6 +17,7 @@ import {
 interface ServiceFormData {
     serviceName: string;
     code: string;
+    serviceGroup: string;
     description: string;
     isActive: boolean;
 }
@@ -29,9 +30,11 @@ const CreateService = () => {
     const [formData, setFormData] = useState<ServiceFormData>({
         serviceName: "",
         code: "",
+        serviceGroup: "",
         description: "",
         isActive: true,
     });
+    const [serviceGroups, setServiceGroups] = useState<any[]>([]);
 
     useEffect(() => {
         const token = localStorage.getItem("token");
@@ -39,7 +42,25 @@ const CreateService = () => {
             router.push("/login");
             return;
         }
+        loadServiceGroups();
     }, [router]);
+
+    const loadServiceGroups = async () => {
+        try {
+            const token = localStorage.getItem("token");
+            const response = await fetch("/api/service-groups", {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            const data = await response.json();
+            if (data.success) {
+                setServiceGroups(data.data);
+            }
+        } catch (error) {
+            console.error("Error loading service groups:", error);
+        }
+    };
 
     const handleInputChange = (
         e: React.ChangeEvent<
@@ -65,6 +86,11 @@ const CreateService = () => {
     const validateForm = () => {
         if (!formData.serviceName.trim()) {
             setError("Vui lòng nhập tên dịch vụ");
+            return false;
+        }
+
+        if (!formData.serviceGroup.trim()) {
+            setError("Vui lòng chọn nhóm dịch vụ");
             return false;
         }
 
@@ -109,6 +135,7 @@ const CreateService = () => {
             const payload = {
                 serviceName: formData.serviceName.trim(),
                 code: formData.code.toUpperCase().trim(),
+                serviceGroup: formData.serviceGroup.trim(),
                 description: formData.description.trim(),
                 isActive: formData.isActive,
             };
@@ -217,6 +244,34 @@ const CreateService = () => {
                                     placeholder="Nhập tên dịch vụ"
                                     required
                                 />
+                            </div>
+                        </div>
+
+                        {/* Service Group */}
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                                Nhóm dịch vụ{" "}
+                                <span className="text-red-500">*</span>
+                            </label>
+                            <div className="relative outline-none">
+                                <Package className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                                <select
+                                    name="serviceGroup"
+                                    value={formData.serviceGroup}
+                                    onChange={handleInputChange}
+                                    className="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 appearance-none"
+                                    required
+                                >
+                                    <option value="">Chọn nhóm dịch vụ</option>
+                                    {serviceGroups.map((group) => (
+                                        <option
+                                            key={group._id}
+                                            value={group.name}
+                                        >
+                                            {group.name}
+                                        </option>
+                                    ))}
+                                </select>
                             </div>
                         </div>
 

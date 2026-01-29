@@ -19,7 +19,7 @@ import {
 
 interface ServicePackage {
     _id: string;
-    name: string;
+    packageName: string;
     code: string;
     description?: string;
     active: boolean;
@@ -281,7 +281,7 @@ const ServicePackageManagement = () => {
                                                 {pkg.code}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                                {pkg.name}
+                                                {pkg.packageName}
                                             </td>
                                             <td className="px-6 py-4 text-sm text-gray-500">
                                                 <div className="max-w-xs truncate">

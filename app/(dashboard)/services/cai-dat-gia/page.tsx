@@ -16,19 +16,21 @@ import {
     ChevronRight,
     Calendar,
     Tag,
+    Lock,
 } from "lucide-react";
 
 interface ServicePricing {
     _id: string;
-    serviceGroupName: string;
     serviceName: string;
     packageName?: string;
     unitPrice: number;
     effectiveFrom: string;
     effectiveTo?: string;
     isActive: boolean;
+    isUsed: boolean; // Thêm để kiểm tra đã sử dụng
     createdAt: string;
     updatedAt: string;
+    serviceGroup?: string; // Thêm để hiển thị nhóm dịch vụ
 }
 
 const ServicePricingManagement = () => {
@@ -77,7 +79,46 @@ const ServicePricingManagement = () => {
             }
 
             const data = await response.json();
-            setPricings(data.data || []);
+
+            // Với mỗi pricing, fetch service tương ứng để lấy serviceGroup
+            const pricingsWithGroup = await Promise.all(
+                (data.data || []).map(async (pricing: any) => {
+                    try {
+                        const serviceResponse = await fetch(
+                            `/api/services?serviceName=${encodeURIComponent(pricing.serviceName)}`,
+                            {
+                                headers: {
+                                    Authorization: `Bearer ${token}`,
+                                },
+                            },
+                        );
+
+                        if (serviceResponse.ok) {
+                            const serviceData = await serviceResponse.json();
+                            const service = serviceData.data?.[0];
+                            return {
+                                ...pricing,
+                                serviceGroup: service?.serviceGroup || "-",
+                            };
+                        }
+                        return {
+                            ...pricing,
+                            serviceGroup: "-",
+                        };
+                    } catch (error) {
+                        console.error(
+                            `Error fetching service for ${pricing.serviceName}:`,
+                            error,
+                        );
+                        return {
+                            ...pricing,
+                            serviceGroup: "-",
+                        };
+                    }
+                }),
+            );
+
+            setPricings(pricingsWithGroup);
             setTotalPages(data.pagination?.totalPages || 1);
             setTotal(data.pagination?.total || 0);
             setCurrentPage(data.pagination?.page || 1);
@@ -276,10 +317,10 @@ const ServicePricingManagement = () => {
                                 <thead className="bg-gray-50">
                                     <tr>
                                         <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            Nhóm dịch vụ
+                                            Tên dịch vụ
                                         </th>
                                         <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            Tên dịch vụ
+                                            Nhóm dịch vụ
                                         </th>
                                         <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                             Gói dịch vụ
@@ -305,10 +346,10 @@ const ServicePricingManagement = () => {
                                             className="hover:bg-gray-50"
                                         >
                                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                                {pricing.serviceGroupName}
+                                                {pricing.serviceName}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                                {pricing.serviceName}
+                                                {pricing.serviceGroup || "-"}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                                 {pricing.packageName || "-"}
@@ -345,25 +386,36 @@ const ServicePricingManagement = () => {
                                                 )}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap">
-                                                <span
-                                                    className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                                                        pricing.isActive
-                                                            ? "bg-green-100 text-green-800"
-                                                            : "bg-red-100 text-red-800"
-                                                    }`}
-                                                >
-                                                    {pricing.isActive ? (
-                                                        <>
-                                                            <CheckCircle className="w-3 h-3 mr-1" />
-                                                            Đang hoạt động
-                                                        </>
-                                                    ) : (
-                                                        <>
-                                                            <AlertCircle className="w-3 h-3 mr-1" />
-                                                            Ngừng hoạt động
-                                                        </>
+                                                <div className="space-y-1">
+                                                    {/* Trạng thái hoạt động */}
+                                                    <span
+                                                        className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                                                            pricing.isActive
+                                                                ? "bg-green-100 text-green-800"
+                                                                : "bg-red-100 text-red-800"
+                                                        }`}
+                                                    >
+                                                        {pricing.isActive ? (
+                                                            <>
+                                                                <CheckCircle className="w-3 h-3 mr-1" />
+                                                                Đang hoạt động
+                                                            </>
+                                                        ) : (
+                                                            <>
+                                                                <AlertCircle className="w-3 h-3 mr-1" />
+                                                                Ngừng hoạt động
+                                                            </>
+                                                        )}
+                                                    </span>
+
+                                                    {/* Trạng thái sử dụng */}
+                                                    {pricing.isUsed && (
+                                                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-orange-100 text-orange-800">
+                                                            <Lock className="w-3 h-3 mr-1" />
+                                                            Đã sử dụng
+                                                        </span>
                                                     )}
-                                                </span>
+                                                </div>
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                                 <div className="flex items-center justify-end space-x-2">
@@ -378,28 +430,46 @@ const ServicePricingManagement = () => {
                                                     >
                                                         <Eye className="w-4 h-4" />
                                                     </button>
-                                                    <button
-                                                        onClick={() =>
-                                                            router.push(
-                                                                `/services/cai-dat-gia/${pricing._id}/edit`,
-                                                            )
-                                                        }
-                                                        className="text-green-600 hover:text-green-900"
-                                                        title="Chỉnh sửa"
-                                                    >
-                                                        <Edit className="w-4 h-4" />
-                                                    </button>
-                                                    <button
-                                                        onClick={() =>
-                                                            handleDelete(
-                                                                pricing._id,
-                                                            )
-                                                        }
-                                                        className="text-red-600 hover:text-red-900"
-                                                        title="Xóa"
-                                                    >
-                                                        <Trash2 className="w-4 h-4" />
-                                                    </button>
+
+                                                    {/* Nút Chỉnh sửa - chỉ hiển thị khi chưa sử dụng */}
+                                                    {!pricing.isUsed && (
+                                                        <button
+                                                            onClick={() =>
+                                                                router.push(
+                                                                    `/services/cai-dat-gia/${pricing._id}/edit`,
+                                                                )
+                                                            }
+                                                            className="text-green-600 hover:text-green-900"
+                                                            title="Chỉnh sửa"
+                                                        >
+                                                            <Edit className="w-4 h-4" />
+                                                        </button>
+                                                    )}
+
+                                                    {/* Nút Xóa - chỉ hiển thị khi chưa sử dụng */}
+                                                    {!pricing.isUsed && (
+                                                        <button
+                                                            onClick={() =>
+                                                                handleDelete(
+                                                                    pricing._id,
+                                                                )
+                                                            }
+                                                            className="text-red-600 hover:text-red-900"
+                                                            title="Xóa"
+                                                        >
+                                                            <Trash2 className="w-4 h-4" />
+                                                        </button>
+                                                    )}
+
+                                                    {/* Hiển thị trạng thái đã sử dụng */}
+                                                    {pricing.isUsed && (
+                                                        <span
+                                                            className="text-xs text-orange-600 font-medium italic"
+                                                            title="Đã được sử dụng trong báo giá"
+                                                        >
+                                                            Đã dùng
+                                                        </span>
+                                                    )}
                                                 </div>
                                             </td>
                                         </tr>

@@ -14,9 +14,8 @@ import {
 } from "lucide-react";
 
 interface ServicePricingFormData {
-    serviceGroupName: string;
     serviceName: string;
-    servicePackage: string;
+    packageName: string;
     unitPrice: string;
     effectiveFrom: string;
     effectiveTo: string;
@@ -28,16 +27,11 @@ const CreateServicePricing = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [success, setSuccess] = useState(false);
-    const [serviceGroups, setServiceGroups] = useState<any[]>([]);
     const [services, setServices] = useState<any[]>([]);
-    const [servicePackages, setServicePackages] = useState<any[]>([]);
-    const [loadingGroups, setLoadingGroups] = useState(true);
-    const [loadingServices, setLoadingServices] = useState(false);
-    const [loadingPackages, setLoadingPackages] = useState(false);
+    const [loadingServices, setLoadingServices] = useState(true);
     const [formData, setFormData] = useState<ServicePricingFormData>({
-        serviceGroupName: "",
         serviceName: "",
-        servicePackage: "",
+        packageName: "",
         unitPrice: "",
         effectiveFrom: new Date().toISOString().split("T")[0],
         effectiveTo: "",
@@ -51,75 +45,19 @@ const CreateServicePricing = () => {
             return;
         }
 
-        fetchServiceGroups();
-        fetchServicePackages();
+        fetchServices();
     }, [router]);
 
-    useEffect(() => {
-        if (formData.serviceGroupName) {
-            fetchServices(formData.serviceGroupName);
-        }
-    }, [formData.serviceGroupName]);
-
-    const fetchServiceGroups = async () => {
+    const fetchServices = async () => {
         try {
             const token = localStorage.getItem("token");
             if (!token) return;
 
-            const response = await fetch("/api/service-groups", {
+            const response = await fetch("/api/services", {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
             });
-
-            if (response.ok) {
-                const data = await response.json();
-                setServiceGroups(data.data || []);
-            }
-        } catch (error) {
-            console.error("Error fetching service groups:", error);
-        } finally {
-            setLoadingGroups(false);
-        }
-    };
-
-    const fetchServicePackages = async () => {
-        try {
-            const token = localStorage.getItem("token");
-            if (!token) return;
-
-            setLoadingPackages(true);
-            const response = await fetch("/api/service-packages", {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
-
-            if (response.ok) {
-                const data = await response.json();
-                setServicePackages(data.data || []);
-            }
-        } catch (error) {
-            console.error("Error fetching service packages:", error);
-        } finally {
-            setLoadingPackages(false);
-        }
-    };
-
-    const fetchServices = async (groupName: string) => {
-        try {
-            const token = localStorage.getItem("token");
-            if (!token) return;
-
-            setLoadingServices(true);
-            const response = await fetch(
-                `/api/services?serviceGroup=${encodeURIComponent(groupName)}`,
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                },
-            );
 
             if (response.ok) {
                 const data = await response.json();
@@ -153,19 +91,9 @@ const CreateServicePricing = () => {
         }
     };
 
-    const validateForm = () => {
-        if (!formData.serviceGroupName.trim()) {
-            setError("Vui lòng chọn nhóm dịch vụ");
-            return false;
-        }
-
+    const validateForm = async () => {
         if (!formData.serviceName.trim()) {
             setError("Vui lòng chọn dịch vụ");
-            return false;
-        }
-
-        if (!formData.servicePackage.trim()) {
-            setError("Vui lòng chọn gói dịch vụ");
             return false;
         }
 
@@ -187,6 +115,50 @@ const CreateServicePricing = () => {
             return false;
         }
 
+        if (!formData.effectiveTo) {
+            setError("Vui lòng chọn ngày hết hiệu lực");
+            return false;
+        }
+
+        // Kiểm tra trùng gói dịch vụ
+        try {
+            const token = localStorage.getItem("token");
+            if (!token) return false;
+
+            const checkResponse = await fetch(
+                `/api/service-pricing/check-duplicate?serviceName=${encodeURIComponent(formData.serviceName)}&packageName=${encodeURIComponent(formData.packageName)}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                },
+            );
+
+            if (checkResponse.ok) {
+                const checkData = await checkResponse.json();
+                if (checkData.exists) {
+                    const existingPricing = checkData.existingPricing;
+                    const newEffectiveFrom = new Date(formData.effectiveFrom);
+                    const existingEffectiveTo = existingPricing.effectiveTo
+                        ? new Date(existingPricing.effectiveTo)
+                        : null;
+
+                    if (
+                        existingEffectiveTo &&
+                        newEffectiveFrom <= existingEffectiveTo
+                    ) {
+                        setError(
+                            `Gói dịch vụ "${formData.packageName}" đã tồn tại với thời gian hiệu lực đến ${existingEffectiveTo.toLocaleDateString("vi-VN")}. ` +
+                                `Vui lòng chọn ngày hiệu lực lớn hơn ${existingEffectiveTo.toLocaleDateString("vi-VN")}.`,
+                        );
+                        return false;
+                    }
+                }
+            }
+        } catch (error) {
+            console.error("Error checking duplicate package:", error);
+        }
+
         if (
             formData.effectiveTo &&
             new Date(formData.effectiveTo) < new Date(formData.effectiveFrom)
@@ -201,7 +173,7 @@ const CreateServicePricing = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        if (!validateForm()) {
+        if (!(await validateForm())) {
             return;
         }
 
@@ -216,9 +188,8 @@ const CreateServicePricing = () => {
             }
 
             const payload = {
-                serviceGroupName: formData.serviceGroupName.trim(),
                 serviceName: formData.serviceName.trim(),
-                servicePackage: formData.servicePackage.trim(),
+                packageName: formData.packageName.trim(),
                 unitPrice: Number(formData.unitPrice),
                 effectiveFrom: new Date(formData.effectiveFrom),
                 effectiveTo: formData.effectiveTo
@@ -314,35 +285,6 @@ const CreateServicePricing = () => {
                 {/* Form */}
                 <div className="bg-white shadow rounded-lg">
                     <form onSubmit={handleSubmit} className="p-6 space-y-6">
-                        {/* Service Group */}
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">
-                                Nhóm dịch vụ{" "}
-                                <span className="text-red-500">*</span>
-                            </label>
-                            <div className="relative ">
-                                <Tag className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
-                                <select
-                                    name="serviceGroupName"
-                                    value={formData.serviceGroupName}
-                                    onChange={handleInputChange}
-                                    className="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                                    required
-                                    disabled={loadingGroups}
-                                >
-                                    <option value="">Chọn nhóm dịch vụ</option>
-                                    {serviceGroups.map((group) => (
-                                        <option
-                                            key={group._id}
-                                            value={group.name}
-                                        >
-                                            {group.name}
-                                        </option>
-                                    ))}
-                                </select>
-                            </div>
-                        </div>
-
                         {/* Service */}
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -357,13 +299,10 @@ const CreateServicePricing = () => {
                                     onChange={handleInputChange}
                                     className="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                                     required
-                                    disabled={
-                                        !formData.serviceGroupName ||
-                                        loadingServices
-                                    }
+                                    disabled={loadingServices}
                                 >
                                     <option value="">Chọn dịch vụ</option>
-                                    {services.map((service) => (
+                                    {services.map((service: any) => (
                                         <option
                                             key={service._id}
                                             value={service.serviceName}
@@ -378,29 +317,18 @@ const CreateServicePricing = () => {
                         {/* Service Package */}
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-2">
-                                Gói dịch vụ{" "}
-                                <span className="text-red-500">*</span>
+                                Gói dịch vụ
                             </label>
                             <div className="relative ">
                                 <Tag className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
-                                <select
-                                    name="servicePackage"
-                                    value={formData.servicePackage}
+                                <input
+                                    type="text"
+                                    name="packageName"
+                                    value={formData.packageName}
                                     onChange={handleInputChange}
+                                    placeholder="Nhập tên gói dịch vụ (ví dụ: Gói Cao Cấp)"
                                     className="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                                    required
-                                    disabled={
-                                        !formData.serviceGroupName ||
-                                        !formData.serviceName
-                                    }
-                                >
-                                    <option value="">Chọn gói dịch vụ</option>
-                                    {servicePackages.map((pkg) => (
-                                        <option key={pkg._id} value={pkg.name}>
-                                            {pkg.name}
-                                        </option>
-                                    ))}
-                                </select>
+                                />
                             </div>
                         </div>
 
@@ -448,7 +376,8 @@ const CreateServicePricing = () => {
                             {/* Effective To */}
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                                    Hiệu lực đến
+                                    Hiệu lực đến{" "}
+                                    <span className="text-red-500">*</span>
                                 </label>
                                 <div className="relative outline-none">
                                     <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />

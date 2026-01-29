@@ -23,7 +23,7 @@ interface Department {
 
 interface Position {
     _id: string;
-    name: string;
+    positionName: string;
     code: string;
     active: boolean;
 }
@@ -52,12 +52,13 @@ const CreateEmployee = () => {
     const fetchDepartments = async () => {
         try {
             const response = await fetch(
-                "/api/departments?active=true&limit=100",
+                "/api/departments?isActive=true&limit=100",
             );
             const data = await response.json();
             if (data.success) {
                 setDepartments(data.data);
             }
+            // console.log(data.data);
         } catch (err) {
             console.error("Error fetching departments:", err);
         } finally {
@@ -74,6 +75,7 @@ const CreateEmployee = () => {
             if (data.success) {
                 setPositions(data.data);
             }
+            console.log(data.data)
         } catch (err) {
             console.error("Error fetching positions:", err);
         }
@@ -228,9 +230,9 @@ const CreateEmployee = () => {
                                                 {positions.map((pos) => (
                                                     <option
                                                         key={pos._id}
-                                                        value={pos.name}
+                                                        value={pos.positionName}
                                                     >
-                                                        {pos.name}
+                                                        {pos.positionName}
                                                     </option>
                                                 ))}
                                             </select>

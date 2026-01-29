@@ -12,13 +12,22 @@ export async function GET(request: NextRequest) {
         const active = searchParams.get("active");
         const category = searchParams.get("category");
 
+        console.log("API Services - Query params:", {
+            page,
+            limit,
+            active,
+            category,
+        });
+
         const query: any = {};
         if (active !== null && active !== undefined) {
-            query.active = active === "true";
+            query.isActive = active === "true";
         }
         if (category) {
-            query.category = category;
+            query.serviceGroup = category;
         }
+
+        console.log("API Services - MongoDB query:", query);
 
         const skip = (page - 1) * limit;
 
@@ -26,6 +35,8 @@ export async function GET(request: NextRequest) {
             Service.find(query).sort({ createdAt: -1 }).skip(skip).limit(limit),
             Service.countDocuments(query),
         ]);
+
+        console.log("API Services - Found services:", data.length);
 
         return NextResponse.json({
             success: true,
@@ -55,8 +66,9 @@ export async function POST(request: NextRequest) {
         const serviceData = {
             serviceName: body.serviceName,
             code: body.code || generateServiceCode(body.serviceName),
+            serviceGroup: body.serviceGroup,
             description: body.description,
-            active: body.isActive,
+            isActive: body.isActive,
         };
 
         const service = new Service(serviceData);

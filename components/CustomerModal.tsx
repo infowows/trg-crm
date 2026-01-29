@@ -25,6 +25,7 @@ interface Customer {
     shortName?: string;
     address?: string;
     phone?: string;
+    email?: string;
     image?: string;
     source?: string;
     referrer?: string;
@@ -96,8 +97,14 @@ const CustomerModal = ({
 
     if (mode === "delete") {
         return (
-            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-                <div className="bg-white rounded-lg shadow-xl max-w-md w-full">
+            <div
+                className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50"
+                onClick={onClose}
+            >
+                <div
+                    className="bg-white rounded-lg shadow-xl max-w-md w-full"
+                    onClick={(e) => e.stopPropagation()}
+                >
                     <div className="p-6">
                         <div className="flex items-center justify-between mb-4">
                             <h3 className="text-lg font-semibold text-gray-900">
@@ -168,8 +175,14 @@ const CustomerModal = ({
     }
 
     return (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-            <div className="bg-white rounded-lg shadow-xl max-w-7xl w-full max-h-[95vh] overflow-auto">
+        <div
+            className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50"
+            onClick={onClose}
+        >
+            <div
+                className="bg-white rounded-lg shadow-xl max-w-7xl w-full max-h-[95vh] overflow-auto"
+                onClick={(e) => e.stopPropagation()}
+            >
                 {/* Header */}
                 <div className="border-b border-gray-200 px-8 py-6 flex items-center justify-between">
                     <h2 className="text-2xl font-bold text-gray-900">
@@ -271,19 +284,19 @@ const CustomerModal = ({
                                 </div>
                             </div>
                             {/* Notes Section */}
-                    {customer.needsNote && (
-                        <div className="flex-2 border-gray-200">
-                            <h4 className="text-xl font-semibold text-gray-900 mb-4 flex items-center">
-                                <FileText className="w-6 h-6 mr-2 text-blue-600" />
-                                Ghi chú nhu cầu
-                            </h4>
-                            <div className="bg-gray-50 rounded-lg p-6">
-                                <p className="text-sm text-gray-700 whitespace-pre-wrap leading-relaxed">
-                                    {customer.needsNote}
-                                </p>
-                            </div>
-                        </div>
-                    )}
+                            {customer.needsNote && (
+                                <div className="flex-2 border-gray-200">
+                                    <h4 className="text-xl font-semibold text-gray-900 mb-4 flex items-center">
+                                        <FileText className="w-6 h-6 mr-2 text-blue-600" />
+                                        Ghi chú nhu cầu
+                                    </h4>
+                                    <div className="bg-gray-50 rounded-lg p-6">
+                                        <p className="text-sm text-gray-700 whitespace-pre-wrap leading-relaxed">
+                                            {customer.needsNote}
+                                        </p>
+                                    </div>
+                                </div>
+                            )}
                         </div>
                     </div>
 
@@ -297,37 +310,64 @@ const CustomerModal = ({
                                     Thông tin cá nhân
                                 </h4>
                                 <div className="space-y-4">
-                                    {customer.shortName && (
+                                    {customer.shortName ? (
                                         <div className="flex items-start space-x-3">
                                             <span className="flex-1 text-sm font-medium text-gray-500 w-24 flex-shrink-0">
                                                 Tên ngắn:
                                             </span>
-                                            <span className="text-sm text-gray-900 flex-2">
+                                            <span className="text-sm text-gray-900 flex-2 bg-gradient-to-r from-blue-50 to-cyan-50 p-2 rounded-lg border border-blue-200">
                                                 {customer.shortName}
+                                            </span>
+                                        </div>
+                                    ) : (
+                                        <div className="flex items-start space-x-3">
+                                            <span className="flex-1 text-sm font-medium text-gray-500 w-24 flex-shrink-0">
+                                                Tên ngắn:
+                                            </span>
+                                            <span className="text-sm text-gray-400 flex-2 italic">
+                                                chưa có dữ liệu
                                             </span>
                                         </div>
                                     )}
 
-                                    {customer.phone && (
+                                    {customer.phone ? (
                                         <div className="flex items-start space-x-3">
                                             {/* <Phone className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" /> */}
                                             <span className="flex-1 text-sm font-medium text-gray-500 w-24 flex-shrink-0">
                                                 Điện thoại:
                                             </span>
-                                            <span className="text-sm text-gray-900 flex-2">
+                                            <span className="text-sm text-gray-900 flex-2 bg-gradient-to-r from-blue-50 to-cyan-50 p-2 rounded-lg border border-blue-200">
                                                 {customer.phone}
+                                            </span>
+                                        </div>
+                                    ) : (
+                                        <div className="flex items-start space-x-3">
+                                            <span className="flex-1 text-sm font-medium text-gray-500 w-24 flex-shrink-0">
+                                                Điện thoại:
+                                            </span>
+                                            <span className="text-sm text-gray-400 flex-2 italic">
+                                                chưa có dữ liệu
                                             </span>
                                         </div>
                                     )}
 
-                                    {customer.address && (
+                                    {customer.address ? (
                                         <div className="flex items-start space-x-3">
                                             {/* <MapPin className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" /> */}
                                             <span className="flex-1 text-sm font-medium text-gray-500 w-24 flex-shrink-0">
                                                 Địa chỉ:
                                             </span>
-                                            <span className="text-sm text-gray-900 flex-2">
+                                            <span className="text-sm text-gray-900 flex-2 bg-gradient-to-r from-blue-50 to-cyan-50 p-2 rounded-lg border border-blue-200">
                                                 {customer.address}
+                                            </span>
+                                        </div>
+                                    ) : (
+                                        <div className="flex items-start space-x-3">
+                                            <span className="flex-1 text-sm font-medium text-gray-500 w-24 flex-shrink-0">
+                                                Địa chỉ:
+                                            </span>
+                                            <span className="text-sm text-gray-400 flex-2 italic">
+                                                chưa có dữ liệu
                                             </span>
                                         </div>
                                     )}
@@ -340,6 +380,26 @@ const CustomerModal = ({
                                             </span>
                                         </div>
                                     )} */}
+
+                                    {customer.email ? (
+                                        <div className="flex items-start space-x-3">
+                                            <span className="flex-1 text-sm font-medium text-gray-500 w-24 flex-shrink-0">
+                                                Email:
+                                            </span>
+                                            <span className="text-sm text-gray-900 flex-2 bg-gradient-to-r from-blue-50 to-cyan-50 p-2 rounded-lg border border-blue-200">
+                                                {customer.email}
+                                            </span>
+                                        </div>
+                                    ) : (
+                                        <div className="flex items-start space-x-3">
+                                            <span className="flex-1 text-sm font-medium text-gray-500 w-24 flex-shrink-0">
+                                                Email:
+                                            </span>
+                                            <span className="text-sm text-gray-400 flex-2 italic">
+                                                chưa có dữ liệu
+                                            </span>
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         </div>
@@ -352,73 +412,127 @@ const CustomerModal = ({
                                     Thông tin kinh doanh
                                 </h4>
                                 <div className="space-y-4">
-                                    {customer.source && (
+                                    {customer.source ? (
                                         <div className="flex items-start space-x-3">
                                             <span className="flex-1 text-sm font-medium text-gray-500 w-24 flex-shrink-0">
                                                 Nguồn khách hàng:
                                             </span>
-                                            <span className="text-sm text-gray-900 flex-1">
+                                            <span className="text-sm text-gray-900 flex-1 bg-gradient-to-r from-blue-50 to-cyan-50 p-2 rounded-lg border border-blue-200">
                                                 {customer.source}
+                                            </span>
+                                        </div>
+                                    ) : (
+                                        <div className="flex items-start space-x-3">
+                                            <span className="flex-1 text-sm font-medium text-gray-500 w-24 flex-shrink-0">
+                                                Nguồn khách hàng:
+                                            </span>
+                                            <span className="text-sm text-gray-400 flex-1 italic">
+                                                chưa có dữ liệu
                                             </span>
                                         </div>
                                     )}
 
-                                    {customer.serviceGroup && (
+                                    {customer.serviceGroup ? (
                                         <div className="flex items-start space-x-3">
                                             {/* <Building className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" /> */}
                                             <span className="flex-1 text-sm font-medium text-gray-500 w-24 flex-shrink-0">
                                                 Nhóm dịch vụ quan tâm:
                                             </span>
-                                            <span className="text-sm text-gray-900 flex-1">
+                                            <span className="text-sm text-gray-900 flex-1 bg-gradient-to-r from-blue-50 to-cyan-50 p-2 rounded-lg border border-blue-200">
                                                 {customer.serviceGroup}
+                                            </span>
+                                        </div>
+                                    ) : (
+                                        <div className="flex items-start space-x-3">
+                                            <span className="flex-1 text-sm font-medium text-gray-500 w-24 flex-shrink-0">
+                                                Nhóm dịch vụ quan tâm:
+                                            </span>
+                                            <span className="text-sm text-gray-400 flex-1 italic">
+                                                chưa có dữ liệu
                                             </span>
                                         </div>
                                     )}
 
-                                    {customer.marketingClassification && (
+                                    {customer.marketingClassification ? (
                                         <div className="flex items-start space-x-3">
                                             {/* <TrendingUp className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" /> */}
                                             <span className="flex-1 text-sm font-medium text-gray-500 w-24 flex-shrink-0">
                                                 Phân loại marketing:
                                             </span>
-                                            <span className="text-sm text-gray-900 flex-1">
+                                            <span className="text-sm text-gray-900 flex-1 bg-gradient-to-r from-blue-50 to-cyan-50 p-2 rounded-lg border border-blue-200">
                                                 {
                                                     customer.marketingClassification
                                                 }
                                             </span>
                                         </div>
+                                    ) : (
+                                        <div className="flex items-start space-x-3">
+                                            <span className="flex-1 text-sm font-medium text-gray-500 w-24 flex-shrink-0">
+                                                Phân loại marketing:
+                                            </span>
+                                            <span className="text-sm text-gray-400 flex-1 italic">
+                                                chưa có dữ liệu
+                                            </span>
+                                        </div>
                                     )}
 
-                                    {customer.salesPerson && (
+                                    {customer.salesPerson ? (
                                         <div className="flex items-start space-x-3">
                                             <span className="flex-1 text-sm font-medium text-gray-500 w-24 flex-shrink-0">
                                                 Được phân bổ cho:
                                             </span>
-                                            <span className="text-sm text-gray-900 flex-1">
+                                            <span className="text-sm text-gray-900 flex-1 bg-gradient-to-r from-blue-50 to-cyan-50 p-2 rounded-lg border border-blue-200">
                                                 {customer.salesPerson}
+                                            </span>
+                                        </div>
+                                    ) : (
+                                        <div className="flex items-start space-x-3">
+                                            <span className="flex-1 text-sm font-medium text-gray-500 w-24 flex-shrink-0">
+                                                Được phân bổ cho:
+                                            </span>
+                                            <span className="text-sm text-gray-400 flex-1 italic">
+                                                chưa có dữ liệu
                                             </span>
                                         </div>
                                     )}
 
-                                    {customer.referrer && (
+                                    {customer.referrer ? (
                                         <div className="flex items-start space-x-3">
                                             <span className="flex-1 text-sm font-medium text-gray-500 w-24 flex-shrink-0">
                                                 Giới thiệu:
                                             </span>
-                                            <span className="text-sm text-gray-900 flex-1">
+                                            <span className="text-sm text-gray-900 flex-1 bg-gradient-to-r from-blue-50 to-cyan-50 p-2 rounded-lg border border-blue-200">
                                                 {customer.referrer}
+                                            </span>
+                                        </div>
+                                    ) : (
+                                        <div className="flex items-start space-x-3">
+                                            <span className="flex-1 text-sm font-medium text-gray-500 w-24 flex-shrink-0">
+                                                Giới thiệu:
+                                            </span>
+                                            <span className="text-sm text-gray-400 flex-1 italic">
+                                                chưa có dữ liệu
                                             </span>
                                         </div>
                                     )}
 
-                                    {customer.referrerPhone && (
+                                    {customer.referrerPhone ? (
                                         <div className="flex items-start space-x-3">
                                             {/* <Phone className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" /> */}
                                             <span className="flex-1 text-sm font-medium text-gray-500 w-24 flex-shrink-0">
                                                 Số điện thoại:
                                             </span>
-                                            <span className="text-sm text-gray-900 flex-1">
+                                            <span className="text-sm text-gray-900 flex-1 bg-gradient-to-r from-blue-50 to-cyan-50 p-2 rounded-lg border border-blue-200">
                                                 {customer.referrerPhone}
+                                            </span>
+                                        </div>
+                                    ) : (
+                                        <div className="flex items-start space-x-3">
+                                            <span className="flex-1 text-sm font-medium text-gray-500 w-24 flex-shrink-0">
+                                                Số điện thoại giới thiệu:
+                                            </span>
+                                            <span className="text-sm text-gray-400 flex-1 italic">
+                                                chưa có dữ liệu
                                             </span>
                                         </div>
                                     )}
@@ -438,7 +552,7 @@ const CustomerModal = ({
                                         <span className="flex-1 text-sm font-medium text-gray-500 w-24 flex-shrink-0">
                                             Tạo:
                                         </span>
-                                        <span className="text-sm text-gray-900 flex-2">
+                                        <span className="text-sm text-gray-900 flex-2 bg-gradient-to-r from-blue-50 to-cyan-50 p-2 rounded-lg border border-blue-200">
                                             {new Date(
                                                 customer.createdAt,
                                             ).toLocaleDateString("vi-VN", {
@@ -454,7 +568,7 @@ const CustomerModal = ({
                                         <span className="flex-1 text-sm font-medium text-gray-500 w-24 flex-shrink-0">
                                             Cập nhật:
                                         </span>
-                                        <span className="text-sm text-gray-900 flex-2">
+                                        <span className="text-sm text-gray-900 flex-2 bg-gradient-to-r from-blue-50 to-cyan-50 p-2 rounded-lg border border-blue-200">
                                             {new Date(
                                                 customer.updatedAt,
                                             ).toLocaleDateString("vi-VN", {
@@ -476,29 +590,49 @@ const CustomerModal = ({
                                         Tọa độ
                                     </h4>
                                     <div className="space-y-4">
-                                        <div className="flex items-start space-x-3">
-                                            <span className="flex-1 text-sm font-medium text-gray-500 w-24 flex-shrink-0">
-                                                Vĩ độ:
-                                            </span>
-                                            <span className="text-sm text-gray-900 flex-1">
-                                                {customer.lat}
-                                            </span>
-                                        </div>
-                                        <div className="flex items-start space-x-3">
-                                            <span className="flex-1 text-sm font-medium text-gray-500 w-24 flex-shrink-0">
-                                                Kinh độ:
-                                            </span>
-                                            <span className="text-sm text-gray-900 flex-1">
-                                                {customer.lng}
-                                            </span>
-                                        </div>
+                                        {customer.lat ? (
+                                            <div className="flex items-start space-x-3">
+                                                <span className="flex-1 text-sm font-medium text-gray-500 w-24 flex-shrink-0">
+                                                    Vĩ độ:
+                                                </span>
+                                                <span className="text-sm text-gray-900 flex-1 bg-gradient-to-r from-blue-50 to-cyan-50 p-2 rounded-lg border border-blue-200">
+                                                    {customer.lat}
+                                                </span>
+                                            </div>
+                                        ) : (
+                                            <div className="flex items-start space-x-3">
+                                                <span className="flex-1 text-sm font-medium text-gray-500 w-24 flex-shrink-0">
+                                                    Vĩ độ:
+                                                </span>
+                                                <span className="text-sm text-gray-400 flex-1 italic">
+                                                    chưa có dữ liệu
+                                                </span>
+                                            </div>
+                                        )}
+                                        {customer.lng ? (
+                                            <div className="flex items-start space-x-3">
+                                                <span className="flex-1 text-sm font-medium text-gray-500 w-24 flex-shrink-0">
+                                                    Kinh độ:
+                                                </span>
+                                                <span className="text-sm text-gray-900 flex-1 bg-gradient-to-r from-blue-50 to-cyan-50 p-2 rounded-lg border border-blue-200">
+                                                    {customer.lng}
+                                                </span>
+                                            </div>
+                                        ) : (
+                                            <div className="flex items-start space-x-3">
+                                                <span className="flex-1 text-sm font-medium text-gray-500 w-24 flex-shrink-0">
+                                                    Kinh độ:
+                                                </span>
+                                                <span className="text-sm text-gray-400 flex-1 italic">
+                                                    chưa có dữ liệu
+                                                </span>
+                                            </div>
+                                        )}
                                     </div>
                                 </div>
                             )}
                         </div>
                     </div>
-
-                    
                 </div>
 
                 {/* Footer */}
