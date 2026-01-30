@@ -20,9 +20,11 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$re
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2d$alert$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__AlertCircle$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/circle-alert.js [app-client] (ecmascript) <export default as AlertCircle>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$left$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronLeft$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/chevron-left.js [app-client] (ecmascript) <export default as ChevronLeft>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$right$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronRight$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/chevron-right.js [app-client] (ecmascript) <export default as ChevronRight>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$toastify$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/react-toastify/dist/index.mjs [app-client] (ecmascript)");
 ;
 var _s = __turbopack_context__.k.signature();
 "use client";
+;
 ;
 ;
 ;
@@ -37,6 +39,8 @@ const ServiceManagement = ()=>{
     const [currentPage, setCurrentPage] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(1);
     const [totalPages, setTotalPages] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(1);
     const [total, setTotal] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(0);
+    const [showDeleteModal, setShowDeleteModal] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
+    const [deletingService, setDeletingService] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
     // Fetch services
     const fetchServices = async (page = 1, search = "", status = "all", group = "all")=>{
         try {
@@ -100,26 +104,27 @@ const ServiceManagement = ()=>{
         }
     };
     // Handle delete
-    const handleDelete = async (id)=>{
-        if (!confirm("Bạn có chắc chắn muốn xóa dịch vụ này?")) {
-            return;
-        }
+    const handleDelete = async ()=>{
+        if (!deletingService) return;
         try {
             const token = localStorage.getItem("token");
-            const response = await fetch(`/api/services/${id}`, {
+            const response = await fetch(`/api/services/${deletingService._id}`, {
                 method: "DELETE",
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
             });
             if (response.ok) {
+                __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$toastify$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].success("Xóa dịch vụ thành công");
+                setShowDeleteModal(false);
+                setDeletingService(null);
                 fetchServices(currentPage, searchQuery, statusFilter);
             } else {
                 throw new Error("Không thể xóa dịch vụ");
             }
         } catch (err) {
             console.error("Error deleting service:", err);
-            alert("Không thể xóa dịch vụ. Vui lòng thử lại.");
+            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$toastify$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].error("Không thể xóa dịch vụ. Vui lòng thử lại.");
         }
     };
     // Get status badge
@@ -132,8 +137,8 @@ const ServiceManagement = ()=>{
                         className: "w-3 h-3 mr-1"
                     }, void 0, false, {
                         fileName: "[project]/app/(dashboard)/services/page.tsx",
-                        lineNumber: 153,
-                        columnNumber: 25
+                        lineNumber: 155,
+                        columnNumber: 13
                     }, ("TURBOPACK compile-time value", void 0)),
                     "Đang hoạt động"
                 ]
@@ -143,16 +148,16 @@ const ServiceManagement = ()=>{
                         className: "w-3 h-3 mr-1"
                     }, void 0, false, {
                         fileName: "[project]/app/(dashboard)/services/page.tsx",
-                        lineNumber: 158,
-                        columnNumber: 25
+                        lineNumber: 160,
+                        columnNumber: 13
                     }, ("TURBOPACK compile-time value", void 0)),
                     "Ngừng hoạt động"
                 ]
             }, void 0, true)
         }, void 0, false, {
             fileName: "[project]/app/(dashboard)/services/page.tsx",
-            lineNumber: 144,
-            columnNumber: 13
+            lineNumber: 148,
+            columnNumber: 7
         }, ("TURBOPACK compile-time value", void 0));
     };
     // Format currency
@@ -177,27 +182,27 @@ const ServiceManagement = ()=>{
                         className: "animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"
                     }, void 0, false, {
                         fileName: "[project]/app/(dashboard)/services/page.tsx",
-                        lineNumber: 184,
-                        columnNumber: 21
+                        lineNumber: 186,
+                        columnNumber: 11
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                         className: "text-gray-600",
                         children: "Đang tải danh sách dịch vụ..."
                     }, void 0, false, {
                         fileName: "[project]/app/(dashboard)/services/page.tsx",
-                        lineNumber: 185,
-                        columnNumber: 21
+                        lineNumber: 187,
+                        columnNumber: 11
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/(dashboard)/services/page.tsx",
-                lineNumber: 183,
-                columnNumber: 17
+                lineNumber: 185,
+                columnNumber: 9
             }, ("TURBOPACK compile-time value", void 0))
         }, void 0, false, {
             fileName: "[project]/app/(dashboard)/services/page.tsx",
-            lineNumber: 182,
-            columnNumber: 13
+            lineNumber: 184,
+            columnNumber: 7
         }, ("TURBOPACK compile-time value", void 0));
     }
     if (error) {
@@ -211,7 +216,7 @@ const ServiceManagement = ()=>{
                     }, void 0, false, {
                         fileName: "[project]/app/(dashboard)/services/page.tsx",
                         lineNumber: 197,
-                        columnNumber: 21
+                        columnNumber: 11
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                         className: "text-red-600 mb-4",
@@ -219,7 +224,7 @@ const ServiceManagement = ()=>{
                     }, void 0, false, {
                         fileName: "[project]/app/(dashboard)/services/page.tsx",
                         lineNumber: 198,
-                        columnNumber: 21
+                        columnNumber: 11
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                         onClick: ()=>fetchServices(currentPage, searchQuery, statusFilter),
@@ -228,18 +233,18 @@ const ServiceManagement = ()=>{
                     }, void 0, false, {
                         fileName: "[project]/app/(dashboard)/services/page.tsx",
                         lineNumber: 199,
-                        columnNumber: 21
+                        columnNumber: 11
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/(dashboard)/services/page.tsx",
                 lineNumber: 196,
-                columnNumber: 17
+                columnNumber: 9
             }, ("TURBOPACK compile-time value", void 0))
         }, void 0, false, {
             fileName: "[project]/app/(dashboard)/services/page.tsx",
             lineNumber: 195,
-            columnNumber: 13
+            columnNumber: 7
         }, ("TURBOPACK compile-time value", void 0));
     }
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -258,8 +263,8 @@ const ServiceManagement = ()=>{
                                         className: "w-8 h-8 text-blue-600 mr-3"
                                     }, void 0, false, {
                                         fileName: "[project]/app/(dashboard)/services/page.tsx",
-                                        lineNumber: 222,
-                                        columnNumber: 25
+                                        lineNumber: 218,
+                                        columnNumber: 13
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                         children: [
@@ -268,28 +273,28 @@ const ServiceManagement = ()=>{
                                                 children: "Quản lý dịch vụ"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/(dashboard)/services/page.tsx",
-                                                lineNumber: 224,
-                                                columnNumber: 29
+                                                lineNumber: 220,
+                                                columnNumber: 15
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                                 className: "text-gray-600",
                                                 children: "Quản lý danh mục các dịch vụ công ty cung cấp"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/(dashboard)/services/page.tsx",
-                                                lineNumber: 227,
-                                                columnNumber: 29
+                                                lineNumber: 223,
+                                                columnNumber: 15
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/(dashboard)/services/page.tsx",
-                                        lineNumber: 223,
-                                        columnNumber: 25
+                                        lineNumber: 219,
+                                        columnNumber: 13
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/(dashboard)/services/page.tsx",
-                                lineNumber: 221,
-                                columnNumber: 21
+                                lineNumber: 217,
+                                columnNumber: 11
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                 onClick: ()=>router.push("/services/tao-moi"),
@@ -299,21 +304,21 @@ const ServiceManagement = ()=>{
                                         className: "w-5 h-5 mr-2"
                                     }, void 0, false, {
                                         fileName: "[project]/app/(dashboard)/services/page.tsx",
-                                        lineNumber: 237,
-                                        columnNumber: 25
+                                        lineNumber: 233,
+                                        columnNumber: 13
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     "Thêm dịch vụ"
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/(dashboard)/services/page.tsx",
-                                lineNumber: 233,
-                                columnNumber: 21
+                                lineNumber: 229,
+                                columnNumber: 11
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/(dashboard)/services/page.tsx",
-                        lineNumber: 220,
-                        columnNumber: 17
+                        lineNumber: 216,
+                        columnNumber: 9
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "mt-6 space-y-4",
@@ -325,8 +330,8 @@ const ServiceManagement = ()=>{
                                         className: "absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5"
                                     }, void 0, false, {
                                         fileName: "[project]/app/(dashboard)/services/page.tsx",
-                                        lineNumber: 246,
-                                        columnNumber: 25
+                                        lineNumber: 242,
+                                        columnNumber: 13
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                         type: "text",
@@ -336,14 +341,14 @@ const ServiceManagement = ()=>{
                                         className: "pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none w-full"
                                     }, void 0, false, {
                                         fileName: "[project]/app/(dashboard)/services/page.tsx",
-                                        lineNumber: 247,
-                                        columnNumber: 25
+                                        lineNumber: 243,
+                                        columnNumber: 13
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/(dashboard)/services/page.tsx",
-                                lineNumber: 245,
-                                columnNumber: 21
+                                lineNumber: 241,
+                                columnNumber: 11
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "flex flex-wrap gap-4",
@@ -354,16 +359,16 @@ const ServiceManagement = ()=>{
                                             className: "w-5 h-5 text-gray-400"
                                         }, void 0, false, {
                                             fileName: "[project]/app/(dashboard)/services/page.tsx",
-                                            lineNumber: 259,
-                                            columnNumber: 29
+                                            lineNumber: 255,
+                                            columnNumber: 15
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                             className: "text-sm text-gray-600",
                                             children: "Trạng thái:"
                                         }, void 0, false, {
                                             fileName: "[project]/app/(dashboard)/services/page.tsx",
-                                            lineNumber: 260,
-                                            columnNumber: 29
+                                            lineNumber: 256,
+                                            columnNumber: 15
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
                                             value: statusFilter,
@@ -375,53 +380,53 @@ const ServiceManagement = ()=>{
                                                     children: "Tất cả"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/(dashboard)/services/page.tsx",
-                                                    lineNumber: 270,
-                                                    columnNumber: 33
+                                                    lineNumber: 262,
+                                                    columnNumber: 17
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                     value: "true",
                                                     children: "Đang hoạt động"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/(dashboard)/services/page.tsx",
-                                                    lineNumber: 271,
-                                                    columnNumber: 33
+                                                    lineNumber: 263,
+                                                    columnNumber: 17
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                     value: "false",
                                                     children: "Ngừng hoạt động"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/(dashboard)/services/page.tsx",
-                                                    lineNumber: 272,
-                                                    columnNumber: 33
+                                                    lineNumber: 264,
+                                                    columnNumber: 17
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/(dashboard)/services/page.tsx",
-                                            lineNumber: 263,
-                                            columnNumber: 29
+                                            lineNumber: 257,
+                                            columnNumber: 15
                                         }, ("TURBOPACK compile-time value", void 0))
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/(dashboard)/services/page.tsx",
-                                    lineNumber: 258,
-                                    columnNumber: 25
+                                    lineNumber: 254,
+                                    columnNumber: 13
                                 }, ("TURBOPACK compile-time value", void 0))
                             }, void 0, false, {
                                 fileName: "[project]/app/(dashboard)/services/page.tsx",
-                                lineNumber: 257,
-                                columnNumber: 21
+                                lineNumber: 253,
+                                columnNumber: 11
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/(dashboard)/services/page.tsx",
-                        lineNumber: 243,
-                        columnNumber: 17
+                        lineNumber: 239,
+                        columnNumber: 9
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/(dashboard)/services/page.tsx",
-                lineNumber: 219,
-                columnNumber: 13
+                lineNumber: 215,
+                columnNumber: 7
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "bg-white rounded-lg shadow-sm overflow-hidden",
@@ -429,8 +434,8 @@ const ServiceManagement = ()=>{
                     className: "p-12 text-center"
                 }, void 0, false, {
                     fileName: "[project]/app/(dashboard)/services/page.tsx",
-                    lineNumber: 282,
-                    columnNumber: 21
+                    lineNumber: 274,
+                    columnNumber: 11
                 }, ("TURBOPACK compile-time value", void 0)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
                     children: [
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -447,51 +452,51 @@ const ServiceManagement = ()=>{
                                                     children: "Dịch vụ"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/(dashboard)/services/page.tsx",
-                                                    lineNumber: 320,
-                                                    columnNumber: 41
+                                                    lineNumber: 312,
+                                                    columnNumber: 21
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
                                                     className: "px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider",
                                                     children: "Nhóm dịch vụ"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/(dashboard)/services/page.tsx",
-                                                    lineNumber: 323,
-                                                    columnNumber: 41
+                                                    lineNumber: 315,
+                                                    columnNumber: 21
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
                                                     className: "px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider",
                                                     children: "Mô tả"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/(dashboard)/services/page.tsx",
-                                                    lineNumber: 326,
-                                                    columnNumber: 41
+                                                    lineNumber: 318,
+                                                    columnNumber: 21
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
                                                     className: "px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider",
                                                     children: "Trạng thái"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/(dashboard)/services/page.tsx",
-                                                    lineNumber: 329,
-                                                    columnNumber: 41
+                                                    lineNumber: 321,
+                                                    columnNumber: 21
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
                                                     className: "px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider",
                                                     children: "Thao tác"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/(dashboard)/services/page.tsx",
-                                                    lineNumber: 332,
-                                                    columnNumber: 41
+                                                    lineNumber: 324,
+                                                    columnNumber: 21
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/(dashboard)/services/page.tsx",
-                                            lineNumber: 319,
-                                            columnNumber: 37
+                                            lineNumber: 311,
+                                            columnNumber: 19
                                         }, ("TURBOPACK compile-time value", void 0))
                                     }, void 0, false, {
                                         fileName: "[project]/app/(dashboard)/services/page.tsx",
-                                        lineNumber: 318,
-                                        columnNumber: 33
+                                        lineNumber: 310,
+                                        columnNumber: 17
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
                                         className: "bg-white divide-y divide-gray-200",
@@ -507,8 +512,8 @@ const ServiceManagement = ()=>{
                                                                     className: "w-5 h-5 text-gray-400 mr-3"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/(dashboard)/services/page.tsx",
-                                                                    lineNumber: 345,
-                                                                    columnNumber: 53
+                                                                    lineNumber: 334,
+                                                                    columnNumber: 27
                                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                     children: [
@@ -517,33 +522,33 @@ const ServiceManagement = ()=>{
                                                                             children: service.serviceName
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/app/(dashboard)/services/page.tsx",
-                                                                            lineNumber: 347,
-                                                                            columnNumber: 57
+                                                                            lineNumber: 336,
+                                                                            columnNumber: 29
                                                                         }, ("TURBOPACK compile-time value", void 0)),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                             className: "text-sm text-gray-500",
                                                                             children: service.serviceId
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/app/(dashboard)/services/page.tsx",
-                                                                            lineNumber: 352,
-                                                                            columnNumber: 57
+                                                                            lineNumber: 339,
+                                                                            columnNumber: 29
                                                                         }, ("TURBOPACK compile-time value", void 0))
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/app/(dashboard)/services/page.tsx",
-                                                                    lineNumber: 346,
-                                                                    columnNumber: 53
+                                                                    lineNumber: 335,
+                                                                    columnNumber: 27
                                                                 }, ("TURBOPACK compile-time value", void 0))
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/app/(dashboard)/services/page.tsx",
-                                                            lineNumber: 344,
-                                                            columnNumber: 49
+                                                            lineNumber: 333,
+                                                            columnNumber: 25
                                                         }, ("TURBOPACK compile-time value", void 0))
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/(dashboard)/services/page.tsx",
-                                                        lineNumber: 343,
-                                                        columnNumber: 45
+                                                        lineNumber: 332,
+                                                        columnNumber: 23
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
                                                         className: "px-6 py-4 whitespace-nowrap",
@@ -552,13 +557,13 @@ const ServiceManagement = ()=>{
                                                             children: service.serviceGroup || "-"
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/(dashboard)/services/page.tsx",
-                                                            lineNumber: 359,
-                                                            columnNumber: 49
+                                                            lineNumber: 346,
+                                                            columnNumber: 25
                                                         }, ("TURBOPACK compile-time value", void 0))
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/(dashboard)/services/page.tsx",
-                                                        lineNumber: 358,
-                                                        columnNumber: 45
+                                                        lineNumber: 345,
+                                                        columnNumber: 23
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
                                                         className: "px-6 py-4",
@@ -567,21 +572,21 @@ const ServiceManagement = ()=>{
                                                             children: service.description || "Chưa có mô tả"
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/(dashboard)/services/page.tsx",
-                                                            lineNumber: 365,
-                                                            columnNumber: 49
+                                                            lineNumber: 351,
+                                                            columnNumber: 25
                                                         }, ("TURBOPACK compile-time value", void 0))
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/(dashboard)/services/page.tsx",
-                                                        lineNumber: 364,
-                                                        columnNumber: 45
+                                                        lineNumber: 350,
+                                                        columnNumber: 23
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
                                                         className: "px-6 py-4 whitespace-nowrap",
                                                         children: getStatusBadge(service.isActive)
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/(dashboard)/services/page.tsx",
-                                                        lineNumber: 370,
-                                                        columnNumber: 45
+                                                        lineNumber: 355,
+                                                        columnNumber: 23
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
                                                         className: "px-6 py-4 whitespace-nowrap text-right text-sm font-medium",
@@ -596,13 +601,13 @@ const ServiceManagement = ()=>{
                                                                         className: "w-4 h-4"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/app/(dashboard)/services/page.tsx",
-                                                                        lineNumber: 386,
-                                                                        columnNumber: 57
+                                                                        lineNumber: 367,
+                                                                        columnNumber: 29
                                                                     }, ("TURBOPACK compile-time value", void 0))
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/(dashboard)/services/page.tsx",
-                                                                    lineNumber: 377,
-                                                                    columnNumber: 53
+                                                                    lineNumber: 360,
+                                                                    columnNumber: 27
                                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                                                     onClick: ()=>router.push(`/services/${service._id}/edit`),
@@ -612,62 +617,65 @@ const ServiceManagement = ()=>{
                                                                         className: "w-4 h-4"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/app/(dashboard)/services/page.tsx",
-                                                                        lineNumber: 397,
-                                                                        columnNumber: 57
+                                                                        lineNumber: 376,
+                                                                        columnNumber: 29
                                                                     }, ("TURBOPACK compile-time value", void 0))
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/(dashboard)/services/page.tsx",
-                                                                    lineNumber: 388,
-                                                                    columnNumber: 53
+                                                                    lineNumber: 369,
+                                                                    columnNumber: 27
                                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                                    onClick: ()=>handleDelete(service._id),
+                                                                    onClick: ()=>{
+                                                                        setDeletingService(service);
+                                                                        setShowDeleteModal(true);
+                                                                    },
                                                                     className: "text-red-600 hover:text-red-900",
                                                                     title: "Xóa",
                                                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$trash$2d$2$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Trash2$3e$__["Trash2"], {
                                                                         className: "w-4 h-4"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/app/(dashboard)/services/page.tsx",
-                                                                        lineNumber: 408,
-                                                                        columnNumber: 57
+                                                                        lineNumber: 386,
+                                                                        columnNumber: 29
                                                                     }, ("TURBOPACK compile-time value", void 0))
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/(dashboard)/services/page.tsx",
-                                                                    lineNumber: 399,
-                                                                    columnNumber: 53
+                                                                    lineNumber: 378,
+                                                                    columnNumber: 27
                                                                 }, ("TURBOPACK compile-time value", void 0))
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/app/(dashboard)/services/page.tsx",
-                                                            lineNumber: 376,
-                                                            columnNumber: 49
+                                                            lineNumber: 359,
+                                                            columnNumber: 25
                                                         }, ("TURBOPACK compile-time value", void 0))
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/(dashboard)/services/page.tsx",
-                                                        lineNumber: 375,
-                                                        columnNumber: 45
+                                                        lineNumber: 358,
+                                                        columnNumber: 23
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 ]
                                             }, service._id, true, {
                                                 fileName: "[project]/app/(dashboard)/services/page.tsx",
-                                                lineNumber: 339,
-                                                columnNumber: 41
+                                                lineNumber: 331,
+                                                columnNumber: 21
                                             }, ("TURBOPACK compile-time value", void 0)))
                                     }, void 0, false, {
                                         fileName: "[project]/app/(dashboard)/services/page.tsx",
-                                        lineNumber: 337,
-                                        columnNumber: 33
+                                        lineNumber: 329,
+                                        columnNumber: 17
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/(dashboard)/services/page.tsx",
-                                lineNumber: 317,
-                                columnNumber: 29
+                                lineNumber: 309,
+                                columnNumber: 15
                             }, ("TURBOPACK compile-time value", void 0))
                         }, void 0, false, {
                             fileName: "[project]/app/(dashboard)/services/page.tsx",
-                            lineNumber: 316,
-                            columnNumber: 25
+                            lineNumber: 308,
+                            columnNumber: 13
                         }, ("TURBOPACK compile-time value", void 0)),
                         totalPages > 1 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             className: "bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6",
@@ -684,15 +692,15 @@ const ServiceManagement = ()=>{
                                                     className: "w-4 h-4 mr-1"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/(dashboard)/services/page.tsx",
-                                                    lineNumber: 429,
-                                                    columnNumber: 41
+                                                    lineNumber: 405,
+                                                    columnNumber: 21
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 "Trước"
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/(dashboard)/services/page.tsx",
-                                            lineNumber: 422,
-                                            columnNumber: 37
+                                            lineNumber: 400,
+                                            columnNumber: 19
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                             onClick: ()=>handlePageChange(currentPage + 1),
@@ -704,20 +712,20 @@ const ServiceManagement = ()=>{
                                                     className: "w-4 h-4 ml-1"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/(dashboard)/services/page.tsx",
-                                                    lineNumber: 440,
-                                                    columnNumber: 41
+                                                    lineNumber: 414,
+                                                    columnNumber: 21
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/(dashboard)/services/page.tsx",
-                                            lineNumber: 432,
-                                            columnNumber: 37
+                                            lineNumber: 408,
+                                            columnNumber: 19
                                         }, ("TURBOPACK compile-time value", void 0))
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/(dashboard)/services/page.tsx",
-                                    lineNumber: 421,
-                                    columnNumber: 33
+                                    lineNumber: 399,
+                                    columnNumber: 17
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                     className: "hidden sm:flex-1 sm:flex sm:items-center sm:justify-between",
@@ -733,8 +741,8 @@ const ServiceManagement = ()=>{
                                                         children: (currentPage - 1) * 10 + 1
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/(dashboard)/services/page.tsx",
-                                                        lineNumber: 447,
-                                                        columnNumber: 45
+                                                        lineNumber: 421,
+                                                        columnNumber: 23
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     " ",
                                                     "đến",
@@ -744,32 +752,30 @@ const ServiceManagement = ()=>{
                                                         children: Math.min(currentPage * 10, total)
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/(dashboard)/services/page.tsx",
-                                                        lineNumber: 451,
-                                                        columnNumber: 45
+                                                        lineNumber: 425,
+                                                        columnNumber: 23
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     " ",
-                                                    "trong",
-                                                    " ",
+                                                    "trong ",
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                         className: "font-medium",
                                                         children: total
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/(dashboard)/services/page.tsx",
-                                                        lineNumber: 458,
-                                                        columnNumber: 45
+                                                        lineNumber: 428,
+                                                        columnNumber: 29
                                                     }, ("TURBOPACK compile-time value", void 0)),
-                                                    " ",
-                                                    "kết quả"
+                                                    " kết quả"
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/(dashboard)/services/page.tsx",
-                                                lineNumber: 445,
-                                                columnNumber: 41
+                                                lineNumber: 419,
+                                                columnNumber: 21
                                             }, ("TURBOPACK compile-time value", void 0))
                                         }, void 0, false, {
                                             fileName: "[project]/app/(dashboard)/services/page.tsx",
-                                            lineNumber: 444,
-                                            columnNumber: 37
+                                            lineNumber: 418,
+                                            columnNumber: 19
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("nav", {
@@ -784,13 +790,13 @@ const ServiceManagement = ()=>{
                                                             className: "w-4 h-4"
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/(dashboard)/services/page.tsx",
-                                                            lineNumber: 478,
-                                                            columnNumber: 49
+                                                            lineNumber: 441,
+                                                            columnNumber: 25
                                                         }, ("TURBOPACK compile-time value", void 0))
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/(dashboard)/services/page.tsx",
-                                                        lineNumber: 469,
-                                                        columnNumber: 45
+                                                        lineNumber: 436,
+                                                        columnNumber: 23
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     Array.from({
                                                         length: Math.min(5, totalPages)
@@ -811,8 +817,8 @@ const ServiceManagement = ()=>{
                                                             children: pageNum
                                                         }, pageNum, false, {
                                                             fileName: "[project]/app/(dashboard)/services/page.tsx",
-                                                            lineNumber: 509,
-                                                            columnNumber: 57
+                                                            lineNumber: 462,
+                                                            columnNumber: 29
                                                         }, ("TURBOPACK compile-time value", void 0));
                                                     }),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -823,52 +829,145 @@ const ServiceManagement = ()=>{
                                                             className: "w-4 h-4"
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/(dashboard)/services/page.tsx",
-                                                            lineNumber: 540,
-                                                            columnNumber: 49
+                                                            lineNumber: 482,
+                                                            columnNumber: 25
                                                         }, ("TURBOPACK compile-time value", void 0))
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/(dashboard)/services/page.tsx",
-                                                        lineNumber: 529,
-                                                        columnNumber: 45
+                                                        lineNumber: 477,
+                                                        columnNumber: 23
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/(dashboard)/services/page.tsx",
-                                                lineNumber: 465,
-                                                columnNumber: 41
+                                                lineNumber: 432,
+                                                columnNumber: 21
                                             }, ("TURBOPACK compile-time value", void 0))
                                         }, void 0, false, {
                                             fileName: "[project]/app/(dashboard)/services/page.tsx",
-                                            lineNumber: 464,
-                                            columnNumber: 37
+                                            lineNumber: 431,
+                                            columnNumber: 19
                                         }, ("TURBOPACK compile-time value", void 0))
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/(dashboard)/services/page.tsx",
-                                    lineNumber: 443,
-                                    columnNumber: 33
+                                    lineNumber: 417,
+                                    columnNumber: 17
                                 }, ("TURBOPACK compile-time value", void 0))
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/(dashboard)/services/page.tsx",
-                            lineNumber: 420,
-                            columnNumber: 29
+                            lineNumber: 398,
+                            columnNumber: 15
                         }, ("TURBOPACK compile-time value", void 0))
                     ]
                 }, void 0, true)
             }, void 0, false, {
                 fileName: "[project]/app/(dashboard)/services/page.tsx",
-                lineNumber: 280,
-                columnNumber: 13
+                lineNumber: 272,
+                columnNumber: 7
+            }, ("TURBOPACK compile-time value", void 0)),
+            showDeleteModal && deletingService && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "fixed inset-0 bg-black/80 transition z-50 flex items-center justify-center p-4",
+                onClick: ()=>{
+                    setShowDeleteModal(false);
+                    setDeletingService(null);
+                },
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "bg-white rounded-lg max-w-md w-full p-6 shadow-xl",
+                    onClick: (e)=>e.stopPropagation(),
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "flex items-center justify-center w-12 h-12 mx-auto bg-red-100 rounded-full mb-4",
+                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$trash$2d$2$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Trash2$3e$__["Trash2"], {
+                                className: "w-6 h-6 text-red-600"
+                            }, void 0, false, {
+                                fileName: "[project]/app/(dashboard)/services/page.tsx",
+                                lineNumber: 506,
+                                columnNumber: 15
+                            }, ("TURBOPACK compile-time value", void 0))
+                        }, void 0, false, {
+                            fileName: "[project]/app/(dashboard)/services/page.tsx",
+                            lineNumber: 505,
+                            columnNumber: 13
+                        }, ("TURBOPACK compile-time value", void 0)),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                            className: "text-lg font-semibold text-gray-900 text-center mb-2",
+                            children: "Xác nhận xóa dịch vụ"
+                        }, void 0, false, {
+                            fileName: "[project]/app/(dashboard)/services/page.tsx",
+                            lineNumber: 508,
+                            columnNumber: 13
+                        }, ("TURBOPACK compile-time value", void 0)),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                            className: "text-sm text-gray-600 text-center mb-6",
+                            children: [
+                                "Bạn có chắc chắn muốn xóa dịch vụ",
+                                " ",
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                    className: "font-semibold",
+                                    children: deletingService.serviceName
+                                }, void 0, false, {
+                                    fileName: "[project]/app/(dashboard)/services/page.tsx",
+                                    lineNumber: 513,
+                                    columnNumber: 15
+                                }, ("TURBOPACK compile-time value", void 0)),
+                                "? Hành động này không thể hoàn tác."
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/app/(dashboard)/services/page.tsx",
+                            lineNumber: 511,
+                            columnNumber: 13
+                        }, ("TURBOPACK compile-time value", void 0)),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "flex gap-3",
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                    onClick: ()=>{
+                                        setShowDeleteModal(false);
+                                        setDeletingService(null);
+                                    },
+                                    className: "flex-1 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50",
+                                    children: "Hủy"
+                                }, void 0, false, {
+                                    fileName: "[project]/app/(dashboard)/services/page.tsx",
+                                    lineNumber: 519,
+                                    columnNumber: 15
+                                }, ("TURBOPACK compile-time value", void 0)),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                    onClick: handleDelete,
+                                    className: "flex-1 px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-md hover:bg-red-700",
+                                    children: "Xóa"
+                                }, void 0, false, {
+                                    fileName: "[project]/app/(dashboard)/services/page.tsx",
+                                    lineNumber: 528,
+                                    columnNumber: 15
+                                }, ("TURBOPACK compile-time value", void 0))
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/app/(dashboard)/services/page.tsx",
+                            lineNumber: 518,
+                            columnNumber: 13
+                        }, ("TURBOPACK compile-time value", void 0))
+                    ]
+                }, void 0, true, {
+                    fileName: "[project]/app/(dashboard)/services/page.tsx",
+                    lineNumber: 501,
+                    columnNumber: 11
+                }, ("TURBOPACK compile-time value", void 0))
+            }, void 0, false, {
+                fileName: "[project]/app/(dashboard)/services/page.tsx",
+                lineNumber: 494,
+                columnNumber: 9
             }, ("TURBOPACK compile-time value", void 0))
         ]
     }, void 0, true, {
         fileName: "[project]/app/(dashboard)/services/page.tsx",
-        lineNumber: 217,
-        columnNumber: 9
+        lineNumber: 213,
+        columnNumber: 5
     }, ("TURBOPACK compile-time value", void 0));
 };
-_s(ServiceManagement, "uMiF1uw+ZJjmVd6pZC33IHJbsUg=", false, function() {
+_s(ServiceManagement, "uv3RuPNdKT3Vf4wU1rE609dxwYg=", false, function() {
     return [
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"]
     ];

@@ -5,47 +5,61 @@ import "../styles/leaflet.css";
 import "react-toastify/dist/ReactToastify.css";
 
 const geistSans = Geist({
-    variable: "--font-geist-sans",
-    subsets: ["latin"],
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
 });
 
 const geistMono = Geist_Mono({
-    variable: "--font-geist-mono",
-    subsets: ["latin"],
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
-    title: "Trường Giang CRM - Hệ thống Quản lý Khách hàng",
-    description: "Hệ thống CRM toàn diện cho doanh nghiệp",
-    icons: {
-        icon: [
-            { url: "/favicon.ico", sizes: "any" },
-            { url: "/images/logo.png", sizes: "32x32", type: "image/png" },
-            { url: "/images/logo.png", sizes: "16x16", type: "image/png" },
-        ],
-        apple: [
-            {
-                url: "/images/logo.png",
-                sizes: "180x180",
-                type: "image/png",
-            },
-        ],
-    },
-    manifest: "/site.webmanifest",
+  title: "Trường Giang CRM - Hệ thống Quản lý Khách hàng",
+  description: "Hệ thống CRM toàn diện cho doanh nghiệp",
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/images/logo.png", sizes: "32x32", type: "image/png" },
+      { url: "/images/logo.png", sizes: "16x16", type: "image/png" },
+    ],
+    apple: [
+      {
+        url: "/images/logo.png",
+        sizes: "180x180",
+        type: "image/png",
+      },
+    ],
+  },
+  manifest: "/site.webmanifest",
 };
 
+import { ToastContainer } from "react-toastify";
+
 export default function RootLayout({
-    children,
+  children,
 }: Readonly<{
-    children: React.ReactNode;
+  children: React.ReactNode;
 }>) {
-    return (
-        <html lang="vi">
-            <body
-                className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-            >
-                {children}
-            </body>
-        </html>
-    );
+  return (
+    <html lang="vi">
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
+        {children}
+        <ToastContainer
+          position="top-right"
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
+      </body>
+    </html>
+  );
 }

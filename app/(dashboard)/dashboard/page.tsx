@@ -142,7 +142,7 @@ const Dashboard = () => {
                 id: "positions",
                 text: "Chức vụ",
                 icon: Briefcase,
-                path: "/chuc-vu",
+                path: "/positions",
                 description: "Quản lý chức vụ và phòng ban",
                 groupName: "Quản lý nhân sự",
                 color: "purple",
@@ -153,7 +153,7 @@ const Dashboard = () => {
                 id: "customers",
                 text: "Khách hàng",
                 icon: Building,
-                path: "/khach-hang",
+                path: "/customers",
                 description: "Quản lý thông tin khách hàng",
                 groupName: "Quản lý khách hàng",
                 badge: stats.customers,
@@ -203,7 +203,7 @@ const Dashboard = () => {
                 id: "service_packages",
                 text: "Gói dịch vụ",
                 icon: Layers,
-                path: "/services/goi-dich-vu",
+                path: "/services/service-packages",
                 description: "Quản lý các gói dịch vụ",
                 groupName: "Quản lý dịch vụ",
                 color: "lime",
@@ -212,7 +212,7 @@ const Dashboard = () => {
                 id: "service_pricing",
                 text: "Cài đặt giá",
                 icon: DollarSign,
-                path: "/services/cai-dat-gia",
+                path: "/services/price-settings",
                 description: "Quản lý bảng giá gói dịch vụ",
                 groupName: "Quản lý dịch vụ",
                 color: "yellow",
@@ -250,7 +250,7 @@ const Dashboard = () => {
                 id: "quotations",
                 text: "Báo giá",
                 icon: FileText,
-                path: "/bao-gia",
+                path: "/quotations",
                 description: "Quản lý báo giá dịch vụ",
                 groupName: "Báo giá & Hợp đồng",
                 badge: stats.quotations,
@@ -778,3 +778,4 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+
