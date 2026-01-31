@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import dbConnect from "../../../lib/dbConnect";
-import User from "../../../models/User";
+import Employee from "../../../models/Employee";
 
 export async function POST() {
     try {
@@ -8,7 +8,7 @@ export async function POST() {
         console.log("🔄 Creating admin user...");
 
         // Check if admin already exists
-        const existingAdmin = await User.findOne({ username: "admin" });
+        const existingAdmin = await Employee.findOne({ username: "admin" });
         if (existingAdmin) {
             return NextResponse.json(
                 {
@@ -20,7 +20,7 @@ export async function POST() {
         }
 
         // Create admin user
-        const admin = new User({
+        const admin = new Employee({
             username: "admin",
             password: "admin123", // Plain text as per backend logic
             fullName: "Administrator",

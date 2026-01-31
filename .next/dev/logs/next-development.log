@@ -1,62 +1,51 @@
-[00:00:15.277] Server  LOG     ✓ Ready in 10.7s
-[00:00:15.925] Browser ERROR   uncaughtError: Error: Module [project]/node_modules/lucide-react/dist/esm/icons/calendar.js [app-client] (ecmascript) <export default as Calendar> was instantiated because it was required from module [project]/app/components/Navigation.tsx [app-client] (ecmascript), but the module factory is not available. It might have been deleted in an HMR update.
-[00:00:20.553] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
-[00:00:31.756] Server  LOG     📡 Connecting to MongoDB...
-[00:00:31.773] Server  LOG     ○ Compiling /api/customers ...
-[00:00:31.866] Server  LOG     📡 Connecting to MongoDB...
-[00:00:31.866] Server  LOG     ✅ MongoDB connected successfully
-[00:00:31.870] Server  LOG     📊 Database name: undefined
-[00:00:32.086] Server  ERROR   Error fetching employees: MongooseError: Cannot call `Nhân viên.find()` before initial connection is complete if `bufferCommands = false`. Make sure you `await mongoose.connect()` if you have `bufferCommands = false`.
-[00:00:32.187] Server  LOG     📡 Connecting to MongoDB...
-[00:00:32.188] Server  LOG     ✅ MongoDB connected successfully
-[00:00:32.190] Server  LOG     📊 Database name: undefined
-[00:00:32.320] Server  ERROR   GET customers error: MongooseError: Cannot call `DSKH.find()` before initial connection is complete if `bufferCommands = false`. Make sure you `await mongoose.connect()` if you have `bufferCommands = false`.
-[00:00:32.860] Server  LOG     📡 Connecting to MongoDB...
-[00:00:32.861] Server  LOG     ✅ MongoDB connected successfully
-[00:00:32.861] Server  LOG     📊 Database name: undefined
-[00:00:32.957] Server  ERROR   GET customers error: MongooseError: Cannot call `DSKH.find()` before initial connection is complete if `bufferCommands = false`. Make sure you `await mongoose.connect()` if you have `bufferCommands = false`.
-[00:00:32.980] Server  LOG     📡 Connecting to MongoDB...
-[00:00:32.980] Server  LOG     ✅ MongoDB connected successfully
-[00:00:32.981] Server  LOG     📊 Database name: undefined
-[00:00:33.103] Server  ERROR   GET customers error: MongooseError: Cannot call `DSKH.find()` before initial connection is complete if `bufferCommands = false`. Make sure you `await mongoose.connect()` if you have `bufferCommands = false`.
-[00:00:33.110] Browser ERROR   Error fetching customers: {}
-[00:00:33.189] Server  LOG     📡 Connecting to MongoDB...
-[00:00:33.189] Server  LOG     ✅ MongoDB connected successfully
-[00:00:33.192] Server  LOG     📊 Database name: undefined
-[00:00:33.316] Server  ERROR   Error fetching source settings: MongooseError: Cannot call `source_settings.find()` before initial connection is complete if `bufferCommands = false`. Make sure you `await mongoose.connect()` if you have `bufferCommands = false`.
-[00:00:33.337] Browser ERROR   Error fetching customers: {}
-[00:00:33.350] Server  LOG     📡 Connecting to MongoDB...
-[00:00:33.351] Server  LOG     ✅ MongoDB connected successfully
-[00:00:33.351] Server  LOG     📊 Database name: undefined
-[00:00:33.434] Server  ERROR   Error fetching source settings: MongooseError: Cannot call `source_settings.find()` before initial connection is complete if `bufferCommands = false`. Make sure you `await mongoose.connect()` if you have `bufferCommands = false`.
-[00:00:33.452] Server  LOG     ✅ MongoDB connected successfully
-[00:00:33.453] Server  LOG     📊 Database name: "trg-crm"
-[00:00:33.669] Server  LOG     ♻️ Using existing MongoDB connection
-[00:00:33.680] Server  LOG     ♻️ Using existing MongoDB connection
-[00:00:34.727] Server  LOG     ♻️ Using existing MongoDB connection
-[00:00:34.762] Server  LOG     ♻️ Using existing MongoDB connection
-[00:00:34.772] Server  LOG     ♻️ Using existing MongoDB connection
-[00:00:34.784] Server  LOG     ♻️ Using existing MongoDB connection
-[00:00:34.939] Browser LOG     [{"__v":0,"_id":"697b2822d5ea0bf60b845bb7","address":"Hẻm 149 Lý Thánh Tông, Tân Thới Hòa, 72000, Phú Thạnh, Thành phố Hồ Chí Minh, Việt Nam","createdAt":"2026-01-29T09:28:02.774Z","customerId":"KHT1-0001","fullName":"Ton","isActive":true,"latitude":10.766823188339302,"longitude":106.6258117273457,"phone":"0916467039","potentialLevel":"Trung hạn","registrationDate":"2026-01-29T09:28:02.769Z","salesPerson":"Nguyễn Văn A","serviceGroup":"nội thất","shortName":"t1","source":"TikTok","updatedAt":"2026-01-29T09:28:02.774Z"}]
-[00:00:34.939] Browser LOG     [{"__v":0,"_id":"697b2822d5ea0bf60b845bb7","address":"Hẻm 149 Lý Thánh Tông, Tân Thới Hòa, 72000, Phú Thạnh, Thành phố Hồ Chí Minh, Việt Nam","createdAt":"2026-01-29T09:28:02.774Z","customerId":"KHT1-0001","fullName":"Ton","isActive":true,"latitude":10.766823188339302,"longitude":106.6258117273457,"phone":"0916467039","potentialLevel":"Trung hạn","registrationDate":"2026-01-29T09:28:02.769Z","salesPerson":"Nguyễn Văn A","serviceGroup":"nội thất","shortName":"t1","source":"TikTok","updatedAt":"2026-01-29T09:28:02.774Z"}]
-[00:00:36.732] Server  LOG     ♻️ Using existing MongoDB connection
-[00:00:36.760] Server  LOG     ♻️ Using existing MongoDB connection
-[00:00:37.091] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
-[00:00:37.091] Browser LOG     [{"__v":0,"_id":"697b2822d5ea0bf60b845bb7","address":"Hẻm 149 Lý Thánh Tông, Tân Thới Hòa, 72000, Phú Thạnh, Thành phố Hồ Chí Minh, Việt Nam","createdAt":"2026-01-29T09:28:02.774Z","customerId":"KHT1-0001","fullName":"Ton","isActive":true,"latitude":10.766823188339302,"longitude":106.6258117273457,"phone":"0916467039","potentialLevel":"Trung hạn","registrationDate":"2026-01-29T09:28:02.769Z","salesPerson":"Nguyễn Văn A","serviceGroup":"nội thất","shortName":"t1","source":"TikTok","updatedAt":"2026-01-29T09:28:02.774Z"}]
-[00:00:39.320] Server  LOG     ♻️ Using existing MongoDB connection
-[00:00:39.332] Server  LOG     ♻️ Using existing MongoDB connection
-[00:00:40.660] Server  LOG     ♻️ Using existing MongoDB connection
-[00:00:40.682] Server  LOG     ♻️ Using existing MongoDB connection
-[00:00:40.691] Server  LOG     ♻️ Using existing MongoDB connection
-[00:00:40.702] Server  LOG     ♻️ Using existing MongoDB connection
-[00:00:40.715] Server  LOG     ♻️ Using existing MongoDB connection
-[00:00:40.726] Server  LOG     ♻️ Using existing MongoDB connection
-[00:00:50.344] Server  LOG     ♻️ Using existing MongoDB connection
-[00:00:50.346] Server  LOG     API Services - Query params: {}
-[00:00:50.346] Server  LOG     API Services - MongoDB query: {}
-[00:00:50.403] Server  LOG     API Services - Found services: 1
-[00:00:51.231] Server  LOG     ♻️ Using existing MongoDB connection
-[00:00:51.291] Server  LOG     Service Pricing Results: {}
-[00:01:02.916] Server  LOG     ♻️ Using existing MongoDB connection
-[00:01:03.122] Server  LOG     ♻️ Using existing MongoDB connection
-[00:01:03.133] Server  LOG     ♻️ Using existing MongoDB connection
+[00:00:19.279] Server  LOG     ✓ Ready in 13.5s
+[00:00:51.800] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
+[00:00:52.074] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
+[00:00:52.307] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
+[00:00:52.443] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
+[00:00:52.604] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
+[00:00:52.760] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
+[00:00:52.994] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
+[00:00:53.265] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
+[00:00:53.400] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
+[00:00:53.515] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
+[00:00:53.634] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
+[00:00:53.754] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
+[00:00:53.902] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
+[00:00:54.118] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
+[00:00:54.349] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
+[00:00:54.494] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
+[00:00:54.620] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
+[00:00:54.745] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
+[00:00:54.861] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
+[00:00:54.982] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
+[00:00:55.222] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
+[00:00:55.388] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
+[00:00:55.546] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
+[00:00:55.713] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
+[00:00:55.836] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
+[00:00:55.962] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
+[00:00:56.086] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
+[00:00:56.240] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
+[00:00:56.827] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
+[00:00:56.829] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
+[00:00:56.829] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
+[00:00:56.948] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
+[00:00:57.491] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
+[00:00:57.864] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
+[00:00:58.229] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
+[00:00:58.531] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
+[00:00:58.753] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
+[00:00:58.917] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
+[00:00:59.202] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
+[00:00:59.520] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
+[00:00:59.942] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
+[00:00:59.942] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
+[00:01:00.561] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:01:13.040] Server  LOG     📡 Connecting to MongoDB...
+[00:01:13.720] Server  LOG     ✅ MongoDB connected successfully
+[00:01:13.720] Server  LOG     📊 Database name: "trg-crm"
+[00:01:13.721] Server  LOG     🔄 Fetching dashboard stats...
+[00:01:14.459] Server  LOG     ✅ Dashboard stats fetched successfully
+[00:02:31.226] Server  LOG     ♻️ Using existing MongoDB connection
+[00:02:31.356] Server  LOG     ♻️ Using existing MongoDB connection
