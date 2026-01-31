@@ -858,9 +858,9 @@ const CreateCustomerCare = () => {
                         >
                           {fileData.name}
                         </a>
-                        <span className="text-xs text-gray-400 shrink-0">
+                        {/* <span className="text-xs text-gray-400 shrink-0">
                           .{fileData.format}
-                        </span>
+                        </span> */}
                       </div>
                       <button
                         type="button"

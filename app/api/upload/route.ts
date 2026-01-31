@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { v2 as cloudinary } from "cloudinary";
 
-// Config Cloudinary with environment variables
+// Config Cloudinary
 cloudinary.config({
   cloud_name: process.env.VITE_CLOUDINARY_CLOUD_NAME,
   api_key: process.env.VITE_CLOUDINARY_APIKEY,
@@ -18,17 +18,24 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "No file provided" }, { status: 400 });
     }
 
+    // Lấy tên file gốc (ví dụ: hop-dong.docx)
+    const originalFileName = file.name;
+
     // Convert file to buffer
     const arrayBuffer = await file.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
 
-    // Upload to Cloudinary using upload_stream
-    // resource_type: "auto" lets Cloudinary detect if it's image, video, or raw file
     const result: any = await new Promise((resolve, reject) => {
       const uploadStream = cloudinary.uploader.upload_stream(
         {
           folder: folder,
-          resource_type: "auto",
+          resource_type: "auto", // Tự động nhận diện (image, video, raw)
+          
+          // --- CẤU HÌNH QUAN TRỌNG ĐỂ GIỮ ĐUÔI FILE ---
+          use_filename: true,      // Sử dụng tên file gốc làm public_id
+          unique_filename: true,   // Thêm chuỗi ngẫu nhiên để tránh trùng tên nhưng VẪN GIỮ đuôi file
+          filename_override: originalFileName, // Gửi tên file gốc vào để Cloudinary biết
+          // --------------------------------------------
         },
         (error, result) => {
           if (error) {
@@ -39,17 +46,18 @@ export async function POST(request: NextRequest) {
           }
         },
       );
-      // Write buffer to stream
       uploadStream.end(buffer);
     });
 
     return NextResponse.json({
       success: true,
       data: {
+        // secure_url lúc này sẽ có dạng: .../baocao_xyz123.docx
         secure_url: result.secure_url,
         public_id: result.public_id,
         format: result.format,
         resource_type: result.resource_type,
+        original_filename: result.original_filename, // Trả về thêm tên gốc nếu cần
       },
     });
   } catch (error: any) {

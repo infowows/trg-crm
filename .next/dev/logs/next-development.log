@@ -1,51 +1,304 @@
-[00:00:19.279] Server  LOG     ✓ Ready in 13.5s
-[00:00:51.800] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
-[00:00:52.074] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
-[00:00:52.307] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
-[00:00:52.443] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
-[00:00:52.604] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
-[00:00:52.760] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
-[00:00:52.994] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
-[00:00:53.265] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
-[00:00:53.400] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
-[00:00:53.515] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
-[00:00:53.634] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
-[00:00:53.754] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
-[00:00:53.902] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
-[00:00:54.118] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
-[00:00:54.349] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
-[00:00:54.494] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
-[00:00:54.620] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
-[00:00:54.745] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
-[00:00:54.861] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
-[00:00:54.982] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
-[00:00:55.222] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
-[00:00:55.388] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
-[00:00:55.546] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
-[00:00:55.713] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
-[00:00:55.836] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
-[00:00:55.962] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
-[00:00:56.086] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
-[00:00:56.240] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
-[00:00:56.827] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
-[00:00:56.829] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
-[00:00:56.829] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
-[00:00:56.948] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
-[00:00:57.491] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
-[00:00:57.864] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
-[00:00:58.229] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
-[00:00:58.531] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
-[00:00:58.753] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
-[00:00:58.917] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
-[00:00:59.202] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
-[00:00:59.520] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
-[00:00:59.942] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
-[00:00:59.942] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
-[00:01:00.561] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
-[00:01:13.040] Server  LOG     📡 Connecting to MongoDB...
-[00:01:13.720] Server  LOG     ✅ MongoDB connected successfully
-[00:01:13.720] Server  LOG     📊 Database name: "trg-crm"
-[00:01:13.721] Server  LOG     🔄 Fetching dashboard stats...
-[00:01:14.459] Server  LOG     ✅ Dashboard stats fetched successfully
-[00:02:31.226] Server  LOG     ♻️ Using existing MongoDB connection
-[00:02:31.356] Server  LOG     ♻️ Using existing MongoDB connection
+[00:00:02.215] Server  LOG     ✓ Ready in 1785ms
+[00:03:55.346] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
+[00:03:55.514] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
+[00:03:55.655] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
+[00:03:55.875] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
+[00:03:56.028] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
+[00:03:56.186] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
+[00:03:56.377] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
+[00:03:56.541] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
+[00:03:56.630] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
+[00:03:56.929] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
+[00:03:57.132] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
+[00:03:57.261] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
+[00:03:57.381] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
+[00:03:57.543] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
+[00:03:57.780] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
+[00:03:57.933] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
+[00:03:58.071] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
+[00:03:58.210] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
+[00:03:58.704] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
+[00:03:58.704] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
+[00:03:58.705] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
+[00:03:59.806] Server  LOG     📡 Connecting to MongoDB...
+[00:03:59.821] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:04:00.505] Server  LOG     ✅ MongoDB connected successfully
+[00:04:00.506] Server  LOG     📊 Database name: "trg-crm"
+[00:04:00.507] Server  LOG     🔄 Fetching dashboard stats...
+[00:04:01.235] Server  LOG     ✅ Dashboard stats fetched successfully
+[00:04:01.961] Server  LOG     ♻️ Using existing MongoDB connection
+[00:04:02.043] Server  LOG     ♻️ Using existing MongoDB connection
+[00:04:40.552] Server  LOG     ✓ Compiled in 185ms
+[00:04:40.668] Browser ERROR   ./app/(dashboard)/customer-care/page.tsx:689:41
+Parsing ecmascript source code failed
+  687 |                         <a
+  688 |                           key={index}
+> 689 |                           href={fileUrl}.
+      |                                         ^
+  690 |                           target="_blank"
+  691 |                           rel="noopener noreferrer"
+  692 |                           className="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-blue-50 transition group"
+
+Expected '</', got '.'
+
+Import traces:
+  Client Component Browser:
+    ./app/(dashboard)/customer-care/page.tsx [Client Component Browser]
+    ./app/(dashboard)/customer-care/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/(dashboard)/customer-care/page.tsx [Client Component SSR]
+    ./app/(dashboard)/customer-care/page.tsx [Server Component]
+[00:04:46.273] Server  LOG     ✓ Compiled in 85ms
+[00:04:46.376] Browser ERROR   ./app/(dashboard)/customer-care/page.tsx:689:42
+Parsing ecmascript source code failed
+  687 |                         <a
+  688 |                           key={index}
+> 689 |                           href={fileUrl}{}
+      |                                          ^
+  690 |                           target="_blank"
+  691 |                           rel="noopener noreferrer"
+  692 |                           className="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-blue-50 transition group"
+
+Expected '</', got '}'
+
+Import traces:
+  Client Component Browser:
+    ./app/(dashboard)/customer-care/page.tsx [Client Component Browser]
+    ./app/(dashboard)/customer-care/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/(dashboard)/customer-care/page.tsx [Client Component SSR]
+    ./app/(dashboard)/customer-care/page.tsx [Server Component]
+[00:04:48.691] Server  LOG     ✓ Compiled in 108ms
+[00:04:48.797] Browser ERROR   ./app/(dashboard)/customer-care/page.tsx:689:42
+Parsing ecmascript source code failed
+  687 |                         <a
+  688 |                           key={index}
+> 689 |                           href={fileUrl}{fil}
+      |                                          ^^^
+  690 |                           target="_blank"
+  691 |                           rel="noopener noreferrer"
+  692 |                           className="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-blue-50 transition group"
+
+Expected '</', got 'fil'
+
+Import traces:
+  Client Component Browser:
+    ./app/(dashboard)/customer-care/page.tsx [Client Component Browser]
+    ./app/(dashboard)/customer-care/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/(dashboard)/customer-care/page.tsx [Client Component SSR]
+    ./app/(dashboard)/customer-care/page.tsx [Server Component]
+[00:04:50.764] Server  LOG     ✓ Compiled in 81ms
+[00:04:50.865] Browser ERROR   ./app/(dashboard)/customer-care/page.tsx:689:42
+Parsing ecmascript source code failed
+  687 |                         <a
+  688 |                           key={index}
+> 689 |                           href={fileUrl}{fileFormat}
+      |                                          ^^^^^^^^^^
+  690 |                           target="_blank"
+  691 |                           rel="noopener noreferrer"
+  692 |                           className="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-blue-50 transition group"
+
+Expected '</', got 'fileFormat'
+
+Import traces:
+  Client Component Browser:
+    ./app/(dashboard)/customer-care/page.tsx [Client Component Browser]
+    ./app/(dashboard)/customer-care/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/(dashboard)/customer-care/page.tsx [Client Component SSR]
+    ./app/(dashboard)/customer-care/page.tsx [Server Component]
+[00:04:54.563] Server  LOG     ✓ Compiled in 74ms
+[00:04:54.668] Browser ERROR   ./app/(dashboard)/customer-care/page.tsx:689:41
+Parsing ecmascript source code failed
+  687 |                         <a
+  688 |                           key={index}
+> 689 |                           href={fileUrl}+{fileFormat}
+      |                                         ^
+  690 |                           target="_blank"
+  691 |                           rel="noopener noreferrer"
+  692 |                           className="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-blue-50 transition group"
+
+Expression expected
+
+Import traces:
+  Client Component Browser:
+    ./app/(dashboard)/customer-care/page.tsx [Client Component Browser]
+    ./app/(dashboard)/customer-care/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/(dashboard)/customer-care/page.tsx [Client Component SSR]
+    ./app/(dashboard)/customer-care/page.tsx [Server Component]
+[00:04:57.470] Browser ERROR   ./app/(dashboard)/customer-care/page.tsx:689:41
+Parsing ecmascript source code failed
+  687 |                         <a
+  688 |                           key={index}
+> 689 |                           href={fileUrl}+'"{fileFormat}
+      |                                         ^
+  690 |                           target="_blank"
+  691 |                           rel="noopener noreferrer"
+  692 |                           className="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-blue-50 transition group"
+
+Expression expected
+
+Import traces:
+  Client Component Browser:
+    ./app/(dashboard)/customer-care/page.tsx [Client Component Browser]
+    ./app/(dashboard)/customer-care/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/(dashboard)/customer-care/page.tsx [Client Component SSR]
+    ./app/(dashboard)/customer-care/page.tsx [Server Component]
+[00:04:57.470] Browser ERROR   ./app/(dashboard)/customer-care/page.tsx:689:42
+Parsing ecmascript source code failed
+  687 |                         <a
+  688 |                           key={index}
+> 689 |                           href={fileUrl}+'"{fileFormat}
+      |                                          ^^^^^^^^^^^^^^
+  690 |                           target="_blank"
+  691 |                           rel="noopener noreferrer"
+  692 |                           className="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-blue-50 transition group"
+
+Unterminated string constant
+
+Import traces:
+  Client Component Browser:
+    ./app/(dashboard)/customer-care/page.tsx [Client Component Browser]
+    ./app/(dashboard)/customer-care/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/(dashboard)/customer-care/page.tsx [Client Component SSR]
+    ./app/(dashboard)/customer-care/page.tsx [Server Component]
+[00:05:02.121] Server  LOG     ✓ Compiled in 92ms
+[00:05:02.228] Browser ERROR   ./app/(dashboard)/customer-care/page.tsx:689:41
+Parsing ecmascript source code failed
+  687 |                         <a
+  688 |                           key={index}
+> 689 |                           href={fileUrl}""{fileFormat}
+      |                                         ^^
+  690 |                           target="_blank"
+  691 |                           rel="noopener noreferrer"
+  692 |                           className="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-blue-50 transition group"
+
+Expected '</', got 'string literal ("", "")'
+
+Import traces:
+  Client Component Browser:
+    ./app/(dashboard)/customer-care/page.tsx [Client Component Browser]
+    ./app/(dashboard)/customer-care/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/(dashboard)/customer-care/page.tsx [Client Component SSR]
+    ./app/(dashboard)/customer-care/page.tsx [Server Component]
+[00:05:05.429] Server  LOG     ✓ Compiled in 104ms
+[00:05:05.534] Browser ERROR   ./app/(dashboard)/customer-care/page.tsx:689:41
+Parsing ecmascript source code failed
+  687 |                         <a
+  688 |                           key={index}
+> 689 |                           href={fileUrl}"."{fileFormat}
+      |                                         ^^^
+  690 |                           target="_blank"
+  691 |                           rel="noopener noreferrer"
+  692 |                           className="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-blue-50 transition group"
+
+Expected '</', got 'string literal (".", ".")'
+
+Import traces:
+  Client Component Browser:
+    ./app/(dashboard)/customer-care/page.tsx [Client Component Browser]
+    ./app/(dashboard)/customer-care/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/(dashboard)/customer-care/page.tsx [Client Component SSR]
+    ./app/(dashboard)/customer-care/page.tsx [Server Component]
+[00:05:12.668] Server  LOG     ✓ Compiled in 75ms
+[00:05:12.773] Browser ERROR   ./app/(dashboard)/customer-care/page.tsx:689:42
+Parsing ecmascript source code failed
+  687 |                         <a
+  688 |                           key={index}
+> 689 |                           href={fileUrl}{fileFormat}
+      |                                          ^^^^^^^^^^
+  690 |                           target="_blank"
+  691 |                           rel="noopener noreferrer"
+  692 |                           className="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-blue-50 transition group"
+
+Expected '</', got 'fileFormat'
+
+Import traces:
+  Client Component Browser:
+    ./app/(dashboard)/customer-care/page.tsx [Client Component Browser]
+    ./app/(dashboard)/customer-care/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/(dashboard)/customer-care/page.tsx [Client Component SSR]
+    ./app/(dashboard)/customer-care/page.tsx [Server Component]
+[00:05:18.629] Server  LOG     ✓ Compiled in 80ms
+[00:05:18.733] Browser ERROR   ./app/(dashboard)/customer-care/page.tsx:689:41
+Parsing ecmascript source code failed
+  687 |                         <a
+  688 |                           key={index}
+> 689 |                           href={fileUrl}+{fileFormat}
+      |                                         ^
+  690 |                           target="_blank"
+  691 |                           rel="noopener noreferrer"
+  692 |                           className="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-blue-50 transition group"
+
+Expression expected
+
+Import traces:
+  Client Component Browser:
+    ./app/(dashboard)/customer-care/page.tsx [Client Component Browser]
+    ./app/(dashboard)/customer-care/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/(dashboard)/customer-care/page.tsx [Client Component SSR]
+    ./app/(dashboard)/customer-care/page.tsx [Server Component]
+[01:51:29.425] Server  LOG     ✓ Compiled in 394ms
+[01:51:31.274] Server  LOG     ✓ Compiled in 79ms
+[01:51:32.603] Server  LOG     ✓ Compiled in 76ms
+[01:51:44.467] Server  LOG     ♻️ Using existing MongoDB connection
+[01:51:44.602] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[01:51:49.079] Server  LOG     ♻️ Using existing MongoDB connection
+[01:51:49.128] Server  LOG     ♻️ Using existing MongoDB connection
+[01:51:49.180] Server  LOG     ♻️ Using existing MongoDB connection
+[01:51:49.240] Server  LOG     ♻️ Using existing MongoDB connection
+[01:51:49.249] Server  LOG     ♻️ Using existing MongoDB connection
+[01:51:49.665] Server  LOG     ♻️ Using existing MongoDB connection
+[01:51:58.448] Server  LOG     ♻️ Using existing MongoDB connection
+[01:51:58.454] Server  LOG     API Services - Query params: {}
+[01:51:58.454] Server  LOG     API Services - MongoDB query: {}
+[01:51:58.510] Server  LOG     API Services - Found services: 1
+[01:51:59.660] Server  LOG     ♻️ Using existing MongoDB connection
+[01:51:59.724] Server  LOG     Service Pricing Results: {}
+[01:52:51.118] Server  LOG     ✓ Compiled in 169ms
+[01:53:08.719] Server  LOG     ♻️ Using existing MongoDB connection
+[01:53:08.936] Server  LOG     ♻️ Using existing MongoDB connection
+[01:53:09.012] Server  LOG     ♻️ Using existing MongoDB connection
+[02:03:48.032] Server  WARN    ⚠ Fast Refresh had to perform a full reload when ./app/(dashboard)/customer-care/create/page.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[02:03:48.050] Server  LOG     ✓ Compiled in 449ms
+[02:03:48.536] Browser ERROR   uncaughtError: Error: Module [project]/node_modules/lucide-react/dist/esm/icons/briefcase.js [app-client] (ecmascript) <export default as Briefcase> was instantiated because it was required from module [project]/app/components/Navigation.tsx [app-client] (ecmascript), but the module factory is not available. It might have been deleted in an HMR update.
+[02:03:56.646] Server  LOG     ♻️ Using existing MongoDB connection
+[02:03:56.760] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[02:04:13.925] Server  LOG     ♻️ Using existing MongoDB connection
+[02:04:14.052] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[02:05:06.355] Server  LOG     ✓ Compiled in 82ms
+[02:05:06.633] Browser ERROR   A component is changing a controlled input to be uncontrolled. This is likely caused by the value changing from a defined to undefined, which should not happen. Decide between using a controlled or uncontrolled input element for the lifetime of the component. More info: https://react.dev/link/controlled-components
+[02:05:11.354] Server  LOG     ♻️ Using existing MongoDB connection
+[02:05:11.453] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[02:06:22.250] Server  LOG     ✓ Compiled in 114ms
+[02:06:22.637] Browser ERROR   A component is changing an uncontrolled input to be controlled. This is likely caused by the value changing from undefined to a defined value, which should not happen. Decide between using a controlled or uncontrolled input element for the lifetime of the component. More info: https://react.dev/link/controlled-components
+[02:06:26.131] Server  LOG     ✓ Compiled in 184ms
+[02:06:30.077] Server  LOG     ♻️ Using existing MongoDB connection
+[02:06:30.192] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[02:07:28.608] Server  LOG     ✓ Compiled in 96ms
+[02:07:50.962] Server  LOG     ✓ Compiled in 83ms
+[02:08:06.459] Server  LOG     ✓ Compiled in 103ms
+[02:08:10.402] Server  LOG     ✓ Compiled in 85ms
+[02:08:14.421] Server  LOG     ✓ Compiled in 90ms
+[02:10:50.392] Server  LOG     ✓ Compiled in 251ms
+[02:11:35.529] Server  LOG     ♻️ Using existing MongoDB connection
+[02:11:35.644] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
