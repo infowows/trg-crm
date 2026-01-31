@@ -110,6 +110,10 @@ const EmployeeSchema = new __TURBOPACK__imported__module__$5b$externals$5d2f$mon
         trim: true,
         lowercase: true
     },
+    address: {
+        type: String,
+        trim: true
+    },
     department: {
         type: String,
         trim: true
@@ -117,10 +121,28 @@ const EmployeeSchema = new __TURBOPACK__imported__module__$5b$externals$5d2f$mon
     isActive: {
         type: Boolean,
         default: true
-    }
+    },
+    // Account fields
+    username: {
+        type: String,
+        unique: true,
+        sparse: true,
+        trim: true
+    },
+    password: {
+        type: String
+    },
+    role: {
+        type: String,
+        default: "user"
+    },
+    gender: String,
+    dob: Date,
+    lastLogin: Date,
+    avatar: String
 }, {
     timestamps: true,
-    collection: "DSNV"
+    collection: "Nhân viên"
 });
 const __TURBOPACK__default__export__ = __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].models.Employee || __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].model("Employee", EmployeeSchema);
 }),
@@ -227,11 +249,27 @@ async function GET(request) {
         }
         await (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$dbConnect$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"])();
         const { searchParams } = new URL(request.url);
+        const id = searchParams.get("id");
         const page = parseInt(searchParams.get("page") || "1");
         const limit = parseInt(searchParams.get("limit") || "10");
         const search = searchParams.get("search") || "";
         const active = searchParams.get("active");
         const position = searchParams.get("position");
+        if (id) {
+            const employee = await __TURBOPACK__imported__module__$5b$project$5d2f$models$2f$Employee$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].findById(id);
+            if (!employee) {
+                return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
+                    success: false,
+                    message: "Không tìm thấy nhân viên"
+                }, {
+                    status: 404
+                });
+            }
+            return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
+                success: true,
+                data: employee
+            });
+        }
         const query = {};
         if (search) {
             query.$or = [
@@ -267,6 +305,13 @@ async function GET(request) {
         if (position) {
             query.position = {
                 $regex: position,
+                $options: "i"
+            };
+        }
+        const departmentId = searchParams.get("departmentId");
+        if (departmentId) {
+            query.department = {
+                $regex: departmentId,
                 $options: "i"
             };
         }

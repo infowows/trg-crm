@@ -55,7 +55,7 @@ const PhanLoaiHangHoaManagement = () => {
                 <div className="flex flex-wrap gap-3">
                     <button
                         onClick={() =>
-                            router.push("/goods-classifications/tao-moi")
+                            router.push("/goods-classifications/create")
                         }
                         className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
                     >

@@ -334,7 +334,7 @@ const ChucVuManagement = () => {
                       <Briefcase className="w-12 h-12 text-gray-300 mx-auto mb-4" />
                       <p>Chưa có dữ liệu chức vụ</p>
                       <button
-                        onClick={() => router.push("/positions/tao-moi")}
+                        onClick={() => router.push("/positions/create")}
                         className="mt-2 text-blue-600 hover:text-blue-800"
                       >
                         Thêm chức vụ mới

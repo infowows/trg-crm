@@ -199,6 +199,10 @@ const EmployeeSchema = new __TURBOPACK__imported__module__$5b$externals$5d2f$mon
         trim: true,
         lowercase: true
     },
+    address: {
+        type: String,
+        trim: true
+    },
     department: {
         type: String,
         trim: true
@@ -206,10 +210,28 @@ const EmployeeSchema = new __TURBOPACK__imported__module__$5b$externals$5d2f$mon
     isActive: {
         type: Boolean,
         default: true
-    }
+    },
+    // Account fields
+    username: {
+        type: String,
+        unique: true,
+        sparse: true,
+        trim: true
+    },
+    password: {
+        type: String
+    },
+    role: {
+        type: String,
+        default: "user"
+    },
+    gender: String,
+    dob: Date,
+    lastLogin: Date,
+    avatar: String
 }, {
     timestamps: true,
-    collection: "DSNV"
+    collection: "Nhân viên"
 });
 const __TURBOPACK__default__export__ = __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].models.Employee || __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].model("Employee", EmployeeSchema);
 }),
@@ -348,8 +370,13 @@ const CustomerCareSchema = new __TURBOPACK__imported__module__$5b$externals$5d2f
     },
     careType: {
         type: String,
-        required: true,
-        trim: true
+        enum: [
+            "Khảo sát nhu cầu",
+            "Làm rõ báo giá/hợp đồng",
+            "Xử lý khiếu nại/bảo hành",
+            "Thu hồi công nợ"
+        ],
+        default: "Khảo sát nhu cầu"
     },
     timeFrom: {
         type: Date

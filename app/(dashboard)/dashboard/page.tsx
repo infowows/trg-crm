@@ -534,7 +534,7 @@ const Dashboard = () => {
 
                 {/* Search and Filters */}
                 <div className="mt-6 flex flex-col sm:flex-row gap-3">
-                    <div className="relative flex-1">
+                    <div className="relative flex-1 text-black">
                         <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
                         <input
                             type="text"
@@ -547,7 +547,7 @@ const Dashboard = () => {
 
                     <button
                         onClick={() => setShowFilters(!showFilters)}
-                        className="flex items-center px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition"
+                        className="flex items-center px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition text-black"
                     >
                         <SlidersHorizontal className="w-5 h-5 mr-2" />
                         Bộ lọc
@@ -555,7 +555,7 @@ const Dashboard = () => {
 
                     <button
                         onClick={toggleDisplayMode}
-                        className="flex items-center px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition"
+                        className="flex items-center px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition text-black"
                     >
                         {displayMode === "grouped" ? (
                             <List className="w-5 h-5 mr-2" />

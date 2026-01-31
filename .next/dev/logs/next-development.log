@@ -1,133 +1,62 @@
-[00:00:13.825] Server  LOG     ✓ Ready in 11.2s
-[00:00:13.832] Browser ERROR   uncaughtError: Error: Module [project]/node_modules/lucide-react/dist/esm/icons/calendar.js [app-client] (ecmascript) <export default as Calendar> was instantiated because it was required from module [project]/app/components/Navigation.tsx [app-client] (ecmascript), but the module factory is not available. It might have been deleted in an HMR update.
-[00:05:18.868] Server  LOG     📡 Connecting to MongoDB...
-[00:05:18.883] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
-[00:05:19.718] Server  LOG     ✅ MongoDB connected successfully
-[00:05:19.718] Server  LOG     📊 Database name: "trg-crm"
-[00:05:19.722] Server  LOG     API Services - Query params: {}
-[00:05:19.722] Server  LOG     API Services - MongoDB query: {}
-[00:05:20.247] Server  LOG     API Services - Found services: 2
-[00:05:20.365] Browser LOG     thông tin của dịch vụ: {"data":[{"__v":0,"_id":"6979d67cb86f790694d987c3","code":"FDSGG","createdAt":"2026-01-28T09:27:24.843Z","description":"sdfgdfgdfg","isActive":true,"serviceGroup":"Thiết kế xây dựng","serviceName":"Thiết kế nhà cấp 4","updatedAt":"2026-01-28T09:27:24.843Z"},{"__v":0,"_id":"6979d667b86f790694d987b9","code":"SF","createdAt":"2026-01-28T09:27:03.448Z","description":"sdfgdfgdf","isActive":true,"serviceGroup":"nội thất","serviceName":"Thiết kế nội thất nhà cấp 4 gác lửng","updatedAt":"2026-01-28T09:27:03.448Z"}],"pagination":{"limit":10,"page":1,"pages":1,"total":2},"success":true}
-[00:10:34.023] Server  LOG     ✓ Compiled in 5.4s
-[00:10:38.271] Server  LOG     ♻️ Using existing MongoDB connection
-[00:10:38.367] Server  LOG     ♻️ Using existing MongoDB connection
-[00:10:39.472] Server  LOG     ♻️ Using existing MongoDB connection
-[00:10:39.576] Server  LOG     ♻️ Using existing MongoDB connection
-[00:10:40.473] Server  LOG     ♻️ Using existing MongoDB connection
-[00:10:40.627] Server  LOG     Service Pricing Results: {}
-[00:10:40.645] Server  LOG     ♻️ Using existing MongoDB connection
-[00:10:40.657] Server  LOG     ♻️ Using existing MongoDB connection
-[00:10:40.657] Server  LOG     API Services - Query params: {}
-[00:10:40.658] Server  LOG     API Services - MongoDB query: {}
-[00:10:40.667] Server  LOG     ♻️ Using existing MongoDB connection
-[00:10:40.668] Server  LOG     API Services - Query params: {}
-[00:10:40.668] Server  LOG     API Services - MongoDB query: {}
-[00:10:40.813] Server  LOG     Service Pricing Results: {}
-[00:10:41.243] Server  LOG     API Services - Found services: 2
-[00:10:41.247] Server  LOG     API Services - Found services: 2
-[00:10:41.265] Server  LOG     ♻️ Using existing MongoDB connection
-[00:10:41.266] Server  LOG     API Services - Query params: {}
-[00:10:41.266] Server  LOG     API Services - MongoDB query: {}
-[00:10:41.273] Server  LOG     ♻️ Using existing MongoDB connection
-[00:10:41.273] Server  LOG     API Services - Query params: {}
-[00:10:41.274] Server  LOG     API Services - MongoDB query: {}
-[00:10:41.333] Server  LOG     API Services - Found services: 2
-[00:10:41.343] Server  LOG     API Services - Found services: 2
-[00:10:41.357] Server  LOG     ♻️ Using existing MongoDB connection
-[00:10:41.357] Server  LOG     API Services - Query params: {}
-[00:10:41.357] Server  LOG     API Services - MongoDB query: {}
-[00:10:41.427] Server  LOG     API Services - Found services: 2
-[00:10:41.451] Server  LOG     ♻️ Using existing MongoDB connection
-[00:10:41.451] Server  LOG     API Services - Query params: {}
-[00:10:41.451] Server  LOG     API Services - MongoDB query: {}
-[00:10:41.524] Server  LOG     API Services - Found services: 2
-[00:10:41.536] Server  LOG     ♻️ Using existing MongoDB connection
-[00:10:41.537] Server  LOG     API Services - Query params: {}
-[00:10:41.537] Server  LOG     API Services - MongoDB query: {}
-[00:10:41.617] Server  LOG     API Services - Found services: 2
-[00:10:41.630] Server  LOG     ♻️ Using existing MongoDB connection
-[00:10:41.631] Server  LOG     API Services - Query params: {}
-[00:10:41.631] Server  LOG     API Services - MongoDB query: {}
-[00:10:41.700] Server  LOG     API Services - Found services: 2
-[00:10:41.726] Server  LOG     ♻️ Using existing MongoDB connection
-[00:10:41.727] Server  LOG     API Services - Query params: {}
-[00:10:41.727] Server  LOG     API Services - MongoDB query: {}
-[00:10:41.798] Server  LOG     API Services - Found services: 2
-[00:10:41.811] Server  LOG     ♻️ Using existing MongoDB connection
-[00:10:41.812] Server  LOG     API Services - Query params: {}
-[00:10:41.812] Server  LOG     API Services - MongoDB query: {}
-[00:10:41.882] Server  LOG     API Services - Found services: 2
-[00:10:42.918] Server  LOG     ♻️ Using existing MongoDB connection
-[00:10:43.006] Server  LOG     ♻️ Using existing MongoDB connection
-[00:10:43.917] Server  LOG     ♻️ Using existing MongoDB connection
-[00:10:44.001] Server  LOG     ♻️ Using existing MongoDB connection
-[00:10:44.178] Browser LOG     data báo giá kèm chi tiết {"data":[{"__v":0,"_id":"697c55abf23d2994e118b25d","createdAt":"2026-01-30T06:54:35.770Z","createdBy":"admin","customer":"Ton","customerRef":"697b2822d5ea0bf60b845bb7","date":"2026-01-30T00:00:00.000Z","grandTotal":224640000000,"notes":"drfghszaetrbhz","packages":[{"_id":"697c55abf23d2994e118b25e","packages":"[Array]","service":"Thiết kế nhà cấp 4","serviceGroup":"Thiết kế xây dựng","volume":7488}],"quotationNo":"BG001","status":"approved","surveyRef":"6979b9992b1c6fb8cd1463ce","totalAmount":224640000000,"updatedAt":"2026-01-30T06:55:21.163Z"}],"pagination":{"limit":10,"page":1,"pages":1,"total":1},"success":true}
-[00:10:44.178] Browser LOG     data báo giá kèm chi tiết {"data":[{"__v":0,"_id":"697c55abf23d2994e118b25d","createdAt":"2026-01-30T06:54:35.770Z","createdBy":"admin","customer":"Ton","customerRef":"697b2822d5ea0bf60b845bb7","date":"2026-01-30T00:00:00.000Z","grandTotal":224640000000,"notes":"drfghszaetrbhz","packages":[{"_id":"697c55abf23d2994e118b25e","packages":"[Array]","service":"Thiết kế nhà cấp 4","serviceGroup":"Thiết kế xây dựng","volume":7488}],"quotationNo":"BG001","status":"approved","surveyRef":"6979b9992b1c6fb8cd1463ce","totalAmount":224640000000,"updatedAt":"2026-01-30T06:55:21.163Z"}],"pagination":{"limit":10,"page":1,"pages":1,"total":1},"success":true}
-[00:10:45.753] Server  LOG     ♻️ Using existing MongoDB connection
-[00:10:45.839] Server  LOG     ♻️ Using existing MongoDB connection
-[00:10:46.657] Server  LOG     ♻️ Using existing MongoDB connection
-[00:10:46.758] Server  LOG     ♻️ Using existing MongoDB connection
-[00:10:48.446] Server  LOG     ♻️ Using existing MongoDB connection
-[00:10:48.493] Server  LOG     ♻️ Using existing MongoDB connection
-[00:10:48.539] Server  LOG     ♻️ Using existing MongoDB connection
-[00:10:49.054] Server  LOG     ♻️ Using existing MongoDB connection
-[00:10:49.228] Browser LOG     [{"__v":0,"_id":"697b2822d5ea0bf60b845bb7","address":"Hẻm 149 Lý Thánh Tông, Tân Thới Hòa, 72000, Phú Thạnh, Thành phố Hồ Chí Minh, Việt Nam","createdAt":"2026-01-29T09:28:02.774Z","customerId":"KHT1-0001","fullName":"Ton","isActive":true,"latitude":10.766823188339302,"longitude":106.6258117273457,"phone":"0916467039","potentialLevel":"Trung hạn","registrationDate":"2026-01-29T09:28:02.769Z","salesPerson":"Nguyễn Văn A","serviceGroup":"nội thất","shortName":"t1","source":"TikTok","updatedAt":"2026-01-29T09:28:02.774Z"}]
-[00:10:49.228] Browser LOG     [{"__v":0,"_id":"697b2822d5ea0bf60b845bb7","address":"Hẻm 149 Lý Thánh Tông, Tân Thới Hòa, 72000, Phú Thạnh, Thành phố Hồ Chí Minh, Việt Nam","createdAt":"2026-01-29T09:28:02.774Z","customerId":"KHT1-0001","fullName":"Ton","isActive":true,"latitude":10.766823188339302,"longitude":106.6258117273457,"phone":"0916467039","potentialLevel":"Trung hạn","registrationDate":"2026-01-29T09:28:02.769Z","salesPerson":"Nguyễn Văn A","serviceGroup":"nội thất","shortName":"t1","source":"TikTok","updatedAt":"2026-01-29T09:28:02.774Z"}]
-[00:10:51.593] Server  ERROR   (node:3728) [MONGOOSE] Warning: Duplicate schema index on {"name":1} found. This is often due to declaring an index using both "index: true" and "schema.index()". Please remove the duplicate index definition.
-(Use `node --trace-warnings ...` to show where the warning was created)
-[00:10:52.231] Server  LOG     ♻️ Using existing MongoDB connection
-[00:10:52.317] Server  LOG     ♻️ Using existing MongoDB connection
-[00:10:57.862] Server  LOG     ♻️ Using existing MongoDB connection
-[00:10:58.088] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
-[00:10:59.846] Server  LOG     ♻️ Using existing MongoDB connection
-[00:10:59.904] Server  LOG     ♻️ Using existing MongoDB connection
-[00:10:59.935] Server  LOG     ♻️ Using existing MongoDB connection
-[00:10:59.999] Server  LOG     ♻️ Using existing MongoDB connection
-[00:11:00.087] Server  LOG     ♻️ Using existing MongoDB connection
-[00:11:00.180] Server  LOG     ♻️ Using existing MongoDB connection
-[00:11:01.869] Server  LOG     ♻️ Using existing MongoDB connection
-[00:11:01.877] Server  LOG     ♻️ Using existing MongoDB connection
-[00:11:01.949] Server  LOG     ♻️ Using existing MongoDB connection
-[00:11:01.967] Server  LOG     ♻️ Using existing MongoDB connection
-[00:11:02.127] Browser LOG     [{"__v":0,"_id":"697b2822d5ea0bf60b845bb7","address":"Hẻm 149 Lý Thánh Tông, Tân Thới Hòa, 72000, Phú Thạnh, Thành phố Hồ Chí Minh, Việt Nam","createdAt":"2026-01-29T09:28:02.774Z","customerId":"KHT1-0001","fullName":"Ton","isActive":true,"latitude":10.766823188339302,"longitude":106.6258117273457,"phone":"0916467039","potentialLevel":"Trung hạn","registrationDate":"2026-01-29T09:28:02.769Z","salesPerson":"Nguyễn Văn A","serviceGroup":"nội thất","shortName":"t1","source":"TikTok","updatedAt":"2026-01-29T09:28:02.774Z"}]
-[00:11:02.127] Browser LOG     [{"__v":0,"_id":"697b2822d5ea0bf60b845bb7","address":"Hẻm 149 Lý Thánh Tông, Tân Thới Hòa, 72000, Phú Thạnh, Thành phố Hồ Chí Minh, Việt Nam","createdAt":"2026-01-29T09:28:02.774Z","customerId":"KHT1-0001","fullName":"Ton","isActive":true,"latitude":10.766823188339302,"longitude":106.6258117273457,"phone":"0916467039","potentialLevel":"Trung hạn","registrationDate":"2026-01-29T09:28:02.769Z","salesPerson":"Nguyễn Văn A","serviceGroup":"nội thất","shortName":"t1","source":"TikTok","updatedAt":"2026-01-29T09:28:02.774Z"}]
-[00:11:05.042] Server  LOG     ♻️ Using existing MongoDB connection
-[00:11:05.129] Server  LOG     ♻️ Using existing MongoDB connection
-[00:11:05.922] Server  LOG     ♻️ Using existing MongoDB connection
-[00:11:06.008] Server  LOG     ♻️ Using existing MongoDB connection
-[00:11:07.753] Server  LOG     ♻️ Using existing MongoDB connection
-[00:11:07.838] Server  LOG     ♻️ Using existing MongoDB connection
-[00:11:08.798] Server  LOG     ♻️ Using existing MongoDB connection
-[00:11:08.884] Server  LOG     ♻️ Using existing MongoDB connection
-[00:11:09.059] Browser LOG     data báo giá kèm chi tiết {"data":[{"__v":0,"_id":"697c55abf23d2994e118b25d","createdAt":"2026-01-30T06:54:35.770Z","createdBy":"admin","customer":"Ton","customerRef":"697b2822d5ea0bf60b845bb7","date":"2026-01-30T00:00:00.000Z","grandTotal":224640000000,"notes":"drfghszaetrbhz","packages":[{"_id":"697c55abf23d2994e118b25e","packages":"[Array]","service":"Thiết kế nhà cấp 4","serviceGroup":"Thiết kế xây dựng","volume":7488}],"quotationNo":"BG001","status":"approved","surveyRef":"6979b9992b1c6fb8cd1463ce","totalAmount":224640000000,"updatedAt":"2026-01-30T06:55:21.163Z"}],"pagination":{"limit":10,"page":1,"pages":1,"total":1},"success":true}
-[00:11:09.059] Browser LOG     data báo giá kèm chi tiết {"data":[{"__v":0,"_id":"697c55abf23d2994e118b25d","createdAt":"2026-01-30T06:54:35.770Z","createdBy":"admin","customer":"Ton","customerRef":"697b2822d5ea0bf60b845bb7","date":"2026-01-30T00:00:00.000Z","grandTotal":224640000000,"notes":"drfghszaetrbhz","packages":[{"_id":"697c55abf23d2994e118b25e","packages":"[Array]","service":"Thiết kế nhà cấp 4","serviceGroup":"Thiết kế xây dựng","volume":7488}],"quotationNo":"BG001","status":"approved","surveyRef":"6979b9992b1c6fb8cd1463ce","totalAmount":224640000000,"updatedAt":"2026-01-30T06:55:21.163Z"}],"pagination":{"limit":10,"page":1,"pages":1,"total":1},"success":true}
-[00:11:11.967] Server  LOG     ♻️ Using existing MongoDB connection
-[00:11:12.055] Server  LOG     ♻️ Using existing MongoDB connection
-[00:15:15.461] Server  LOG     ♻️ Using existing MongoDB connection
-[00:15:15.545] Server  LOG     ♻️ Using existing MongoDB connection
-[00:15:16.638] Server  LOG     ♻️ Using existing MongoDB connection
-[00:15:16.722] Server  LOG     ♻️ Using existing MongoDB connection
-[00:15:18.247] Server  LOG     ♻️ Using existing MongoDB connection
-[00:15:18.253] Server  LOG     ♻️ Using existing MongoDB connection
-[00:15:18.344] Server  LOG     ♻️ Using existing MongoDB connection
-[00:15:18.354] Server  LOG     ♻️ Using existing MongoDB connection
-[00:15:18.525] Browser LOG     [{"__v":0,"_id":"697b2822d5ea0bf60b845bb7","address":"Hẻm 149 Lý Thánh Tông, Tân Thới Hòa, 72000, Phú Thạnh, Thành phố Hồ Chí Minh, Việt Nam","createdAt":"2026-01-29T09:28:02.774Z","customerId":"KHT1-0001","fullName":"Ton","isActive":true,"latitude":10.766823188339302,"longitude":106.6258117273457,"phone":"0916467039","potentialLevel":"Trung hạn","registrationDate":"2026-01-29T09:28:02.769Z","salesPerson":"Nguyễn Văn A","serviceGroup":"nội thất","shortName":"t1","source":"TikTok","updatedAt":"2026-01-29T09:28:02.774Z"}]
-[00:15:18.525] Browser LOG     [{"__v":0,"_id":"697b2822d5ea0bf60b845bb7","address":"Hẻm 149 Lý Thánh Tông, Tân Thới Hòa, 72000, Phú Thạnh, Thành phố Hồ Chí Minh, Việt Nam","createdAt":"2026-01-29T09:28:02.774Z","customerId":"KHT1-0001","fullName":"Ton","isActive":true,"latitude":10.766823188339302,"longitude":106.6258117273457,"phone":"0916467039","potentialLevel":"Trung hạn","registrationDate":"2026-01-29T09:28:02.769Z","salesPerson":"Nguyễn Văn A","serviceGroup":"nội thất","shortName":"t1","source":"TikTok","updatedAt":"2026-01-29T09:28:02.774Z"}]
-[00:15:21.306] Server  LOG     ♻️ Using existing MongoDB connection
-[00:15:21.391] Server  LOG     ♻️ Using existing MongoDB connection
-[00:15:21.873] Server  LOG     ♻️ Using existing MongoDB connection
-[00:15:21.881] Server  LOG     ♻️ Using existing MongoDB connection
-[00:15:21.971] Server  LOG     ♻️ Using existing MongoDB connection
-[00:15:21.981] Server  LOG     ♻️ Using existing MongoDB connection
-[00:15:22.049] Server  LOG     ♻️ Using existing MongoDB connection
-[00:15:22.136] Server  LOG     ♻️ Using existing MongoDB connection
-[00:15:24.239] Server  LOG     ♻️ Using existing MongoDB connection
-[00:15:24.319] Server  LOG     ♻️ Using existing MongoDB connection
-[00:15:25.074] Server  LOG     ♻️ Using existing MongoDB connection
-[00:15:25.160] Server  LOG     ♻️ Using existing MongoDB connection
-[00:15:26.611] Server  LOG     ♻️ Using existing MongoDB connection
-[00:15:26.692] Server  LOG     ♻️ Using existing MongoDB connection
-[00:15:28.368] Server  LOG     ♻️ Using existing MongoDB connection
-[00:15:28.448] Server  LOG     ♻️ Using existing MongoDB connection
-[00:15:28.621] Browser LOG     data báo giá kèm chi tiết {"data":[{"__v":0,"_id":"697c55abf23d2994e118b25d","createdAt":"2026-01-30T06:54:35.770Z","createdBy":"admin","customer":"Ton","customerRef":"697b2822d5ea0bf60b845bb7","date":"2026-01-30T00:00:00.000Z","grandTotal":224640000000,"notes":"drfghszaetrbhz","packages":[{"_id":"697c55abf23d2994e118b25e","packages":"[Array]","service":"Thiết kế nhà cấp 4","serviceGroup":"Thiết kế xây dựng","volume":7488}],"quotationNo":"BG001","status":"approved","surveyRef":"6979b9992b1c6fb8cd1463ce","totalAmount":224640000000,"updatedAt":"2026-01-30T06:55:21.163Z"}],"pagination":{"limit":10,"page":1,"pages":1,"total":1},"success":true}
-[00:15:28.621] Browser LOG     data báo giá kèm chi tiết {"data":[{"__v":0,"_id":"697c55abf23d2994e118b25d","createdAt":"2026-01-30T06:54:35.770Z","createdBy":"admin","customer":"Ton","customerRef":"697b2822d5ea0bf60b845bb7","date":"2026-01-30T00:00:00.000Z","grandTotal":224640000000,"notes":"drfghszaetrbhz","packages":[{"_id":"697c55abf23d2994e118b25e","packages":"[Array]","service":"Thiết kế nhà cấp 4","serviceGroup":"Thiết kế xây dựng","volume":7488}],"quotationNo":"BG001","status":"approved","surveyRef":"6979b9992b1c6fb8cd1463ce","totalAmount":224640000000,"updatedAt":"2026-01-30T06:55:21.163Z"}],"pagination":{"limit":10,"page":1,"pages":1,"total":1},"success":true}
+[00:00:15.277] Server  LOG     ✓ Ready in 10.7s
+[00:00:15.925] Browser ERROR   uncaughtError: Error: Module [project]/node_modules/lucide-react/dist/esm/icons/calendar.js [app-client] (ecmascript) <export default as Calendar> was instantiated because it was required from module [project]/app/components/Navigation.tsx [app-client] (ecmascript), but the module factory is not available. It might have been deleted in an HMR update.
+[00:00:20.553] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:00:31.756] Server  LOG     📡 Connecting to MongoDB...
+[00:00:31.773] Server  LOG     ○ Compiling /api/customers ...
+[00:00:31.866] Server  LOG     📡 Connecting to MongoDB...
+[00:00:31.866] Server  LOG     ✅ MongoDB connected successfully
+[00:00:31.870] Server  LOG     📊 Database name: undefined
+[00:00:32.086] Server  ERROR   Error fetching employees: MongooseError: Cannot call `Nhân viên.find()` before initial connection is complete if `bufferCommands = false`. Make sure you `await mongoose.connect()` if you have `bufferCommands = false`.
+[00:00:32.187] Server  LOG     📡 Connecting to MongoDB...
+[00:00:32.188] Server  LOG     ✅ MongoDB connected successfully
+[00:00:32.190] Server  LOG     📊 Database name: undefined
+[00:00:32.320] Server  ERROR   GET customers error: MongooseError: Cannot call `DSKH.find()` before initial connection is complete if `bufferCommands = false`. Make sure you `await mongoose.connect()` if you have `bufferCommands = false`.
+[00:00:32.860] Server  LOG     📡 Connecting to MongoDB...
+[00:00:32.861] Server  LOG     ✅ MongoDB connected successfully
+[00:00:32.861] Server  LOG     📊 Database name: undefined
+[00:00:32.957] Server  ERROR   GET customers error: MongooseError: Cannot call `DSKH.find()` before initial connection is complete if `bufferCommands = false`. Make sure you `await mongoose.connect()` if you have `bufferCommands = false`.
+[00:00:32.980] Server  LOG     📡 Connecting to MongoDB...
+[00:00:32.980] Server  LOG     ✅ MongoDB connected successfully
+[00:00:32.981] Server  LOG     📊 Database name: undefined
+[00:00:33.103] Server  ERROR   GET customers error: MongooseError: Cannot call `DSKH.find()` before initial connection is complete if `bufferCommands = false`. Make sure you `await mongoose.connect()` if you have `bufferCommands = false`.
+[00:00:33.110] Browser ERROR   Error fetching customers: {}
+[00:00:33.189] Server  LOG     📡 Connecting to MongoDB...
+[00:00:33.189] Server  LOG     ✅ MongoDB connected successfully
+[00:00:33.192] Server  LOG     📊 Database name: undefined
+[00:00:33.316] Server  ERROR   Error fetching source settings: MongooseError: Cannot call `source_settings.find()` before initial connection is complete if `bufferCommands = false`. Make sure you `await mongoose.connect()` if you have `bufferCommands = false`.
+[00:00:33.337] Browser ERROR   Error fetching customers: {}
+[00:00:33.350] Server  LOG     📡 Connecting to MongoDB...
+[00:00:33.351] Server  LOG     ✅ MongoDB connected successfully
+[00:00:33.351] Server  LOG     📊 Database name: undefined
+[00:00:33.434] Server  ERROR   Error fetching source settings: MongooseError: Cannot call `source_settings.find()` before initial connection is complete if `bufferCommands = false`. Make sure you `await mongoose.connect()` if you have `bufferCommands = false`.
+[00:00:33.452] Server  LOG     ✅ MongoDB connected successfully
+[00:00:33.453] Server  LOG     📊 Database name: "trg-crm"
+[00:00:33.669] Server  LOG     ♻️ Using existing MongoDB connection
+[00:00:33.680] Server  LOG     ♻️ Using existing MongoDB connection
+[00:00:34.727] Server  LOG     ♻️ Using existing MongoDB connection
+[00:00:34.762] Server  LOG     ♻️ Using existing MongoDB connection
+[00:00:34.772] Server  LOG     ♻️ Using existing MongoDB connection
+[00:00:34.784] Server  LOG     ♻️ Using existing MongoDB connection
+[00:00:34.939] Browser LOG     [{"__v":0,"_id":"697b2822d5ea0bf60b845bb7","address":"Hẻm 149 Lý Thánh Tông, Tân Thới Hòa, 72000, Phú Thạnh, Thành phố Hồ Chí Minh, Việt Nam","createdAt":"2026-01-29T09:28:02.774Z","customerId":"KHT1-0001","fullName":"Ton","isActive":true,"latitude":10.766823188339302,"longitude":106.6258117273457,"phone":"0916467039","potentialLevel":"Trung hạn","registrationDate":"2026-01-29T09:28:02.769Z","salesPerson":"Nguyễn Văn A","serviceGroup":"nội thất","shortName":"t1","source":"TikTok","updatedAt":"2026-01-29T09:28:02.774Z"}]
+[00:00:34.939] Browser LOG     [{"__v":0,"_id":"697b2822d5ea0bf60b845bb7","address":"Hẻm 149 Lý Thánh Tông, Tân Thới Hòa, 72000, Phú Thạnh, Thành phố Hồ Chí Minh, Việt Nam","createdAt":"2026-01-29T09:28:02.774Z","customerId":"KHT1-0001","fullName":"Ton","isActive":true,"latitude":10.766823188339302,"longitude":106.6258117273457,"phone":"0916467039","potentialLevel":"Trung hạn","registrationDate":"2026-01-29T09:28:02.769Z","salesPerson":"Nguyễn Văn A","serviceGroup":"nội thất","shortName":"t1","source":"TikTok","updatedAt":"2026-01-29T09:28:02.774Z"}]
+[00:00:36.732] Server  LOG     ♻️ Using existing MongoDB connection
+[00:00:36.760] Server  LOG     ♻️ Using existing MongoDB connection
+[00:00:37.091] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:00:37.091] Browser LOG     [{"__v":0,"_id":"697b2822d5ea0bf60b845bb7","address":"Hẻm 149 Lý Thánh Tông, Tân Thới Hòa, 72000, Phú Thạnh, Thành phố Hồ Chí Minh, Việt Nam","createdAt":"2026-01-29T09:28:02.774Z","customerId":"KHT1-0001","fullName":"Ton","isActive":true,"latitude":10.766823188339302,"longitude":106.6258117273457,"phone":"0916467039","potentialLevel":"Trung hạn","registrationDate":"2026-01-29T09:28:02.769Z","salesPerson":"Nguyễn Văn A","serviceGroup":"nội thất","shortName":"t1","source":"TikTok","updatedAt":"2026-01-29T09:28:02.774Z"}]
+[00:00:39.320] Server  LOG     ♻️ Using existing MongoDB connection
+[00:00:39.332] Server  LOG     ♻️ Using existing MongoDB connection
+[00:00:40.660] Server  LOG     ♻️ Using existing MongoDB connection
+[00:00:40.682] Server  LOG     ♻️ Using existing MongoDB connection
+[00:00:40.691] Server  LOG     ♻️ Using existing MongoDB connection
+[00:00:40.702] Server  LOG     ♻️ Using existing MongoDB connection
+[00:00:40.715] Server  LOG     ♻️ Using existing MongoDB connection
+[00:00:40.726] Server  LOG     ♻️ Using existing MongoDB connection
+[00:00:50.344] Server  LOG     ♻️ Using existing MongoDB connection
+[00:00:50.346] Server  LOG     API Services - Query params: {}
+[00:00:50.346] Server  LOG     API Services - MongoDB query: {}
+[00:00:50.403] Server  LOG     API Services - Found services: 1
+[00:00:51.231] Server  LOG     ♻️ Using existing MongoDB connection
+[00:00:51.291] Server  LOG     Service Pricing Results: {}
+[00:01:02.916] Server  LOG     ♻️ Using existing MongoDB connection
+[00:01:03.122] Server  LOG     ♻️ Using existing MongoDB connection
+[00:01:03.133] Server  LOG     ♻️ Using existing MongoDB connection

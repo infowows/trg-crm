@@ -176,7 +176,7 @@ const SurveyList = () => {
             </p>
           </div>
           <button
-            onClick={() => router.push("/surveys/tao-moi")}
+            onClick={() => router.push("/surveys/create")}
             className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
           >
             <Plus className="w-5 h-5" />
@@ -238,7 +238,7 @@ const SurveyList = () => {
               Bắt đầu bằng cách tạo khảo sát dự án mới
             </p>
             <button
-              onClick={() => router.push("/surveys/tao-moi")}
+              onClick={() => router.push("/surveys/create")}
               className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
             >
               <Plus className="w-5 h-5" />
@@ -345,7 +345,7 @@ const SurveyList = () => {
                               <button
                                 onClick={() =>
                                   router.push(
-                                    `/quotations/tao-moi?survey=${survey._id}`,
+                                    `/quotations/create?survey=${survey._id}`,
                                   )
                                 }
                                 className="text-purple-600 hover:text-purple-900"
