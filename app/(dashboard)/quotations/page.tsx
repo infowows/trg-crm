@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import {
   FileText,
@@ -21,8 +21,16 @@ import {
   ChevronLeft,
   ChevronRight,
   X,
+  Download,
+  Upload,
+  FileDown,
 } from "lucide-react";
 import { toast } from "react-toastify";
+import { generateQuotationTemplate } from "@/lib/excel/template-quotation";
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
+import QuotationPDFTemplate from "@/components/QuotationPDFTemplate";
+import { useReactToPrint } from "react-to-print";
 
 interface NestedPackage {
   _id: string;
@@ -76,6 +84,199 @@ const BaoGiaManagement = () => {
   );
   const [showViewModal, setShowViewModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [isImporting, setIsImporting] = useState(false);
+
+  // Survey Selection for Template
+  const [isSurveyModalOpen, setIsSurveyModalOpen] = useState(false);
+  const [surveysList, setSurveysList] = useState<any[]>([]);
+  const [surveySearch, setSurveySearch] = useState("");
+  const [loadingSurveys, setLoadingSurveys] = useState(false);
+
+  // Reference data for template
+  const [refData, setRefData] = useState<{
+    customers: any[];
+    categoryGroups: any[];
+    categoryItems: any[];
+    serviceGroups: any[];
+    services: any[];
+    servicePackages: any[];
+    pricing: any[];
+  }>({
+    customers: [],
+    categoryGroups: [],
+    categoryItems: [],
+    serviceGroups: [],
+    services: [],
+    servicePackages: [],
+    pricing: [],
+  });
+
+  const fetchRefData = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const [
+        customersRes,
+        catGroupsRes,
+        catItemsRes,
+        svcGroupsRes,
+        servicesRes,
+        svcPackagesRes,
+        pricingRes,
+      ] = await Promise.all([
+        fetch("/api/customers", {
+          headers: { Authorization: `Bearer ${token}` },
+        }),
+        fetch("/api/category-groups?active=true", {
+          headers: { Authorization: `Bearer ${token}` },
+        }),
+        fetch("/api/category-items?active=true", {
+          headers: { Authorization: `Bearer ${token}` },
+        }),
+        fetch("/api/service-groups?active=true", {
+          headers: { Authorization: `Bearer ${token}` },
+        }),
+        fetch("/api/services?active=true&limit=1000", {
+          headers: { Authorization: `Bearer ${token}` },
+        }),
+        fetch("/api/service-packages?active=true", {
+          headers: { Authorization: `Bearer ${token}` },
+        }),
+        fetch("/api/service-pricing?active=true&limit=1000", {
+          headers: { Authorization: `Bearer ${token}` },
+        }),
+      ]);
+
+      const [
+        customers,
+        catGroups,
+        catItems,
+        svcGroups,
+        services,
+        svcPackages,
+        pricing,
+      ] = await Promise.all([
+        customersRes.json(),
+        catGroupsRes.json(),
+        catItemsRes.json(),
+        svcGroupsRes.json(),
+        servicesRes.json(),
+        svcPackagesRes.json(),
+        pricingRes.json(),
+      ]);
+
+      return {
+        customers: customers.success ? customers.data : [],
+        categoryGroups: catGroups.success ? catGroups.data : [],
+        categoryItems: catItems.success ? catItems.data : [],
+        serviceGroups: svcGroups.success ? svcGroups.data : [],
+        services: services.success ? services.data : [],
+        servicePackages: svcPackages.success ? svcPackages.data : [],
+        pricing: pricing.success ? pricing.data : [],
+      };
+    } catch (error) {
+      console.error("Error fetching ref data:", error);
+      return null;
+    }
+  };
+
+  const handleDownloadTemplate = async (selectedSurvey: any) => {
+    toast.info(
+      `Đang chuẩn bị file mẫu cho khảo sát ${selectedSurvey.surveyNo}...`,
+    );
+    const data = await fetchRefData();
+    if (data) {
+      const totalVolume = selectedSurvey.surveys.reduce(
+        (sum: number, item: any) => sum + (item.volume || 0),
+        0,
+      );
+
+      generateQuotationTemplate({
+        customerName:
+          selectedSurvey.customerName || "Vui lòng nhập tên khách hàng",
+        survey: {
+          surveyNo: selectedSurvey.surveyNo,
+          surveyDate: new Date(selectedSurvey.surveyDate)
+            .toISOString()
+            .split("T")[0],
+          surveyAddress: selectedSurvey.surveyAddress || "",
+          items: selectedSurvey.surveys.map((s: any) => ({
+            name: s.name,
+            unit: s.unit,
+            volume: s.volume,
+          })),
+          totalVolume: totalVolume,
+        },
+        customers: data.customers.map((c: any) => ({
+          name: c.fullName,
+          id: c._id,
+        })),
+        services: data.services.map((s: any) => ({
+          serviceName: s.serviceName,
+          serviceGroup: s.serviceGroup,
+        })),
+        packages: data.servicePackages.map((p: any) => p.packageName),
+        pricing: data.pricing,
+      });
+      toast.success("Đã tải file mẫu thành công");
+      setIsSurveyModalOpen(false);
+    } else {
+      toast.error("Không thể tải dữ liệu danh mục");
+    }
+  };
+
+  const handleOpenSurveyModal = async () => {
+    setIsSurveyModalOpen(true);
+    setLoadingSurveys(true);
+    try {
+      const token = localStorage.getItem("token");
+      // Fetch surveys that don't have quotation yet
+      const res = await fetch("/api/surveys?hasQuotation=false&limit=100", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const data = await res.json();
+      if (data.success) {
+        setSurveysList(data.data);
+      }
+    } catch (error) {
+      console.error("Error fetching surveys:", error);
+    } finally {
+      setLoadingSurveys(false);
+    }
+  };
+
+  const handleImport = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setIsImporting(true);
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      const token = localStorage.getItem("token");
+      const response = await fetch("/api/quotations/import", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: formData,
+      });
+
+      const data = await response.json();
+      if (data.success) {
+        toast.success(data.message);
+        fetchQuotations(1, searchQuery, statusFilter);
+      } else {
+        toast.error(data.message || "Import không thành công");
+      }
+    } catch (error) {
+      console.error("Import error:", error);
+      toast.error("Có lỗi xảy ra trong quá trình import");
+    } finally {
+      setIsImporting(false);
+      e.target.value = ""; // Reset
+    }
+  };
 
   // Fetch quotations
   const fetchQuotations = async (
@@ -235,6 +436,15 @@ const BaoGiaManagement = () => {
     return new Date(dateString).toLocaleDateString("vi-VN");
   };
 
+  // Handle Export PDF
+  const componentRef = useRef<HTMLDivElement>(null);
+
+  const handlePrint = useReactToPrint({
+    // react-to-print v3 sử dụng contentRef thay vì content
+    contentRef: componentRef,
+    documentTitle: `BaoGia_${selectedQuotation?.quotationNo || "Export"}`,
+  });
+
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
@@ -282,13 +492,34 @@ const BaoGiaManagement = () => {
             </div>
           </div>
 
-          <button
-            onClick={() => router.push("/quotations/create")}
-            className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
-          >
-            <Plus className="w-5 h-5 mr-2" />
-            Tạo báo giá
-          </button>
+          <div className="flex flex-wrap gap-2">
+            <button
+              onClick={handleOpenSurveyModal}
+              className="flex items-center px-4 py-2 border border-blue-600 text-blue-600 rounded-lg hover:bg-blue-50 transition"
+              title="Tải file mẫu dựa trên khảo sát hiện có"
+            >
+              <Download className="w-5 h-5 mr-2" />
+              Tải mẫu Báo giá
+            </button>
+            <label className="flex items-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition cursor-pointer">
+              <Upload className="w-5 h-5 mr-2" />
+              {isImporting ? "Đang xử lý..." : "Import Excel"}
+              <input
+                type="file"
+                accept=".xlsx, .xls"
+                onChange={handleImport}
+                className="hidden"
+                disabled={isImporting}
+              />
+            </label>
+            <button
+              onClick={() => router.push("/quotations/create")}
+              className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+            >
+              <Plus className="w-5 h-5 mr-2" />
+              Tạo báo giá
+            </button>
+          </div>
         </div>
 
         {/* Filters */}
@@ -662,7 +893,7 @@ const BaoGiaManagement = () => {
                         <thead className="bg-white border-b border-gray-200">
                           <tr>
                             <th className="px-4 py-2 text-left text-gray-500">
-                              Hạng mục
+                              Gói
                             </th>
                             <th className="px-4 py-2 text-right text-gray-500">
                               Khối lượng
@@ -719,6 +950,13 @@ const BaoGiaManagement = () => {
                   className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-100 transition"
                 >
                   Đóng
+                </button>
+                <button
+                  onClick={handlePrint}
+                  className="flex items-center gap-2 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition"
+                >
+                  <FileDown className="w-4 h-4" />
+                  Xuất PDF
                 </button>
                 <button
                   onClick={() => {
@@ -778,6 +1016,129 @@ const BaoGiaManagement = () => {
               </div>
             </div>
           </div>
+        )}
+      </div>
+      {/* Survey Selection Modal */}
+      {isSurveyModalOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-xl shadow-xl w-full max-w-2xl max-h-[80vh] flex flex-col">
+            <div className="p-6 border-b flex justify-between items-center bg-blue-50 rounded-t-xl">
+              <h2 className="text-xl font-bold text-blue-800">
+                Chọn Khảo sát để lập Báo giá
+              </h2>
+              <button
+                onClick={() => setIsSurveyModalOpen(false)}
+                className="text-gray-500 hover:text-red-500"
+              >
+                <X className="w-6 h-6" />
+              </button>
+            </div>
+
+            <div className="p-6 border-b">
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
+                <input
+                  type="text"
+                  placeholder="Tìm theo Mã KS, Địa chỉ hoặc Tên hạng mục..."
+                  className="w-full pl-10 pr-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+                  value={surveySearch}
+                  onChange={(e) => setSurveySearch(e.target.value)}
+                />
+              </div>
+            </div>
+
+            <div className="flex-1 overflow-y-auto p-2">
+              {loadingSurveys ? (
+                <div className="text-center py-10">
+                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
+                  <p className="mt-2 text-gray-500">
+                    Đang tải danh sách khảo sát...
+                  </p>
+                </div>
+              ) : surveysList.length === 0 ? (
+                <div className="text-center py-10 text-gray-500">
+                  Không tìm thấy khảo sát nào chưa có báo giá.
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 gap-2">
+                  {surveysList
+                    .filter(
+                      (s) =>
+                        s.surveyNo
+                          .toLowerCase()
+                          .includes(surveySearch.toLowerCase()) ||
+                        s.surveyAddress
+                          ?.toLowerCase()
+                          .includes(surveySearch.toLowerCase()),
+                    )
+                    .map((survey) => (
+                      <button
+                        key={survey._id}
+                        onClick={() => handleDownloadTemplate(survey)}
+                        className="flex flex-col p-4 border rounded-lg hover:border-blue-500 hover:bg-blue-50 transition text-left group"
+                      >
+                        <div className="flex justify-between items-start mb-1">
+                          <span className="font-bold text-blue-700 group-hover:text-blue-800">
+                            {survey.surveyNo}
+                          </span>
+                          <span className="text-xs text-gray-400">
+                            {new Date(survey.surveyDate).toLocaleDateString(
+                              "vi-VN",
+                            )}
+                          </span>
+                        </div>
+                        <p className="text-sm text-gray-600 line-clamp-1 italic mb-2">
+                          <Building className="w-3 h-3 inline mr-1" />
+                          {survey.surveyAddress || "Không có địa chỉ"}
+                        </p>
+                        <div className="flex flex-wrap gap-1">
+                          {survey.surveys
+                            .slice(0, 3)
+                            .map((item: any, idx: number) => (
+                              <span
+                                key={idx}
+                                className="px-2 py-0.5 bg-gray-100 text-[10px] rounded text-gray-500"
+                              >
+                                {item.name}
+                              </span>
+                            ))}
+                          {survey.surveys.length > 3 && (
+                            <span className="text-[10px] text-gray-400">
+                              +{survey.surveys.length - 3} khác
+                            </span>
+                          )}
+                        </div>
+                      </button>
+                    ))}
+                </div>
+              )}
+            </div>
+
+            <div className="p-4 border-t bg-gray-50 rounded-b-xl flex justify-end">
+              <button
+                onClick={() => setIsSurveyModalOpen(false)}
+                className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition"
+              >
+                Đóng
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+      {/* Hidden PDF Template Container */}
+      <div
+        style={{
+          position: "absolute",
+          left: "-9999px",
+          top: 0,
+          visibility: "hidden",
+        }}
+      >
+        {selectedQuotation && (
+          <QuotationPDFTemplate
+            ref={componentRef}
+            quotation={selectedQuotation}
+          />
         )}
       </div>
     </div>

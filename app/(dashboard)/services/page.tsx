@@ -16,13 +16,17 @@ import {
   AlertCircle,
   ChevronLeft,
   ChevronRight,
-  Layers,
+  Lock,
+  X,
+  Calendar,
+  Info,
 } from "lucide-react";
 import { toast } from "react-toastify";
 
 interface Service {
   _id: string;
   serviceId: string;
+  code: string;
   serviceName: string;
   serviceGroup?: string;
   description?: string;
@@ -42,7 +46,9 @@ const ServiceManagement = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [total, setTotal] = useState(0);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showViewModal, setShowViewModal] = useState(false);
   const [deletingService, setDeletingService] = useState<Service | null>(null);
+  const [viewingService, setViewingService] = useState<Service | null>(null);
 
   // Fetch services
   const fetchServices = async (
@@ -140,6 +146,16 @@ const ServiceManagement = () => {
       console.error("Error deleting service:", err);
       toast.error("Không thể xóa dịch vụ. Vui lòng thử lại.");
     }
+  };
+
+  const handleOpenViewModal = (service: Service) => {
+    setViewingService(service);
+    setShowViewModal(true);
+  };
+
+  const handleCloseViewModal = () => {
+    setShowViewModal(false);
+    setViewingService(null);
   };
 
   // Get status badge
@@ -358,9 +374,7 @@ const ServiceManagement = () => {
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                         <div className="flex items-center justify-end space-x-2">
                           <button
-                            onClick={() =>
-                              router.push(`/services/${service._id}`)
-                            }
+                            onClick={() => handleOpenViewModal(service)}
                             className="text-blue-600 hover:text-blue-900"
                             title="Xem chi tiết"
                           >
@@ -489,10 +503,117 @@ const ServiceManagement = () => {
           </>
         )}
       </div>
+      {/* View Details Modal */}
+      {showViewModal && viewingService && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div
+            className="fixed inset-0 bg-gray-500/75 transition"
+            onClick={handleCloseViewModal}
+          ></div>
+          <div className="relative bg-white rounded-lg shadow-xl max-w-lg w-full max-h-[90vh] overflow-y-auto z-10">
+            <div className="px-4 pt-5 pb-4 sm:p-6">
+              <div className="flex items-center justify-between mb-4 pb-4 border-b">
+                <div className="flex items-center space-x-2">
+                  <div className="bg-blue-100 p-2 rounded-lg">
+                    <Info className="w-5 h-5 text-blue-600" />
+                  </div>
+                  <h3 className="text-xl font-bold text-gray-900">
+                    Chi tiết dịch vụ
+                  </h3>
+                </div>
+                <button
+                  onClick={handleCloseViewModal}
+                  className="text-gray-400 hover:text-gray-500 transition-colors"
+                >
+                  <X className="w-6 h-6" />
+                </button>
+              </div>
+
+              <div className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="space-y-1">
+                    <p className="text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Mã dịch vụ
+                    </p>
+                    <p className="text-sm font-semibold text-gray-900 bg-gray-50 p-2 rounded border border-gray-100">
+                      {viewingService.code}
+                    </p>
+                  </div>
+                  <div className="space-y-1">
+                    <p className="text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Trạng thái
+                    </p>
+                    <div className="pt-1">
+                      {getStatusBadge(viewingService.isActive)}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="space-y-1">
+                  <p className="text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Tên dịch vụ
+                  </p>
+                  <p className="text-base font-bold text-gray-900">
+                    {viewingService.serviceName}
+                  </p>
+                </div>
+
+                <div className="space-y-1">
+                  <p className="text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Nhóm dịch vụ
+                  </p>
+                  <div className="flex items-center space-x-2 text-gray-700">
+                    <Tag className="w-4 h-4 text-blue-500" />
+                    <span className="text-sm font-medium">
+                      {viewingService.serviceGroup || "Chưa phân nhóm"}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="space-y-1">
+                  <p className="text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Mô tả dịch vụ
+                  </p>
+                  <div className="bg-gray-50 p-3 rounded-lg border border-gray-100">
+                    <p className="text-sm text-gray-600 italic whitespace-pre-wrap">
+                      {viewingService.description || "Không có mô tả chi tiết."}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="pt-4 border-t border-gray-100 flex items-center justify-between text-xs text-gray-400">
+                  <div className="flex items-center space-x-1">
+                    <Calendar className="w-3 h-3" />
+                    <span>
+                      Ngày tạo: {formatDate(viewingService.createdAt)}
+                    </span>
+                  </div>
+                  <div className="flex items-center space-x-1">
+                    <Calendar className="w-3 h-3" />
+                    <span>
+                      Cập nhật: {formatDate(viewingService.updatedAt)}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="px-4 py-3 bg-gray-50 flex justify-end sm:px-6">
+              <button
+                onClick={handleCloseViewModal}
+                className="px-6 py-2 text-sm font-semibold text-white bg-blue-600 rounded-lg hover:bg-blue-700 shadow-md transition-all active:scale-95"
+              >
+                Đóng
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Delete Confirmation Modal */}
       {showDeleteModal && deletingService && (
         <div
-          className="fixed inset-0 bg-black/80 transition z-50 flex items-center justify-center p-4"
+          className="fixed inset-0 bg-black/50 transition z-50 flex items-center justify-center p-4"
           onClick={() => {
             setShowDeleteModal(false);
             setDeletingService(null);

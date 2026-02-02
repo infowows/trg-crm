@@ -1,304 +1,39 @@
-[00:00:02.215] Server  LOG     ✓ Ready in 1785ms
-[00:03:55.346] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
-[00:03:55.514] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
-[00:03:55.655] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
-[00:03:55.875] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
-[00:03:56.028] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
-[00:03:56.186] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
-[00:03:56.377] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
-[00:03:56.541] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
-[00:03:56.630] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
-[00:03:56.929] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
-[00:03:57.132] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
-[00:03:57.261] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
-[00:03:57.381] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
-[00:03:57.543] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
-[00:03:57.780] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
-[00:03:57.933] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
-[00:03:58.071] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
-[00:03:58.210] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
-[00:03:58.704] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
-[00:03:58.704] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
-[00:03:58.705] Browser ERROR   Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
-[00:03:59.806] Server  LOG     📡 Connecting to MongoDB...
-[00:03:59.821] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
-[00:04:00.505] Server  LOG     ✅ MongoDB connected successfully
-[00:04:00.506] Server  LOG     📊 Database name: "trg-crm"
-[00:04:00.507] Server  LOG     🔄 Fetching dashboard stats...
-[00:04:01.235] Server  LOG     ✅ Dashboard stats fetched successfully
-[00:04:01.961] Server  LOG     ♻️ Using existing MongoDB connection
-[00:04:02.043] Server  LOG     ♻️ Using existing MongoDB connection
-[00:04:40.552] Server  LOG     ✓ Compiled in 185ms
-[00:04:40.668] Browser ERROR   ./app/(dashboard)/customer-care/page.tsx:689:41
-Parsing ecmascript source code failed
-  687 |                         <a
-  688 |                           key={index}
-> 689 |                           href={fileUrl}.
-      |                                         ^
-  690 |                           target="_blank"
-  691 |                           rel="noopener noreferrer"
-  692 |                           className="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-blue-50 transition group"
-
-Expected '</', got '.'
-
-Import traces:
-  Client Component Browser:
-    ./app/(dashboard)/customer-care/page.tsx [Client Component Browser]
-    ./app/(dashboard)/customer-care/page.tsx [Server Component]
-
-  Client Component SSR:
-    ./app/(dashboard)/customer-care/page.tsx [Client Component SSR]
-    ./app/(dashboard)/customer-care/page.tsx [Server Component]
-[00:04:46.273] Server  LOG     ✓ Compiled in 85ms
-[00:04:46.376] Browser ERROR   ./app/(dashboard)/customer-care/page.tsx:689:42
-Parsing ecmascript source code failed
-  687 |                         <a
-  688 |                           key={index}
-> 689 |                           href={fileUrl}{}
-      |                                          ^
-  690 |                           target="_blank"
-  691 |                           rel="noopener noreferrer"
-  692 |                           className="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-blue-50 transition group"
-
-Expected '</', got '}'
-
-Import traces:
-  Client Component Browser:
-    ./app/(dashboard)/customer-care/page.tsx [Client Component Browser]
-    ./app/(dashboard)/customer-care/page.tsx [Server Component]
-
-  Client Component SSR:
-    ./app/(dashboard)/customer-care/page.tsx [Client Component SSR]
-    ./app/(dashboard)/customer-care/page.tsx [Server Component]
-[00:04:48.691] Server  LOG     ✓ Compiled in 108ms
-[00:04:48.797] Browser ERROR   ./app/(dashboard)/customer-care/page.tsx:689:42
-Parsing ecmascript source code failed
-  687 |                         <a
-  688 |                           key={index}
-> 689 |                           href={fileUrl}{fil}
-      |                                          ^^^
-  690 |                           target="_blank"
-  691 |                           rel="noopener noreferrer"
-  692 |                           className="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-blue-50 transition group"
-
-Expected '</', got 'fil'
-
-Import traces:
-  Client Component Browser:
-    ./app/(dashboard)/customer-care/page.tsx [Client Component Browser]
-    ./app/(dashboard)/customer-care/page.tsx [Server Component]
-
-  Client Component SSR:
-    ./app/(dashboard)/customer-care/page.tsx [Client Component SSR]
-    ./app/(dashboard)/customer-care/page.tsx [Server Component]
-[00:04:50.764] Server  LOG     ✓ Compiled in 81ms
-[00:04:50.865] Browser ERROR   ./app/(dashboard)/customer-care/page.tsx:689:42
-Parsing ecmascript source code failed
-  687 |                         <a
-  688 |                           key={index}
-> 689 |                           href={fileUrl}{fileFormat}
-      |                                          ^^^^^^^^^^
-  690 |                           target="_blank"
-  691 |                           rel="noopener noreferrer"
-  692 |                           className="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-blue-50 transition group"
-
-Expected '</', got 'fileFormat'
-
-Import traces:
-  Client Component Browser:
-    ./app/(dashboard)/customer-care/page.tsx [Client Component Browser]
-    ./app/(dashboard)/customer-care/page.tsx [Server Component]
-
-  Client Component SSR:
-    ./app/(dashboard)/customer-care/page.tsx [Client Component SSR]
-    ./app/(dashboard)/customer-care/page.tsx [Server Component]
-[00:04:54.563] Server  LOG     ✓ Compiled in 74ms
-[00:04:54.668] Browser ERROR   ./app/(dashboard)/customer-care/page.tsx:689:41
-Parsing ecmascript source code failed
-  687 |                         <a
-  688 |                           key={index}
-> 689 |                           href={fileUrl}+{fileFormat}
-      |                                         ^
-  690 |                           target="_blank"
-  691 |                           rel="noopener noreferrer"
-  692 |                           className="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-blue-50 transition group"
-
-Expression expected
-
-Import traces:
-  Client Component Browser:
-    ./app/(dashboard)/customer-care/page.tsx [Client Component Browser]
-    ./app/(dashboard)/customer-care/page.tsx [Server Component]
-
-  Client Component SSR:
-    ./app/(dashboard)/customer-care/page.tsx [Client Component SSR]
-    ./app/(dashboard)/customer-care/page.tsx [Server Component]
-[00:04:57.470] Browser ERROR   ./app/(dashboard)/customer-care/page.tsx:689:41
-Parsing ecmascript source code failed
-  687 |                         <a
-  688 |                           key={index}
-> 689 |                           href={fileUrl}+'"{fileFormat}
-      |                                         ^
-  690 |                           target="_blank"
-  691 |                           rel="noopener noreferrer"
-  692 |                           className="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-blue-50 transition group"
-
-Expression expected
-
-Import traces:
-  Client Component Browser:
-    ./app/(dashboard)/customer-care/page.tsx [Client Component Browser]
-    ./app/(dashboard)/customer-care/page.tsx [Server Component]
-
-  Client Component SSR:
-    ./app/(dashboard)/customer-care/page.tsx [Client Component SSR]
-    ./app/(dashboard)/customer-care/page.tsx [Server Component]
-[00:04:57.470] Browser ERROR   ./app/(dashboard)/customer-care/page.tsx:689:42
-Parsing ecmascript source code failed
-  687 |                         <a
-  688 |                           key={index}
-> 689 |                           href={fileUrl}+'"{fileFormat}
-      |                                          ^^^^^^^^^^^^^^
-  690 |                           target="_blank"
-  691 |                           rel="noopener noreferrer"
-  692 |                           className="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-blue-50 transition group"
-
-Unterminated string constant
-
-Import traces:
-  Client Component Browser:
-    ./app/(dashboard)/customer-care/page.tsx [Client Component Browser]
-    ./app/(dashboard)/customer-care/page.tsx [Server Component]
-
-  Client Component SSR:
-    ./app/(dashboard)/customer-care/page.tsx [Client Component SSR]
-    ./app/(dashboard)/customer-care/page.tsx [Server Component]
-[00:05:02.121] Server  LOG     ✓ Compiled in 92ms
-[00:05:02.228] Browser ERROR   ./app/(dashboard)/customer-care/page.tsx:689:41
-Parsing ecmascript source code failed
-  687 |                         <a
-  688 |                           key={index}
-> 689 |                           href={fileUrl}""{fileFormat}
-      |                                         ^^
-  690 |                           target="_blank"
-  691 |                           rel="noopener noreferrer"
-  692 |                           className="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-blue-50 transition group"
-
-Expected '</', got 'string literal ("", "")'
-
-Import traces:
-  Client Component Browser:
-    ./app/(dashboard)/customer-care/page.tsx [Client Component Browser]
-    ./app/(dashboard)/customer-care/page.tsx [Server Component]
-
-  Client Component SSR:
-    ./app/(dashboard)/customer-care/page.tsx [Client Component SSR]
-    ./app/(dashboard)/customer-care/page.tsx [Server Component]
-[00:05:05.429] Server  LOG     ✓ Compiled in 104ms
-[00:05:05.534] Browser ERROR   ./app/(dashboard)/customer-care/page.tsx:689:41
-Parsing ecmascript source code failed
-  687 |                         <a
-  688 |                           key={index}
-> 689 |                           href={fileUrl}"."{fileFormat}
-      |                                         ^^^
-  690 |                           target="_blank"
-  691 |                           rel="noopener noreferrer"
-  692 |                           className="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-blue-50 transition group"
-
-Expected '</', got 'string literal (".", ".")'
-
-Import traces:
-  Client Component Browser:
-    ./app/(dashboard)/customer-care/page.tsx [Client Component Browser]
-    ./app/(dashboard)/customer-care/page.tsx [Server Component]
-
-  Client Component SSR:
-    ./app/(dashboard)/customer-care/page.tsx [Client Component SSR]
-    ./app/(dashboard)/customer-care/page.tsx [Server Component]
-[00:05:12.668] Server  LOG     ✓ Compiled in 75ms
-[00:05:12.773] Browser ERROR   ./app/(dashboard)/customer-care/page.tsx:689:42
-Parsing ecmascript source code failed
-  687 |                         <a
-  688 |                           key={index}
-> 689 |                           href={fileUrl}{fileFormat}
-      |                                          ^^^^^^^^^^
-  690 |                           target="_blank"
-  691 |                           rel="noopener noreferrer"
-  692 |                           className="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-blue-50 transition group"
-
-Expected '</', got 'fileFormat'
-
-Import traces:
-  Client Component Browser:
-    ./app/(dashboard)/customer-care/page.tsx [Client Component Browser]
-    ./app/(dashboard)/customer-care/page.tsx [Server Component]
-
-  Client Component SSR:
-    ./app/(dashboard)/customer-care/page.tsx [Client Component SSR]
-    ./app/(dashboard)/customer-care/page.tsx [Server Component]
-[00:05:18.629] Server  LOG     ✓ Compiled in 80ms
-[00:05:18.733] Browser ERROR   ./app/(dashboard)/customer-care/page.tsx:689:41
-Parsing ecmascript source code failed
-  687 |                         <a
-  688 |                           key={index}
-> 689 |                           href={fileUrl}+{fileFormat}
-      |                                         ^
-  690 |                           target="_blank"
-  691 |                           rel="noopener noreferrer"
-  692 |                           className="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-blue-50 transition group"
-
-Expression expected
-
-Import traces:
-  Client Component Browser:
-    ./app/(dashboard)/customer-care/page.tsx [Client Component Browser]
-    ./app/(dashboard)/customer-care/page.tsx [Server Component]
-
-  Client Component SSR:
-    ./app/(dashboard)/customer-care/page.tsx [Client Component SSR]
-    ./app/(dashboard)/customer-care/page.tsx [Server Component]
-[01:51:29.425] Server  LOG     ✓ Compiled in 394ms
-[01:51:31.274] Server  LOG     ✓ Compiled in 79ms
-[01:51:32.603] Server  LOG     ✓ Compiled in 76ms
-[01:51:44.467] Server  LOG     ♻️ Using existing MongoDB connection
-[01:51:44.602] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
-[01:51:49.079] Server  LOG     ♻️ Using existing MongoDB connection
-[01:51:49.128] Server  LOG     ♻️ Using existing MongoDB connection
-[01:51:49.180] Server  LOG     ♻️ Using existing MongoDB connection
-[01:51:49.240] Server  LOG     ♻️ Using existing MongoDB connection
-[01:51:49.249] Server  LOG     ♻️ Using existing MongoDB connection
-[01:51:49.665] Server  LOG     ♻️ Using existing MongoDB connection
-[01:51:58.448] Server  LOG     ♻️ Using existing MongoDB connection
-[01:51:58.454] Server  LOG     API Services - Query params: {}
-[01:51:58.454] Server  LOG     API Services - MongoDB query: {}
-[01:51:58.510] Server  LOG     API Services - Found services: 1
-[01:51:59.660] Server  LOG     ♻️ Using existing MongoDB connection
-[01:51:59.724] Server  LOG     Service Pricing Results: {}
-[01:52:51.118] Server  LOG     ✓ Compiled in 169ms
-[01:53:08.719] Server  LOG     ♻️ Using existing MongoDB connection
-[01:53:08.936] Server  LOG     ♻️ Using existing MongoDB connection
-[01:53:09.012] Server  LOG     ♻️ Using existing MongoDB connection
-[02:03:48.032] Server  WARN    ⚠ Fast Refresh had to perform a full reload when ./app/(dashboard)/customer-care/create/page.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
-[02:03:48.050] Server  LOG     ✓ Compiled in 449ms
-[02:03:48.536] Browser ERROR   uncaughtError: Error: Module [project]/node_modules/lucide-react/dist/esm/icons/briefcase.js [app-client] (ecmascript) <export default as Briefcase> was instantiated because it was required from module [project]/app/components/Navigation.tsx [app-client] (ecmascript), but the module factory is not available. It might have been deleted in an HMR update.
-[02:03:56.646] Server  LOG     ♻️ Using existing MongoDB connection
-[02:03:56.760] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
-[02:04:13.925] Server  LOG     ♻️ Using existing MongoDB connection
-[02:04:14.052] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
-[02:05:06.355] Server  LOG     ✓ Compiled in 82ms
-[02:05:06.633] Browser ERROR   A component is changing a controlled input to be uncontrolled. This is likely caused by the value changing from a defined to undefined, which should not happen. Decide between using a controlled or uncontrolled input element for the lifetime of the component. More info: https://react.dev/link/controlled-components
-[02:05:11.354] Server  LOG     ♻️ Using existing MongoDB connection
-[02:05:11.453] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
-[02:06:22.250] Server  LOG     ✓ Compiled in 114ms
-[02:06:22.637] Browser ERROR   A component is changing an uncontrolled input to be controlled. This is likely caused by the value changing from undefined to a defined value, which should not happen. Decide between using a controlled or uncontrolled input element for the lifetime of the component. More info: https://react.dev/link/controlled-components
-[02:06:26.131] Server  LOG     ✓ Compiled in 184ms
-[02:06:30.077] Server  LOG     ♻️ Using existing MongoDB connection
-[02:06:30.192] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
-[02:07:28.608] Server  LOG     ✓ Compiled in 96ms
-[02:07:50.962] Server  LOG     ✓ Compiled in 83ms
-[02:08:06.459] Server  LOG     ✓ Compiled in 103ms
-[02:08:10.402] Server  LOG     ✓ Compiled in 85ms
-[02:08:14.421] Server  LOG     ✓ Compiled in 90ms
-[02:10:50.392] Server  LOG     ✓ Compiled in 251ms
-[02:11:35.529] Server  LOG     ♻️ Using existing MongoDB connection
-[02:11:35.644] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:00:13.301] Server  LOG     ✓ Ready in 10.7s
+[00:00:16.481] Server  LOG     ○ Compiling /services/service-packages ...
+[00:00:19.146] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:20.140] Server  LOG     📡 Connecting to MongoDB...
+[00:00:20.152] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:00:20.757] Server  LOG     ✅ MongoDB connected successfully
+[00:00:20.758] Server  LOG     📊 Database name: "trg-crm"
+[00:00:47.087] Server  LOG     ♻️ Using existing MongoDB connection
+[00:00:47.167] Server  LOG     ♻️ Using existing MongoDB connection
+[00:00:47.326] Browser LOG     data báo giá kèm chi tiết {"data":[{"__v":0,"_id":"69802d47a07b37d0ab04d71b","createdAt":"2026-02-02T04:51:19.505Z","createdBy":"admin","customer":"Nguyễn Văn A","customerRef":"697eda676cba580db7e06988","date":"2026-02-01T17:00:00.000Z","grandTotal":3261643200000,"packages":[{"_id":"69802d47a07b37d0ab04d71c","packages":"[Array]","service":"Thiết kế nhà cấp 4","serviceGroup":"Thiết kế xây dựng","volume":388.8},{"_id":"69802d47a07b37d0ab04d720","packages":"[Array]","service":"Thiết kế nội thất nhà cấp 4 gác lửng","serviceGroup":"nội thất","volume":388.8},{"_id":"69802d47a07b37d0ab04d725","packages":"[Array]","service":"Thi công văn phòng trọn gói","serviceGroup":"Thi công xây dựng","volume":388.8},{"_id":"69802d47a07b37d0ab04d727","packages":"[Array]","service":"Thi công nhà cấp 4 trọn gói","serviceGroup":"Thi công xây dựng","volume":388.8}],"quotationNo":"BG003","status":"draft","surveyRef":"697c5782f23d2994e118b2d6","totalAmount":3261643200000,"updatedAt":"2026-02-02T04:51:19.505Z"},{"__v":0,"_id":"69802a48a07b37d0ab04d606","createdAt":"2026-02-02T04:38:32.792Z","createdBy":"admin","customer":"Vui lòng nhập tên khách hàng","customerRef":null,"date":"2026-02-01T17:00:00.000Z","grandTotal":37800000000,"packages":[{"_id":"69802a48a07b37d0ab04d607","packages":"[Array]","service":"Thiết kế nhà cấp 4","serviceGroup":"Thiết kế xây dựng","volume":5},{"_id":"69802a48a07b37d0ab04d60b","packages":"[Array]","service":"Thiết kế nội thất nhà cấp 4 gác lửng","serviceGroup":"nội thất","volume":5}],"quotationNo":"BG002","status":"draft","surveyRef":"698028dfa07b37d0ab04d5e4","totalAmount":37800000000,"updatedAt":"2026-02-02T04:38:32.792Z"},{"__v":0,"_id":"697c55abf23d2994e118b25d","createdAt":"2026-01-30T06:54:35.770Z","createdBy":"admin","customer":"Ton","customerRef":"697b2822d5ea0bf60b845bb7","date":"2026-01-30T00:00:00.000Z","grandTotal":224640000000,"notes":"drfghszaetrbhz","packages":[{"_id":"697c55abf23d2994e118b25e","packages":"[Array]","service":"Thiết kế nhà cấp 4","serviceGroup":"Thiết kế xây dựng","volume":7488}],"quotationNo":"BG001","status":"approved","surveyRef":"6979b9992b1c6fb8cd1463ce","totalAmount":224640000000,"updatedAt":"2026-01-30T06:55:21.163Z"}],"pagination":{"limit":10,"page":1,"pages":1,"total":3},"success":true}
+[00:00:47.326] Browser LOG     data báo giá kèm chi tiết {"data":[{"__v":0,"_id":"69802d47a07b37d0ab04d71b","createdAt":"2026-02-02T04:51:19.505Z","createdBy":"admin","customer":"Nguyễn Văn A","customerRef":"697eda676cba580db7e06988","date":"2026-02-01T17:00:00.000Z","grandTotal":3261643200000,"packages":[{"_id":"69802d47a07b37d0ab04d71c","packages":"[Array]","service":"Thiết kế nhà cấp 4","serviceGroup":"Thiết kế xây dựng","volume":388.8},{"_id":"69802d47a07b37d0ab04d720","packages":"[Array]","service":"Thiết kế nội thất nhà cấp 4 gác lửng","serviceGroup":"nội thất","volume":388.8},{"_id":"69802d47a07b37d0ab04d725","packages":"[Array]","service":"Thi công văn phòng trọn gói","serviceGroup":"Thi công xây dựng","volume":388.8},{"_id":"69802d47a07b37d0ab04d727","packages":"[Array]","service":"Thi công nhà cấp 4 trọn gói","serviceGroup":"Thi công xây dựng","volume":388.8}],"quotationNo":"BG003","status":"draft","surveyRef":"697c5782f23d2994e118b2d6","totalAmount":3261643200000,"updatedAt":"2026-02-02T04:51:19.505Z"},{"__v":0,"_id":"69802a48a07b37d0ab04d606","createdAt":"2026-02-02T04:38:32.792Z","createdBy":"admin","customer":"Vui lòng nhập tên khách hàng","customerRef":null,"date":"2026-02-01T17:00:00.000Z","grandTotal":37800000000,"packages":[{"_id":"69802a48a07b37d0ab04d607","packages":"[Array]","service":"Thiết kế nhà cấp 4","serviceGroup":"Thiết kế xây dựng","volume":5},{"_id":"69802a48a07b37d0ab04d60b","packages":"[Array]","service":"Thiết kế nội thất nhà cấp 4 gác lửng","serviceGroup":"nội thất","volume":5}],"quotationNo":"BG002","status":"draft","surveyRef":"698028dfa07b37d0ab04d5e4","totalAmount":37800000000,"updatedAt":"2026-02-02T04:38:32.792Z"},{"__v":0,"_id":"697c55abf23d2994e118b25d","createdAt":"2026-01-30T06:54:35.770Z","createdBy":"admin","customer":"Ton","customerRef":"697b2822d5ea0bf60b845bb7","date":"2026-01-30T00:00:00.000Z","grandTotal":224640000000,"notes":"drfghszaetrbhz","packages":[{"_id":"697c55abf23d2994e118b25e","packages":"[Array]","service":"Thiết kế nhà cấp 4","serviceGroup":"Thiết kế xây dựng","volume":7488}],"quotationNo":"BG001","status":"approved","surveyRef":"6979b9992b1c6fb8cd1463ce","totalAmount":224640000000,"updatedAt":"2026-01-30T06:55:21.163Z"}],"pagination":{"limit":10,"page":1,"pages":1,"total":3},"success":true}
+[00:00:52.709] Browser ERROR   ["There is nothing to print"]
+[00:01:48.610] Server  LOG     ✓ Compiled in 116ms
+[00:02:14.811] Server  LOG     ✓ Compiled in 127ms
+[00:06:31.958] Server  LOG     ✓ Compiled in 85ms
+[00:08:03.838] Server  LOG     ✓ Compiled in 98ms
+[00:08:13.719] Server  LOG     ✓ Compiled in 113ms
+[00:11:05.790] Server  LOG     ✓ Compiled in 139ms
+[00:13:14.348] Server  LOG     ✓ Compiled in 125ms
+[00:14:32.526] Server  LOG     ✓ Compiled in 109ms
+[00:16:09.142] Server  LOG     ✓ Compiled in 93ms
+[00:16:20.021] Server  LOG     ✓ Compiled in 100ms
+[00:16:26.878] Server  LOG     ✓ Compiled in 94ms
+[00:17:21.505] Server  LOG     ✓ Compiled in 86ms
+[00:17:23.838] Server  LOG     ✓ Compiled in 85ms
+[00:17:32.473] Server  LOG     ✓ Compiled in 91ms
+[00:17:37.322] Server  LOG     ✓ Compiled in 88ms
+[00:17:58.429] Server  LOG     ✓ Compiled in 92ms
+[00:18:29.448] Server  LOG     ✓ Compiled in 103ms
+[00:18:39.082] Server  LOG     ✓ Compiled in 103ms
+[00:18:51.260] Server  LOG     ✓ Compiled in 100ms
+[00:19:03.032] Browser ERROR   ["Printing failed because the `contentWindow` of the print iframe did not load. This is possibly an error with `react-to-print`. Please file an issue: https://github.com/MatthewHerbst/react-to-print/issues/"]
+[00:19:11.939] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:19:11.998] Server  LOG     ♻️ Using existing MongoDB connection
+[00:19:12.182] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:19:12.182] Browser LOG     data báo giá kèm chi tiết {"data":[{"__v":0,"_id":"69802d47a07b37d0ab04d71b","createdAt":"2026-02-02T04:51:19.505Z","createdBy":"admin","customer":"Nguyễn Văn A","customerRef":"697eda676cba580db7e06988","date":"2026-02-01T17:00:00.000Z","grandTotal":3261643200000,"packages":[{"_id":"69802d47a07b37d0ab04d71c","packages":"[Array]","service":"Thiết kế nhà cấp 4","serviceGroup":"Thiết kế xây dựng","volume":388.8},{"_id":"69802d47a07b37d0ab04d720","packages":"[Array]","service":"Thiết kế nội thất nhà cấp 4 gác lửng","serviceGroup":"nội thất","volume":388.8},{"_id":"69802d47a07b37d0ab04d725","packages":"[Array]","service":"Thi công văn phòng trọn gói","serviceGroup":"Thi công xây dựng","volume":388.8},{"_id":"69802d47a07b37d0ab04d727","packages":"[Array]","service":"Thi công nhà cấp 4 trọn gói","serviceGroup":"Thi công xây dựng","volume":388.8}],"quotationNo":"BG003","status":"draft","surveyRef":"697c5782f23d2994e118b2d6","totalAmount":3261643200000,"updatedAt":"2026-02-02T04:51:19.505Z"},{"__v":0,"_id":"69802a48a07b37d0ab04d606","createdAt":"2026-02-02T04:38:32.792Z","createdBy":"admin","customer":"Vui lòng nhập tên khách hàng","customerRef":null,"date":"2026-02-01T17:00:00.000Z","grandTotal":37800000000,"packages":[{"_id":"69802a48a07b37d0ab04d607","packages":"[Array]","service":"Thiết kế nhà cấp 4","serviceGroup":"Thiết kế xây dựng","volume":5},{"_id":"69802a48a07b37d0ab04d60b","packages":"[Array]","service":"Thiết kế nội thất nhà cấp 4 gác lửng","serviceGroup":"nội thất","volume":5}],"quotationNo":"BG002","status":"draft","surveyRef":"698028dfa07b37d0ab04d5e4","totalAmount":37800000000,"updatedAt":"2026-02-02T04:38:32.792Z"},{"__v":0,"_id":"697c55abf23d2994e118b25d","createdAt":"2026-01-30T06:54:35.770Z","createdBy":"admin","customer":"Ton","customerRef":"697b2822d5ea0bf60b845bb7","date":"2026-01-30T00:00:00.000Z","grandTotal":224640000000,"notes":"drfghszaetrbhz","packages":[{"_id":"697c55abf23d2994e118b25e","packages":"[Array]","service":"Thiết kế nhà cấp 4","serviceGroup":"Thiết kế xây dựng","volume":7488}],"quotationNo":"BG001","status":"approved","surveyRef":"6979b9992b1c6fb8cd1463ce","totalAmount":224640000000,"updatedAt":"2026-01-30T06:55:21.163Z"}],"pagination":{"limit":10,"page":1,"pages":1,"total":3},"success":true}
+[00:20:07.930] Server  LOG     ✓ Compiled in 118ms
+[00:20:33.728] Server  LOG     ♻️ Using existing MongoDB connection
+[00:20:33.816] Server  LOG     ♻️ Using existing MongoDB connection

@@ -20,6 +20,7 @@ import {
   X,
 } from "lucide-react";
 import { toast } from "react-toastify";
+import { formatNumberInput, parseNumberInput } from "@/lib/utils";
 
 interface ServicePricing {
   _id: string;
@@ -42,6 +43,12 @@ const ServicePricingManagement = () => {
   const [error, setError] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState<string>("all");
+  const [groupFilter, setGroupFilter] = useState<string>("all");
+  const [serviceFilter, setServiceFilter] = useState<string>("all");
+  const [packageFilter, setPackageFilter] = useState<string>("all");
+  const [allServices, setAllServices] = useState<any[]>([]);
+  const [allServiceGroups, setAllServiceGroups] = useState<any[]>([]);
+  const [availablePackages, setAvailablePackages] = useState<string[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [total, setTotal] = useState(0);
@@ -61,6 +68,7 @@ const ServicePricingManagement = () => {
   );
   const [submitLoading, setSubmitLoading] = useState(false);
   const [formData, setFormData] = useState({
+    serviceGroup: "",
     serviceName: "",
     packageName: "",
     unitPrice: 0,
@@ -69,11 +77,57 @@ const ServicePricingManagement = () => {
     isActive: true,
   });
 
+  // Fetch all services, groups and packages for the filter
+  const fetchFilterData = async () => {
+    try {
+      const token = localStorage.getItem("token");
+
+      // Fetch Service Groups
+      const groupRes = await fetch(
+        "/api/service-groups?active=true&limit=1000",
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        },
+      );
+      const groupData = await groupRes.json();
+      if (groupData.success) {
+        setAllServiceGroups(groupData.data);
+      }
+
+      // Fetch Services
+      const svcRes = await fetch("/api/services?active=true&limit=1000", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const svcData = await svcRes.json();
+      if (svcData.success) {
+        setAllServices(svcData.data);
+      }
+
+      // Fetch all predefined packages for the filter
+      const pkgRes = await fetch("/api/service-packages?limit=1000", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const pkgData = await pkgRes.json();
+      if (pkgData.success) {
+        setAvailablePackages(pkgData.data.map((p: any) => p.packageName));
+      }
+    } catch (error) {
+      console.error("Error fetching filter data:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchFilterData();
+  }, []);
+
   // Fetch service pricings
   const fetchPricings = async (
     page: number = 1,
     search: string = "",
     status: string = "all",
+    group: string = "all",
+    service: string = "all",
+    pkg: string = "all",
   ) => {
     try {
       const token = localStorage.getItem("token");
@@ -89,6 +143,9 @@ const ServicePricingManagement = () => {
 
       if (search) params.append("search", search);
       if (status !== "all") params.append("status", status);
+      if (group !== "all") params.append("serviceGroup", group);
+      if (service !== "all") params.append("serviceName", service);
+      if (pkg !== "all") params.append("packageName", pkg);
 
       const response = await fetch(
         `/api/service-pricing?${params.toString()}`,
@@ -105,33 +162,16 @@ const ServicePricingManagement = () => {
 
       const data = await response.json();
 
-      // Fetch serviceGroup for each pricing
-      const pricingsWithGroup = await Promise.all(
-        (data.data || []).map(async (pricing: any) => {
-          try {
-            const serviceResponse = await fetch(
-              `/api/services?serviceName=${encodeURIComponent(pricing.serviceName)}`,
-              {
-                headers: {
-                  Authorization: `Bearer ${token}`,
-                },
-              },
-            );
-
-            if (serviceResponse.ok) {
-              const serviceData = await serviceResponse.json();
-              const service = serviceData.data?.[0];
-              return {
-                ...pricing,
-                serviceGroup: service?.serviceGroup || "-",
-              };
-            }
-            return { ...pricing, serviceGroup: "-" };
-          } catch (error) {
-            return { ...pricing, serviceGroup: "-" };
-          }
-        }),
-      );
+      // Better way to get serviceGroup using already fetched allServices
+      const pricingsWithGroup = (data.data || []).map((pricing: any) => {
+        const foundService = allServices.find(
+          (s) => s.serviceName === pricing.serviceName,
+        );
+        return {
+          ...pricing,
+          serviceGroup: foundService?.serviceGroup || "-",
+        };
+      });
 
       setPricings(pricingsWithGroup);
       setTotalPages(data.pagination?.totalPages || 1);
@@ -150,6 +190,7 @@ const ServicePricingManagement = () => {
     if (pricing) {
       setEditingPricing(pricing);
       setFormData({
+        serviceGroup: pricing.serviceGroup || "",
         serviceName: pricing.serviceName,
         packageName: pricing.packageName || "",
         unitPrice: pricing.unitPrice,
@@ -164,6 +205,7 @@ const ServicePricingManagement = () => {
     } else {
       setEditingPricing(null);
       setFormData({
+        serviceGroup: "",
         serviceName: "",
         packageName: "",
         unitPrice: 0,
@@ -195,9 +237,19 @@ const ServicePricingManagement = () => {
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
     const { name, value } = e.target;
+
+    if (name === "unitPrice") {
+      const numericValue = parseNumberInput(value);
+      setFormData((prev) => ({
+        ...prev,
+        [name]: numericValue,
+      }));
+      return;
+    }
+
     setFormData((prev) => ({
       ...prev,
-      [name]: name === "unitPrice" ? Number(value) : value,
+      [name]: value,
     }));
   };
 
@@ -239,7 +291,14 @@ const ServicePricingManagement = () => {
           : "Thêm cài đặt giá thành công",
       );
       handleCloseModal();
-      fetchPricings(currentPage, searchQuery, statusFilter);
+      fetchPricings(
+        currentPage,
+        searchQuery,
+        statusFilter,
+        groupFilter,
+        serviceFilter,
+        packageFilter,
+      );
     } catch (err: any) {
       console.error("Error saving pricing:", err);
       setError(err.message);
@@ -268,7 +327,14 @@ const ServicePricingManagement = () => {
       toast.success("Xóa cài đặt giá thành công");
       setShowDeleteModal(false);
       setDeletingPricing(null);
-      fetchPricings(currentPage, searchQuery, statusFilter);
+      fetchPricings(
+        currentPage,
+        searchQuery,
+        statusFilter,
+        groupFilter,
+        serviceFilter,
+        packageFilter,
+      );
     } catch (err: any) {
       toast.error(err.message || "Không thể xóa cài đặt giá");
     }
@@ -296,8 +362,23 @@ const ServicePricingManagement = () => {
   };
 
   useEffect(() => {
-    fetchPricings(currentPage, searchQuery, statusFilter);
-  }, [currentPage, searchQuery, statusFilter]);
+    fetchPricings(
+      currentPage,
+      searchQuery,
+      statusFilter,
+      groupFilter,
+      serviceFilter,
+      packageFilter,
+    );
+  }, [
+    currentPage,
+    searchQuery,
+    statusFilter,
+    groupFilter,
+    serviceFilter,
+    packageFilter,
+    allServices.length,
+  ]);
 
   if (loading) {
     return (
@@ -367,9 +448,77 @@ const ServicePricingManagement = () => {
                   }}
                   className="px-3 py-1 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 outline-none"
                 >
-                  <option value="all">Tất cả</option>
+                  <option value="all">Tất cả trạng thái</option>
                   <option value="active">Đang hoạt động</option>
                   <option value="inactive">Ngừng hoạt động</option>
+                  <option value="used">Đã sử dụng</option>
+                </select>
+              </div>
+
+              <div className="flex items-center space-x-1 text-sm">
+                <Filter className="w-4 h-4 text-gray-400" />
+                <span className="text-gray-600">Nhóm:</span>
+                <select
+                  value={groupFilter}
+                  onChange={(e) => {
+                    setGroupFilter(e.target.value);
+                    setServiceFilter("all"); // Reset service filter when group changes
+                    setCurrentPage(1);
+                  }}
+                  className="px-2 py-1 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 outline-none max-w-[150px]"
+                >
+                  <option value="all">Tất cả nhóm</option>
+                  {allServiceGroups.map((group) => (
+                    <option key={group._id} value={group.name}>
+                      {group.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="flex items-center space-x-1 text-sm">
+                <Tag className="w-4 h-4 text-gray-400" />
+                <span className="text-gray-600">Dịch vụ:</span>
+                <select
+                  value={serviceFilter}
+                  onChange={(e) => {
+                    setServiceFilter(e.target.value);
+                    setCurrentPage(1);
+                  }}
+                  className="px-2 py-1 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 outline-none max-w-[150px]"
+                >
+                  <option value="all">Tất cả dịch vụ</option>
+                  {allServices
+                    .filter(
+                      (svc) =>
+                        groupFilter === "all" ||
+                        svc.serviceGroup === groupFilter,
+                    )
+                    .map((svc) => (
+                      <option key={svc._id} value={svc.serviceName}>
+                        {svc.serviceName}
+                      </option>
+                    ))}
+                </select>
+              </div>
+
+              <div className="flex items-center space-x-1 text-sm">
+                <Tag className="w-4 h-4 text-gray-400" />
+                <span className="text-gray-600">Gói:</span>
+                <select
+                  value={packageFilter}
+                  onChange={(e) => {
+                    setPackageFilter(e.target.value);
+                    setCurrentPage(1);
+                  }}
+                  className="px-2 py-1 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 outline-none max-w-[150px]"
+                >
+                  <option value="all">Tất cả gói</option>
+                  {availablePackages.map((pkg) => (
+                    <option key={pkg} value={pkg}>
+                      {pkg}
+                    </option>
+                  ))}
                 </select>
               </div>
             </div>
@@ -578,39 +727,79 @@ const ServicePricingManagement = () => {
                 <div className="space-y-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-700">
+                      Nhóm dịch vụ
+                    </label>
+                    <select
+                      name="serviceGroup"
+                      value={formData.serviceGroup}
+                      onChange={(e) => {
+                        handleInputChange(e);
+                        setFormData((prev) => ({ ...prev, serviceName: "" })); // Reset service name when group changes
+                      }}
+                      className="w-full px-3 py-2 border rounded-md outline-none focus:ring-2 focus:ring-blue-500"
+                    >
+                      <option value="">-- Tất cả nhóm --</option>
+                      {allServiceGroups.map((group) => (
+                        <option key={group._id} value={group.name}>
+                          {group.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700">
                       Tên dịch vụ *
                     </label>
-                    <input
-                      type="text"
+                    <select
                       name="serviceName"
                       required
                       value={formData.serviceName}
                       onChange={handleInputChange}
                       className="w-full px-3 py-2 border rounded-md outline-none focus:ring-2 focus:ring-blue-500"
-                    />
+                    >
+                      <option value="">-- Chọn dịch vụ --</option>
+                      {allServices
+                        .filter(
+                          (svc) =>
+                            !formData.serviceGroup ||
+                            svc.serviceGroup === formData.serviceGroup,
+                        )
+                        .map((svc) => (
+                          <option key={svc._id} value={svc.serviceName}>
+                            {svc.serviceName}
+                          </option>
+                        ))}
+                    </select>
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-gray-700">
                       Gói dịch vụ
                     </label>
-                    <input
-                      type="text"
+                    <select
                       name="packageName"
                       value={formData.packageName}
                       onChange={handleInputChange}
                       className="w-full px-3 py-2 border rounded-md outline-none focus:ring-2 focus:ring-blue-500"
-                    />
+                    >
+                      <option value="">-- Chọn gói --</option>
+                      {availablePackages.map((pkg) => (
+                        <option key={pkg} value={pkg}>
+                          {pkg}
+                        </option>
+                      ))}
+                    </select>
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-gray-700">
                       Đơn giá *
                     </label>
                     <input
-                      type="number"
+                      type="text"
                       name="unitPrice"
                       required
-                      value={formData.unitPrice}
+                      value={formatNumberInput(formData.unitPrice)}
                       onChange={handleInputChange}
+                      placeholder="0"
                       className="w-full px-3 py-2 border rounded-md outline-none focus:ring-2 focus:ring-blue-500"
                     />
                   </div>

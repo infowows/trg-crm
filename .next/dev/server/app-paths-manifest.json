@@ -1,14 +1,8 @@
 {
-  "/(dashboard)/customer-care/create/page": "app/(dashboard)/customer-care/create/page.js",
   "/(dashboard)/customer-care/page": "app/(dashboard)/customer-care/page.js",
-  "/(dashboard)/dashboard/page": "app/(dashboard)/dashboard/page.js",
-  "/_not-found/page": "app/_not-found/page.js",
+  "/(dashboard)/quotations/page": "app/(dashboard)/quotations/page.js",
+  "/(dashboard)/services/service-packages/page": "app/(dashboard)/services/service-packages/page.js",
   "/api/customer-care/route": "app/api/customer-care/route.js",
-  "/api/customers/route": "app/api/customers/route.js",
-  "/api/employees/route": "app/api/employees/route.js",
-  "/api/service-groups/route": "app/api/service-groups/route.js",
-  "/api/service-pricing/route": "app/api/service-pricing/route.js",
-  "/api/services/route": "app/api/services/route.js",
-  "/api/stats/route": "app/api/stats/route.js",
-  "/api/upload/route": "app/api/upload/route.js"
+  "/api/quotations/route": "app/api/quotations/route.js",
+  "/api/service-packages/route": "app/api/service-packages/route.js"
 }

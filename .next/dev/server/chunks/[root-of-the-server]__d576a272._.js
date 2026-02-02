@@ -156,6 +156,10 @@ const CustomerSchema = new __TURBOPACK__imported__module__$5b$externals$5d2f$mon
     },
     longitude: {
         type: Number
+    },
+    isDel: {
+        type: Boolean,
+        default: false
     }
 }, {
     timestamps: true,

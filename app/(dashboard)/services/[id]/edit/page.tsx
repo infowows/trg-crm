@@ -232,7 +232,7 @@ const EditService = () => {
                   name="serviceName"
                   value={formData.serviceName}
                   onChange={handleInputChange}
-                  className="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-black"
                   placeholder="Nhập tên dịch vụ"
                   required
                 />
@@ -275,7 +275,7 @@ const EditService = () => {
                   name="code"
                   value={formData.code}
                   onChange={handleInputChange}
-                  className="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 uppercase"
+                  className="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 uppercase text-black"
                   placeholder="VD: WEB_DESIGN, CONSULTING"
                   required
                 />
@@ -294,7 +294,7 @@ const EditService = () => {
                   value={formData.description}
                   onChange={handleInputChange}
                   rows={4}
-                  className="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-black"
                   placeholder="Nhập mô tả chi tiết về dịch vụ"
                 />
               </div>

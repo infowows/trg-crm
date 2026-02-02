@@ -156,6 +156,10 @@ const CustomerSchema = new __TURBOPACK__imported__module__$5b$externals$5d2f$mon
     },
     longitude: {
         type: Number
+    },
+    isDel: {
+        type: Boolean,
+        default: false
     }
 }, {
     timestamps: true,
@@ -270,44 +274,57 @@ async function GET(request) {
         const isActive = searchParams.get("isActive");
         const potentialLevel = searchParams.get("potentialLevel");
         const source = searchParams.get("source");
-        const query = {};
+        const query = {
+            isDel: {
+                $ne: true
+            }
+        };
         if (search) {
-            query.$or = [
+            query.$and = [
                 {
-                    fullName: {
-                        $regex: search,
-                        $options: "i"
+                    isDel: {
+                        $ne: true
                     }
                 },
                 {
-                    shortName: {
-                        $regex: search,
-                        $options: "i"
-                    }
-                },
-                {
-                    customerId: {
-                        $regex: search,
-                        $options: "i"
-                    }
-                },
-                {
-                    phone: {
-                        $regex: search,
-                        $options: "i"
-                    }
-                },
-                {
-                    email: {
-                        $regex: search,
-                        $options: "i"
-                    }
-                },
-                {
-                    address: {
-                        $regex: search,
-                        $options: "i"
-                    }
+                    $or: [
+                        {
+                            fullName: {
+                                $regex: search,
+                                $options: "i"
+                            }
+                        },
+                        {
+                            shortName: {
+                                $regex: search,
+                                $options: "i"
+                            }
+                        },
+                        {
+                            customerId: {
+                                $regex: search,
+                                $options: "i"
+                            }
+                        },
+                        {
+                            phone: {
+                                $regex: search,
+                                $options: "i"
+                            }
+                        },
+                        {
+                            email: {
+                                $regex: search,
+                                $options: "i"
+                            }
+                        },
+                        {
+                            address: {
+                                $regex: search,
+                                $options: "i"
+                            }
+                        }
+                    ]
                 }
             ];
         }
@@ -372,18 +389,35 @@ async function POST(request) {
         // Generate unique customerId
         const generateCustomerId = async ()=>{
             const prefix = "KH";
-            // Create shortName part (remove spaces and special chars, uppercase)
-            const shortNamePart = shortName ? shortName.trim().replace(/[^a-zA-Z0-9]/g, "") // Remove special characters
-            .toUpperCase().substring(0, 10) // Limit to 10 characters
-             : "UNKNOWN";
-            // Get the count of customers with this shortName
-            const count = await __TURBOPACK__imported__module__$5b$project$5d2f$models$2f$Customer$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].countDocuments({
+            // Helper function to remove Vietnamese tones and get initials for shortName
+            const getInitials = (name)=>{
+                const parts = name.trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/đ/g, "d").replace(/Đ/g, "D").split(/\s+/);
+                if (parts.length === 0) return "UNKNOWN";
+                const lastName = parts.pop() || "";
+                const firstInitials = parts.map((p)=>p.charAt(0)).join("");
+                return (lastName + firstInitials).toUpperCase();
+            };
+            const finalShortNamePart = shortName ? shortName.trim().replace(/[^a-zA-Z0-9]/g, "").toUpperCase() : getInitials(fullName);
+            // Tìm mã khách hàng lớn nhất có cùng shortNamePart để tăng số
+            // Format: KH-SHORTNAME-XXXX
+            const regex = new RegExp(`^${prefix}-${finalShortNamePart}-\\d{4}$`);
+            const latestCustomer = await __TURBOPACK__imported__module__$5b$project$5d2f$models$2f$Customer$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].findOne({
                 customerId: {
-                    $regex: `^${prefix}${shortNamePart}-`
+                    $regex: regex
                 }
-            });
-            const sequence = String(count + 1).padStart(4, "0");
-            return `${prefix}${shortNamePart}-${sequence}`;
+            }).sort({
+                customerId: -1
+            }).select("customerId");
+            let nextSequence = 1;
+            if (latestCustomer && latestCustomer.customerId) {
+                const parts = latestCustomer.customerId.split("-");
+                const lastNum = parseInt(parts[parts.length - 1]);
+                if (!isNaN(lastNum)) {
+                    nextSequence = lastNum + 1;
+                }
+            }
+            const sequence = String(nextSequence).padStart(4, "0");
+            return `${prefix}-${finalShortNamePart}-${sequence}`;
         };
         const customerId = await generateCustomerId();
         // Check if phone already exists

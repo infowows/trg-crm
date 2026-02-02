@@ -406,7 +406,7 @@ export default function Navigation() {
                             : "max-h-0 opacity-0"
                         }`}
                       >
-                        <div className="ml-4 space-y-1 pl-2 border-l-2 border-gray-100">
+                        <div className="ml-4 space-y-1 pl-2 border-l-2 border-gray-400">
                           {item.children!.map((child) => {
                             const ChildIcon = child.icon;
                             let isChildActive = false;
