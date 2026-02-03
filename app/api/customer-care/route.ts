@@ -124,12 +124,23 @@ export async function POST(request: NextRequest) {
     const customerCare = new CustomerCare(body);
     await customerCare.save();
 
-    // Nếu có liên kết cơ hội, cập nhật careHistory trong Opportunity
+    // Nếu có liên kết cơ hội, cập nhật careHistory và demands trong Opportunity
     if (body.opportunityRef) {
       const Opportunity = (await import("../../../models/Opportunity")).default;
-      await Opportunity.findByIdAndUpdate(body.opportunityRef, {
+      const updateData: any = {
         $push: { careHistory: customerCare._id },
-      });
+      };
+
+      // Cập nhật thêm demands nếu có interestedServices
+      if (
+        body.interestedServices &&
+        Array.isArray(body.interestedServices) &&
+        body.interestedServices.length > 0
+      ) {
+        updateData.$addToSet = { demands: { $each: body.interestedServices } };
+      }
+
+      await Opportunity.findByIdAndUpdate(body.opportunityRef, updateData);
     }
 
     return NextResponse.json(

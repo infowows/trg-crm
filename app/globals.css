@@ -1,122 +1,138 @@
 @import "tailwindcss";
 
 :root {
-    --background: #ffffff;
-    --foreground: #171717;
+  --background: #ffffff;
+  --foreground: #171717;
 }
 
 @theme inline {
-    --color-background: var(--background);
-    --color-foreground: var(--foreground);
-    --font-sans: var(--font-geist-sans);
-    --font-mono: var(--font-geist-mono);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono);
+  --font-vn: var(--font-vietnamese);
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --font-vietnamese:
+    "Inter", "Roboto", "Be Vietnam Pro", "Segoe UI", Arial, sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {
-    :root {
-        --background: #0a0a0a;
-        --foreground: #ededed;
-    }
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
 }
 
+@utility font-vn {
+  font-family: var(--font-vietnamese);
+}
+
+@utility font-heading-vn {
+  font-family: var(--font-vietnamese);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+/* Đảm bảo toàn bộ ứng dụng sử dụng font hỗ trợ tiếng Việt */
 body {
-    background: var(--background);
-    color: var(--foreground);
-    font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter), var(--font-vietnamese), sans-serif;
 }
 
 /* Custom styles for better text visibility */
 
 .outline-none {
-    color: black !important;
+  color: black !important;
 }
 input::placeholder {
-    color: #6b7280 !important;
-    opacity: 1 !important;
+  color: #6b7280 !important;
+  opacity: 1 !important;
 }
 
 input:focus::placeholder {
-    color: #9ca3af !important;
+  color: #9ca3af !important;
 }
 
 textarea::placeholder {
-    color: #6b7280 !important;
-    opacity: 1 !important;
+  color: #6b7280 !important;
+  opacity: 1 !important;
 }
 
 textarea:focus::placeholder {
-    color: #9ca3af !important;
+  color: #9ca3af !important;
 }
 
 select:invalid {
-    color: #6b7280 !important;
+  color: #6b7280 !important;
 }
 
 /* Dark mode adjustments */
 @media (prefers-color-scheme: dark) {
-    input::placeholder {
-        color: #9ca3af !important;
-    }
+  input::placeholder {
+    color: #9ca3af !important;
+  }
 
-    input:focus::placeholder {
-        color: #d1d5db !important;
-    }
+  input:focus::placeholder {
+    color: #d1d5db !important;
+  }
 
-    textarea::placeholder {
-        color: #9ca3af !important;
-    }
+  textarea::placeholder {
+    color: #9ca3af !important;
+  }
 
-    textarea:focus::placeholder {
-        color: #d1d5db !important;
-    }
+  textarea:focus::placeholder {
+    color: #d1d5db !important;
+  }
 
-    select:invalid {
-        color: #9ca3af !important;
-    }
+  select:invalid {
+    color: #9ca3af !important;
+  }
 }
 
 /* Better contrast for disabled inputs */
 input:disabled {
-    color: #6b7280 !important;
-    background-color: #f3f4f6 !important;
+  color: #6b7280 !important;
+  background-color: #f3f4f6 !important;
 }
 
 textarea:disabled {
-    color: #6b7280 !important;
-    background-color: #f3f4f6 !important;
+  color: #6b7280 !important;
+  background-color: #f3f4f6 !important;
 }
 
 /* Dark mode disabled inputs */
 @media (prefers-color-scheme: dark) {
-    input:disabled {
-        color: #9ca3af !important;
-        background-color: #374151 !important;
-    }
+  input:disabled {
+    color: #9ca3af !important;
+    background-color: #374151 !important;
+  }
 
-    textarea:disabled {
-        color: #9ca3af !important;
-        background-color: #374151 !important;
-    }
+  textarea:disabled {
+    color: #9ca3af !important;
+    background-color: #374151 !important;
+  }
 }
 
 select {
-    border: 1px solid #0066ff !important;
-    border-radius: 10px;
-    color: black !important;
+  border: 1px solid #0066ff !important;
+  border-radius: 10px;
+  color: black !important;
 }
 
 select::placeholder {
-    color: black !important;
+  color: black !important;
 }
 
 select option {
-    /* background-color: #0a0a0a; */
-    color: black;
-    font-size: 16px;
-    /* font-weight: 600; */
+  /* background-color: #0a0a0a; */
+  color: black;
+  font-size: 16px;
+  /* font-weight: 600; */
 }
 
-
-#devtools-indicator{
-    display: none !important;
+#devtools-indicator {
+  display: none !important;
 }

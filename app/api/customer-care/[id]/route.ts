@@ -142,6 +142,15 @@ export async function DELETE(
       );
     }
 
+    // Nếu có liên kết cơ hội, xóa ID chăm sóc này khỏi careHistory của Opportunity
+    if (customerCare.opportunityRef) {
+      const Opportunity = (await import("../../../../models/Opportunity"))
+        .default;
+      await Opportunity.findByIdAndUpdate(customerCare.opportunityRef, {
+        $pull: { careHistory: customerCare._id },
+      });
+    }
+
     return NextResponse.json({
       success: true,
       message: "Đã xóa kế hoạch CSKH thành công",

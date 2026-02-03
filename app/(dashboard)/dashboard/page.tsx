@@ -513,8 +513,8 @@ const Dashboard = () => {
 
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between relative z-10">
           <div>
-            <h1 className="text-4xl font-black mb-3 tracking-tight">
-              TRG CRM Dashboard
+            <h1 className="text-4xl font-black mb-3 tracking-tight font-heading-vn">
+              Trường Giang CRM Dashboard
             </h1>
             <p className="text-blue-100 text-lg font-medium opacity-90">
               Hệ thống quản lý khách hàng chuyên nghiệp & hiệu quả

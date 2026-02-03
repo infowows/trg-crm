@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 // Schema cho gói khảo sát
 const surveySchema = new mongoose.Schema(
     {
-        name: { type: String, required: true }, // tên nhóm-hạng mục = name CategoryGroup + name CategoryItem
+        name: { type: String, required: true }, // tên nhóm-hạng mục = name CategoryGroup + name CategoryItem hoặc chỉ là CategoryGroup vì không có CategoryItem
         unit: { type: String, enum: ["m2", "m3"], required: true }, // đơn vị tính
         length: { type: Number, default: 0 }, // dài
         width: { type: Number, default: 0 }, // rộng
@@ -18,7 +18,7 @@ const surveySchema = new mongoose.Schema(
 const projectSurveySchema = new mongoose.Schema(
     {
         surveyNo: { type: String, unique: true, required: true }, // số khảo sát
-        surveys: [surveySchema], // mảng các dịch vụ
+        surveys: [surveySchema], // mảng các danh mục
         quotationNo: { type: String, default: null }, // số báo giá khi được tạo báo giá
         status: {
             type: String,

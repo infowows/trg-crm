@@ -85,6 +85,11 @@ __turbopack_context__.s([
 var __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__ = __turbopack_context__.i("[externals]/mongoose [external] (mongoose, cjs, [project]/node_modules/mongoose)");
 ;
 const CategoryItemSchema = new __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["Schema"]({
+    groupId: {
+        type: __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["Schema"].Types.ObjectId,
+        ref: "CategoryGroup",
+        required: true
+    },
     name: {
         type: String,
         required: true,
@@ -134,7 +139,11 @@ async function GET(request) {
         const limit = parseInt(searchParams.get("limit") || "10");
         const search = searchParams.get("search") || "";
         const isActive = searchParams.get("isActive");
+        const groupId = searchParams.get("groupId");
         const query = {};
+        if (groupId) {
+            query.groupId = groupId;
+        }
         if (search) {
             query.$or = [
                 {
@@ -162,7 +171,7 @@ async function GET(request) {
         }
         const skip = (page - 1) * limit;
         const [data, total] = await Promise.all([
-            __TURBOPACK__imported__module__$5b$project$5d2f$models$2f$CategoryItem$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].find(query).sort({
+            __TURBOPACK__imported__module__$5b$project$5d2f$models$2f$CategoryItem$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].find(query).populate("groupId", "name code").sort({
                 createdAt: -1
             }).skip(skip).limit(limit),
             __TURBOPACK__imported__module__$5b$project$5d2f$models$2f$CategoryItem$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].countDocuments(query)
@@ -191,30 +200,22 @@ async function POST(request) {
     try {
         await (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$dbConnect$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"])();
         const body = await request.json();
-        const { name, code, note } = body;
-        if (!name || !code) {
+        const { groupId, name, note } = body;
+        if (!groupId || !name) {
             return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
                 success: false,
-                error: "Tên và mã hạng mục là bắt buộc"
+                error: "Nhóm và tên hạng mục là bắt buộc"
             }, {
                 status: 400
             });
         }
-        // Check if code already exists
-        const existingItem = await __TURBOPACK__imported__module__$5b$project$5d2f$models$2f$CategoryItem$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].findOne({
-            code: code.toUpperCase()
-        });
-        if (existingItem) {
-            return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
-                success: false,
-                error: "Mã hạng mục đã tồn tại"
-            }, {
-                status: 400
-            });
-        }
+        // Tự động tạo mã hạng mục: HM-0001
+        const count = await __TURBOPACK__imported__module__$5b$project$5d2f$models$2f$CategoryItem$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].countDocuments();
+        const generatedCode = `HM-${String(count + 1).padStart(4, "0")}`;
         const categoryItem = new __TURBOPACK__imported__module__$5b$project$5d2f$models$2f$CategoryItem$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"]({
+            groupId,
             name: name.trim(),
-            code: code.toUpperCase().trim(),
+            code: generatedCode,
             note: note?.trim() || ""
         });
         await categoryItem.save();

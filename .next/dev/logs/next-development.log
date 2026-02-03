@@ -1,872 +1,239 @@
-[00:00:01.506] Server  LOG     ✓ Ready in 1197ms
-[00:00:02.287] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:02.921] Server  LOG     📡 Connecting to MongoDB...
-[00:00:02.997] Server  LOG     📡 Connecting to MongoDB...
-[00:00:02.997] Server  LOG     ✅ MongoDB connected successfully
-[00:00:03.000] Server  LOG     📊 Database name: undefined
-[00:00:03.146] Server  ERROR   GET opportunities error: MongooseError: Cannot call `Cơ hội.find()` before initial connection is complete if `bufferCommands = false`. Make sure you `await mongoose.connect()` if you have `bufferCommands = false`.
-[00:00:03.190] Server  LOG     📡 Connecting to MongoDB...
-[00:00:03.190] Server  LOG     ✅ MongoDB connected successfully
-[00:00:03.192] Server  LOG     📊 Database name: undefined
-[00:00:03.254] Server  ERROR   Error fetching employees: MongooseError: Cannot call `Nhân viên.find()` before initial connection is complete if `bufferCommands = false`. Make sure you `await mongoose.connect()` if you have `bufferCommands = false`.
-[00:00:03.292] Server  LOG     📡 Connecting to MongoDB...
-[00:00:03.292] Server  LOG     ✅ MongoDB connected successfully
-[00:00:03.294] Server  LOG     📊 Database name: undefined
-[00:00:03.361] Server  ERROR   GET customers error: MongooseError: Cannot call `Khách hàng.find()` before initial connection is complete if `bufferCommands = false`. Make sure you `await mongoose.connect()` if you have `bufferCommands = false`.
-[00:00:03.483] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
-[00:00:04.234] Server  LOG     ✅ MongoDB connected successfully
-[00:00:04.234] Server  LOG     📊 Database name: "trg-crm"
-[00:00:07.004] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:07.219] Server  LOG     ♻️ Using existing MongoDB connection
-[00:00:07.232] Server  LOG     ♻️ Using existing MongoDB connection
-[00:00:07.245] Server  LOG     ♻️ Using existing MongoDB connection
-[00:00:07.258] Server  LOG     ♻️ Using existing MongoDB connection
-[00:00:07.357] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
-[00:00:26.332] Server  LOG     ♻️ Using existing MongoDB connection
-[00:00:26.334] Server  LOG     API Services - Query params: {}
-[00:00:26.334] Server  LOG     API Services - MongoDB query: {}
-[00:00:26.395] Server  LOG     API Services - Found services: 4
-[00:00:27.502] Server  LOG     ♻️ Using existing MongoDB connection
-[00:00:27.546] Server  LOG     Service Pricing Results: {}
-[00:00:56.982] Server  LOG     ✓ Compiled in 499ms
-[00:00:58.061] Server  LOG     ✓ Compiled in 97ms
-[00:01:09.412] Server  LOG     ♻️ Using existing MongoDB connection
-[00:01:09.769] Server  LOG     ♻️ Using existing MongoDB connection
-[00:01:09.875] Server  LOG     ♻️ Using existing MongoDB connection
-[00:03:31.798] Server  LOG     ♻️ Using existing MongoDB connection
-[00:03:31.809] Server  LOG     ♻️ Using existing MongoDB connection
-[00:03:31.887] Server  LOG     ♻️ Using existing MongoDB connection
-[00:03:31.897] Server  LOG     ♻️ Using existing MongoDB connection
-[00:03:33.027] Server  LOG     ♻️ Using existing MongoDB connection
-[00:03:33.157] Server  LOG     ♻️ Using existing MongoDB connection
-[00:03:41.071] Server  LOG     ♻️ Using existing MongoDB connection
-[00:03:41.168] Server  LOG     ♻️ Using existing MongoDB connection
-[00:03:42.129] Server  LOG     ♻️ Using existing MongoDB connection
-[00:03:42.136] Server  LOG     ♻️ Using existing MongoDB connection
-[00:03:42.143] Server  LOG     ♻️ Using existing MongoDB connection
-[00:03:42.153] Server  LOG     ♻️ Using existing MongoDB connection
-[00:03:42.181] Server  LOG     ♻️ Using existing MongoDB connection
-[00:03:42.195] Server  LOG     ♻️ Using existing MongoDB connection
-[00:03:42.998] Server  LOG     ♻️ Using existing MongoDB connection
-[00:03:43.013] Server  LOG     ♻️ Using existing MongoDB connection
-[00:04:17.157] Server  LOG     ♻️ Using existing MongoDB connection
-[00:04:17.365] Server  LOG     ♻️ Using existing MongoDB connection
-[00:04:17.462] Server  LOG     ♻️ Using existing MongoDB connection
-[00:04:41.188] Server  LOG     ♻️ Using existing MongoDB connection
-[00:04:41.204] Server  LOG     ♻️ Using existing MongoDB connection
-[00:04:41.218] Server  LOG     ♻️ Using existing MongoDB connection
-[00:04:41.226] Server  LOG     ♻️ Using existing MongoDB connection
-[00:04:41.269] Server  LOG     ♻️ Using existing MongoDB connection
-[00:04:41.313] Server  LOG     ♻️ Using existing MongoDB connection
-[00:04:41.323] Server  LOG     ♻️ Using existing MongoDB connection
-[00:04:41.653] Server  LOG     ♻️ Using existing MongoDB connection
-[00:05:12.974] Server  LOG     ♻️ Using existing MongoDB connection
-[00:05:13.080] Server  LOG     ♻️ Using existing MongoDB connection
-[00:05:15.603] Server  LOG     ♻️ Using existing MongoDB connection
-[00:05:15.609] Server  LOG     ♻️ Using existing MongoDB connection
-[00:05:15.629] Server  LOG     ♻️ Using existing MongoDB connection
-[00:05:15.672] Server  LOG     ♻️ Using existing MongoDB connection
-[00:05:15.684] Server  LOG     ♻️ Using existing MongoDB connection
-[00:05:15.734] Server  LOG     ♻️ Using existing MongoDB connection
-[00:06:19.929] Server  LOG     ✓ Compiled in 280ms
-[00:06:19.958] Server  LOG     ♻️ Using existing MongoDB connection
-[00:06:19.968] Server  LOG     ♻️ Using existing MongoDB connection
-[00:06:19.995] Server  LOG     ♻️ Using existing MongoDB connection
-[00:06:28.660] Server  LOG     ✓ Compiled in 146ms
-[00:06:34.348] Server  LOG     ♻️ Using existing MongoDB connection
-[00:06:35.107] Server  LOG     ♻️ Using existing MongoDB connection
-[00:06:35.533] Server  LOG     ♻️ Using existing MongoDB connection
-[00:06:37.611] Server  LOG     ✓ Compiled in 126ms
-[00:06:56.406] Server  LOG     ♻️ Using existing MongoDB connection
-[00:06:56.417] Server  LOG     ♻️ Using existing MongoDB connection
-[00:06:56.441] Server  LOG     ♻️ Using existing MongoDB connection
-[00:06:56.632] Server  LOG     ♻️ Using existing MongoDB connection
-[00:06:56.718] Server  LOG     ♻️ Using existing MongoDB connection
-[00:06:56.923] Server  LOG     ♻️ Using existing MongoDB connection
-[00:07:03.648] Server  LOG     ♻️ Using existing MongoDB connection
-[00:07:03.817] Server  LOG     ♻️ Using existing MongoDB connection
-[00:07:03.914] Server  LOG     ♻️ Using existing MongoDB connection
-[00:07:04.127] Server  ERROR   Cloudinary upload error: {}
-[00:07:04.127] Server  ERROR   Upload API error: {}
-[00:07:09.975] Server  LOG     ♻️ Using existing MongoDB connection
-[00:07:09.983] Server  LOG     ♻️ Using existing MongoDB connection
-[00:07:10.009] Server  LOG     ♻️ Using existing MongoDB connection
-[00:07:10.051] Server  LOG     ♻️ Using existing MongoDB connection
-[00:07:10.063] Server  LOG     ♻️ Using existing MongoDB connection
-[00:07:10.127] Server  LOG     ♻️ Using existing MongoDB connection
-[00:07:15.952] Server  ERROR   Cloudinary upload error: {}
-[00:07:15.952] Server  ERROR   Upload API error: {}
-[00:07:20.218] Server  LOG     ♻️ Using existing MongoDB connection
-[00:07:20.308] Server  LOG     ♻️ Using existing MongoDB connection
-[00:07:59.326] Server  LOG     ♻️ Using existing MongoDB connection
-[00:07:59.335] Server  LOG     ♻️ Using existing MongoDB connection
-[00:07:59.343] Server  LOG     ♻️ Using existing MongoDB connection
-[00:07:59.353] Server  LOG     ♻️ Using existing MongoDB connection
-[00:07:59.416] Server  LOG     ♻️ Using existing MongoDB connection
-[00:07:59.431] Server  LOG     ♻️ Using existing MongoDB connection
-[00:07:59.440] Server  LOG     ♻️ Using existing MongoDB connection
-[00:07:59.474] Server  LOG     ♻️ Using existing MongoDB connection
-[00:08:05.958] Server  ERROR   Cloudinary upload error: {}
-[00:08:05.959] Server  ERROR   Upload API error: {}
-[00:09:37.623] Server  LOG     ♻️ Using existing MongoDB connection
-[00:09:37.876] Server  LOG     ♻️ Using existing MongoDB connection
-[00:09:37.973] Server  LOG     ♻️ Using existing MongoDB connection
-[00:10:44.500] Server  LOG     ♻️ Using existing MongoDB connection
-[00:10:44.509] Server  LOG     ♻️ Using existing MongoDB connection
-[00:10:44.518] Server  LOG     ♻️ Using existing MongoDB connection
-[00:10:44.527] Server  LOG     ♻️ Using existing MongoDB connection
-[00:10:44.565] Server  LOG     ♻️ Using existing MongoDB connection
-[00:10:44.574] Server  LOG     ♻️ Using existing MongoDB connection
-[00:10:44.595] Server  LOG     ♻️ Using existing MongoDB connection
-[00:10:44.636] Server  LOG     ♻️ Using existing MongoDB connection
-[00:10:54.013] Server  ERROR   Cloudinary upload error: {}
-[00:10:54.014] Server  ERROR   Upload API error: {}
-[00:22:41.551] Server  LOG     ✓ Compiled in 114ms
-[00:23:00.841] Server  LOG     ✓ Compiled in 108ms
-[00:24:48.522] Server  LOG     [Upload API] Starting upload for BaoGia_BG003 (2).pdf (application/pdf) to folder file as auto
-[00:24:51.173] Server  LOG     [Upload API] Success: file/file_yolw0n (image)
-[00:24:57.375] Server  LOG     ♻️ Using existing MongoDB connection
-[00:24:58.173] Server  LOG     ♻️ Using existing MongoDB connection
-[00:24:58.569] Server  LOG     ♻️ Using existing MongoDB connection
-[00:25:09.774] Server  LOG     ♻️ Using existing MongoDB connection
-[00:25:09.787] Server  LOG     ♻️ Using existing MongoDB connection
-[00:25:09.810] Server  LOG     ♻️ Using existing MongoDB connection
-[00:25:09.865] Server  LOG     ♻️ Using existing MongoDB connection
-[00:25:09.918] Server  LOG     ♻️ Using existing MongoDB connection
-[00:25:10.341] Server  LOG     ♻️ Using existing MongoDB connection
-[00:25:19.573] Server  LOG     [Upload API] Starting upload for SVD and PCA.pdf (application/pdf) to folder file as auto
-[00:25:23.504] Server  LOG     [Upload API] Success: file/file_krfish (image)
-[00:25:24.241] Server  LOG     ♻️ Using existing MongoDB connection
-[00:25:24.398] Server  LOG     ♻️ Using existing MongoDB connection
-[00:25:24.493] Server  LOG     ♻️ Using existing MongoDB connection
-[00:28:26.985] Server  LOG     ✓ Compiled in 110ms
-[00:31:55.254] Server  LOG     ♻️ Using existing MongoDB connection
-[00:31:55.266] Server  LOG     ♻️ Using existing MongoDB connection
-[00:31:55.285] Server  LOG     ♻️ Using existing MongoDB connection
-[00:31:57.411] Server  LOG     ♻️ Using existing MongoDB connection
-[00:31:57.566] Server  LOG     ♻️ Using existing MongoDB connection
-[00:31:58.454] Server  LOG     ♻️ Using existing MongoDB connection
-[00:32:07.248] Server  LOG     [Upload API] Starting upload: SVD and PCA.pdf (application/pdf) -> raw
-[00:32:11.720] Server  LOG     [Upload API] Success: https://res.cloudinary.com/dprxrbz1z/raw/upload/v1770094336/file/file_ohz1lj
-[00:32:12.355] Server  LOG     ♻️ Using existing MongoDB connection
-[00:32:12.633] Server  LOG     ♻️ Using existing MongoDB connection
-[00:32:12.756] Server  LOG     ♻️ Using existing MongoDB connection
-[00:32:40.456] Server  LOG     ♻️ Using existing MongoDB connection
-[00:32:40.558] Server  LOG     ♻️ Using existing MongoDB connection
-[00:32:43.451] Server  LOG     📡 Connecting to MongoDB...
-[00:32:43.451] Server  LOG     ✅ MongoDB connected successfully
-[00:32:43.453] Server  LOG     📊 Database name: "trg-crm"
-[00:32:47.707] Server  LOG     ♻️ Using existing MongoDB connection
-[00:33:00.210] Server  LOG     ♻️ Using existing MongoDB connection
-[00:33:00.218] Server  LOG     ♻️ Using existing MongoDB connection
-[00:33:00.220] Server  LOG     API Services - Query params: {}
-[00:33:00.220] Server  LOG     API Services - MongoDB query: {}
-[00:33:00.259] Server  LOG     ♻️ Using existing MongoDB connection
-[00:33:00.273] Server  LOG     API Services - Found services: 9
-[00:33:00.302] Server  LOG     ♻️ Using existing MongoDB connection
-[00:33:00.309] Server  LOG     ♻️ Using existing MongoDB connection
-[00:33:00.310] Server  LOG     API Services - Query params: {}
-[00:33:00.310] Server  LOG     API Services - MongoDB query: {}
-[00:33:00.352] Server  LOG     API Services - Found services: 9
-[00:33:01.043] Server  LOG     ♻️ Using existing MongoDB connection
-[00:33:03.766] Server  LOG     ♻️ Using existing MongoDB connection
-[00:33:03.860] Server  LOG     ♻️ Using existing MongoDB connection
-[00:33:45.477] Server  LOG     ♻️ Using existing MongoDB connection
-[00:34:25.400] Server  LOG     ✓ Compiled in 180ms
-[02:06:44.504] Server  LOG     ♻️ Using existing MongoDB connection
-[02:06:51.267] Server  LOG     ♻️ Using existing MongoDB connection
-[02:07:47.189] Server  LOG     ♻️ Using existing MongoDB connection
-[02:12:43.808] Server  LOG     ✓ Compiled in 98ms
-[02:12:47.716] Server  LOG     ✓ Compiled in 91ms
-[02:15:12.985] Server  LOG     ✓ Compiled in 203ms
-[02:15:34.742] Server  LOG     ✓ Compiled in 348ms
-[02:15:45.676] Server  LOG     ✓ Compiled in 212ms
-[02:15:53.752] Server  LOG     ✓ Compiled in 221ms
-[02:15:56.134] Server  LOG     ♻️ Using existing MongoDB connection
-[02:17:32.486] Server  LOG     ✓ Compiled in 134ms
-[02:17:32.591] Browser ERROR   ./components/CustomerCareDetailModal.tsx:411:6
-Parsing ecmascript source code failed
-  409 |         </div>
-  410 |       </div>
-> 411 |     </div>
-      |      ^^^^^
-  412 |   );
-  413 | };
-  414 |
-
-Unterminated regexp literal
-
-Import traces:
-  Client Component Browser:
-    ./components/CustomerCareDetailModal.tsx [Client Component Browser]
-    ./app/(dashboard)/customer-care/page.tsx [Client Component Browser]
-    ./app/(dashboard)/customer-care/page.tsx [Server Component]
-
-  Client Component SSR:
-    ./components/CustomerCareDetailModal.tsx [Client Component SSR]
-    ./app/(dashboard)/customer-care/page.tsx [Client Component SSR]
-    ./app/(dashboard)/customer-care/page.tsx [Server Component]
-[02:18:11.534] Server  LOG     ✓ Compiled in 228ms
-[02:18:11.700] Browser ERROR   ./components/OpportunityModal.tsx:386:1
-Parsing ecmascript source code failed
-  384 |     </div>
-  385 |   );
-> 386 | };
-      | ^
-  387 |
-  388 | export default OpportunityModal;
-  389 |
-
-Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
-
-Import trace:
-  Client Component Browser:
-    ./components/OpportunityModal.tsx [Client Component Browser]
-    ./app/(dashboard)/opportunities/page.tsx [Client Component Browser]
-    ./app/(dashboard)/opportunities/page.tsx [Server Component]
-[02:18:55.112] Server  LOG     ✓ Compiled in 208ms
-[02:18:55.701] Browser ERROR   ./components/OpportunityModal.tsx:399:7
-Parsing ecmascript source code failed
-  397 |       </div>
-  398 |     </div>
-> 399 |   );  );
-      |       ^
-  400 | };
-  401 |
-  402 | export default OpportunityModal;
-
-Expression expected
-
-Import trace:
-  Client Component Browser:
-    ./components/OpportunityModal.tsx [Client Component Browser]
-    ./app/(dashboard)/opportunities/page.tsx [Client Component Browser]
-    ./app/(dashboard)/opportunities/page.tsx [Server Component]
-[02:21:23.284] Server  LOG     ♻️ Using existing MongoDB connection
-[02:21:23.302] Server  LOG     ♻️ Using existing MongoDB connection
-[02:21:23.305] Server  LOG     API Services - Query params: {}
-[02:21:23.305] Server  LOG     API Services - MongoDB query: {}
-[02:21:23.325] Server  LOG     ♻️ Using existing MongoDB connection
-[02:21:24.013] Server  LOG     ♻️ Using existing MongoDB connection
-[02:21:24.056] Server  LOG     ♻️ Using existing MongoDB connection
-[02:21:24.246] Server  LOG     API Services - Found services: 9
-[02:21:24.260] Server  LOG     ♻️ Using existing MongoDB connection
-[02:21:24.261] Server  LOG     API Services - Query params: {}
-[02:21:24.262] Server  LOG     API Services - MongoDB query: {}
-[02:21:24.328] Server  LOG     API Services - Found services: 9
-[02:21:25.560] Server  LOG     ♻️ Using existing MongoDB connection
-[02:21:25.652] Server  LOG     ♻️ Using existing MongoDB connection
-[02:21:27.192] Server  LOG     ♻️ Using existing MongoDB connection
-[02:21:42.088] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[02:21:42.144] Server  LOG     ♻️ Using existing MongoDB connection
-[02:21:42.262] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
-[02:21:43.593] Server  LOG     ♻️ Using existing MongoDB connection
-[02:21:52.310] Server  LOG     ♻️ Using existing MongoDB connection
-[02:22:16.182] Server  LOG     ♻️ Using existing MongoDB connection
-[02:22:24.721] Server  LOG     ♻️ Using existing MongoDB connection
-[02:22:27.744] Server  LOG     ♻️ Using existing MongoDB connection
-[02:22:31.752] Server  LOG     ♻️ Using existing MongoDB connection
-[02:22:38.434] Server  LOG     ♻️ Using existing MongoDB connection
-[02:22:51.724] Server  LOG     ♻️ Using existing MongoDB connection
-[02:23:17.587] Server  LOG     ♻️ Using existing MongoDB connection
-[02:23:21.423] Server  LOG     ♻️ Using existing MongoDB connection
-[02:23:26.251] Server  LOG     ♻️ Using existing MongoDB connection
-[02:25:21.594] Server  LOG     ✓ Compiled in 97ms
-[02:25:27.342] Server  LOG     ♻️ Using existing MongoDB connection
-[02:26:01.813] Server  LOG     ♻️ Using existing MongoDB connection
-[02:27:52.445] Server  LOG     ✓ Compiled in 122ms
-[02:28:03.696] Server  LOG     ✓ Compiled in 223ms
-[02:28:10.414] Server  LOG     ♻️ Using existing MongoDB connection
-[02:28:12.812] Server  LOG     ♻️ Using existing MongoDB connection
-[02:28:20.889] Server  LOG     ♻️ Using existing MongoDB connection
-[02:28:29.151] Server  LOG     ♻️ Using existing MongoDB connection
-[02:28:29.163] Server  LOG     ♻️ Using existing MongoDB connection
-[02:28:29.187] Server  LOG     ♻️ Using existing MongoDB connection
-[02:28:29.236] Server  LOG     ♻️ Using existing MongoDB connection
-[02:28:29.337] Server  LOG     ♻️ Using existing MongoDB connection
-[02:28:29.846] Server  LOG     ♻️ Using existing MongoDB connection
-[02:28:41.527] Server  LOG     ♻️ Using existing MongoDB connection
-[02:28:41.638] Server  LOG     ♻️ Using existing MongoDB connection
-[02:28:43.385] Server  LOG     ♻️ Using existing MongoDB connection
-[02:28:51.117] Server  LOG     ♻️ Using existing MongoDB connection
-[02:28:51.127] Server  LOG     ♻️ Using existing MongoDB connection
-[02:28:51.149] Server  LOG     ♻️ Using existing MongoDB connection
-[02:28:51.185] Server  LOG     ♻️ Using existing MongoDB connection
-[02:28:51.195] Server  LOG     ♻️ Using existing MongoDB connection
-[02:28:51.567] Server  LOG     ♻️ Using existing MongoDB connection
-[02:29:29.870] Server  LOG     ♻️ Using existing MongoDB connection
-[02:29:29.961] Server  LOG     ♻️ Using existing MongoDB connection
-[02:30:38.159] Server  LOG     ✓ Compiled in 230ms
-[02:30:38.527] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[02:30:38.576] Server  LOG     ♻️ Using existing MongoDB connection
-[02:30:38.698] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
-[02:30:39.486] Server  LOG     ✓ Compiled in 82ms
-[02:30:43.847] Server  LOG     ✓ Compiled in 127ms
-[02:30:43.952] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[02:30:44.020] Server  LOG     ♻️ Using existing MongoDB connection
-[02:30:44.135] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
-[02:30:59.477] Server  LOG     ♻️ Using existing MongoDB connection
-[02:30:59.477] Server  LOG     🔄 Fetching dashboard stats...
-[02:31:00.185] Server  LOG     ✅ Dashboard stats fetched successfully
-[02:31:00.199] Server  LOG     ♻️ Using existing MongoDB connection
-[02:31:00.200] Server  LOG     🔄 Fetching dashboard stats...
-[02:31:00.244] Server  LOG     ✅ Dashboard stats fetched successfully
-[02:31:25.555] Server  LOG     ✓ Compiled in 173ms
-[02:31:25.647] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[02:31:25.695] Server  LOG     ♻️ Using existing MongoDB connection
-[02:31:25.696] Server  LOG     🔄 Fetching dashboard stats...
-[02:31:25.750] Server  LOG     ✅ Dashboard stats fetched successfully
-[02:31:25.807] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
-[02:31:27.767] Server  LOG     ♻️ Using existing MongoDB connection
-[02:31:27.828] Server  LOG     ♻️ Using existing MongoDB connection
-[02:31:27.847] Server  LOG     ♻️ Using existing MongoDB connection
-[02:31:27.887] Server  LOG     ♻️ Using existing MongoDB connection
-[02:31:27.892] Server  LOG     ♻️ Using existing MongoDB connection
-[02:31:27.941] Server  LOG     ♻️ Using existing MongoDB connection
-[02:31:27.953] Server  LOG     ♻️ Using existing MongoDB connection
-[02:31:28.004] Server  LOG     ♻️ Using existing MongoDB connection
-[02:31:28.011] Browser LOG     [{"__v":0,"_id":"698010068962969d97c624c6","address":"ádfgergsdfrg","createdAt":"2026-02-02T02:46:30.585Z","customerId":"KH000003","firstContractValue":0,"fullName":"Tấn Lê","isActive":true,"isDel":false,"marketingClassification":"Phù hợp","needsNote":"sdfgsdfgsdfgsdfgsdf","opportunityHistory":[],"phone":"0916677009","potentialLevel":"Trung hạn","referrer":"sdfgdfgs","referrerPhone":"","salesPerson":"Lê Trương Trọng Tấn","serviceGroup":"Thiết kế xây dựng","shortName":"let","source":"Sales tự tìm","updatedAt":"2026-02-02T02:46:30.585Z"},{"__v":0,"_id":"698010068962969d97c624c7","address":"dàgsdfgsdf","createdAt":"2026-02-02T02:46:30.585Z","customerId":"KH000004","firstContractValue":0,"fullName":"Chào em anh đứng đây từ chiều","isActive":true,"isDel":false,"marketingClassification":"Phù hợp","needsNote":"ádgasdgsdgsdg","opportunityHistory":[],"phone":"0911467039","potentialLevel":"Ngắn hạn","referrer":"adsfgvadfg","referrerPhone":"","salesPerson":"Lê Trương Trọng Tấn","serviceGroup":"nội thất","shortName":"chieuceaddt","source":"Sales tự tìm","updatedAt":"2026-02-02T02:46:30.585Z"},{"__v":0,"_id":"697eda676cba580db7e06988","address":"123 Đường ABC, Quận 1, TP.HCM","createdAt":"2026-02-01T04:45:27.185Z","customerId":"KH000002","firstContractValue":0,"fullName":"Nguyễn Văn A","isActive":true,"isDel":false,"marketingClassification":"Phù hợp","needsNote":"Cần tư vấn về sản phẩm mới và chính sách đại lý","opportunityHistory":[],"phone":"0901234567","potentialLevel":"Ngắn hạn","referrer":"Trần Văn B","referrerPhone":"0907654321","salesPerson":"Lê Trương Trọng Tấn","serviceGroup":"nội thất","shortName":"NVA","source":"TikTok","updatedAt":"2026-02-01T04:45:27.185Z"},{"__v":0,"_id":"697b2822d5ea0bf60b845bb7","address":"Hẻm 149 Lý Thánh Tông, Tân Thới Hòa, 72000, Phú Thạnh, Thành phố Hồ Chí Minh, Việt Nam","createdAt":"2026-01-29T09:28:02.774Z","customerId":"KHT1-0001","firstContractValue":0,"fullName":"Ton","isActive":true,"isDel":false,"latitude":10.766823188339302,"longitude":106.6258117273457,"opportunityHistory":[],"phone":"0916467039","potentialLevel":"Trung hạn","registrationDate":"2026-01-29T09:28:02.769Z","salesPerson":"Nguyễn Văn A","serviceGroup":"nội thất","shortName":"t1","source":"TikTok","updatedAt":"2026-01-29T09:28:02.774Z"}]
-[02:31:28.011] Browser LOG     [{"__v":0,"_id":"698010068962969d97c624c6","address":"ádfgergsdfrg","createdAt":"2026-02-02T02:46:30.585Z","customerId":"KH000003","firstContractValue":0,"fullName":"Tấn Lê","isActive":true,"isDel":false,"marketingClassification":"Phù hợp","needsNote":"sdfgsdfgsdfgsdfgsdf","opportunityHistory":[],"phone":"0916677009","potentialLevel":"Trung hạn","referrer":"sdfgdfgs","referrerPhone":"","salesPerson":"Lê Trương Trọng Tấn","serviceGroup":"Thiết kế xây dựng","shortName":"let","source":"Sales tự tìm","updatedAt":"2026-02-02T02:46:30.585Z"},{"__v":0,"_id":"698010068962969d97c624c7","address":"dàgsdfgsdf","createdAt":"2026-02-02T02:46:30.585Z","customerId":"KH000004","firstContractValue":0,"fullName":"Chào em anh đứng đây từ chiều","isActive":true,"isDel":false,"marketingClassification":"Phù hợp","needsNote":"ádgasdgsdgsdg","opportunityHistory":[],"phone":"0911467039","potentialLevel":"Ngắn hạn","referrer":"adsfgvadfg","referrerPhone":"","salesPerson":"Lê Trương Trọng Tấn","serviceGroup":"nội thất","shortName":"chieuceaddt","source":"Sales tự tìm","updatedAt":"2026-02-02T02:46:30.585Z"},{"__v":0,"_id":"697eda676cba580db7e06988","address":"123 Đường ABC, Quận 1, TP.HCM","createdAt":"2026-02-01T04:45:27.185Z","customerId":"KH000002","firstContractValue":0,"fullName":"Nguyễn Văn A","isActive":true,"isDel":false,"marketingClassification":"Phù hợp","needsNote":"Cần tư vấn về sản phẩm mới và chính sách đại lý","opportunityHistory":[],"phone":"0901234567","potentialLevel":"Ngắn hạn","referrer":"Trần Văn B","referrerPhone":"0907654321","salesPerson":"Lê Trương Trọng Tấn","serviceGroup":"nội thất","shortName":"NVA","source":"TikTok","updatedAt":"2026-02-01T04:45:27.185Z"},{"__v":0,"_id":"697b2822d5ea0bf60b845bb7","address":"Hẻm 149 Lý Thánh Tông, Tân Thới Hòa, 72000, Phú Thạnh, Thành phố Hồ Chí Minh, Việt Nam","createdAt":"2026-01-29T09:28:02.774Z","customerId":"KHT1-0001","firstContractValue":0,"fullName":"Ton","isActive":true,"isDel":false,"latitude":10.766823188339302,"longitude":106.6258117273457,"opportunityHistory":[],"phone":"0916467039","potentialLevel":"Trung hạn","registrationDate":"2026-01-29T09:28:02.769Z","salesPerson":"Nguyễn Văn A","serviceGroup":"nội thất","shortName":"t1","source":"TikTok","updatedAt":"2026-01-29T09:28:02.774Z"}]
-[02:31:28.803] Server  LOG     ♻️ Using existing MongoDB connection
-[02:31:28.899] Server  LOG     ♻️ Using existing MongoDB connection
-[02:31:42.326] Server  LOG     ✓ Compiled in 139ms
-[02:31:42.648] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[02:31:42.690] Server  LOG     ♻️ Using existing MongoDB connection
-[02:31:42.814] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
-[02:31:45.844] Server  LOG     ♻️ Using existing MongoDB connection
-[02:31:45.854] Server  LOG     ♻️ Using existing MongoDB connection
-[02:31:45.914] Server  LOG     ♻️ Using existing MongoDB connection
-[02:31:45.922] Server  LOG     ♻️ Using existing MongoDB connection
-[02:31:45.935] Server  LOG     ♻️ Using existing MongoDB connection
-[02:31:45.996] Server  LOG     ♻️ Using existing MongoDB connection
-[02:31:46.004] Server  LOG     ♻️ Using existing MongoDB connection
-[02:31:46.052] Server  LOG     ♻️ Using existing MongoDB connection
-[02:31:46.067] Browser LOG     [{"__v":0,"_id":"698010068962969d97c624c6","address":"ádfgergsdfrg","createdAt":"2026-02-02T02:46:30.585Z","customerId":"KH000003","firstContractValue":0,"fullName":"Tấn Lê","isActive":true,"isDel":false,"marketingClassification":"Phù hợp","needsNote":"sdfgsdfgsdfgsdfgsdf","opportunityHistory":[],"phone":"0916677009","potentialLevel":"Trung hạn","referrer":"sdfgdfgs","referrerPhone":"","salesPerson":"Lê Trương Trọng Tấn","serviceGroup":"Thiết kế xây dựng","shortName":"let","source":"Sales tự tìm","updatedAt":"2026-02-02T02:46:30.585Z"},{"__v":0,"_id":"698010068962969d97c624c7","address":"dàgsdfgsdf","createdAt":"2026-02-02T02:46:30.585Z","customerId":"KH000004","firstContractValue":0,"fullName":"Chào em anh đứng đây từ chiều","isActive":true,"isDel":false,"marketingClassification":"Phù hợp","needsNote":"ádgasdgsdgsdg","opportunityHistory":[],"phone":"0911467039","potentialLevel":"Ngắn hạn","referrer":"adsfgvadfg","referrerPhone":"","salesPerson":"Lê Trương Trọng Tấn","serviceGroup":"nội thất","shortName":"chieuceaddt","source":"Sales tự tìm","updatedAt":"2026-02-02T02:46:30.585Z"},{"__v":0,"_id":"697eda676cba580db7e06988","address":"123 Đường ABC, Quận 1, TP.HCM","createdAt":"2026-02-01T04:45:27.185Z","customerId":"KH000002","firstContractValue":0,"fullName":"Nguyễn Văn A","isActive":true,"isDel":false,"marketingClassification":"Phù hợp","needsNote":"Cần tư vấn về sản phẩm mới và chính sách đại lý","opportunityHistory":[],"phone":"0901234567","potentialLevel":"Ngắn hạn","referrer":"Trần Văn B","referrerPhone":"0907654321","salesPerson":"Lê Trương Trọng Tấn","serviceGroup":"nội thất","shortName":"NVA","source":"TikTok","updatedAt":"2026-02-01T04:45:27.185Z"},{"__v":0,"_id":"697b2822d5ea0bf60b845bb7","address":"Hẻm 149 Lý Thánh Tông, Tân Thới Hòa, 72000, Phú Thạnh, Thành phố Hồ Chí Minh, Việt Nam","createdAt":"2026-01-29T09:28:02.774Z","customerId":"KHT1-0001","firstContractValue":0,"fullName":"Ton","isActive":true,"isDel":false,"latitude":10.766823188339302,"longitude":106.6258117273457,"opportunityHistory":[],"phone":"0916467039","potentialLevel":"Trung hạn","registrationDate":"2026-01-29T09:28:02.769Z","salesPerson":"Nguyễn Văn A","serviceGroup":"nội thất","shortName":"t1","source":"TikTok","updatedAt":"2026-01-29T09:28:02.774Z"}]
-[02:31:46.067] Browser LOG     [{"__v":0,"_id":"698010068962969d97c624c6","address":"ádfgergsdfrg","createdAt":"2026-02-02T02:46:30.585Z","customerId":"KH000003","firstContractValue":0,"fullName":"Tấn Lê","isActive":true,"isDel":false,"marketingClassification":"Phù hợp","needsNote":"sdfgsdfgsdfgsdfgsdf","opportunityHistory":[],"phone":"0916677009","potentialLevel":"Trung hạn","referrer":"sdfgdfgs","referrerPhone":"","salesPerson":"Lê Trương Trọng Tấn","serviceGroup":"Thiết kế xây dựng","shortName":"let","source":"Sales tự tìm","updatedAt":"2026-02-02T02:46:30.585Z"},{"__v":0,"_id":"698010068962969d97c624c7","address":"dàgsdfgsdf","createdAt":"2026-02-02T02:46:30.585Z","customerId":"KH000004","firstContractValue":0,"fullName":"Chào em anh đứng đây từ chiều","isActive":true,"isDel":false,"marketingClassification":"Phù hợp","needsNote":"ádgasdgsdgsdg","opportunityHistory":[],"phone":"0911467039","potentialLevel":"Ngắn hạn","referrer":"adsfgvadfg","referrerPhone":"","salesPerson":"Lê Trương Trọng Tấn","serviceGroup":"nội thất","shortName":"chieuceaddt","source":"Sales tự tìm","updatedAt":"2026-02-02T02:46:30.585Z"},{"__v":0,"_id":"697eda676cba580db7e06988","address":"123 Đường ABC, Quận 1, TP.HCM","createdAt":"2026-02-01T04:45:27.185Z","customerId":"KH000002","firstContractValue":0,"fullName":"Nguyễn Văn A","isActive":true,"isDel":false,"marketingClassification":"Phù hợp","needsNote":"Cần tư vấn về sản phẩm mới và chính sách đại lý","opportunityHistory":[],"phone":"0901234567","potentialLevel":"Ngắn hạn","referrer":"Trần Văn B","referrerPhone":"0907654321","salesPerson":"Lê Trương Trọng Tấn","serviceGroup":"nội thất","shortName":"NVA","source":"TikTok","updatedAt":"2026-02-01T04:45:27.185Z"},{"__v":0,"_id":"697b2822d5ea0bf60b845bb7","address":"Hẻm 149 Lý Thánh Tông, Tân Thới Hòa, 72000, Phú Thạnh, Thành phố Hồ Chí Minh, Việt Nam","createdAt":"2026-01-29T09:28:02.774Z","customerId":"KHT1-0001","firstContractValue":0,"fullName":"Ton","isActive":true,"isDel":false,"latitude":10.766823188339302,"longitude":106.6258117273457,"opportunityHistory":[],"phone":"0916467039","potentialLevel":"Trung hạn","registrationDate":"2026-01-29T09:28:02.769Z","salesPerson":"Nguyễn Văn A","serviceGroup":"nội thất","shortName":"t1","source":"TikTok","updatedAt":"2026-01-29T09:28:02.774Z"}]
-[02:31:49.475] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[02:31:49.553] Server  LOG     ♻️ Using existing MongoDB connection
-[02:31:49.559] Server  LOG     ♻️ Using existing MongoDB connection
-[02:31:49.629] Server  LOG     ♻️ Using existing MongoDB connection
-[02:31:49.682] Server  LOG     ♻️ Using existing MongoDB connection
-[02:31:49.697] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
-[02:31:49.697] Browser LOG     [{"__v":0,"_id":"698010068962969d97c624c6","address":"ádfgergsdfrg","createdAt":"2026-02-02T02:46:30.585Z","customerId":"KH000003","firstContractValue":0,"fullName":"Tấn Lê","isActive":true,"isDel":false,"marketingClassification":"Phù hợp","needsNote":"sdfgsdfgsdfgsdfgsdf","opportunityHistory":[],"phone":"0916677009","potentialLevel":"Trung hạn","referrer":"sdfgdfgs","referrerPhone":"","salesPerson":"Lê Trương Trọng Tấn","serviceGroup":"Thiết kế xây dựng","shortName":"let","source":"Sales tự tìm","updatedAt":"2026-02-02T02:46:30.585Z"},{"__v":0,"_id":"698010068962969d97c624c7","address":"dàgsdfgsdf","createdAt":"2026-02-02T02:46:30.585Z","customerId":"KH000004","firstContractValue":0,"fullName":"Chào em anh đứng đây từ chiều","isActive":true,"isDel":false,"marketingClassification":"Phù hợp","needsNote":"ádgasdgsdgsdg","opportunityHistory":[],"phone":"0911467039","potentialLevel":"Ngắn hạn","referrer":"adsfgvadfg","referrerPhone":"","salesPerson":"Lê Trương Trọng Tấn","serviceGroup":"nội thất","shortName":"chieuceaddt","source":"Sales tự tìm","updatedAt":"2026-02-02T02:46:30.585Z"},{"__v":0,"_id":"697eda676cba580db7e06988","address":"123 Đường ABC, Quận 1, TP.HCM","createdAt":"2026-02-01T04:45:27.185Z","customerId":"KH000002","firstContractValue":0,"fullName":"Nguyễn Văn A","isActive":true,"isDel":false,"marketingClassification":"Phù hợp","needsNote":"Cần tư vấn về sản phẩm mới và chính sách đại lý","opportunityHistory":[],"phone":"0901234567","potentialLevel":"Ngắn hạn","referrer":"Trần Văn B","referrerPhone":"0907654321","salesPerson":"Lê Trương Trọng Tấn","serviceGroup":"nội thất","shortName":"NVA","source":"TikTok","updatedAt":"2026-02-01T04:45:27.185Z"},{"__v":0,"_id":"697b2822d5ea0bf60b845bb7","address":"Hẻm 149 Lý Thánh Tông, Tân Thới Hòa, 72000, Phú Thạnh, Thành phố Hồ Chí Minh, Việt Nam","createdAt":"2026-01-29T09:28:02.774Z","customerId":"KHT1-0001","firstContractValue":0,"fullName":"Ton","isActive":true,"isDel":false,"latitude":10.766823188339302,"longitude":106.6258117273457,"opportunityHistory":[],"phone":"0916467039","potentialLevel":"Trung hạn","registrationDate":"2026-01-29T09:28:02.769Z","salesPerson":"Nguyễn Văn A","serviceGroup":"nội thất","shortName":"t1","source":"TikTok","updatedAt":"2026-01-29T09:28:02.774Z"}]
-[02:32:04.366] Server  LOG     🔐 Login API called
-[02:32:04.369] Server  LOG     📝 Request body: {}
-[02:32:04.370] Server  LOG     📡 Connecting to MongoDB...
-[02:32:04.371] Server  LOG     ♻️ Using existing MongoDB connection
-[02:32:04.371] Server  LOG     ✅ MongoDB connected via Mongoose
-[02:32:04.371] Server  LOG     🔍 Finding user: "admin"
-[02:32:04.372] Server  LOG     📂 Collection being used: "Nhân viên"
-[02:32:04.414] Server  LOG     👤 User found: "yes"
-[02:32:04.415] Server  LOG     🔑 Comparing password (plain text)...
-[02:32:04.415] Server  LOG     ✅ Authentication successful
-[02:32:04.467] Server  LOG     🎟️ Token generated
-[02:32:04.468] Server  LOG     🍪 Cookie set
-[02:32:04.628] Server  LOG     ♻️ Using existing MongoDB connection
-[02:32:04.629] Server  LOG     🔄 Fetching dashboard stats...
-[02:32:04.679] Server  LOG     ✅ Dashboard stats fetched successfully
-[02:32:04.689] Server  LOG     ♻️ Using existing MongoDB connection
-[02:32:04.690] Server  LOG     🔄 Fetching dashboard stats...
-[02:32:04.732] Server  LOG     ✅ Dashboard stats fetched successfully
-[02:32:40.812] Server  LOG     ✓ Compiled in 94ms
-[02:32:43.718] Server  LOG     ✓ Compiled in 92ms
-[02:33:06.768] Server  LOG     ✓ Compiled in 99ms
-[02:33:51.850] Server  LOG     ✓ Compiled in 94ms
-[02:33:54.146] Server  LOG     ♻️ Using existing MongoDB connection
-[02:33:54.154] Server  LOG     ♻️ Using existing MongoDB connection
-[02:33:54.207] Server  LOG     ♻️ Using existing MongoDB connection
-[02:33:54.214] Server  LOG     ♻️ Using existing MongoDB connection
-[02:33:54.225] Server  LOG     ♻️ Using existing MongoDB connection
-[02:33:54.280] Server  LOG     ♻️ Using existing MongoDB connection
-[02:33:54.296] Server  LOG     ♻️ Using existing MongoDB connection
-[02:33:54.348] Server  LOG     ♻️ Using existing MongoDB connection
-[02:33:54.354] Browser LOG     [{"__v":0,"_id":"698010068962969d97c624c6","address":"ádfgergsdfrg","createdAt":"2026-02-02T02:46:30.585Z","customerId":"KH000003","firstContractValue":0,"fullName":"Tấn Lê","isActive":true,"isDel":false,"marketingClassification":"Phù hợp","needsNote":"sdfgsdfgsdfgsdfgsdf","opportunityHistory":[],"phone":"0916677009","potentialLevel":"Trung hạn","referrer":"sdfgdfgs","referrerPhone":"","salesPerson":"Lê Trương Trọng Tấn","serviceGroup":"Thiết kế xây dựng","shortName":"let","source":"Sales tự tìm","updatedAt":"2026-02-02T02:46:30.585Z"},{"__v":0,"_id":"698010068962969d97c624c7","address":"dàgsdfgsdf","createdAt":"2026-02-02T02:46:30.585Z","customerId":"KH000004","firstContractValue":0,"fullName":"Chào em anh đứng đây từ chiều","isActive":true,"isDel":false,"marketingClassification":"Phù hợp","needsNote":"ádgasdgsdgsdg","opportunityHistory":[],"phone":"0911467039","potentialLevel":"Ngắn hạn","referrer":"adsfgvadfg","referrerPhone":"","salesPerson":"Lê Trương Trọng Tấn","serviceGroup":"nội thất","shortName":"chieuceaddt","source":"Sales tự tìm","updatedAt":"2026-02-02T02:46:30.585Z"},{"__v":0,"_id":"697eda676cba580db7e06988","address":"123 Đường ABC, Quận 1, TP.HCM","createdAt":"2026-02-01T04:45:27.185Z","customerId":"KH000002","firstContractValue":0,"fullName":"Nguyễn Văn A","isActive":true,"isDel":false,"marketingClassification":"Phù hợp","needsNote":"Cần tư vấn về sản phẩm mới và chính sách đại lý","opportunityHistory":[],"phone":"0901234567","potentialLevel":"Ngắn hạn","referrer":"Trần Văn B","referrerPhone":"0907654321","salesPerson":"Lê Trương Trọng Tấn","serviceGroup":"nội thất","shortName":"NVA","source":"TikTok","updatedAt":"2026-02-01T04:45:27.185Z"},{"__v":0,"_id":"697b2822d5ea0bf60b845bb7","address":"Hẻm 149 Lý Thánh Tông, Tân Thới Hòa, 72000, Phú Thạnh, Thành phố Hồ Chí Minh, Việt Nam","createdAt":"2026-01-29T09:28:02.774Z","customerId":"KHT1-0001","firstContractValue":0,"fullName":"Ton","isActive":true,"isDel":false,"latitude":10.766823188339302,"longitude":106.6258117273457,"opportunityHistory":[],"phone":"0916467039","potentialLevel":"Trung hạn","registrationDate":"2026-01-29T09:28:02.769Z","salesPerson":"Nguyễn Văn A","serviceGroup":"nội thất","shortName":"t1","source":"TikTok","updatedAt":"2026-01-29T09:28:02.774Z"}]
-[02:33:54.354] Browser LOG     [{"__v":0,"_id":"698010068962969d97c624c6","address":"ádfgergsdfrg","createdAt":"2026-02-02T02:46:30.585Z","customerId":"KH000003","firstContractValue":0,"fullName":"Tấn Lê","isActive":true,"isDel":false,"marketingClassification":"Phù hợp","needsNote":"sdfgsdfgsdfgsdfgsdf","opportunityHistory":[],"phone":"0916677009","potentialLevel":"Trung hạn","referrer":"sdfgdfgs","referrerPhone":"","salesPerson":"Lê Trương Trọng Tấn","serviceGroup":"Thiết kế xây dựng","shortName":"let","source":"Sales tự tìm","updatedAt":"2026-02-02T02:46:30.585Z"},{"__v":0,"_id":"698010068962969d97c624c7","address":"dàgsdfgsdf","createdAt":"2026-02-02T02:46:30.585Z","customerId":"KH000004","firstContractValue":0,"fullName":"Chào em anh đứng đây từ chiều","isActive":true,"isDel":false,"marketingClassification":"Phù hợp","needsNote":"ádgasdgsdgsdg","opportunityHistory":[],"phone":"0911467039","potentialLevel":"Ngắn hạn","referrer":"adsfgvadfg","referrerPhone":"","salesPerson":"Lê Trương Trọng Tấn","serviceGroup":"nội thất","shortName":"chieuceaddt","source":"Sales tự tìm","updatedAt":"2026-02-02T02:46:30.585Z"},{"__v":0,"_id":"697eda676cba580db7e06988","address":"123 Đường ABC, Quận 1, TP.HCM","createdAt":"2026-02-01T04:45:27.185Z","customerId":"KH000002","firstContractValue":0,"fullName":"Nguyễn Văn A","isActive":true,"isDel":false,"marketingClassification":"Phù hợp","needsNote":"Cần tư vấn về sản phẩm mới và chính sách đại lý","opportunityHistory":[],"phone":"0901234567","potentialLevel":"Ngắn hạn","referrer":"Trần Văn B","referrerPhone":"0907654321","salesPerson":"Lê Trương Trọng Tấn","serviceGroup":"nội thất","shortName":"NVA","source":"TikTok","updatedAt":"2026-02-01T04:45:27.185Z"},{"__v":0,"_id":"697b2822d5ea0bf60b845bb7","address":"Hẻm 149 Lý Thánh Tông, Tân Thới Hòa, 72000, Phú Thạnh, Thành phố Hồ Chí Minh, Việt Nam","createdAt":"2026-01-29T09:28:02.774Z","customerId":"KHT1-0001","firstContractValue":0,"fullName":"Ton","isActive":true,"isDel":false,"latitude":10.766823188339302,"longitude":106.6258117273457,"opportunityHistory":[],"phone":"0916467039","potentialLevel":"Trung hạn","registrationDate":"2026-01-29T09:28:02.769Z","salesPerson":"Nguyễn Văn A","serviceGroup":"nội thất","shortName":"t1","source":"TikTok","updatedAt":"2026-01-29T09:28:02.774Z"}]
-[02:33:56.320] Server  LOG     ♻️ Using existing MongoDB connection
-[02:33:56.381] Server  LOG     ♻️ Using existing MongoDB connection
-[02:34:01.755] Server  LOG     ♻️ Using existing MongoDB connection
-[02:34:01.822] Server  LOG     ♻️ Using existing MongoDB connection
-[02:34:04.274] Server  LOG     ♻️ Using existing MongoDB connection
-[02:34:04.325] Server  LOG     ♻️ Using existing MongoDB connection
-[02:34:07.385] Server  LOG     ♻️ Using existing MongoDB connection
-[02:34:07.392] Server  LOG     ♻️ Using existing MongoDB connection
-[02:34:07.441] Server  LOG     ♻️ Using existing MongoDB connection
-[02:34:07.446] Server  LOG     ♻️ Using existing MongoDB connection
-[02:34:07.447] Server  LOG     API Services - Query params: {}
-[02:34:07.447] Server  LOG     API Services - MongoDB query: {}
-[02:34:07.481] Server  LOG     Service Pricing Results: {}
-[02:34:07.489] Server  LOG     API Services - Found services: 9
-[02:34:07.500] Server  LOG     ♻️ Using existing MongoDB connection
-[02:34:07.524] Server  LOG     ♻️ Using existing MongoDB connection
-[02:34:07.525] Server  LOG     API Services - Query params: {}
-[02:34:07.525] Server  LOG     API Services - MongoDB query: {}
-[02:34:07.566] Server  LOG     API Services - Found services: 9
-[02:34:07.582] Server  LOG     Service Pricing Results: {}
-[02:34:07.597] Server  LOG     ♻️ Using existing MongoDB connection
-[02:34:07.640] Server  LOG     ♻️ Using existing MongoDB connection
-[02:34:07.688] Server  LOG     Service Pricing Results: {}
-[02:34:07.706] Server  LOG     ♻️ Using existing MongoDB connection
-[02:34:12.877] Server  LOG     ♻️ Using existing MongoDB connection
-[02:34:12.884] Server  LOG     ♻️ Using existing MongoDB connection
-[02:34:12.937] Server  LOG     ♻️ Using existing MongoDB connection
-[02:34:12.944] Server  LOG     ♻️ Using existing MongoDB connection
-[02:34:12.955] Server  LOG     ♻️ Using existing MongoDB connection
-[02:34:13.007] Server  LOG     ♻️ Using existing MongoDB connection
-[02:34:13.024] Server  LOG     ♻️ Using existing MongoDB connection
-[02:34:13.077] Server  LOG     ♻️ Using existing MongoDB connection
-[02:34:13.079] Browser LOG     [{"__v":0,"_id":"698010068962969d97c624c6","address":"ádfgergsdfrg","createdAt":"2026-02-02T02:46:30.585Z","customerId":"KH000003","firstContractValue":0,"fullName":"Tấn Lê","isActive":true,"isDel":false,"marketingClassification":"Phù hợp","needsNote":"sdfgsdfgsdfgsdfgsdf","opportunityHistory":[],"phone":"0916677009","potentialLevel":"Trung hạn","referrer":"sdfgdfgs","referrerPhone":"","salesPerson":"Lê Trương Trọng Tấn","serviceGroup":"Thiết kế xây dựng","shortName":"let","source":"Sales tự tìm","updatedAt":"2026-02-02T02:46:30.585Z"},{"__v":0,"_id":"698010068962969d97c624c7","address":"dàgsdfgsdf","createdAt":"2026-02-02T02:46:30.585Z","customerId":"KH000004","firstContractValue":0,"fullName":"Chào em anh đứng đây từ chiều","isActive":true,"isDel":false,"marketingClassification":"Phù hợp","needsNote":"ádgasdgsdgsdg","opportunityHistory":[],"phone":"0911467039","potentialLevel":"Ngắn hạn","referrer":"adsfgvadfg","referrerPhone":"","salesPerson":"Lê Trương Trọng Tấn","serviceGroup":"nội thất","shortName":"chieuceaddt","source":"Sales tự tìm","updatedAt":"2026-02-02T02:46:30.585Z"},{"__v":0,"_id":"697eda676cba580db7e06988","address":"123 Đường ABC, Quận 1, TP.HCM","createdAt":"2026-02-01T04:45:27.185Z","customerId":"KH000002","firstContractValue":0,"fullName":"Nguyễn Văn A","isActive":true,"isDel":false,"marketingClassification":"Phù hợp","needsNote":"Cần tư vấn về sản phẩm mới và chính sách đại lý","opportunityHistory":[],"phone":"0901234567","potentialLevel":"Ngắn hạn","referrer":"Trần Văn B","referrerPhone":"0907654321","salesPerson":"Lê Trương Trọng Tấn","serviceGroup":"nội thất","shortName":"NVA","source":"TikTok","updatedAt":"2026-02-01T04:45:27.185Z"},{"__v":0,"_id":"697b2822d5ea0bf60b845bb7","address":"Hẻm 149 Lý Thánh Tông, Tân Thới Hòa, 72000, Phú Thạnh, Thành phố Hồ Chí Minh, Việt Nam","createdAt":"2026-01-29T09:28:02.774Z","customerId":"KHT1-0001","firstContractValue":0,"fullName":"Ton","isActive":true,"isDel":false,"latitude":10.766823188339302,"longitude":106.6258117273457,"opportunityHistory":[],"phone":"0916467039","potentialLevel":"Trung hạn","registrationDate":"2026-01-29T09:28:02.769Z","salesPerson":"Nguyễn Văn A","serviceGroup":"nội thất","shortName":"t1","source":"TikTok","updatedAt":"2026-01-29T09:28:02.774Z"}]
-[02:34:13.079] Browser LOG     [{"__v":0,"_id":"698010068962969d97c624c6","address":"ádfgergsdfrg","createdAt":"2026-02-02T02:46:30.585Z","customerId":"KH000003","firstContractValue":0,"fullName":"Tấn Lê","isActive":true,"isDel":false,"marketingClassification":"Phù hợp","needsNote":"sdfgsdfgsdfgsdfgsdf","opportunityHistory":[],"phone":"0916677009","potentialLevel":"Trung hạn","referrer":"sdfgdfgs","referrerPhone":"","salesPerson":"Lê Trương Trọng Tấn","serviceGroup":"Thiết kế xây dựng","shortName":"let","source":"Sales tự tìm","updatedAt":"2026-02-02T02:46:30.585Z"},{"__v":0,"_id":"698010068962969d97c624c7","address":"dàgsdfgsdf","createdAt":"2026-02-02T02:46:30.585Z","customerId":"KH000004","firstContractValue":0,"fullName":"Chào em anh đứng đây từ chiều","isActive":true,"isDel":false,"marketingClassification":"Phù hợp","needsNote":"ádgasdgsdgsdg","opportunityHistory":[],"phone":"0911467039","potentialLevel":"Ngắn hạn","referrer":"adsfgvadfg","referrerPhone":"","salesPerson":"Lê Trương Trọng Tấn","serviceGroup":"nội thất","shortName":"chieuceaddt","source":"Sales tự tìm","updatedAt":"2026-02-02T02:46:30.585Z"},{"__v":0,"_id":"697eda676cba580db7e06988","address":"123 Đường ABC, Quận 1, TP.HCM","createdAt":"2026-02-01T04:45:27.185Z","customerId":"KH000002","firstContractValue":0,"fullName":"Nguyễn Văn A","isActive":true,"isDel":false,"marketingClassification":"Phù hợp","needsNote":"Cần tư vấn về sản phẩm mới và chính sách đại lý","opportunityHistory":[],"phone":"0901234567","potentialLevel":"Ngắn hạn","referrer":"Trần Văn B","referrerPhone":"0907654321","salesPerson":"Lê Trương Trọng Tấn","serviceGroup":"nội thất","shortName":"NVA","source":"TikTok","updatedAt":"2026-02-01T04:45:27.185Z"},{"__v":0,"_id":"697b2822d5ea0bf60b845bb7","address":"Hẻm 149 Lý Thánh Tông, Tân Thới Hòa, 72000, Phú Thạnh, Thành phố Hồ Chí Minh, Việt Nam","createdAt":"2026-01-29T09:28:02.774Z","customerId":"KHT1-0001","firstContractValue":0,"fullName":"Ton","isActive":true,"isDel":false,"latitude":10.766823188339302,"longitude":106.6258117273457,"opportunityHistory":[],"phone":"0916467039","potentialLevel":"Trung hạn","registrationDate":"2026-01-29T09:28:02.769Z","salesPerson":"Nguyễn Văn A","serviceGroup":"nội thất","shortName":"t1","source":"TikTok","updatedAt":"2026-01-29T09:28:02.774Z"}]
-[02:34:14.323] Server  LOG     ♻️ Using existing MongoDB connection
-[02:34:14.373] Server  LOG     ♻️ Using existing MongoDB connection
-[02:34:31.867] Server  LOG     ✓ Compiled in 111ms
-[02:34:33.758] Server  LOG     ♻️ Using existing MongoDB connection
-[02:34:33.818] Server  LOG     ♻️ Using existing MongoDB connection
-[02:34:33.968] Browser LOG     data báo giá kèm chi tiết {"data":[],"pagination":{"limit":10,"page":1,"pages":0,"total":0},"success":true}
-[02:34:33.968] Browser LOG     data báo giá kèm chi tiết {"data":[],"pagination":{"limit":10,"page":1,"pages":0,"total":0},"success":true}
-[02:34:34.660] Server  LOG     ♻️ Using existing MongoDB connection
-[02:34:34.717] Server  LOG     ♻️ Using existing MongoDB connection
-[02:34:36.280] Server  LOG     ♻️ Using existing MongoDB connection
-[02:34:36.336] Server  LOG     ♻️ Using existing MongoDB connection
-[02:34:36.488] Browser LOG     data báo giá kèm chi tiết {"data":[],"pagination":{"limit":10,"page":1,"pages":0,"total":0},"success":true}
-[02:34:36.488] Browser LOG     data báo giá kèm chi tiết {"data":[],"pagination":{"limit":10,"page":1,"pages":0,"total":0},"success":true}
-[02:34:37.351] Server  LOG     ♻️ Using existing MongoDB connection
-[02:34:37.403] Server  LOG     ♻️ Using existing MongoDB connection
-[02:35:02.589] Server  LOG     🔐 Login API called
-[02:35:02.590] Server  LOG     📝 Request body: {}
-[02:35:02.590] Server  LOG     📡 Connecting to MongoDB...
-[02:35:02.591] Server  LOG     ♻️ Using existing MongoDB connection
-[02:35:02.591] Server  LOG     ✅ MongoDB connected via Mongoose
-[02:35:02.591] Server  LOG     🔍 Finding user: "admin"
-[02:35:02.592] Server  LOG     📂 Collection being used: "Nhân viên"
-[02:35:02.630] Server  LOG     👤 User found: "yes"
-[02:35:02.630] Server  LOG     🔑 Comparing password (plain text)...
-[02:35:02.631] Server  LOG     ✅ Authentication successful
-[02:35:02.674] Server  LOG     🎟️ Token generated
-[02:35:02.675] Server  LOG     🍪 Cookie set
-[02:35:02.839] Server  LOG     ♻️ Using existing MongoDB connection
-[02:35:02.840] Server  LOG     🔄 Fetching dashboard stats...
-[02:35:02.885] Server  LOG     ✅ Dashboard stats fetched successfully
-[02:35:02.896] Server  LOG     ♻️ Using existing MongoDB connection
-[02:35:02.897] Server  LOG     🔄 Fetching dashboard stats...
-[02:35:02.940] Server  LOG     ✅ Dashboard stats fetched successfully
-[02:35:42.516] Server  LOG     ✓ Compiled in 100ms
-[02:36:35.179] Server  LOG     ✓ Compiled in 78ms
-[02:36:36.397] Server  LOG     ✓ Compiled in 84ms
-[02:36:38.972] Server  LOG     ✓ Compiled in 82ms
-[02:36:56.980] Server  LOG     ♻️ Using existing MongoDB connection
-[02:36:56.980] Server  LOG     🔄 Fetching dashboard stats...
-[02:36:57.028] Server  LOG     ✅ Dashboard stats fetched successfully
-[02:36:57.042] Server  LOG     ♻️ Using existing MongoDB connection
-[02:36:57.043] Server  LOG     🔄 Fetching dashboard stats...
-[02:36:57.088] Server  LOG     ✅ Dashboard stats fetched successfully
-[02:37:13.547] Server  LOG     ✓ Compiled in 94ms
-[02:37:20.171] Server  LOG     ✓ Compiled in 86ms
-[02:37:23.577] Server  LOG     ♻️ Using existing MongoDB connection
-[02:37:23.578] Server  LOG     🔄 Fetching dashboard stats...
-[02:37:23.637] Server  LOG     ✅ Dashboard stats fetched successfully
-[02:37:23.646] Server  LOG     ♻️ Using existing MongoDB connection
-[02:37:23.647] Server  LOG     🔄 Fetching dashboard stats...
-[02:37:23.691] Server  LOG     ✅ Dashboard stats fetched successfully
-[02:40:31.097] Server  LOG     ✓ Compiled in 145ms
-[02:40:31.213] Browser ERROR   uncaughtError: ReferenceError: LayoutList is not defined
-[02:40:42.473] Server  WARN    ⚠ Fast Refresh had to perform a full reload due to a runtime error.
-[02:40:42.763] Server  LOG     ✓ Compiled in 117ms
-[02:40:42.900] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[02:40:42.975] Server  LOG     ♻️ Using existing MongoDB connection
-[02:40:42.976] Server  LOG     🔄 Fetching dashboard stats...
-[02:40:43.026] Server  LOG     ✅ Dashboard stats fetched successfully
-[02:40:43.097] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
-[02:41:06.226] Server  LOG     ♻️ Using existing MongoDB connection
-[02:41:06.227] Server  LOG     🔄 Fetching dashboard stats...
-[02:41:06.273] Server  LOG     ✅ Dashboard stats fetched successfully
-[02:41:06.286] Server  LOG     ♻️ Using existing MongoDB connection
-[02:41:06.287] Server  LOG     🔄 Fetching dashboard stats...
-[02:41:06.336] Server  LOG     ✅ Dashboard stats fetched successfully
-[02:41:15.038] Server  LOG     ♻️ Using existing MongoDB connection
-[02:41:15.038] Server  LOG     🔄 Fetching dashboard stats...
-[02:41:15.081] Server  LOG     ✅ Dashboard stats fetched successfully
-[02:41:15.104] Server  LOG     ♻️ Using existing MongoDB connection
-[02:41:15.105] Server  LOG     🔄 Fetching dashboard stats...
-[02:41:15.149] Server  LOG     ✅ Dashboard stats fetched successfully
-[02:41:24.006] Server  LOG     ♻️ Using existing MongoDB connection
-[02:41:24.007] Server  LOG     🔄 Fetching dashboard stats...
-[02:41:24.058] Server  LOG     ✅ Dashboard stats fetched successfully
-[02:41:24.071] Server  LOG     ♻️ Using existing MongoDB connection
-[02:41:24.072] Server  LOG     🔄 Fetching dashboard stats...
-[02:41:24.113] Server  LOG     ✅ Dashboard stats fetched successfully
-[02:43:45.431] Server  LOG     ✓ Compiled in 228ms
-[02:43:55.103] Server  LOG     ✓ Compiled in 217ms
-[02:44:36.238] Server  LOG     ♻️ Using existing MongoDB connection
-[02:44:36.245] Server  LOG     ♻️ Using existing MongoDB connection
-[02:44:36.295] Server  LOG     ♻️ Using existing MongoDB connection
-[02:44:36.304] Server  LOG     ♻️ Using existing MongoDB connection
-[02:44:36.315] Server  LOG     ♻️ Using existing MongoDB connection
-[02:44:36.370] Server  LOG     ♻️ Using existing MongoDB connection
-[02:44:36.379] Server  LOG     ♻️ Using existing MongoDB connection
-[02:44:36.432] Server  LOG     ♻️ Using existing MongoDB connection
-[02:44:36.445] Browser LOG     [{"__v":0,"_id":"698010068962969d97c624c6","address":"ádfgergsdfrg","createdAt":"2026-02-02T02:46:30.585Z","customerId":"KH000003","firstContractValue":0,"fullName":"Tấn Lê","isActive":true,"isDel":false,"marketingClassification":"Phù hợp","needsNote":"sdfgsdfgsdfgsdfgsdf","opportunityHistory":[],"phone":"0916677009","potentialLevel":"Trung hạn","referrer":"sdfgdfgs","referrerPhone":"","salesPerson":"Lê Trương Trọng Tấn","serviceGroup":"Thiết kế xây dựng","shortName":"let","source":"Sales tự tìm","updatedAt":"2026-02-02T02:46:30.585Z"},{"__v":0,"_id":"698010068962969d97c624c7","address":"dàgsdfgsdf","createdAt":"2026-02-02T02:46:30.585Z","customerId":"KH000004","firstContractValue":0,"fullName":"Chào em anh đứng đây từ chiều","isActive":true,"isDel":false,"marketingClassification":"Phù hợp","needsNote":"ádgasdgsdgsdg","opportunityHistory":[],"phone":"0911467039","potentialLevel":"Ngắn hạn","referrer":"adsfgvadfg","referrerPhone":"","salesPerson":"Lê Trương Trọng Tấn","serviceGroup":"nội thất","shortName":"chieuceaddt","source":"Sales tự tìm","updatedAt":"2026-02-02T02:46:30.585Z"},{"__v":0,"_id":"697eda676cba580db7e06988","address":"123 Đường ABC, Quận 1, TP.HCM","createdAt":"2026-02-01T04:45:27.185Z","customerId":"KH000002","firstContractValue":0,"fullName":"Nguyễn Văn A","isActive":true,"isDel":false,"marketingClassification":"Phù hợp","needsNote":"Cần tư vấn về sản phẩm mới và chính sách đại lý","opportunityHistory":[],"phone":"0901234567","potentialLevel":"Ngắn hạn","referrer":"Trần Văn B","referrerPhone":"0907654321","salesPerson":"Lê Trương Trọng Tấn","serviceGroup":"nội thất","shortName":"NVA","source":"TikTok","updatedAt":"2026-02-01T04:45:27.185Z"},{"__v":0,"_id":"697b2822d5ea0bf60b845bb7","address":"Hẻm 149 Lý Thánh Tông, Tân Thới Hòa, 72000, Phú Thạnh, Thành phố Hồ Chí Minh, Việt Nam","createdAt":"2026-01-29T09:28:02.774Z","customerId":"KHT1-0001","firstContractValue":0,"fullName":"Ton","isActive":true,"isDel":false,"latitude":10.766823188339302,"longitude":106.6258117273457,"opportunityHistory":[],"phone":"0916467039","potentialLevel":"Trung hạn","registrationDate":"2026-01-29T09:28:02.769Z","salesPerson":"Nguyễn Văn A","serviceGroup":"nội thất","shortName":"t1","source":"TikTok","updatedAt":"2026-01-29T09:28:02.774Z"}]
-[02:44:36.445] Browser LOG     [{"__v":0,"_id":"698010068962969d97c624c6","address":"ádfgergsdfrg","createdAt":"2026-02-02T02:46:30.585Z","customerId":"KH000003","firstContractValue":0,"fullName":"Tấn Lê","isActive":true,"isDel":false,"marketingClassification":"Phù hợp","needsNote":"sdfgsdfgsdfgsdfgsdf","opportunityHistory":[],"phone":"0916677009","potentialLevel":"Trung hạn","referrer":"sdfgdfgs","referrerPhone":"","salesPerson":"Lê Trương Trọng Tấn","serviceGroup":"Thiết kế xây dựng","shortName":"let","source":"Sales tự tìm","updatedAt":"2026-02-02T02:46:30.585Z"},{"__v":0,"_id":"698010068962969d97c624c7","address":"dàgsdfgsdf","createdAt":"2026-02-02T02:46:30.585Z","customerId":"KH000004","firstContractValue":0,"fullName":"Chào em anh đứng đây từ chiều","isActive":true,"isDel":false,"marketingClassification":"Phù hợp","needsNote":"ádgasdgsdgsdg","opportunityHistory":[],"phone":"0911467039","potentialLevel":"Ngắn hạn","referrer":"adsfgvadfg","referrerPhone":"","salesPerson":"Lê Trương Trọng Tấn","serviceGroup":"nội thất","shortName":"chieuceaddt","source":"Sales tự tìm","updatedAt":"2026-02-02T02:46:30.585Z"},{"__v":0,"_id":"697eda676cba580db7e06988","address":"123 Đường ABC, Quận 1, TP.HCM","createdAt":"2026-02-01T04:45:27.185Z","customerId":"KH000002","firstContractValue":0,"fullName":"Nguyễn Văn A","isActive":true,"isDel":false,"marketingClassification":"Phù hợp","needsNote":"Cần tư vấn về sản phẩm mới và chính sách đại lý","opportunityHistory":[],"phone":"0901234567","potentialLevel":"Ngắn hạn","referrer":"Trần Văn B","referrerPhone":"0907654321","salesPerson":"Lê Trương Trọng Tấn","serviceGroup":"nội thất","shortName":"NVA","source":"TikTok","updatedAt":"2026-02-01T04:45:27.185Z"},{"__v":0,"_id":"697b2822d5ea0bf60b845bb7","address":"Hẻm 149 Lý Thánh Tông, Tân Thới Hòa, 72000, Phú Thạnh, Thành phố Hồ Chí Minh, Việt Nam","createdAt":"2026-01-29T09:28:02.774Z","customerId":"KHT1-0001","firstContractValue":0,"fullName":"Ton","isActive":true,"isDel":false,"latitude":10.766823188339302,"longitude":106.6258117273457,"opportunityHistory":[],"phone":"0916467039","potentialLevel":"Trung hạn","registrationDate":"2026-01-29T09:28:02.769Z","salesPerson":"Nguyễn Văn A","serviceGroup":"nội thất","shortName":"t1","source":"TikTok","updatedAt":"2026-01-29T09:28:02.774Z"}]
-[02:44:46.324] Server  LOG     ♻️ Using existing MongoDB connection
-[02:44:46.325] Server  LOG     🔄 Fetching dashboard stats...
-[02:44:46.370] Server  LOG     ✅ Dashboard stats fetched successfully
-[02:44:46.381] Server  LOG     ♻️ Using existing MongoDB connection
-[02:44:46.382] Server  LOG     🔄 Fetching dashboard stats...
-[02:44:46.422] Server  LOG     ✅ Dashboard stats fetched successfully
-[03:02:57.339] Server  LOG     ♻️ Using existing MongoDB connection
-[03:02:57.366] Server  LOG     ♻️ Using existing MongoDB connection
-[03:02:58.083] Server  LOG     ♻️ Using existing MongoDB connection
-[03:02:58.249] Browser LOG     [{"__v":0,"_id":"698010068962969d97c624c6","address":"ádfgergsdfrg","createdAt":"2026-02-02T02:46:30.585Z","customerId":"KH000003","firstContractValue":0,"fullName":"Tấn Lê","isActive":true,"isDel":false,"marketingClassification":"Phù hợp","needsNote":"sdfgsdfgsdfgsdfgsdf","opportunityHistory":[],"phone":"0916677009","potentialLevel":"Trung hạn","referrer":"sdfgdfgs","referrerPhone":"","salesPerson":"Lê Trương Trọng Tấn","serviceGroup":"Thiết kế xây dựng","shortName":"let","source":"Sales tự tìm","updatedAt":"2026-02-02T02:46:30.585Z"},{"__v":0,"_id":"698010068962969d97c624c7","address":"dàgsdfgsdf","createdAt":"2026-02-02T02:46:30.585Z","customerId":"KH000004","firstContractValue":0,"fullName":"Chào em anh đứng đây từ chiều","isActive":true,"isDel":false,"marketingClassification":"Phù hợp","needsNote":"ádgasdgsdgsdg","opportunityHistory":[],"phone":"0911467039","potentialLevel":"Ngắn hạn","referrer":"adsfgvadfg","referrerPhone":"","salesPerson":"Lê Trương Trọng Tấn","serviceGroup":"nội thất","shortName":"chieuceaddt","source":"Sales tự tìm","updatedAt":"2026-02-02T02:46:30.585Z"},{"__v":0,"_id":"697eda676cba580db7e06988","address":"123 Đường ABC, Quận 1, TP.HCM","createdAt":"2026-02-01T04:45:27.185Z","customerId":"KH000002","firstContractValue":0,"fullName":"Nguyễn Văn A","isActive":true,"isDel":false,"marketingClassification":"Phù hợp","needsNote":"Cần tư vấn về sản phẩm mới và chính sách đại lý","opportunityHistory":[],"phone":"0901234567","potentialLevel":"Ngắn hạn","referrer":"Trần Văn B","referrerPhone":"0907654321","salesPerson":"Lê Trương Trọng Tấn","serviceGroup":"nội thất","shortName":"NVA","source":"TikTok","updatedAt":"2026-02-01T04:45:27.185Z"},{"__v":0,"_id":"697b2822d5ea0bf60b845bb7","address":"Hẻm 149 Lý Thánh Tông, Tân Thới Hòa, 72000, Phú Thạnh, Thành phố Hồ Chí Minh, Việt Nam","createdAt":"2026-01-29T09:28:02.774Z","customerId":"KHT1-0001","firstContractValue":0,"fullName":"Ton","isActive":true,"isDel":false,"latitude":10.766823188339302,"longitude":106.6258117273457,"opportunityHistory":[],"phone":"0916467039","potentialLevel":"Trung hạn","registrationDate":"2026-01-29T09:28:02.769Z","salesPerson":"Nguyễn Văn A","serviceGroup":"nội thất","shortName":"t1","source":"TikTok","updatedAt":"2026-01-29T09:28:02.774Z"}]
-[03:02:58.249] Browser LOG     [{"__v":0,"_id":"698010068962969d97c624c6","address":"ádfgergsdfrg","createdAt":"2026-02-02T02:46:30.585Z","customerId":"KH000003","firstContractValue":0,"fullName":"Tấn Lê","isActive":true,"isDel":false,"marketingClassification":"Phù hợp","needsNote":"sdfgsdfgsdfgsdfgsdf","opportunityHistory":[],"phone":"0916677009","potentialLevel":"Trung hạn","referrer":"sdfgdfgs","referrerPhone":"","salesPerson":"Lê Trương Trọng Tấn","serviceGroup":"Thiết kế xây dựng","shortName":"let","source":"Sales tự tìm","updatedAt":"2026-02-02T02:46:30.585Z"},{"__v":0,"_id":"698010068962969d97c624c7","address":"dàgsdfgsdf","createdAt":"2026-02-02T02:46:30.585Z","customerId":"KH000004","firstContractValue":0,"fullName":"Chào em anh đứng đây từ chiều","isActive":true,"isDel":false,"marketingClassification":"Phù hợp","needsNote":"ádgasdgsdgsdg","opportunityHistory":[],"phone":"0911467039","potentialLevel":"Ngắn hạn","referrer":"adsfgvadfg","referrerPhone":"","salesPerson":"Lê Trương Trọng Tấn","serviceGroup":"nội thất","shortName":"chieuceaddt","source":"Sales tự tìm","updatedAt":"2026-02-02T02:46:30.585Z"},{"__v":0,"_id":"697eda676cba580db7e06988","address":"123 Đường ABC, Quận 1, TP.HCM","createdAt":"2026-02-01T04:45:27.185Z","customerId":"KH000002","firstContractValue":0,"fullName":"Nguyễn Văn A","isActive":true,"isDel":false,"marketingClassification":"Phù hợp","needsNote":"Cần tư vấn về sản phẩm mới và chính sách đại lý","opportunityHistory":[],"phone":"0901234567","potentialLevel":"Ngắn hạn","referrer":"Trần Văn B","referrerPhone":"0907654321","salesPerson":"Lê Trương Trọng Tấn","serviceGroup":"nội thất","shortName":"NVA","source":"TikTok","updatedAt":"2026-02-01T04:45:27.185Z"},{"__v":0,"_id":"697b2822d5ea0bf60b845bb7","address":"Hẻm 149 Lý Thánh Tông, Tân Thới Hòa, 72000, Phú Thạnh, Thành phố Hồ Chí Minh, Việt Nam","createdAt":"2026-01-29T09:28:02.774Z","customerId":"KHT1-0001","firstContractValue":0,"fullName":"Ton","isActive":true,"isDel":false,"latitude":10.766823188339302,"longitude":106.6258117273457,"opportunityHistory":[],"phone":"0916467039","potentialLevel":"Trung hạn","registrationDate":"2026-01-29T09:28:02.769Z","salesPerson":"Nguyễn Văn A","serviceGroup":"nội thất","shortName":"t1","source":"TikTok","updatedAt":"2026-01-29T09:28:02.774Z"}]
-[03:02:58.379] Server  LOG     ♻️ Using existing MongoDB connection
-[03:02:58.384] Server  LOG     ♻️ Using existing MongoDB connection
-[03:02:58.433] Server  LOG     ♻️ Using existing MongoDB connection
-[03:02:58.442] Server  LOG     ♻️ Using existing MongoDB connection
-[03:02:58.491] Server  LOG     ♻️ Using existing MongoDB connection
-[03:04:18.252] Server  LOG     ♻️ Using existing MongoDB connection
-[03:04:18.319] Server  LOG     ♻️ Using existing MongoDB connection
-[03:04:18.330] Server  LOG     ♻️ Using existing MongoDB connection
-[03:04:18.357] Browser ERROR   uncaughtError: Error: Container 'mapbox-map' not found.
-[03:04:18.384] Server  LOG     ♻️ Using existing MongoDB connection
-[03:04:27.897] Server  LOG     ✓ Compiled in 280ms
-[03:04:28.011] Browser ERROR   ./app/(dashboard)/customers/page.tsx:8:1
-Parsing ecmascript source code failed
-   6 |   LayoutGrid,
-   7 |   List,
->  8 | } from "lucide-react";
-     | ^
-   9 | import { toast } from "react-toastify";
-  10 | import dynamic from "next/dynamic";
-  11 | import { generateCustomerTemplate } from "@/lib/excel/template-Customer";
-
-Expression expected
-[03:04:39.283] Server  WARN    ⚠ Fast Refresh had to perform a full reload due to a runtime error.
-[03:04:39.310] Server  LOG     ✓ Compiled in 270ms
-[03:04:40.782] Server  LOG     ✓ Compiled in 255ms
-[03:04:40.823] Server  WARN    ⚠ Fast Refresh had to perform a full reload due to a runtime error.
-[03:04:40.855] Server  LOG     ♻️ Using existing MongoDB connection
-[03:04:40.863] Server  LOG     ♻️ Using existing MongoDB connection
-[03:04:40.933] Server  LOG     ♻️ Using existing MongoDB connection
-[03:04:40.987] Server  LOG     ♻️ Using existing MongoDB connection
-[03:04:41.005] Browser LOG     [{"__v":0,"_id":"698010068962969d97c624c6","address":"ádfgergsdfrg","createdAt":"2026-02-02T02:46:30.585Z","customerId":"KH000003","firstContractValue":0,"fullName":"Tấn Lê","isActive":true,"isDel":false,"marketingClassification":"Phù hợp","needsNote":"sdfgsdfgsdfgsdfgsdf","opportunityHistory":[],"phone":"0916677009","potentialLevel":"Trung hạn","referrer":"sdfgdfgs","referrerPhone":"","salesPerson":"Lê Trương Trọng Tấn","serviceGroup":"Thiết kế xây dựng","shortName":"let","source":"Sales tự tìm","updatedAt":"2026-02-02T02:46:30.585Z"},{"__v":0,"_id":"698010068962969d97c624c7","address":"dàgsdfgsdf","createdAt":"2026-02-02T02:46:30.585Z","customerId":"KH000004","firstContractValue":0,"fullName":"Chào em anh đứng đây từ chiều","isActive":true,"isDel":false,"marketingClassification":"Phù hợp","needsNote":"ádgasdgsdgsdg","opportunityHistory":[],"phone":"0911467039","potentialLevel":"Ngắn hạn","referrer":"adsfgvadfg","referrerPhone":"","salesPerson":"Lê Trương Trọng Tấn","serviceGroup":"nội thất","shortName":"chieuceaddt","source":"Sales tự tìm","updatedAt":"2026-02-02T02:46:30.585Z"},{"__v":0,"_id":"697eda676cba580db7e06988","address":"123 Đường ABC, Quận 1, TP.HCM","createdAt":"2026-02-01T04:45:27.185Z","customerId":"KH000002","firstContractValue":0,"fullName":"Nguyễn Văn A","isActive":true,"isDel":false,"marketingClassification":"Phù hợp","needsNote":"Cần tư vấn về sản phẩm mới và chính sách đại lý","opportunityHistory":[],"phone":"0901234567","potentialLevel":"Ngắn hạn","referrer":"Trần Văn B","referrerPhone":"0907654321","salesPerson":"Lê Trương Trọng Tấn","serviceGroup":"nội thất","shortName":"NVA","source":"TikTok","updatedAt":"2026-02-01T04:45:27.185Z"},{"__v":0,"_id":"697b2822d5ea0bf60b845bb7","address":"Hẻm 149 Lý Thánh Tông, Tân Thới Hòa, 72000, Phú Thạnh, Thành phố Hồ Chí Minh, Việt Nam","createdAt":"2026-01-29T09:28:02.774Z","customerId":"KHT1-0001","firstContractValue":0,"fullName":"Ton","isActive":true,"isDel":false,"latitude":10.766823188339302,"longitude":106.6258117273457,"opportunityHistory":[],"phone":"0916467039","potentialLevel":"Trung hạn","registrationDate":"2026-01-29T09:28:02.769Z","salesPerson":"Nguyễn Văn A","serviceGroup":"nội thất","shortName":"t1","source":"TikTok","updatedAt":"2026-01-29T09:28:02.774Z"}]
-[03:05:31.192] Server  LOG     ♻️ Using existing MongoDB connection
-[03:05:31.200] Server  LOG     ♻️ Using existing MongoDB connection
-[03:05:31.338] Browser LOG     ID khách hàng rỗng, chờ initialization...
-[03:05:31.338] Browser LOG     Customer loaded: {"customer":false}
-[03:05:31.338] Browser LOG     ID khách hàng rỗng, chờ initialization...
-[03:05:31.338] Browser LOG     Customer loaded: {"customer":false}
-[03:05:31.338] Browser LOG     ID khách hàng hợp lệ: 698010068962969d97c624c6
-[03:05:31.338] Browser LOG     Loading customer with ID: 698010068962969d97c624c6
-[03:05:31.338] Browser LOG     Customer ID type: string
-[03:05:31.338] Browser LOG     nguồn khách: {"data":[],"pagination":{"limit":10,"page":1,"pages":0,"total":0},"success":true}
-[03:05:32.635] Server  LOG     GET - Received ID: "698010068962969d97c624c6"
-[03:05:32.637] Server  LOG     GET - ID type: "string"
-[03:05:32.638] Server  LOG     GET - Params: {}
-[03:05:32.808] Browser LOG     Response status: 200
-[03:05:32.808] Browser LOG     API Response: {"data":{"__v":0,"_id":"698010068962969d97c624c6","address":"ádfgergsdfrg","createdAt":"2026-02-02T02:46:30.585Z","customerId":"KH000003","firstContractValue":0,"fullName":"Tấn Lê","isActive":true,"isDel":false,"marketingClassification":"Phù hợp","needsNote":"sdfgsdfgsdfgsdfgsdf","opportunityHistory":[],"phone":"0916677009","potentialLevel":"Trung hạn","referrer":"sdfgdfgs","referrerPhone":"","salesPerson":"Lê Trương Trọng Tấn","serviceGroup":"Thiết kế xây dựng","shortName":"let","source":"Sales tự tìm","updatedAt":"2026-02-02T02:46:30.585Z"},"success":true}
-[03:05:32.808] Browser LOG     formdata: {"__v":0,"_id":"698010068962969d97c624c6","address":"ádfgergsdfrg","createdAt":"2026-02-02T02:46:30.585Z","customerId":"KH000003","firstContractValue":0,"fullName":"Tấn Lê","isActive":true,"isDel":false,"marketingClassification":"Phù hợp","needsNote":"sdfgsdfgsdfgsdfgsdf","opportunityHistory":[],"phone":"0916677009","potentialLevel":"Trung hạn","referrer":"sdfgdfgs","referrerPhone":"","salesPerson":"Lê Trương Trọng Tấn","serviceGroup":"Thiết kế xây dựng","shortName":"let","source":"Sales tự tìm","updatedAt":"2026-02-02T02:46:30.585Z"}
-[03:05:32.808] Browser LOG     Customer loaded: {"customer":true,"salesPerson":"Lê Trương Trọng Tấn"}
-[03:05:32.808] Browser LOG     Sales person string: Lê Trương Trọng Tấn
-[03:05:38.402] Server  LOG     ♻️ Using existing MongoDB connection
-[03:05:38.410] Server  LOG     ♻️ Using existing MongoDB connection
-[03:05:38.462] Server  LOG     ♻️ Using existing MongoDB connection
-[03:05:38.470] Server  LOG     ♻️ Using existing MongoDB connection
-[03:05:38.481] Server  LOG     ♻️ Using existing MongoDB connection
-[03:05:38.605] Browser LOG     [{"__v":0,"_id":"698010068962969d97c624c6","address":"ádfgergsdfrg","createdAt":"2026-02-02T02:46:30.585Z","customerId":"KH000003","firstContractValue":0,"fullName":"Tấn Lê","isActive":true,"isDel":false,"marketingClassification":"Phù hợp","needsNote":"sdfgsdfgsdfgsdfgsdf","opportunityHistory":[],"phone":"0916677009","potentialLevel":"Trung hạn","referrer":"sdfgdfgs","referrerPhone":"","salesPerson":"Lê Trương Trọng Tấn","serviceGroup":"Thiết kế xây dựng","shortName":"let","source":"Sales tự tìm","updatedAt":"2026-02-02T02:46:30.585Z"},{"__v":0,"_id":"698010068962969d97c624c7","address":"dàgsdfgsdf","createdAt":"2026-02-02T02:46:30.585Z","customerId":"KH000004","firstContractValue":0,"fullName":"Chào em anh đứng đây từ chiều","isActive":true,"isDel":false,"marketingClassification":"Phù hợp","needsNote":"ádgasdgsdgsdg","opportunityHistory":[],"phone":"0911467039","potentialLevel":"Ngắn hạn","referrer":"adsfgvadfg","referrerPhone":"","salesPerson":"Lê Trương Trọng Tấn","serviceGroup":"nội thất","shortName":"chieuceaddt","source":"Sales tự tìm","updatedAt":"2026-02-02T02:46:30.585Z"},{"__v":0,"_id":"697eda676cba580db7e06988","address":"123 Đường ABC, Quận 1, TP.HCM","createdAt":"2026-02-01T04:45:27.185Z","customerId":"KH000002","firstContractValue":0,"fullName":"Nguyễn Văn A","isActive":true,"isDel":false,"marketingClassification":"Phù hợp","needsNote":"Cần tư vấn về sản phẩm mới và chính sách đại lý","opportunityHistory":[],"phone":"0901234567","potentialLevel":"Ngắn hạn","referrer":"Trần Văn B","referrerPhone":"0907654321","salesPerson":"Lê Trương Trọng Tấn","serviceGroup":"nội thất","shortName":"NVA","source":"TikTok","updatedAt":"2026-02-01T04:45:27.185Z"},{"__v":0,"_id":"697b2822d5ea0bf60b845bb7","address":"Hẻm 149 Lý Thánh Tông, Tân Thới Hòa, 72000, Phú Thạnh, Thành phố Hồ Chí Minh, Việt Nam","createdAt":"2026-01-29T09:28:02.774Z","customerId":"KHT1-0001","firstContractValue":0,"fullName":"Ton","isActive":true,"isDel":false,"latitude":10.766823188339302,"longitude":106.6258117273457,"opportunityHistory":[],"phone":"0916467039","potentialLevel":"Trung hạn","registrationDate":"2026-01-29T09:28:02.769Z","salesPerson":"Nguyễn Văn A","serviceGroup":"nội thất","shortName":"t1","source":"TikTok","updatedAt":"2026-01-29T09:28:02.774Z"}]
-[03:05:38.605] Browser LOG     [{"__v":0,"_id":"698010068962969d97c624c6","address":"ádfgergsdfrg","createdAt":"2026-02-02T02:46:30.585Z","customerId":"KH000003","firstContractValue":0,"fullName":"Tấn Lê","isActive":true,"isDel":false,"marketingClassification":"Phù hợp","needsNote":"sdfgsdfgsdfgsdfgsdf","opportunityHistory":[],"phone":"0916677009","potentialLevel":"Trung hạn","referrer":"sdfgdfgs","referrerPhone":"","salesPerson":"Lê Trương Trọng Tấn","serviceGroup":"Thiết kế xây dựng","shortName":"let","source":"Sales tự tìm","updatedAt":"2026-02-02T02:46:30.585Z"},{"__v":0,"_id":"698010068962969d97c624c7","address":"dàgsdfgsdf","createdAt":"2026-02-02T02:46:30.585Z","customerId":"KH000004","firstContractValue":0,"fullName":"Chào em anh đứng đây từ chiều","isActive":true,"isDel":false,"marketingClassification":"Phù hợp","needsNote":"ádgasdgsdgsdg","opportunityHistory":[],"phone":"0911467039","potentialLevel":"Ngắn hạn","referrer":"adsfgvadfg","referrerPhone":"","salesPerson":"Lê Trương Trọng Tấn","serviceGroup":"nội thất","shortName":"chieuceaddt","source":"Sales tự tìm","updatedAt":"2026-02-02T02:46:30.585Z"},{"__v":0,"_id":"697eda676cba580db7e06988","address":"123 Đường ABC, Quận 1, TP.HCM","createdAt":"2026-02-01T04:45:27.185Z","customerId":"KH000002","firstContractValue":0,"fullName":"Nguyễn Văn A","isActive":true,"isDel":false,"marketingClassification":"Phù hợp","needsNote":"Cần tư vấn về sản phẩm mới và chính sách đại lý","opportunityHistory":[],"phone":"0901234567","potentialLevel":"Ngắn hạn","referrer":"Trần Văn B","referrerPhone":"0907654321","salesPerson":"Lê Trương Trọng Tấn","serviceGroup":"nội thất","shortName":"NVA","source":"TikTok","updatedAt":"2026-02-01T04:45:27.185Z"},{"__v":0,"_id":"697b2822d5ea0bf60b845bb7","address":"Hẻm 149 Lý Thánh Tông, Tân Thới Hòa, 72000, Phú Thạnh, Thành phố Hồ Chí Minh, Việt Nam","createdAt":"2026-01-29T09:28:02.774Z","customerId":"KHT1-0001","firstContractValue":0,"fullName":"Ton","isActive":true,"isDel":false,"latitude":10.766823188339302,"longitude":106.6258117273457,"opportunityHistory":[],"phone":"0916467039","potentialLevel":"Trung hạn","registrationDate":"2026-01-29T09:28:02.769Z","salesPerson":"Nguyễn Văn A","serviceGroup":"nội thất","shortName":"t1","source":"TikTok","updatedAt":"2026-01-29T09:28:02.774Z"}]
-[03:05:39.111] Server  LOG     ♻️ Using existing MongoDB connection
-[03:05:39.116] Server  LOG     ♻️ Using existing MongoDB connection
-[03:05:39.168] Server  LOG     ♻️ Using existing MongoDB connection
-[03:05:40.141] Server  LOG     ♻️ Using existing MongoDB connection
-[03:05:40.199] Server  LOG     ♻️ Using existing MongoDB connection
-[03:05:40.205] Server  LOG     ♻️ Using existing MongoDB connection
-[03:05:40.239] Browser ERROR   uncaughtError: Error: Container 'mapbox-map' not found.
-[03:05:40.261] Server  LOG     ♻️ Using existing MongoDB connection
-[03:06:17.597] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[03:06:17.691] Server  LOG     ♻️ Using existing MongoDB connection
-[03:06:17.770] Server  LOG     ♻️ Using existing MongoDB connection
-[03:06:17.822] Browser ERROR   uncaughtError: Error: Container 'mapbox-map' not found.
-[03:06:57.073] Server  WARN    ⚠ Fast Refresh had to perform a full reload due to a runtime error.
-[03:06:57.090] Server  LOG     ✓ Compiled in 171ms
-[03:06:57.943] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[03:06:58.097] Server  LOG     ♻️ Using existing MongoDB connection
-[03:06:58.158] Server  LOG     ♻️ Using existing MongoDB connection
-[03:06:58.206] Browser ERROR   uncaughtError: TypeError: Cannot read properties of null (reading 'setCenter')
-[03:07:04.394] Server  WARN    ⚠ Fast Refresh had to perform a full reload due to a runtime error.
-[03:07:04.401] Server  LOG     ✓ Compiled in 151ms
-[03:07:04.598] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[03:07:04.754] Server  LOG     ♻️ Using existing MongoDB connection
-[03:07:04.812] Server  LOG     ♻️ Using existing MongoDB connection
-[03:07:04.862] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
-[03:08:41.972] Browser ERROR   Error uploading image: {}
-[03:09:27.503] Server  LOG     ✓ Compiled in 99ms
-[03:10:13.005] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[03:10:13.118] Server  LOG     ♻️ Using existing MongoDB connection
-[03:10:13.174] Server  LOG     ♻️ Using existing MongoDB connection
-[03:10:13.222] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
-[03:10:15.296] Server  LOG     [Upload API] Starting upload: logo moi.png (image/png) -> image
-[03:10:17.137] Server  LOG     [Upload API] Success: https://res.cloudinary.com/dprxrbz1z/image/upload/v1770103821/customers/file_mei39y.png
-[03:12:52.949] Server  LOG     ✓ Compiled in 108ms
-[03:12:58.181] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[03:12:58.447] Server  LOG     ♻️ Using existing MongoDB connection
-[03:12:58.510] Server  LOG     ♻️ Using existing MongoDB connection
-[03:12:58.595] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
-[03:13:07.950] Server  LOG     ✓ Compiled in 104ms
-[03:13:31.689] Server  LOG     ✓ Compiled in 138ms
-[03:13:42.586] Server  LOG     ♻️ Using existing MongoDB connection
-[03:13:42.687] Server  LOG     ♻️ Using existing MongoDB connection
-[03:13:43.465] Server  LOG     ♻️ Using existing MongoDB connection
-[03:13:43.472] Server  LOG     ♻️ Using existing MongoDB connection
-[03:13:43.523] Server  LOG     ♻️ Using existing MongoDB connection
-[03:13:43.707] Browser LOG     [{"__v":0,"_id":"698010068962969d97c624c6","address":"ádfgergsdfrg","createdAt":"2026-02-02T02:46:30.585Z","customerId":"KH000003","firstContractValue":0,"fullName":"Tấn Lê","isActive":true,"isDel":false,"marketingClassification":"Phù hợp","needsNote":"sdfgsdfgsdfgsdfgsdf","opportunityHistory":[],"phone":"0916677009","potentialLevel":"Trung hạn","referrer":"sdfgdfgs","referrerPhone":"","salesPerson":"Lê Trương Trọng Tấn","serviceGroup":"Thiết kế xây dựng","shortName":"let","source":"Sales tự tìm","updatedAt":"2026-02-02T02:46:30.585Z"},{"__v":0,"_id":"698010068962969d97c624c7","address":"dàgsdfgsdf","createdAt":"2026-02-02T02:46:30.585Z","customerId":"KH000004","firstContractValue":0,"fullName":"Chào em anh đứng đây từ chiều","isActive":true,"isDel":false,"marketingClassification":"Phù hợp","needsNote":"ádgasdgsdgsdg","opportunityHistory":[],"phone":"0911467039","potentialLevel":"Ngắn hạn","referrer":"adsfgvadfg","referrerPhone":"","salesPerson":"Lê Trương Trọng Tấn","serviceGroup":"nội thất","shortName":"chieuceaddt","source":"Sales tự tìm","updatedAt":"2026-02-02T02:46:30.585Z"},{"__v":0,"_id":"697eda676cba580db7e06988","address":"123 Đường ABC, Quận 1, TP.HCM","createdAt":"2026-02-01T04:45:27.185Z","customerId":"KH000002","firstContractValue":0,"fullName":"Nguyễn Văn A","isActive":true,"isDel":false,"marketingClassification":"Phù hợp","needsNote":"Cần tư vấn về sản phẩm mới và chính sách đại lý","opportunityHistory":[],"phone":"0901234567","potentialLevel":"Ngắn hạn","referrer":"Trần Văn B","referrerPhone":"0907654321","salesPerson":"Lê Trương Trọng Tấn","serviceGroup":"nội thất","shortName":"NVA","source":"TikTok","updatedAt":"2026-02-01T04:45:27.185Z"},{"__v":0,"_id":"697b2822d5ea0bf60b845bb7","address":"Hẻm 149 Lý Thánh Tông, Tân Thới Hòa, 72000, Phú Thạnh, Thành phố Hồ Chí Minh, Việt Nam","createdAt":"2026-01-29T09:28:02.774Z","customerId":"KHT1-0001","firstContractValue":0,"fullName":"Ton","isActive":true,"isDel":false,"latitude":10.766823188339302,"longitude":106.6258117273457,"opportunityHistory":[],"phone":"0916467039","potentialLevel":"Trung hạn","registrationDate":"2026-01-29T09:28:02.769Z","salesPerson":"Nguyễn Văn A","serviceGroup":"nội thất","shortName":"t1","source":"TikTok","updatedAt":"2026-01-29T09:28:02.774Z"}]
-[03:13:43.707] Browser LOG     [{"__v":0,"_id":"698010068962969d97c624c6","address":"ádfgergsdfrg","createdAt":"2026-02-02T02:46:30.585Z","customerId":"KH000003","firstContractValue":0,"fullName":"Tấn Lê","isActive":true,"isDel":false,"marketingClassification":"Phù hợp","needsNote":"sdfgsdfgsdfgsdfgsdf","opportunityHistory":[],"phone":"0916677009","potentialLevel":"Trung hạn","referrer":"sdfgdfgs","referrerPhone":"","salesPerson":"Lê Trương Trọng Tấn","serviceGroup":"Thiết kế xây dựng","shortName":"let","source":"Sales tự tìm","updatedAt":"2026-02-02T02:46:30.585Z"},{"__v":0,"_id":"698010068962969d97c624c7","address":"dàgsdfgsdf","createdAt":"2026-02-02T02:46:30.585Z","customerId":"KH000004","firstContractValue":0,"fullName":"Chào em anh đứng đây từ chiều","isActive":true,"isDel":false,"marketingClassification":"Phù hợp","needsNote":"ádgasdgsdgsdg","opportunityHistory":[],"phone":"0911467039","potentialLevel":"Ngắn hạn","referrer":"adsfgvadfg","referrerPhone":"","salesPerson":"Lê Trương Trọng Tấn","serviceGroup":"nội thất","shortName":"chieuceaddt","source":"Sales tự tìm","updatedAt":"2026-02-02T02:46:30.585Z"},{"__v":0,"_id":"697eda676cba580db7e06988","address":"123 Đường ABC, Quận 1, TP.HCM","createdAt":"2026-02-01T04:45:27.185Z","customerId":"KH000002","firstContractValue":0,"fullName":"Nguyễn Văn A","isActive":true,"isDel":false,"marketingClassification":"Phù hợp","needsNote":"Cần tư vấn về sản phẩm mới và chính sách đại lý","opportunityHistory":[],"phone":"0901234567","potentialLevel":"Ngắn hạn","referrer":"Trần Văn B","referrerPhone":"0907654321","salesPerson":"Lê Trương Trọng Tấn","serviceGroup":"nội thất","shortName":"NVA","source":"TikTok","updatedAt":"2026-02-01T04:45:27.185Z"},{"__v":0,"_id":"697b2822d5ea0bf60b845bb7","address":"Hẻm 149 Lý Thánh Tông, Tân Thới Hòa, 72000, Phú Thạnh, Thành phố Hồ Chí Minh, Việt Nam","createdAt":"2026-01-29T09:28:02.774Z","customerId":"KHT1-0001","firstContractValue":0,"fullName":"Ton","isActive":true,"isDel":false,"latitude":10.766823188339302,"longitude":106.6258117273457,"opportunityHistory":[],"phone":"0916467039","potentialLevel":"Trung hạn","registrationDate":"2026-01-29T09:28:02.769Z","salesPerson":"Nguyễn Văn A","serviceGroup":"nội thất","shortName":"t1","source":"TikTok","updatedAt":"2026-01-29T09:28:02.774Z"}]
-[03:13:44.253] Server  LOG     ♻️ Using existing MongoDB connection
-[03:13:44.260] Server  LOG     ♻️ Using existing MongoDB connection
-[03:13:44.325] Server  LOG     ♻️ Using existing MongoDB connection
-[03:13:44.331] Server  LOG     ♻️ Using existing MongoDB connection
-[03:13:44.364] Server  LOG     ♻️ Using existing MongoDB connection
-[03:13:44.387] Server  LOG     ♻️ Using existing MongoDB connection
-[03:13:44.737] Server  LOG     ♻️ Using existing MongoDB connection
-[03:13:44.747] Server  LOG     ♻️ Using existing MongoDB connection
-[03:13:44.796] Server  LOG     ♻️ Using existing MongoDB connection
-[03:14:12.945] Server  LOG     ✓ Compiled in 104ms
-[03:14:14.595] Server  LOG     ✓ Compiled in 101ms
-[03:14:18.028] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[03:14:18.339] Server  LOG     ♻️ Using existing MongoDB connection
-[03:14:18.400] Server  LOG     ♻️ Using existing MongoDB connection
-[03:14:18.550] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
-[03:14:18.550] Browser LOG     []
-[03:14:44.709] Server  LOG     ✓ Compiled in 98ms
-[03:14:47.117] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[03:14:47.393] Server  LOG     ♻️ Using existing MongoDB connection
-[03:14:47.456] Server  LOG     ♻️ Using existing MongoDB connection
-[03:14:47.601] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
-[03:14:47.601] Browser LOG     {"data":[],"pagination":{"limit":100,"page":1,"pages":0,"total":0},"success":true}
-[03:15:30.971] Server  LOG     ♻️ Using existing MongoDB connection
-[03:15:30.972] Server  LOG     🔄 Fetching dashboard stats...
-[03:15:31.018] Server  LOG     ✅ Dashboard stats fetched successfully
-[03:15:31.034] Server  LOG     ♻️ Using existing MongoDB connection
-[03:15:31.035] Server  LOG     🔄 Fetching dashboard stats...
-[03:15:31.080] Server  LOG     ✅ Dashboard stats fetched successfully
-[03:15:33.531] Server  LOG     ♻️ Using existing MongoDB connection
-[03:15:33.584] Server  LOG     ♻️ Using existing MongoDB connection
-[03:15:43.520] Server  LOG     ♻️ Using existing MongoDB connection
-[03:15:43.671] Server  LOG     ♻️ Using existing MongoDB connection
-[03:15:43.723] Server  LOG     ♻️ Using existing MongoDB connection
-[03:15:46.083] Server  LOG     ♻️ Using existing MongoDB connection
-[03:15:46.084] Server  LOG     🔄 Fetching dashboard stats...
-[03:15:46.126] Server  LOG     ✅ Dashboard stats fetched successfully
-[03:15:46.137] Server  LOG     ♻️ Using existing MongoDB connection
-[03:15:46.138] Server  LOG     🔄 Fetching dashboard stats...
-[03:15:46.184] Server  LOG     ✅ Dashboard stats fetched successfully
-[03:15:51.539] Server  LOG     ♻️ Using existing MongoDB connection
-[03:15:51.550] Server  LOG     ♻️ Using existing MongoDB connection
-[03:15:51.609] Server  LOG     ♻️ Using existing MongoDB connection
-[03:15:51.618] Server  LOG     ♻️ Using existing MongoDB connection
-[03:15:51.647] Server  LOG     ♻️ Using existing MongoDB connection
-[03:15:51.717] Server  LOG     ♻️ Using existing MongoDB connection
-[03:15:51.741] Server  LOG     ♻️ Using existing MongoDB connection
-[03:15:51.796] Server  LOG     ♻️ Using existing MongoDB connection
-[03:15:51.814] Browser LOG     [{"__v":0,"_id":"698010068962969d97c624c6","address":"ádfgergsdfrg","createdAt":"2026-02-02T02:46:30.585Z","customerId":"KH000003","firstContractValue":0,"fullName":"Tấn Lê","isActive":true,"isDel":false,"marketingClassification":"Phù hợp","needsNote":"sdfgsdfgsdfgsdfgsdf","opportunityHistory":[],"phone":"0916677009","potentialLevel":"Trung hạn","referrer":"sdfgdfgs","referrerPhone":"","salesPerson":"Lê Trương Trọng Tấn","serviceGroup":"Thiết kế xây dựng","shortName":"let","source":"Sales tự tìm","updatedAt":"2026-02-02T02:46:30.585Z"},{"__v":0,"_id":"698010068962969d97c624c7","address":"dàgsdfgsdf","createdAt":"2026-02-02T02:46:30.585Z","customerId":"KH000004","firstContractValue":0,"fullName":"Chào em anh đứng đây từ chiều","isActive":true,"isDel":false,"marketingClassification":"Phù hợp","needsNote":"ádgasdgsdgsdg","opportunityHistory":[],"phone":"0911467039","potentialLevel":"Ngắn hạn","referrer":"adsfgvadfg","referrerPhone":"","salesPerson":"Lê Trương Trọng Tấn","serviceGroup":"nội thất","shortName":"chieuceaddt","source":"Sales tự tìm","updatedAt":"2026-02-02T02:46:30.585Z"},{"__v":0,"_id":"697eda676cba580db7e06988","address":"123 Đường ABC, Quận 1, TP.HCM","createdAt":"2026-02-01T04:45:27.185Z","customerId":"KH000002","firstContractValue":0,"fullName":"Nguyễn Văn A","isActive":true,"isDel":false,"marketingClassification":"Phù hợp","needsNote":"Cần tư vấn về sản phẩm mới và chính sách đại lý","opportunityHistory":[],"phone":"0901234567","potentialLevel":"Ngắn hạn","referrer":"Trần Văn B","referrerPhone":"0907654321","salesPerson":"Lê Trương Trọng Tấn","serviceGroup":"nội thất","shortName":"NVA","source":"TikTok","updatedAt":"2026-02-01T04:45:27.185Z"},{"__v":0,"_id":"697b2822d5ea0bf60b845bb7","address":"Hẻm 149 Lý Thánh Tông, Tân Thới Hòa, 72000, Phú Thạnh, Thành phố Hồ Chí Minh, Việt Nam","createdAt":"2026-01-29T09:28:02.774Z","customerId":"KHT1-0001","firstContractValue":0,"fullName":"Ton","isActive":true,"isDel":false,"latitude":10.766823188339302,"longitude":106.6258117273457,"opportunityHistory":[],"phone":"0916467039","potentialLevel":"Trung hạn","registrationDate":"2026-01-29T09:28:02.769Z","salesPerson":"Nguyễn Văn A","serviceGroup":"nội thất","shortName":"t1","source":"TikTok","updatedAt":"2026-01-29T09:28:02.774Z"}]
-[03:15:51.814] Browser LOG     [{"__v":0,"_id":"698010068962969d97c624c6","address":"ádfgergsdfrg","createdAt":"2026-02-02T02:46:30.585Z","customerId":"KH000003","firstContractValue":0,"fullName":"Tấn Lê","isActive":true,"isDel":false,"marketingClassification":"Phù hợp","needsNote":"sdfgsdfgsdfgsdfgsdf","opportunityHistory":[],"phone":"0916677009","potentialLevel":"Trung hạn","referrer":"sdfgdfgs","referrerPhone":"","salesPerson":"Lê Trương Trọng Tấn","serviceGroup":"Thiết kế xây dựng","shortName":"let","source":"Sales tự tìm","updatedAt":"2026-02-02T02:46:30.585Z"},{"__v":0,"_id":"698010068962969d97c624c7","address":"dàgsdfgsdf","createdAt":"2026-02-02T02:46:30.585Z","customerId":"KH000004","firstContractValue":0,"fullName":"Chào em anh đứng đây từ chiều","isActive":true,"isDel":false,"marketingClassification":"Phù hợp","needsNote":"ádgasdgsdgsdg","opportunityHistory":[],"phone":"0911467039","potentialLevel":"Ngắn hạn","referrer":"adsfgvadfg","referrerPhone":"","salesPerson":"Lê Trương Trọng Tấn","serviceGroup":"nội thất","shortName":"chieuceaddt","source":"Sales tự tìm","updatedAt":"2026-02-02T02:46:30.585Z"},{"__v":0,"_id":"697eda676cba580db7e06988","address":"123 Đường ABC, Quận 1, TP.HCM","createdAt":"2026-02-01T04:45:27.185Z","customerId":"KH000002","firstContractValue":0,"fullName":"Nguyễn Văn A","isActive":true,"isDel":false,"marketingClassification":"Phù hợp","needsNote":"Cần tư vấn về sản phẩm mới và chính sách đại lý","opportunityHistory":[],"phone":"0901234567","potentialLevel":"Ngắn hạn","referrer":"Trần Văn B","referrerPhone":"0907654321","salesPerson":"Lê Trương Trọng Tấn","serviceGroup":"nội thất","shortName":"NVA","source":"TikTok","updatedAt":"2026-02-01T04:45:27.185Z"},{"__v":0,"_id":"697b2822d5ea0bf60b845bb7","address":"Hẻm 149 Lý Thánh Tông, Tân Thới Hòa, 72000, Phú Thạnh, Thành phố Hồ Chí Minh, Việt Nam","createdAt":"2026-01-29T09:28:02.774Z","customerId":"KHT1-0001","firstContractValue":0,"fullName":"Ton","isActive":true,"isDel":false,"latitude":10.766823188339302,"longitude":106.6258117273457,"opportunityHistory":[],"phone":"0916467039","potentialLevel":"Trung hạn","registrationDate":"2026-01-29T09:28:02.769Z","salesPerson":"Nguyễn Văn A","serviceGroup":"nội thất","shortName":"t1","source":"TikTok","updatedAt":"2026-01-29T09:28:02.774Z"}]
-[03:15:52.489] Server  LOG     ♻️ Using existing MongoDB connection
-[03:15:52.542] Server  LOG     ♻️ Using existing MongoDB connection
-[03:15:52.549] Server  LOG     ♻️ Using existing MongoDB connection
-[03:15:52.600] Server  LOG     ♻️ Using existing MongoDB connection
-[03:15:52.747] Browser LOG     {"data":[{"__v":0,"_id":"6981a553693b2c5e06095e57","active":true,"code":"C12121","createdAt":"2026-02-03T07:35:47.853Z","name":"marketing","updatedAt":"2026-02-03T07:35:47.853Z"}],"pagination":{"limit":100,"page":1,"pages":1,"total":1},"success":true}
-[03:15:52.747] Browser LOG     {"data":[{"__v":0,"_id":"6981a553693b2c5e06095e57","active":true,"code":"C12121","createdAt":"2026-02-03T07:35:47.853Z","name":"marketing","updatedAt":"2026-02-03T07:35:47.853Z"}],"pagination":{"limit":100,"page":1,"pages":1,"total":1},"success":true}
-[03:16:05.286] Server  LOG     [Upload API] Starting upload: logo moi.png (image/png) -> image
-[03:16:07.168] Server  LOG     [Upload API] Success: https://res.cloudinary.com/dprxrbz1z/image/upload/v1770104171/customers/file_pss06r.png
-[03:16:56.691] Server  LOG     ♻️ Using existing MongoDB connection
-[03:16:59.117] Server  LOG     ♻️ Using existing MongoDB connection
-[03:16:59.122] Server  LOG     ♻️ Using existing MongoDB connection
-[03:16:59.175] Server  LOG     ♻️ Using existing MongoDB connection
-[03:16:59.181] Server  LOG     ♻️ Using existing MongoDB connection
-[03:16:59.199] Server  LOG     ♻️ Using existing MongoDB connection
-[03:16:59.255] Server  LOG     ♻️ Using existing MongoDB connection
-[03:16:59.262] Server  LOG     ♻️ Using existing MongoDB connection
-[03:16:59.336] Server  LOG     ♻️ Using existing MongoDB connection
-[03:16:59.415] Browser LOG     [{"__v":0,"_id":"6981a59d693b2c5e06095e83","address":"sADFAsdfasdfas","createdAt":"2026-02-03T07:37:01.094Z","customerId":"KH-JSC-0001","firstContractValue":0,"fullName":"Trường Giang JSC","image":"https://res.cloudinary.com/dprxrbz1z/image/upload/v1770104171/customers/file_pss06r.png","isActive":true,"isDel":false,"latitude":0,"longitude":0,"needsNote":"kfvuyytgvuv","opportunityHistory":[],"phone":"0916467122","potentialLevel":"⭐⭐⭐⭐⭐","referrer":"h","referrerPhone":"0916467031","registrationDate":"2026-02-03T07:37:01.092Z","salesPerson":"Lê Trương Trọng Tấn","shortName":"JSC","source":"marketing","updatedAt":"2026-02-03T07:37:01.094Z"},{"__v":0,"_id":"698010068962969d97c624c6","address":"ádfgergsdfrg","createdAt":"2026-02-02T02:46:30.585Z","customerId":"KH000003","firstContractValue":0,"fullName":"Tấn Lê","isActive":true,"isDel":false,"marketingClassification":"Phù hợp","needsNote":"sdfgsdfgsdfgsdfgsdf","opportunityHistory":[],"phone":"0916677009","potentialLevel":"Trung hạn","referrer":"sdfgdfgs","referrerPhone":"","salesPerson":"Lê Trương Trọng Tấn","serviceGroup":"Thiết kế xây dựng","shortName":"let","source":"Sales tự tìm","updatedAt":"2026-02-02T02:46:30.585Z"},{"__v":0,"_id":"698010068962969d97c624c7","address":"dàgsdfgsdf","createdAt":"2026-02-02T02:46:30.585Z","customerId":"KH000004","firstContractValue":0,"fullName":"Chào em anh đứng đây từ chiều","isActive":true,"isDel":false,"marketingClassification":"Phù hợp","needsNote":"ádgasdgsdgsdg","opportunityHistory":[],"phone":"0911467039","potentialLevel":"Ngắn hạn","referrer":"adsfgvadfg","referrerPhone":"","salesPerson":"Lê Trương Trọng Tấn","serviceGroup":"nội thất","shortName":"chieuceaddt","source":"Sales tự tìm","updatedAt":"2026-02-02T02:46:30.585Z"},{"__v":0,"_id":"697eda676cba580db7e06988","address":"123 Đường ABC, Quận 1, TP.HCM","createdAt":"2026-02-01T04:45:27.185Z","customerId":"KH000002","firstContractValue":0,"fullName":"Nguyễn Văn A","isActive":true,"isDel":false,"marketingClassification":"Phù hợp","needsNote":"Cần tư vấn về sản phẩm mới và chính sách đại lý","opportunityHistory":[],"phone":"0901234567","potentialLevel":"Ngắn hạn","referrer":"Trần Văn B","referrerPhone":"0907654321","salesPerson":"Lê Trương Trọng Tấn","serviceGroup":"nội thất","shortName":"NVA","source":"TikTok","updatedAt":"2026-02-01T04:45:27.185Z"},{"__v":0,"_id":"697b2822d5ea0bf60b845bb7","address":"Hẻm 149 Lý Thánh Tông, Tân Thới Hòa, 72000, Phú Thạnh, Thành phố Hồ Chí Minh, Việt Nam","createdAt":"2026-01-29T09:28:02.774Z","customerId":"KHT1-0001","firstContractValue":0,"fullName":"Ton","isActive":true,"isDel":false,"latitude":10.766823188339302,"longitude":106.6258117273457,"opportunityHistory":[],"phone":"0916467039","potentialLevel":"Trung hạn","registrationDate":"2026-01-29T09:28:02.769Z","salesPerson":"Nguyễn Văn A","serviceGroup":"nội thất","shortName":"t1","source":"TikTok","updatedAt":"2026-01-29T09:28:02.774Z"}]
-[03:16:59.415] Browser LOG     [{"__v":0,"_id":"6981a59d693b2c5e06095e83","address":"sADFAsdfasdfas","createdAt":"2026-02-03T07:37:01.094Z","customerId":"KH-JSC-0001","firstContractValue":0,"fullName":"Trường Giang JSC","image":"https://res.cloudinary.com/dprxrbz1z/image/upload/v1770104171/customers/file_pss06r.png","isActive":true,"isDel":false,"latitude":0,"longitude":0,"needsNote":"kfvuyytgvuv","opportunityHistory":[],"phone":"0916467122","potentialLevel":"⭐⭐⭐⭐⭐","referrer":"h","referrerPhone":"0916467031","registrationDate":"2026-02-03T07:37:01.092Z","salesPerson":"Lê Trương Trọng Tấn","shortName":"JSC","source":"marketing","updatedAt":"2026-02-03T07:37:01.094Z"},{"__v":0,"_id":"698010068962969d97c624c6","address":"ádfgergsdfrg","createdAt":"2026-02-02T02:46:30.585Z","customerId":"KH000003","firstContractValue":0,"fullName":"Tấn Lê","isActive":true,"isDel":false,"marketingClassification":"Phù hợp","needsNote":"sdfgsdfgsdfgsdfgsdf","opportunityHistory":[],"phone":"0916677009","potentialLevel":"Trung hạn","referrer":"sdfgdfgs","referrerPhone":"","salesPerson":"Lê Trương Trọng Tấn","serviceGroup":"Thiết kế xây dựng","shortName":"let","source":"Sales tự tìm","updatedAt":"2026-02-02T02:46:30.585Z"},{"__v":0,"_id":"698010068962969d97c624c7","address":"dàgsdfgsdf","createdAt":"2026-02-02T02:46:30.585Z","customerId":"KH000004","firstContractValue":0,"fullName":"Chào em anh đứng đây từ chiều","isActive":true,"isDel":false,"marketingClassification":"Phù hợp","needsNote":"ádgasdgsdgsdg","opportunityHistory":[],"phone":"0911467039","potentialLevel":"Ngắn hạn","referrer":"adsfgvadfg","referrerPhone":"","salesPerson":"Lê Trương Trọng Tấn","serviceGroup":"nội thất","shortName":"chieuceaddt","source":"Sales tự tìm","updatedAt":"2026-02-02T02:46:30.585Z"},{"__v":0,"_id":"697eda676cba580db7e06988","address":"123 Đường ABC, Quận 1, TP.HCM","createdAt":"2026-02-01T04:45:27.185Z","customerId":"KH000002","firstContractValue":0,"fullName":"Nguyễn Văn A","isActive":true,"isDel":false,"marketingClassification":"Phù hợp","needsNote":"Cần tư vấn về sản phẩm mới và chính sách đại lý","opportunityHistory":[],"phone":"0901234567","potentialLevel":"Ngắn hạn","referrer":"Trần Văn B","referrerPhone":"0907654321","salesPerson":"Lê Trương Trọng Tấn","serviceGroup":"nội thất","shortName":"NVA","source":"TikTok","updatedAt":"2026-02-01T04:45:27.185Z"},{"__v":0,"_id":"697b2822d5ea0bf60b845bb7","address":"Hẻm 149 Lý Thánh Tông, Tân Thới Hòa, 72000, Phú Thạnh, Thành phố Hồ Chí Minh, Việt Nam","createdAt":"2026-01-29T09:28:02.774Z","customerId":"KHT1-0001","firstContractValue":0,"fullName":"Ton","isActive":true,"isDel":false,"latitude":10.766823188339302,"longitude":106.6258117273457,"opportunityHistory":[],"phone":"0916467039","potentialLevel":"Trung hạn","registrationDate":"2026-01-29T09:28:02.769Z","salesPerson":"Nguyễn Văn A","serviceGroup":"nội thất","shortName":"t1","source":"TikTok","updatedAt":"2026-01-29T09:28:02.774Z"}]
-[03:19:07.408] Server  LOG     ✓ Compiled in 105ms
-[03:19:07.521] Browser ERROR   ./components/CustomerModal.tsx:477:42
-Parsing ecmascript source code failed
-  475 |                                             </span>
-  476 |                                         </div>
-> 477 |                                     )} */}
-      |                                          ^
-  478 |
-  479 |                                     {customer.salesPerson ? (
-  480 |                                         <div className="flex items-start space-x-3">
-
-Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
-
-Import trace:
-  Client Component Browser:
-    ./components/CustomerModal.tsx [Client Component Browser]
-    ./app/(dashboard)/customers/page.tsx [Client Component Browser]
-    ./app/(dashboard)/customers/page.tsx [Server Component]
-[03:19:07.521] Browser ERROR   ./components/CustomerModal.tsx:662:10
-Parsing ecmascript source code failed
-  660 |                 </div>
-  661 |             </div>
-> 662 |         </div>
-      |          ^^^^^
-  663 |     );
-  664 | };
-  665 |
-
-Unterminated regexp literal
-
-Import trace:
-  Client Component Browser:
-    ./components/CustomerModal.tsx [Client Component Browser]
-    ./app/(dashboard)/customers/page.tsx [Client Component Browser]
-    ./app/(dashboard)/customers/page.tsx [Server Component]
-[03:19:32.177] Server  LOG     ✓ Compiled in 95ms
-[03:19:32.280] Browser ERROR   ./components/CustomerModal.tsx:477:42
-Parsing ecmascript source code failed
-  475 |                                             </span>
-  476 |                                         </div>
-> 477 |                                     )} */}
-      |                                          ^
-  478 |
-  479 |                                     {customer.salesPerson ? (
-  480 |                                         <div className="flex items-start space-x-3">
-
-Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
-
-Import trace:
-  Client Component Browser:
-    ./components/CustomerModal.tsx [Client Component Browser]
-    ./app/(dashboard)/customers/page.tsx [Client Component Browser]
-    ./app/(dashboard)/customers/page.tsx [Server Component]
-[03:19:32.280] Browser ERROR   ./components/CustomerModal.tsx:662:10
-Parsing ecmascript source code failed
-  660 |                 </div>
-  661 |             </div>
-> 662 |         </div>
-      |          ^^^^^
-  663 |     );
-  664 | };
-  665 |
-
-Unterminated regexp literal
-
-Import trace:
-  Client Component Browser:
-    ./components/CustomerModal.tsx [Client Component Browser]
-    ./app/(dashboard)/customers/page.tsx [Client Component Browser]
-    ./app/(dashboard)/customers/page.tsx [Server Component]
-[03:27:59.005] Server  LOG     ✓ Compiled in 283ms
-[03:27:59.108] Browser ERROR   ./app/components/Navigation.tsx:378:31
-Parsing ecmascript source code failed
-  376 |                           w-full flex items-center justify-between px-4 py-3 text-sm font-medium rounded-lg transition-all duration-300
-  377 |                           ${
-> 378 |                               ? "bg-blue-50 text-blue-700 border-l-4 border-blue-700 shadow-sm"
-      |                               ^
-  379 |                               : "text-gray-700 hover:bg-blue-50 hover:text-blue-700"
-  380 |                           }
-  381 |                         `}
-
-Expected '</', got '?'
-
-Import trace:
-  Server Component:
-    ./app/components/Navigation.tsx
-    ./app/(dashboard)/layout.tsx
-[03:29:34.414] Server  LOG     ♻️ Using existing MongoDB connection
-[03:29:34.414] Server  LOG     🔄 Fetching dashboard stats...
-[03:29:35.416] Server  LOG     ✅ Dashboard stats fetched successfully
-[03:29:35.430] Server  LOG     ♻️ Using existing MongoDB connection
-[03:29:35.430] Server  LOG     🔄 Fetching dashboard stats...
-[03:29:35.774] Server  LOG     ✅ Dashboard stats fetched successfully
-[03:29:48.980] Server  LOG     ♻️ Using existing MongoDB connection
-[03:29:48.988] Server  LOG     ♻️ Using existing MongoDB connection
-[03:29:49.040] Server  LOG     ♻️ Using existing MongoDB connection
-[03:29:49.049] Server  LOG     ♻️ Using existing MongoDB connection
-[03:29:49.090] Server  LOG     ♻️ Using existing MongoDB connection
-[03:29:49.141] Server  LOG     ♻️ Using existing MongoDB connection
-[03:29:49.173] Server  LOG     ♻️ Using existing MongoDB connection
-[03:29:49.225] Server  LOG     ♻️ Using existing MongoDB connection
-[03:29:49.247] Browser LOG     [{"__v":0,"_id":"6981a59d693b2c5e06095e83","address":"sADFAsdfasdfas","createdAt":"2026-02-03T07:37:01.094Z","customerId":"KH-JSC-0001","firstContractValue":0,"fullName":"Trường Giang JSC","image":"https://res.cloudinary.com/dprxrbz1z/image/upload/v1770104171/customers/file_pss06r.png","isActive":true,"isDel":false,"latitude":0,"longitude":0,"needsNote":"kfvuyytgvuv","opportunityHistory":[],"phone":"0916467122","potentialLevel":"⭐⭐⭐⭐⭐","referrer":"h","referrerPhone":"0916467031","registrationDate":"2026-02-03T07:37:01.092Z","salesPerson":"Lê Trương Trọng Tấn","shortName":"JSC","source":"marketing","updatedAt":"2026-02-03T07:37:01.094Z"},{"__v":0,"_id":"698010068962969d97c624c6","address":"ádfgergsdfrg","createdAt":"2026-02-02T02:46:30.585Z","customerId":"KH000003","firstContractValue":0,"fullName":"Tấn Lê","isActive":true,"isDel":false,"marketingClassification":"Phù hợp","needsNote":"sdfgsdfgsdfgsdfgsdf","opportunityHistory":[],"phone":"0916677009","potentialLevel":"Trung hạn","referrer":"sdfgdfgs","referrerPhone":"","salesPerson":"Lê Trương Trọng Tấn","serviceGroup":"Thiết kế xây dựng","shortName":"let","source":"Sales tự tìm","updatedAt":"2026-02-02T02:46:30.585Z"},{"__v":0,"_id":"698010068962969d97c624c7","address":"dàgsdfgsdf","createdAt":"2026-02-02T02:46:30.585Z","customerId":"KH000004","firstContractValue":0,"fullName":"Chào em anh đứng đây từ chiều","isActive":true,"isDel":false,"marketingClassification":"Phù hợp","needsNote":"ádgasdgsdgsdg","opportunityHistory":[],"phone":"0911467039","potentialLevel":"Ngắn hạn","referrer":"adsfgvadfg","referrerPhone":"","salesPerson":"Lê Trương Trọng Tấn","serviceGroup":"nội thất","shortName":"chieuceaddt","source":"Sales tự tìm","updatedAt":"2026-02-02T02:46:30.585Z"},{"__v":0,"_id":"697eda676cba580db7e06988","address":"123 Đường ABC, Quận 1, TP.HCM","createdAt":"2026-02-01T04:45:27.185Z","customerId":"KH000002","firstContractValue":0,"fullName":"Nguyễn Văn A","isActive":true,"isDel":false,"marketingClassification":"Phù hợp","needsNote":"Cần tư vấn về sản phẩm mới và chính sách đại lý","opportunityHistory":[],"phone":"0901234567","potentialLevel":"Ngắn hạn","referrer":"Trần Văn B","referrerPhone":"0907654321","salesPerson":"Lê Trương Trọng Tấn","serviceGroup":"nội thất","shortName":"NVA","source":"TikTok","updatedAt":"2026-02-01T04:45:27.185Z"},{"__v":0,"_id":"697b2822d5ea0bf60b845bb7","address":"Hẻm 149 Lý Thánh Tông, Tân Thới Hòa, 72000, Phú Thạnh, Thành phố Hồ Chí Minh, Việt Nam","createdAt":"2026-01-29T09:28:02.774Z","customerId":"KHT1-0001","firstContractValue":0,"fullName":"Ton","isActive":true,"isDel":false,"latitude":10.766823188339302,"longitude":106.6258117273457,"opportunityHistory":[],"phone":"0916467039","potentialLevel":"Trung hạn","registrationDate":"2026-01-29T09:28:02.769Z","salesPerson":"Nguyễn Văn A","serviceGroup":"nội thất","shortName":"t1","source":"TikTok","updatedAt":"2026-01-29T09:28:02.774Z"}]
-[03:29:49.247] Browser LOG     [{"__v":0,"_id":"6981a59d693b2c5e06095e83","address":"sADFAsdfasdfas","createdAt":"2026-02-03T07:37:01.094Z","customerId":"KH-JSC-0001","firstContractValue":0,"fullName":"Trường Giang JSC","image":"https://res.cloudinary.com/dprxrbz1z/image/upload/v1770104171/customers/file_pss06r.png","isActive":true,"isDel":false,"latitude":0,"longitude":0,"needsNote":"kfvuyytgvuv","opportunityHistory":[],"phone":"0916467122","potentialLevel":"⭐⭐⭐⭐⭐","referrer":"h","referrerPhone":"0916467031","registrationDate":"2026-02-03T07:37:01.092Z","salesPerson":"Lê Trương Trọng Tấn","shortName":"JSC","source":"marketing","updatedAt":"2026-02-03T07:37:01.094Z"},{"__v":0,"_id":"698010068962969d97c624c6","address":"ádfgergsdfrg","createdAt":"2026-02-02T02:46:30.585Z","customerId":"KH000003","firstContractValue":0,"fullName":"Tấn Lê","isActive":true,"isDel":false,"marketingClassification":"Phù hợp","needsNote":"sdfgsdfgsdfgsdfgsdf","opportunityHistory":[],"phone":"0916677009","potentialLevel":"Trung hạn","referrer":"sdfgdfgs","referrerPhone":"","salesPerson":"Lê Trương Trọng Tấn","serviceGroup":"Thiết kế xây dựng","shortName":"let","source":"Sales tự tìm","updatedAt":"2026-02-02T02:46:30.585Z"},{"__v":0,"_id":"698010068962969d97c624c7","address":"dàgsdfgsdf","createdAt":"2026-02-02T02:46:30.585Z","customerId":"KH000004","firstContractValue":0,"fullName":"Chào em anh đứng đây từ chiều","isActive":true,"isDel":false,"marketingClassification":"Phù hợp","needsNote":"ádgasdgsdgsdg","opportunityHistory":[],"phone":"0911467039","potentialLevel":"Ngắn hạn","referrer":"adsfgvadfg","referrerPhone":"","salesPerson":"Lê Trương Trọng Tấn","serviceGroup":"nội thất","shortName":"chieuceaddt","source":"Sales tự tìm","updatedAt":"2026-02-02T02:46:30.585Z"},{"__v":0,"_id":"697eda676cba580db7e06988","address":"123 Đường ABC, Quận 1, TP.HCM","createdAt":"2026-02-01T04:45:27.185Z","customerId":"KH000002","firstContractValue":0,"fullName":"Nguyễn Văn A","isActive":true,"isDel":false,"marketingClassification":"Phù hợp","needsNote":"Cần tư vấn về sản phẩm mới và chính sách đại lý","opportunityHistory":[],"phone":"0901234567","potentialLevel":"Ngắn hạn","referrer":"Trần Văn B","referrerPhone":"0907654321","salesPerson":"Lê Trương Trọng Tấn","serviceGroup":"nội thất","shortName":"NVA","source":"TikTok","updatedAt":"2026-02-01T04:45:27.185Z"},{"__v":0,"_id":"697b2822d5ea0bf60b845bb7","address":"Hẻm 149 Lý Thánh Tông, Tân Thới Hòa, 72000, Phú Thạnh, Thành phố Hồ Chí Minh, Việt Nam","createdAt":"2026-01-29T09:28:02.774Z","customerId":"KHT1-0001","firstContractValue":0,"fullName":"Ton","isActive":true,"isDel":false,"latitude":10.766823188339302,"longitude":106.6258117273457,"opportunityHistory":[],"phone":"0916467039","potentialLevel":"Trung hạn","registrationDate":"2026-01-29T09:28:02.769Z","salesPerson":"Nguyễn Văn A","serviceGroup":"nội thất","shortName":"t1","source":"TikTok","updatedAt":"2026-01-29T09:28:02.774Z"}]
-[03:29:52.775] Server  LOG     ♻️ Using existing MongoDB connection
-[03:29:52.876] Server  LOG     ♻️ Using existing MongoDB connection
-[03:30:01.544] Server  LOG     ♻️ Using existing MongoDB connection
-[03:30:01.639] Server  LOG     ♻️ Using existing MongoDB connection
-[03:30:11.068] Server  LOG     ♻️ Using existing MongoDB connection
-[03:30:11.123] Server  LOG     ♻️ Using existing MongoDB connection
-[03:30:18.775] Server  LOG     ♻️ Using existing MongoDB connection
-[03:30:18.837] Server  LOG     ♻️ Using existing MongoDB connection
-[03:30:18.988] Browser LOG     data báo giá kèm chi tiết {"data":[],"pagination":{"limit":10,"page":1,"pages":0,"total":0},"success":true}
-[03:30:18.988] Browser LOG     data báo giá kèm chi tiết {"data":[],"pagination":{"limit":10,"page":1,"pages":0,"total":0},"success":true}
-[03:30:28.549] Server  LOG     ♻️ Using existing MongoDB connection
-[03:30:28.607] Server  LOG     ♻️ Using existing MongoDB connection
-[03:30:34.537] Server  LOG     ♻️ Using existing MongoDB connection
-[03:30:34.592] Server  LOG     ♻️ Using existing MongoDB connection
-[03:30:39.701] Server  LOG     ♻️ Using existing MongoDB connection
-[03:30:39.756] Server  LOG     ♻️ Using existing MongoDB connection
-[03:30:43.410] Server  LOG     ♻️ Using existing MongoDB connection
-[03:30:43.411] Server  LOG     API Services - Query params: {}
-[03:30:43.411] Server  LOG     API Services - MongoDB query: {}
-[03:30:43.453] Server  LOG     API Services - Found services: 9
-[03:30:43.464] Server  LOG     ♻️ Using existing MongoDB connection
-[03:30:43.464] Server  LOG     API Services - Query params: {}
-[03:30:43.465] Server  LOG     API Services - MongoDB query: {}
-[03:30:43.504] Server  LOG     API Services - Found services: 9
-[03:30:43.609] Browser LOG     thông tin của dịch vụ: {"data":[{"__v":0,"_id":"69802c09a07b37d0ab04d69b","code":"CVFVF","createdAt":"2026-02-02T04:46:01.757Z","description":"sdfasdf","isActive":true,"serviceGroup":"Thi công xây dựng","serviceName":"Thi công văn phòng trọn gói","updatedAt":"2026-02-02T04:46:01.757Z"},{"__v":0,"_id":"69802bf9a07b37d0ab04d691","code":"BBFBBF","createdAt":"2026-02-02T04:45:45.304Z","description":"fdbasdbb","isActive":true,"serviceGroup":"Thi công xây dựng","serviceName":"Thi công nhà cấp 4 trọn gói","updatedAt":"2026-02-02T04:45:45.304Z"},{"__v":0,"_id":"698017aca07b37d0ab04d18b","code":"SSSSS","createdAt":"2026-02-02T03:19:08.641Z","description":"","isActive":true,"serviceGroup":"nội thất","serviceName":"Thiết kế nội thất văn phòng","updatedAt":"2026-02-02T03:19:08.641Z"},{"__v":0,"_id":"6980179da07b37d0ab04d181","code":"ZZZZZZ","createdAt":"2026-02-02T03:18:53.794Z","description":"","isActive":true,"serviceGroup":"nội thất","serviceName":"Thiết kế nội thất nhà phố","updatedAt":"2026-02-02T03:18:53.794Z"},{"__v":0,"_id":"69801786a07b37d0ab04d177","code":"EEEEE","createdAt":"2026-02-02T03:18:30.027Z","description":"","isActive":true,"serviceGroup":"Thiết kế xây dựng","serviceName":"Thiết kế biệt thự phố","updatedAt":"2026-02-02T03:18:30.027Z"},{"__v":0,"_id":"69801776a07b37d0ab04d16d","code":"QQQQQQ","createdAt":"2026-02-02T03:18:14.032Z","description":"","isActive":true,"serviceGroup":"Thiết kế xây dựng","serviceName":"Thiết kế nhà phố","updatedAt":"2026-02-02T03:18:14.032Z"},{"__v":0,"_id":"6980175ea07b37d0ab04d163","code":"ASSX","createdAt":"2026-02-02T03:17:50.892Z","description":"dfgasdfg","isActive":true,"serviceGroup":"Thiết kế xây dựng","serviceName":"Thiết kế nhà cấp 4 gác lửng","updatedAt":"2026-02-02T03:17:50.892Z"},{"__v":0,"_id":"6979d67cb86f790694d987c3","code":"FDSGG","createdAt":"2026-01-28T09:27:24.843Z","description":"sdfgdfgdfg","isActive":true,"serviceGroup":"Thiết kế xây dựng","serviceName":"Thiết kế nhà cấp 4","updatedAt":"2026-01-28T09:27:24.843Z"},{"__v":0,"_id":"6979d667b86f790694d987b9","code":"SF","createdAt":"2026-01-28T09:27:03.448Z","description":"sdfgdfgdf","isActive":true,"serviceGroup":"nội thất","serviceName":"Thiết kế nội thất nhà cấp 4 gác lửng","updatedAt":"2026-01-28T09:27:03.448Z"}],"pagination":{"limit":10,"page":1,"pages":1,"total":9},"success":true}
-[03:30:43.609] Browser LOG     thông tin của dịch vụ: {"data":[{"__v":0,"_id":"69802c09a07b37d0ab04d69b","code":"CVFVF","createdAt":"2026-02-02T04:46:01.757Z","description":"sdfasdf","isActive":true,"serviceGroup":"Thi công xây dựng","serviceName":"Thi công văn phòng trọn gói","updatedAt":"2026-02-02T04:46:01.757Z"},{"__v":0,"_id":"69802bf9a07b37d0ab04d691","code":"BBFBBF","createdAt":"2026-02-02T04:45:45.304Z","description":"fdbasdbb","isActive":true,"serviceGroup":"Thi công xây dựng","serviceName":"Thi công nhà cấp 4 trọn gói","updatedAt":"2026-02-02T04:45:45.304Z"},{"__v":0,"_id":"698017aca07b37d0ab04d18b","code":"SSSSS","createdAt":"2026-02-02T03:19:08.641Z","description":"","isActive":true,"serviceGroup":"nội thất","serviceName":"Thiết kế nội thất văn phòng","updatedAt":"2026-02-02T03:19:08.641Z"},{"__v":0,"_id":"6980179da07b37d0ab04d181","code":"ZZZZZZ","createdAt":"2026-02-02T03:18:53.794Z","description":"","isActive":true,"serviceGroup":"nội thất","serviceName":"Thiết kế nội thất nhà phố","updatedAt":"2026-02-02T03:18:53.794Z"},{"__v":0,"_id":"69801786a07b37d0ab04d177","code":"EEEEE","createdAt":"2026-02-02T03:18:30.027Z","description":"","isActive":true,"serviceGroup":"Thiết kế xây dựng","serviceName":"Thiết kế biệt thự phố","updatedAt":"2026-02-02T03:18:30.027Z"},{"__v":0,"_id":"69801776a07b37d0ab04d16d","code":"QQQQQQ","createdAt":"2026-02-02T03:18:14.032Z","description":"","isActive":true,"serviceGroup":"Thiết kế xây dựng","serviceName":"Thiết kế nhà phố","updatedAt":"2026-02-02T03:18:14.032Z"},{"__v":0,"_id":"6980175ea07b37d0ab04d163","code":"ASSX","createdAt":"2026-02-02T03:17:50.892Z","description":"dfgasdfg","isActive":true,"serviceGroup":"Thiết kế xây dựng","serviceName":"Thiết kế nhà cấp 4 gác lửng","updatedAt":"2026-02-02T03:17:50.892Z"},{"__v":0,"_id":"6979d67cb86f790694d987c3","code":"FDSGG","createdAt":"2026-01-28T09:27:24.843Z","description":"sdfgdfgdfg","isActive":true,"serviceGroup":"Thiết kế xây dựng","serviceName":"Thiết kế nhà cấp 4","updatedAt":"2026-01-28T09:27:24.843Z"},{"__v":0,"_id":"6979d667b86f790694d987b9","code":"SF","createdAt":"2026-01-28T09:27:03.448Z","description":"sdfgdfgdf","isActive":true,"serviceGroup":"nội thất","serviceName":"Thiết kế nội thất nhà cấp 4 gác lửng","updatedAt":"2026-01-28T09:27:03.448Z"}],"pagination":{"limit":10,"page":1,"pages":1,"total":9},"success":true}
-[03:33:23.935] Server  LOG     ♻️ Using existing MongoDB connection
-[03:33:23.994] Server  LOG     ♻️ Using existing MongoDB connection
-[03:33:30.010] Server  LOG     ♻️ Using existing MongoDB connection
-[03:33:30.020] Server  LOG     ♻️ Using existing MongoDB connection
-[03:33:30.068] Server  LOG     ♻️ Using existing MongoDB connection
-[03:33:30.080] Server  LOG     ♻️ Using existing MongoDB connection
-[03:33:30.081] Server  LOG     API Services - Query params: {}
-[03:33:30.081] Server  LOG     API Services - MongoDB query: {}
-[03:33:30.121] Server  LOG     Service Pricing Results: {}
-[03:33:30.132] Server  LOG     API Services - Found services: 9
-[03:33:30.146] Server  LOG     ♻️ Using existing MongoDB connection
-[03:33:30.188] Server  LOG     ♻️ Using existing MongoDB connection
-[03:33:30.189] Server  LOG     API Services - Query params: {}
-[03:33:30.189] Server  LOG     API Services - MongoDB query: {}
-[03:33:30.196] Server  LOG     ♻️ Using existing MongoDB connection
-[03:33:30.231] Server  LOG     API Services - Found services: 9
-[03:33:30.244] Server  LOG     Service Pricing Results: {}
-[03:33:30.268] Server  LOG     ♻️ Using existing MongoDB connection
-[03:33:30.275] Server  LOG     ♻️ Using existing MongoDB connection
-[03:33:30.394] Server  LOG     Service Pricing Results: {}
-[03:33:54.119] Server  ERROR   (node:6712) [MONGOOSE] Warning: Duplicate schema index on {"name":1} found. This is often due to declaring an index using both "index: true" and "schema.index()". Please remove the duplicate index definition.
-(Use `node --trace-warnings ...` to show where the warning was created)
-[03:33:56.616] Server  LOG     ♻️ Using existing MongoDB connection
-[03:33:56.679] Server  LOG     ♻️ Using existing MongoDB connection
-[03:34:04.533] Server  LOG     ♻️ Using existing MongoDB connection
-[03:34:05.289] Server  LOG     ♻️ Using existing MongoDB connection
-[03:34:08.305] Server  LOG     ♻️ Using existing MongoDB connection
-[03:34:08.316] Server  LOG     ♻️ Using existing MongoDB connection
-[03:34:08.373] Server  LOG     ♻️ Using existing MongoDB connection
-[03:34:08.386] Server  LOG     ♻️ Using existing MongoDB connection
-[03:34:08.439] Server  LOG     ♻️ Using existing MongoDB connection
-[03:34:08.495] Server  LOG     ♻️ Using existing MongoDB connection
-[03:34:19.094] Server  LOG     ♻️ Using existing MongoDB connection
-[03:34:19.149] Server  LOG     ♻️ Using existing MongoDB connection
-[03:34:26.160] Server  LOG     ♻️ Using existing MongoDB connection
-[03:34:26.160] Server  LOG     🔄 Fetching dashboard stats...
-[03:34:26.203] Server  LOG     ✅ Dashboard stats fetched successfully
-[03:34:26.216] Server  LOG     ♻️ Using existing MongoDB connection
-[03:34:26.216] Server  LOG     🔄 Fetching dashboard stats...
-[03:34:26.263] Server  LOG     ✅ Dashboard stats fetched successfully
-[03:35:37.815] Server  LOG     ♻️ Using existing MongoDB connection
-[03:35:37.822] Server  LOG     ♻️ Using existing MongoDB connection
-[03:35:37.875] Server  LOG     ♻️ Using existing MongoDB connection
-[03:35:37.883] Server  LOG     ♻️ Using existing MongoDB connection
-[03:35:37.932] Server  LOG     ♻️ Using existing MongoDB connection
-[03:35:37.966] Browser LOG     [{"__v":0,"_id":"6981a59d693b2c5e06095e83","address":"sADFAsdfasdfas","createdAt":"2026-02-03T07:37:01.094Z","customerId":"KH-JSC-0001","firstContractValue":0,"fullName":"Trường Giang JSC","image":"https://res.cloudinary.com/dprxrbz1z/image/upload/v1770104171/customers/file_pss06r.png","isActive":true,"isDel":false,"latitude":0,"longitude":0,"needsNote":"kfvuyytgvuv","opportunityHistory":[],"phone":"0916467122","potentialLevel":"⭐⭐⭐⭐⭐","referrer":"h","referrerPhone":"0916467031","registrationDate":"2026-02-03T07:37:01.092Z","salesPerson":"Lê Trương Trọng Tấn","shortName":"JSC","source":"marketing","updatedAt":"2026-02-03T07:37:01.094Z"},{"__v":0,"_id":"698010068962969d97c624c6","address":"ádfgergsdfrg","createdAt":"2026-02-02T02:46:30.585Z","customerId":"KH000003","firstContractValue":0,"fullName":"Tấn Lê","isActive":true,"isDel":false,"marketingClassification":"Phù hợp","needsNote":"sdfgsdfgsdfgsdfgsdf","opportunityHistory":[],"phone":"0916677009","potentialLevel":"Trung hạn","referrer":"sdfgdfgs","referrerPhone":"","salesPerson":"Lê Trương Trọng Tấn","serviceGroup":"Thiết kế xây dựng","shortName":"let","source":"Sales tự tìm","updatedAt":"2026-02-02T02:46:30.585Z"},{"__v":0,"_id":"698010068962969d97c624c7","address":"dàgsdfgsdf","createdAt":"2026-02-02T02:46:30.585Z","customerId":"KH000004","firstContractValue":0,"fullName":"Chào em anh đứng đây từ chiều","isActive":true,"isDel":false,"marketingClassification":"Phù hợp","needsNote":"ádgasdgsdgsdg","opportunityHistory":[],"phone":"0911467039","potentialLevel":"Ngắn hạn","referrer":"adsfgvadfg","referrerPhone":"","salesPerson":"Lê Trương Trọng Tấn","serviceGroup":"nội thất","shortName":"chieuceaddt","source":"Sales tự tìm","updatedAt":"2026-02-02T02:46:30.585Z"},{"__v":0,"_id":"697eda676cba580db7e06988","address":"123 Đường ABC, Quận 1, TP.HCM","createdAt":"2026-02-01T04:45:27.185Z","customerId":"KH000002","firstContractValue":0,"fullName":"Nguyễn Văn A","isActive":true,"isDel":false,"marketingClassification":"Phù hợp","needsNote":"Cần tư vấn về sản phẩm mới và chính sách đại lý","opportunityHistory":[],"phone":"0901234567","potentialLevel":"Ngắn hạn","referrer":"Trần Văn B","referrerPhone":"0907654321","salesPerson":"Lê Trương Trọng Tấn","serviceGroup":"nội thất","shortName":"NVA","source":"TikTok","updatedAt":"2026-02-01T04:45:27.185Z"},{"__v":0,"_id":"697b2822d5ea0bf60b845bb7","address":"Hẻm 149 Lý Thánh Tông, Tân Thới Hòa, 72000, Phú Thạnh, Thành phố Hồ Chí Minh, Việt Nam","createdAt":"2026-01-29T09:28:02.774Z","customerId":"KHT1-0001","firstContractValue":0,"fullName":"Ton","isActive":true,"isDel":false,"latitude":10.766823188339302,"longitude":106.6258117273457,"opportunityHistory":[],"phone":"0916467039","potentialLevel":"Trung hạn","registrationDate":"2026-01-29T09:28:02.769Z","salesPerson":"Nguyễn Văn A","serviceGroup":"nội thất","shortName":"t1","source":"TikTok","updatedAt":"2026-01-29T09:28:02.774Z"}]
-[03:35:37.989] Server  LOG     ♻️ Using existing MongoDB connection
-[03:35:38.030] Server  LOG     ♻️ Using existing MongoDB connection
-[03:35:38.085] Server  LOG     ♻️ Using existing MongoDB connection
-[03:35:38.113] Browser LOG     [{"__v":0,"_id":"6981a59d693b2c5e06095e83","address":"sADFAsdfasdfas","createdAt":"2026-02-03T07:37:01.094Z","customerId":"KH-JSC-0001","firstContractValue":0,"fullName":"Trường Giang JSC","image":"https://res.cloudinary.com/dprxrbz1z/image/upload/v1770104171/customers/file_pss06r.png","isActive":true,"isDel":false,"latitude":0,"longitude":0,"needsNote":"kfvuyytgvuv","opportunityHistory":[],"phone":"0916467122","potentialLevel":"⭐⭐⭐⭐⭐","referrer":"h","referrerPhone":"0916467031","registrationDate":"2026-02-03T07:37:01.092Z","salesPerson":"Lê Trương Trọng Tấn","shortName":"JSC","source":"marketing","updatedAt":"2026-02-03T07:37:01.094Z"},{"__v":0,"_id":"698010068962969d97c624c6","address":"ádfgergsdfrg","createdAt":"2026-02-02T02:46:30.585Z","customerId":"KH000003","firstContractValue":0,"fullName":"Tấn Lê","isActive":true,"isDel":false,"marketingClassification":"Phù hợp","needsNote":"sdfgsdfgsdfgsdfgsdf","opportunityHistory":[],"phone":"0916677009","potentialLevel":"Trung hạn","referrer":"sdfgdfgs","referrerPhone":"","salesPerson":"Lê Trương Trọng Tấn","serviceGroup":"Thiết kế xây dựng","shortName":"let","source":"Sales tự tìm","updatedAt":"2026-02-02T02:46:30.585Z"},{"__v":0,"_id":"698010068962969d97c624c7","address":"dàgsdfgsdf","createdAt":"2026-02-02T02:46:30.585Z","customerId":"KH000004","firstContractValue":0,"fullName":"Chào em anh đứng đây từ chiều","isActive":true,"isDel":false,"marketingClassification":"Phù hợp","needsNote":"ádgasdgsdgsdg","opportunityHistory":[],"phone":"0911467039","potentialLevel":"Ngắn hạn","referrer":"adsfgvadfg","referrerPhone":"","salesPerson":"Lê Trương Trọng Tấn","serviceGroup":"nội thất","shortName":"chieuceaddt","source":"Sales tự tìm","updatedAt":"2026-02-02T02:46:30.585Z"},{"__v":0,"_id":"697eda676cba580db7e06988","address":"123 Đường ABC, Quận 1, TP.HCM","createdAt":"2026-02-01T04:45:27.185Z","customerId":"KH000002","firstContractValue":0,"fullName":"Nguyễn Văn A","isActive":true,"isDel":false,"marketingClassification":"Phù hợp","needsNote":"Cần tư vấn về sản phẩm mới và chính sách đại lý","opportunityHistory":[],"phone":"0901234567","potentialLevel":"Ngắn hạn","referrer":"Trần Văn B","referrerPhone":"0907654321","salesPerson":"Lê Trương Trọng Tấn","serviceGroup":"nội thất","shortName":"NVA","source":"TikTok","updatedAt":"2026-02-01T04:45:27.185Z"},{"__v":0,"_id":"697b2822d5ea0bf60b845bb7","address":"Hẻm 149 Lý Thánh Tông, Tân Thới Hòa, 72000, Phú Thạnh, Thành phố Hồ Chí Minh, Việt Nam","createdAt":"2026-01-29T09:28:02.774Z","customerId":"KHT1-0001","firstContractValue":0,"fullName":"Ton","isActive":true,"isDel":false,"latitude":10.766823188339302,"longitude":106.6258117273457,"opportunityHistory":[],"phone":"0916467039","potentialLevel":"Trung hạn","registrationDate":"2026-01-29T09:28:02.769Z","salesPerson":"Nguyễn Văn A","serviceGroup":"nội thất","shortName":"t1","source":"TikTok","updatedAt":"2026-01-29T09:28:02.774Z"}]
-[03:35:39.446] Server  LOG     ♻️ Using existing MongoDB connection
-[03:35:39.537] Server  LOG     ♻️ Using existing MongoDB connection
-[03:35:41.264] Server  LOG     ♻️ Using existing MongoDB connection
-[03:35:41.357] Server  LOG     ♻️ Using existing MongoDB connection
+[00:00:16.060] Server  LOG     ✓ Ready in 11.7s
+[00:00:19.548] Server  LOG     ○ Compiling /category-items ...
+[00:00:22.528] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:22.925] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:00:34.260] Server  LOG     📡 Connecting to MongoDB...
+[00:00:35.029] Server  LOG     ✅ MongoDB connected successfully
+[00:00:35.029] Server  LOG     📊 Database name: "trg-crm"
+[00:00:39.062] Server  LOG     ♻️ Using existing MongoDB connection
+[00:00:39.131] Server  LOG     ♻️ Using existing MongoDB connection
+[00:00:49.946] Server  LOG     ♻️ Using existing MongoDB connection
+[00:00:52.136] Server  LOG     ♻️ Using existing MongoDB connection
+[00:00:52.234] Server  LOG     ♻️ Using existing MongoDB connection
+[00:00:55.340] Server  LOG     ♻️ Using existing MongoDB connection
+[00:00:55.395] Server  LOG     ♻️ Using existing MongoDB connection
+[00:01:05.664] Server  LOG     ♻️ Using existing MongoDB connection
+[00:01:07.857] Server  LOG     ♻️ Using existing MongoDB connection
+[00:01:07.955] Server  LOG     ♻️ Using existing MongoDB connection
+[00:01:08.469] Server  LOG     ♻️ Using existing MongoDB connection
+[00:01:08.523] Server  LOG     ♻️ Using existing MongoDB connection
+[00:01:16.605] Server  LOG     ♻️ Using existing MongoDB connection
+[00:01:18.823] Server  LOG     ♻️ Using existing MongoDB connection
+[00:01:18.940] Server  LOG     ♻️ Using existing MongoDB connection
+[00:01:30.615] Server  LOG     ♻️ Using existing MongoDB connection
+[00:01:30.680] Server  LOG     ♻️ Using existing MongoDB connection
+[00:01:35.021] Server  LOG     ♻️ Using existing MongoDB connection
+[00:01:35.123] Server  LOG     ♻️ Using existing MongoDB connection
+[00:01:43.273] Server  LOG     ♻️ Using existing MongoDB connection
+[00:01:43.371] Server  LOG     ♻️ Using existing MongoDB connection
+[00:01:51.565] Server  LOG     ♻️ Using existing MongoDB connection
+[00:01:51.664] Server  LOG     ♻️ Using existing MongoDB connection
+[00:01:59.387] Server  LOG     ♻️ Using existing MongoDB connection
+[00:01:59.497] Server  LOG     ♻️ Using existing MongoDB connection
+[00:02:00.885] Server  LOG     ♻️ Using existing MongoDB connection
+[00:02:00.985] Server  LOG     ♻️ Using existing MongoDB connection
+[00:02:08.211] Server  LOG     ♻️ Using existing MongoDB connection
+[00:02:08.264] Server  LOG     ♻️ Using existing MongoDB connection
+[00:02:13.542] Server  LOG     ♻️ Using existing MongoDB connection
+[00:02:15.738] Server  LOG     ♻️ Using existing MongoDB connection
+[00:02:15.838] Server  LOG     ♻️ Using existing MongoDB connection
+[00:02:16.856] Server  LOG     ♻️ Using existing MongoDB connection
+[00:02:16.910] Server  LOG     ♻️ Using existing MongoDB connection
+[00:02:20.067] Server  LOG     ♻️ Using existing MongoDB connection
+[00:02:22.287] Server  LOG     ♻️ Using existing MongoDB connection
+[00:02:22.384] Server  LOG     ♻️ Using existing MongoDB connection
+[00:02:24.992] Server  LOG     ♻️ Using existing MongoDB connection
+[00:02:25.053] Server  LOG     ♻️ Using existing MongoDB connection
+[00:02:29.371] Server  LOG     ♻️ Using existing MongoDB connection
+[00:02:31.582] Server  LOG     ♻️ Using existing MongoDB connection
+[00:02:31.679] Server  LOG     ♻️ Using existing MongoDB connection
+[00:02:34.323] Server  LOG     ♻️ Using existing MongoDB connection
+[00:02:34.383] Server  LOG     ♻️ Using existing MongoDB connection
+[00:02:41.917] Server  LOG     ♻️ Using existing MongoDB connection
+[00:02:42.023] Server  LOG     ♻️ Using existing MongoDB connection
+[00:02:47.804] Server  LOG     ♻️ Using existing MongoDB connection
+[00:02:47.871] Server  LOG     ♻️ Using existing MongoDB connection
+[00:02:48.611] Server  LOG     ♻️ Using existing MongoDB connection
+[00:02:48.706] Server  LOG     ♻️ Using existing MongoDB connection
+[00:02:53.202] Server  LOG     ♻️ Using existing MongoDB connection
+[00:02:53.256] Server  LOG     ♻️ Using existing MongoDB connection
+[00:02:57.073] Server  LOG     ♻️ Using existing MongoDB connection
+[00:02:59.270] Server  LOG     ♻️ Using existing MongoDB connection
+[00:02:59.373] Server  LOG     ♻️ Using existing MongoDB connection
+[00:03:00.301] Server  LOG     ♻️ Using existing MongoDB connection
+[00:03:00.352] Server  LOG     ♻️ Using existing MongoDB connection
+[00:03:03.274] Server  LOG     ♻️ Using existing MongoDB connection
+[00:03:05.480] Server  LOG     ♻️ Using existing MongoDB connection
+[00:03:05.573] Server  LOG     ♻️ Using existing MongoDB connection
+[00:03:06.252] Server  LOG     ♻️ Using existing MongoDB connection
+[00:03:06.303] Server  LOG     ♻️ Using existing MongoDB connection
+[00:03:10.210] Server  LOG     ♻️ Using existing MongoDB connection
+[00:03:12.395] Server  LOG     ♻️ Using existing MongoDB connection
+[00:03:12.507] Server  LOG     ♻️ Using existing MongoDB connection
+[00:03:16.259] Server  LOG     ♻️ Using existing MongoDB connection
+[00:03:16.315] Server  LOG     ♻️ Using existing MongoDB connection
+[00:03:20.069] Server  LOG     ♻️ Using existing MongoDB connection
+[00:03:20.168] Server  LOG     ♻️ Using existing MongoDB connection
+[00:03:27.112] Server  LOG     ♻️ Using existing MongoDB connection
+[00:03:27.210] Server  LOG     ♻️ Using existing MongoDB connection
+[00:03:43.649] Server  LOG     ♻️ Using existing MongoDB connection
+[00:03:43.733] Server  LOG     ♻️ Using existing MongoDB connection
+[00:03:45.273] Server  LOG     ♻️ Using existing MongoDB connection
+[00:03:45.282] Server  LOG     ♻️ Using existing MongoDB connection
+[00:03:45.331] Server  LOG     ♻️ Using existing MongoDB connection
+[00:03:46.006] Server  LOG     ♻️ Using existing MongoDB connection
+[00:04:11.393] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:04:11.588] Server  LOG     📡 Connecting to MongoDB...
+[00:04:11.589] Server  LOG     ✅ MongoDB connected successfully
+[00:04:11.591] Server  LOG     📊 Database name: "trg-crm"
+[00:04:11.621] Server  LOG     ♻️ Using existing MongoDB connection
+[00:04:11.738] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:04:34.379] Server  LOG     ♻️ Using existing MongoDB connection
+[00:04:34.476] Server  LOG     ♻️ Using existing MongoDB connection
+[00:04:36.078] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:04:56.233] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:04:56.396] Server  LOG     ♻️ Using existing MongoDB connection
+[00:04:56.564] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:04:57.884] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:04:59.385] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:04:59.496] Server  LOG     ♻️ Using existing MongoDB connection
+[00:04:59.632] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:05:01.302] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:05:01.399] Server  LOG     ♻️ Using existing MongoDB connection
+[00:05:01.550] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:05:03.590] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:05:05.525] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:05:05.622] Server  LOG     ♻️ Using existing MongoDB connection
+[00:05:05.775] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:06:43.771] Server  LOG     📡 Connecting to MongoDB...
+[00:06:43.771] Server  LOG     ✅ MongoDB connected successfully
+[00:06:43.773] Server  LOG     📊 Database name: "trg-crm"
+[00:06:43.829] Server  LOG     ♻️ Using existing MongoDB connection
+[00:06:44.916] Server  LOG     ♻️ Using existing MongoDB connection
+[00:06:45.019] Server  LOG     ♻️ Using existing MongoDB connection
+[00:06:49.945] Server  LOG     ♻️ Using existing MongoDB connection
+[00:06:50.035] Server  LOG     ♻️ Using existing MongoDB connection
+[00:07:25.343] Server  LOG     ♻️ Using existing MongoDB connection
+[00:07:25.411] Server  LOG     ♻️ Using existing MongoDB connection
+[00:07:26.319] Server  LOG     ♻️ Using existing MongoDB connection
+[00:07:26.328] Server  LOG     ♻️ Using existing MongoDB connection
+[00:07:26.376] Server  LOG     ♻️ Using existing MongoDB connection
+[00:07:26.420] Server  LOG     ♻️ Using existing MongoDB connection
+[00:08:20.151] Server  LOG     ✓ Compiled in 128ms
+[00:08:20.196] Server  LOG     ♻️ Using existing MongoDB connection
+[00:08:20.206] Server  LOG     ♻️ Using existing MongoDB connection
+[00:11:51.300] Server  LOG     ✓ Compiled in 87ms
+[00:13:07.941] Server  LOG     ✓ Compiled in 301ms
+[00:14:17.743] Server  LOG     ♻️ Using existing MongoDB connection
+[00:14:18.497] Server  LOG     ♻️ Using existing MongoDB connection
+[00:14:18.806] Server  LOG     ♻️ Using existing MongoDB connection
+[00:14:25.594] Server  LOG     ♻️ Using existing MongoDB connection
+[00:14:25.911] Server  LOG     ♻️ Using existing MongoDB connection
+[00:14:26.057] Browser LOG     data báo giá kèm chi tiết {"data":[],"pagination":{"limit":10,"page":1,"pages":0,"total":0},"success":true}
+[00:14:26.057] Browser LOG     data báo giá kèm chi tiết {"data":[],"pagination":{"limit":10,"page":1,"pages":0,"total":0},"success":true}
+[00:14:27.169] Server  LOG     ♻️ Using existing MongoDB connection
+[00:14:27.236] Server  LOG     ♻️ Using existing MongoDB connection
+[00:14:27.350] Server  LOG     ♻️ Using existing MongoDB connection
+[00:14:27.401] Server  LOG     ♻️ Using existing MongoDB connection
+[00:14:27.427] Server  LOG     ♻️ Using existing MongoDB connection
+[00:14:27.767] Server  LOG     ♻️ Using existing MongoDB connection
+[00:14:36.367] Browser LOG     Loading services for group: Thi công xây dựng
+[00:14:36.425] Server  LOG     ♻️ Using existing MongoDB connection
+[00:14:36.427] Server  LOG     API Services - Query params: {}
+[00:14:36.428] Server  LOG     API Services - MongoDB query: {}
+[00:14:36.472] Server  LOG     API Services - Found services: 2
+[00:14:36.579] Browser LOG     Services API response: {"data":[{"__v":0,"_id":"69802c09a07b37d0ab04d69b","code":"CVFVF","createdAt":"2026-02-02T04:46:01.757Z","description":"sdfasdf","isActive":true,"serviceGroup":"Thi công xây dựng","serviceName":"Thi công văn phòng trọn gói","updatedAt":"2026-02-02T04:46:01.757Z"},{"__v":0,"_id":"69802bf9a07b37d0ab04d691","code":"BBFBBF","createdAt":"2026-02-02T04:45:45.304Z","description":"fdbasdbb","isActive":true,"serviceGroup":"Thi công xây dựng","serviceName":"Thi công nhà cấp 4 trọn gói","updatedAt":"2026-02-02T04:45:45.304Z"}],"pagination":{"limit":10,"page":1,"pages":1,"total":2},"success":true}
+[00:14:36.579] Browser LOG     Updated group: {"__v":0,"_id":"69802bcea07b37d0ab04d685","code":"VVVVVV","createdAt":"2026-02-02T04:45:02.600Z","description":"adasdasda","isActive":true,"name":"Thi công xây dựng","services":[{"__v":0,"_id":"69802c09a07b37d0ab04d69b","code":"CVFVF","createdAt":"2026-02-02T04:46:01.757Z","description":"sdfasdf","isActive":true,"name":"Thi công văn phòng trọn gói","packages":[],"serviceGroup":"Thi công xây dựng","serviceName":"Thi công văn phòng trọn gói","updatedAt":"2026-02-02T04:46:01.757Z"},{"__v":0,"_id":"69802bf9a07b37d0ab04d691","code":"BBFBBF","createdAt":"2026-02-02T04:45:45.304Z","description":"fdbasdbb","isActive":true,"name":"Thi công nhà cấp 4 trọn gói","packages":[],"serviceGroup":"Thi công xây dựng","serviceName":"Thi công nhà cấp 4 trọn gói","updatedAt":"2026-02-02T04:45:45.304Z"}],"updatedAt":"2026-02-02T04:45:02.600Z"}
+[00:14:38.299] Browser LOG     Selected service: {"__v":0,"_id":"69802c09a07b37d0ab04d69b","code":"CVFVF","createdAt":"2026-02-02T04:46:01.757Z","description":"sdfasdf","isActive":true,"name":"Thi công văn phòng trọn gói","packages":[],"serviceGroup":"Thi công xây dựng","serviceName":"Thi công văn phòng trọn gói","updatedAt":"2026-02-02T04:46:01.757Z"}
+[00:14:38.353] Server  LOG     ♻️ Using existing MongoDB connection
+[00:14:38.393] Server  LOG     Service Pricing Results: {}
+[00:14:38.501] Browser LOG     Filtered Pricing Data: {"data":[{"__v":0,"_id":"69802c2da07b37d0ab04d6bf","createdAt":"2026-02-02T04:46:37.155Z","effectiveFrom":"2026-02-02T00:00:00.000Z","effectiveTo":null,"isActive":true,"isUsed":false,"packageName":"gói 2","serviceName":"Thi công văn phòng trọn gói","unitPrice":39000000,"updatedAt":"2026-02-02T04:46:37.155Z"}],"pagination":{"limit":50,"page":1,"pages":1,"total":1},"success":true}
+[00:14:38.501] Browser LOG     Latest Pricing by Package: [{"__v":0,"_id":"69802c2da07b37d0ab04d6bf","createdAt":"2026-02-02T04:46:37.155Z","effectiveFrom":"2026-02-02T00:00:00.000Z","effectiveTo":null,"isActive":true,"isUsed":false,"packageName":"gói 2","serviceName":"Thi công văn phòng trọn gói","unitPrice":39000000,"updatedAt":"2026-02-02T04:46:37.155Z"}]
+[00:14:38.501] Browser LOG     Final Service Packages: [{"_id":"69802c2da07b37d0ab04d6bf","isSelected":false,"packageName":"gói 2","servicePricing":39000000,"totalPrice":0,"unitPrice":39000000}]
+[00:14:40.353] Browser LOG     Calculating package prices with volume: 24
+[00:14:40.353] Browser LOG     Package gói 2: 39000000 x 24 = 936000000
+[00:14:40.353] Browser LOG     Package gói 2: 39000000 x 24 = 936000000
+[00:14:50.597] Server  LOG     ♻️ Using existing MongoDB connection
+[00:14:50.598] Server  LOG     API Services - Query params: {}
+[00:14:50.598] Server  LOG     API Services - MongoDB query: {}
+[00:14:50.637] Server  LOG     API Services - Found services: 3
+[00:14:50.747] Browser LOG     Loading services for group: nội thất
+[00:14:50.747] Browser LOG     Services API response: {"data":[{"__v":0,"_id":"698017aca07b37d0ab04d18b","code":"SSSSS","createdAt":"2026-02-02T03:19:08.641Z","description":"","isActive":true,"serviceGroup":"nội thất","serviceName":"Thiết kế nội thất văn phòng","updatedAt":"2026-02-02T03:19:08.641Z"},{"__v":0,"_id":"6980179da07b37d0ab04d181","code":"ZZZZZZ","createdAt":"2026-02-02T03:18:53.794Z","description":"","isActive":true,"serviceGroup":"nội thất","serviceName":"Thiết kế nội thất nhà phố","updatedAt":"2026-02-02T03:18:53.794Z"},{"__v":0,"_id":"6979d667b86f790694d987b9","code":"SF","createdAt":"2026-01-28T09:27:03.448Z","description":"sdfgdfgdf","isActive":true,"serviceGroup":"nội thất","serviceName":"Thiết kế nội thất nhà cấp 4 gác lửng","updatedAt":"2026-01-28T09:27:03.448Z"}],"pagination":{"limit":10,"page":1,"pages":1,"total":3},"success":true}
+[00:14:50.747] Browser LOG     Updated group: {"__v":0,"_id":"6979d5ec114634cc61632d0f","code":"SAFADS","createdAt":"2026-01-28T09:25:00.496Z","description":"sdvfaksdhnvákjvv","isActive":true,"name":"nội thất","services":[{"__v":0,"_id":"698017aca07b37d0ab04d18b","code":"SSSSS","createdAt":"2026-02-02T03:19:08.641Z","description":"","isActive":true,"name":"Thiết kế nội thất văn phòng","packages":[],"serviceGroup":"nội thất","serviceName":"Thiết kế nội thất văn phòng","updatedAt":"2026-02-02T03:19:08.641Z"},{"__v":0,"_id":"6980179da07b37d0ab04d181","code":"ZZZZZZ","createdAt":"2026-02-02T03:18:53.794Z","description":"","isActive":true,"name":"Thiết kế nội thất nhà phố","packages":[],"serviceGroup":"nội thất","serviceName":"Thiết kế nội thất nhà phố","updatedAt":"2026-02-02T03:18:53.794Z"},{"__v":0,"_id":"6979d667b86f790694d987b9","code":"SF","createdAt":"2026-01-28T09:27:03.448Z","description":"sdfgdfgdf","isActive":true,"name":"Thiết kế nội thất nhà cấp 4 gác lửng","packages":[],"serviceGroup":"nội thất","serviceName":"Thiết kế nội thất nhà cấp 4 gác lửng","updatedAt":"2026-01-28T09:27:03.448Z"}],"updatedAt":"2026-01-28T09:25:00.496Z"}
+[00:14:54.393] Server  LOG     ♻️ Using existing MongoDB connection
+[00:14:54.436] Server  LOG     Service Pricing Results: {}
+[00:14:54.540] Browser LOG     Selected service: {"__v":0,"_id":"698017aca07b37d0ab04d18b","code":"SSSSS","createdAt":"2026-02-02T03:19:08.641Z","description":"","isActive":true,"name":"Thiết kế nội thất văn phòng","packages":[],"serviceGroup":"nội thất","serviceName":"Thiết kế nội thất văn phòng","updatedAt":"2026-02-02T03:19:08.641Z"}
+[00:14:54.540] Browser LOG     Filtered Pricing Data: {"data":[],"pagination":{"limit":50,"page":1,"pages":0,"total":0},"success":true}
+[00:14:54.540] Browser LOG     No pricing data found for this service
+[00:14:55.304] Server  LOG     ♻️ Using existing MongoDB connection
+[00:14:55.345] Server  LOG     Service Pricing Results: {}
+[00:14:55.452] Browser LOG     Selected service: {"__v":0,"_id":"6979d667b86f790694d987b9","code":"SF","createdAt":"2026-01-28T09:27:03.448Z","description":"sdfgdfgdf","isActive":true,"name":"Thiết kế nội thất nhà cấp 4 gác lửng","packages":[],"serviceGroup":"nội thất","serviceName":"Thiết kế nội thất nhà cấp 4 gác lửng","updatedAt":"2026-01-28T09:27:03.448Z"}
+[00:14:55.452] Browser LOG     Filtered Pricing Data: {"data":[{"__v":0,"_id":"69802b27a07b37d0ab04d656","createdAt":"2026-02-02T04:42:15.719Z","effectiveFrom":"2026-02-02T00:00:00.000Z","effectiveTo":"2026-03-07T00:00:00.000Z","isActive":true,"isUsed":false,"packageName":"gói 4","serviceName":"Thiết kế nội thất nhà cấp 4 gác lửng","unitPrice":100000000,"updatedAt":"2026-02-02T04:42:15.719Z"},{"__v":0,"_id":"69802b1aa07b37d0ab04d651","createdAt":"2026-02-02T04:42:02.848Z","effectiveFrom":"2026-02-02T00:00:00.000Z","effectiveTo":"2026-03-05T00:00:00.000Z","isActive":true,"isUsed":false,"packageName":"gói 3","serviceName":"Thiết kế nội thất nhà cấp 4 gác lửng","unitPrice":60000000,"updatedAt":"2026-02-02T04:42:02.848Z"},{"__v":0,"_id":"69802ac0a07b37d0ab04d645","createdAt":"2026-02-02T04:40:32.682Z","effectiveFrom":"2026-02-02T00:00:00.000Z","effectiveTo":null,"isActive":true,"isUsed":false,"packageName":"gói 2","serviceName":"Thiết kế nội thất nhà cấp 4 gác lửng","unitPrice":40000000,"updatedAt":"2026-02-02T04:40:32.682Z"},{"__v":0,"_id":"697ad6f3e23a1970a28b601f","createdAt":"2026-01-29T03:41:39.655Z","effectiveFrom":"2026-01-29T00:00:00.000Z","effectiveTo":"2026-02-07T00:00:00.000Z","isActive":true,"isUsed":true,"packageName":"gói 1","serviceName":"Thiết kế nội thất nhà cấp 4 gác lửng","unitPrice":30000000,"updatedAt":"2026-01-29T04:17:58.477Z"}],"pagination":{"limit":50,"page":1,"pages":1,"total":4},"success":true}
+[00:14:55.452] Browser LOG     Latest Pricing by Package: [{"__v":0,"_id":"69802b27a07b37d0ab04d656","createdAt":"2026-02-02T04:42:15.719Z","effectiveFrom":"2026-02-02T00:00:00.000Z","effectiveTo":"2026-03-07T00:00:00.000Z","isActive":true,"isUsed":false,"packageName":"gói 4","serviceName":"Thiết kế nội thất nhà cấp 4 gác lửng","unitPrice":100000000,"updatedAt":"2026-02-02T04:42:15.719Z"},{"__v":0,"_id":"69802b1aa07b37d0ab04d651","createdAt":"2026-02-02T04:42:02.848Z","effectiveFrom":"2026-02-02T00:00:00.000Z","effectiveTo":"2026-03-05T00:00:00.000Z","isActive":true,"isUsed":false,"packageName":"gói 3","serviceName":"Thiết kế nội thất nhà cấp 4 gác lửng","unitPrice":60000000,"updatedAt":"2026-02-02T04:42:02.848Z"},{"__v":0,"_id":"69802ac0a07b37d0ab04d645","createdAt":"2026-02-02T04:40:32.682Z","effectiveFrom":"2026-02-02T00:00:00.000Z","effectiveTo":null,"isActive":true,"isUsed":false,"packageName":"gói 2","serviceName":"Thiết kế nội thất nhà cấp 4 gác lửng","unitPrice":40000000,"updatedAt":"2026-02-02T04:40:32.682Z"},{"__v":0,"_id":"697ad6f3e23a1970a28b601f","createdAt":"2026-01-29T03:41:39.655Z","effectiveFrom":"2026-01-29T00:00:00.000Z","effectiveTo":"2026-02-07T00:00:00.000Z","isActive":true,"isUsed":true,"packageName":"gói 1","serviceName":"Thiết kế nội thất nhà cấp 4 gác lửng","unitPrice":30000000,"updatedAt":"2026-01-29T04:17:58.477Z"}]
+[00:14:55.452] Browser LOG     Final Service Packages: [{"_id":"69802b27a07b37d0ab04d656","isSelected":false,"packageName":"gói 4","servicePricing":100000000,"totalPrice":0,"unitPrice":100000000},{"_id":"69802b1aa07b37d0ab04d651","isSelected":false,"packageName":"gói 3","servicePricing":60000000,"totalPrice":0,"unitPrice":60000000},{"_id":"69802ac0a07b37d0ab04d645","isSelected":false,"packageName":"gói 2","servicePricing":40000000,"totalPrice":0,"unitPrice":40000000},{"_id":"697ad6f3e23a1970a28b601f","isSelected":false,"packageName":"gói 1","servicePricing":30000000,"totalPrice":0,"unitPrice":30000000}]
+[00:14:57.633] Browser LOG     Calculating package prices with volume: 24
+[00:14:57.633] Browser LOG     Package gói 4: 100000000 x 24 = 2400000000
+[00:14:57.633] Browser LOG     Package gói 3: 60000000 x 24 = 0
+[00:14:57.633] Browser LOG     Package gói 2: 40000000 x 24 = 0
+[00:14:57.633] Browser LOG     Package gói 1: 30000000 x 24 = 0
+[00:14:57.633] Browser LOG     Package gói 4: 100000000 x 24 = 2400000000
+[00:14:57.633] Browser LOG     Package gói 3: 60000000 x 24 = 0
+[00:14:57.633] Browser LOG     Package gói 2: 40000000 x 24 = 0
+[00:14:57.634] Browser LOG     Package gói 1: 30000000 x 24 = 0
+[00:15:00.817] Browser LOG     Calculating package prices with volume: 24
+[00:15:00.817] Browser LOG     Package gói 4: 100000000 x 24 = 2400000000
+[00:15:00.817] Browser LOG     Package gói 3: 60000000 x 24 = 0
+[00:15:00.817] Browser LOG     Package gói 2: 40000000 x 24 = 0
+[00:15:00.817] Browser LOG     Package gói 1: 30000000 x 24 = 720000000
+[00:15:00.817] Browser LOG     Package gói 4: 100000000 x 24 = 2400000000
+[00:15:00.817] Browser LOG     Package gói 3: 60000000 x 24 = 0
+[00:15:00.817] Browser LOG     Package gói 2: 40000000 x 24 = 0
+[00:15:00.817] Browser LOG     Package gói 1: 30000000 x 24 = 720000000
+[00:15:02.281] Browser LOG     Calculating package prices with volume: 24
+[00:15:02.282] Browser LOG     Package gói 4: 100000000 x 24 = 0
+[00:15:02.282] Browser LOG     Package gói 3: 60000000 x 24 = 0
+[00:15:02.282] Browser LOG     Package gói 2: 40000000 x 24 = 0
+[00:15:02.282] Browser LOG     Package gói 1: 30000000 x 24 = 720000000
+[00:15:02.282] Browser LOG     Package gói 4: 100000000 x 24 = 0
+[00:15:02.282] Browser LOG     Package gói 3: 60000000 x 24 = 0
+[00:15:02.282] Browser LOG     Package gói 2: 40000000 x 24 = 0
+[00:15:02.282] Browser LOG     Package gói 1: 30000000 x 24 = 720000000
+[00:15:03.897] Browser LOG     Calculating package prices with volume: 24
+[00:15:03.897] Browser LOG     Package gói 4: 100000000 x 24 = 0
+[00:15:03.897] Browser LOG     Package gói 3: 60000000 x 24 = 1440000000
+[00:15:03.897] Browser LOG     Package gói 2: 40000000 x 24 = 0
+[00:15:03.897] Browser LOG     Package gói 1: 30000000 x 24 = 720000000
+[00:15:03.897] Browser LOG     Package gói 4: 100000000 x 24 = 0
+[00:15:03.897] Browser LOG     Package gói 3: 60000000 x 24 = 1440000000
+[00:15:03.897] Browser LOG     Package gói 2: 40000000 x 24 = 0
+[00:15:03.897] Browser LOG     Package gói 1: 30000000 x 24 = 720000000
+[00:15:04.373] Browser LOG     Calculating package prices with volume: 24
+[00:15:04.373] Browser LOG     Package gói 4: 100000000 x 24 = 0
+[00:15:04.373] Browser LOG     Package gói 3: 60000000 x 24 = 1440000000
+[00:15:04.373] Browser LOG     Package gói 2: 40000000 x 24 = 960000000
+[00:15:04.373] Browser LOG     Package gói 1: 30000000 x 24 = 720000000
+[00:15:04.373] Browser LOG     Package gói 4: 100000000 x 24 = 0
+[00:15:04.373] Browser LOG     Package gói 3: 60000000 x 24 = 1440000000
+[00:15:04.373] Browser LOG     Package gói 2: 40000000 x 24 = 960000000
+[00:15:04.373] Browser LOG     Package gói 1: 30000000 x 24 = 720000000
+[00:15:04.980] Browser LOG     Calculating package prices with volume: 24
+[00:15:04.980] Browser LOG     Package gói 4: 100000000 x 24 = 2400000000
+[00:15:04.980] Browser LOG     Package gói 3: 60000000 x 24 = 1440000000
+[00:15:04.980] Browser LOG     Package gói 2: 40000000 x 24 = 960000000
+[00:15:04.980] Browser LOG     Package gói 1: 30000000 x 24 = 720000000
+[00:15:04.980] Browser LOG     Package gói 4: 100000000 x 24 = 2400000000
+[00:15:04.980] Browser LOG     Package gói 3: 60000000 x 24 = 1440000000
+[00:15:04.980] Browser LOG     Package gói 2: 40000000 x 24 = 960000000
+[00:15:04.980] Browser LOG     Package gói 1: 30000000 x 24 = 720000000
+[00:15:13.672] Server  LOG     ♻️ Using existing MongoDB connection
+[00:15:13.710] Server  LOG     === CREATING QUOTATION ===
+[00:15:13.712] Server  LOG     Request body: {}
+[00:15:13.712] Server  LOG     Packages: [{...},{...}]
+[00:15:13.713] Server  LOG     Processed packages: [{...},{...}]
+[00:15:13.713] Server  LOG     Calculated totalAmount: 6456000000
+[00:15:13.718] Server  LOG     Quotation object before save: {}
+[00:15:13.719] Server  LOG     Quotation packages before save: [{...},{...}]
+[00:15:14.249] Server  LOG     ♻️ Using existing MongoDB connection
+[00:15:14.313] Server  LOG     ♻️ Using existing MongoDB connection
+[00:15:14.461] Browser LOG     data báo giá kèm chi tiết {"data":[{"__v":0,"_id":"6981e19fd32e41ddf2fbf105","createdAt":"2026-02-03T11:53:03.628Z","createdBy":"admin","customer":"Trường Giang JSC","customerRef":"6981a59d693b2c5e06095e83","date":"2026-02-03T00:00:00.000Z","grandTotal":6456000000,"notes":"báo giá thử","packages":[{"_id":"6981e19fd32e41ddf2fbf106","packages":"[Array]","service":"Thi công văn phòng trọn gói","serviceGroup":"Thi công xây dựng","volume":24},{"_id":"6981e19fd32e41ddf2fbf108","packages":"[Array]","service":"Thiết kế nội thất nhà cấp 4 gác lửng","serviceGroup":"nội thất","volume":24}],"quotationNo":"BG001","status":"draft","surveyRef":"6981e168d32e41ddf2fbf0df","totalAmount":6456000000,"updatedAt":"2026-02-03T11:53:03.628Z"}],"pagination":{"limit":10,"page":1,"pages":1,"total":1},"success":true}
+[00:15:14.461] Browser LOG     data báo giá kèm chi tiết {"data":[{"__v":0,"_id":"6981e19fd32e41ddf2fbf105","createdAt":"2026-02-03T11:53:03.628Z","createdBy":"admin","customer":"Trường Giang JSC","customerRef":"6981a59d693b2c5e06095e83","date":"2026-02-03T00:00:00.000Z","grandTotal":6456000000,"notes":"báo giá thử","packages":[{"_id":"6981e19fd32e41ddf2fbf106","packages":"[Array]","service":"Thi công văn phòng trọn gói","serviceGroup":"Thi công xây dựng","volume":24},{"_id":"6981e19fd32e41ddf2fbf108","packages":"[Array]","service":"Thiết kế nội thất nhà cấp 4 gác lửng","serviceGroup":"nội thất","volume":24}],"quotationNo":"BG001","status":"draft","surveyRef":"6981e168d32e41ddf2fbf0df","totalAmount":6456000000,"updatedAt":"2026-02-03T11:53:03.628Z"}],"pagination":{"limit":10,"page":1,"pages":1,"total":1},"success":true}

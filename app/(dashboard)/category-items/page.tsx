@@ -17,6 +17,11 @@ import {
 
 interface CategoryItem {
   _id: string;
+  groupId: {
+    _id: string;
+    name: string;
+    code: string;
+  };
   name: string;
   code: string;
   note?: string;
@@ -201,6 +206,9 @@ const CategoryItemsPage = () => {
               <thead className="bg-gray-50 border-b border-gray-200">
                 <tr>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Nhóm phân loại
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Mã hạng mục
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -223,6 +231,11 @@ const CategoryItemsPage = () => {
               <tbody className="bg-white divide-y divide-gray-200">
                 {categoryItems.map((item) => (
                   <tr key={item._id} className="hover:bg-gray-50">
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <span className="text-sm text-blue-600 font-medium">
+                        {item.groupId?.name || "N/A"}
+                      </span>
+                    </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <span className="text-sm font-medium text-gray-900">
                         {item.code}
@@ -263,7 +276,7 @@ const CategoryItemsPage = () => {
                         </button>
                         <button
                           onClick={() =>
-                            router.push(`/category-items/${item._id}/sua`)
+                            router.push(`/category-items/${item._id}/edit`)
                           }
                           className="text-green-600 hover:text-green-900"
                         >
@@ -341,6 +354,15 @@ const CategoryItemsPage = () => {
               <div className="space-y-4">
                 <div className="grid grid-cols-3 gap-4">
                   <div className="text-sm font-medium text-gray-500">
+                    Nhóm phân loại:
+                  </div>
+                  <div className="text-sm text-blue-600 font-bold col-span-2">
+                    {viewingItem.groupId?.name || "N/A"} (
+                    {viewingItem.groupId?.code || "N/A"})
+                  </div>
+                </div>
+                <div className="grid grid-cols-3 gap-4">
+                  <div className="text-sm font-medium text-gray-500">
                     Mã hạng mục:
                   </div>
                   <div className="text-sm text-gray-900 col-span-2">
@@ -402,7 +424,7 @@ const CategoryItemsPage = () => {
                 type="button"
                 onClick={() => {
                   handleCloseViewModal();
-                  router.push(`/category-items/${viewingItem._id}/sua`);
+                  router.push(`/category-items/${viewingItem._id}/edit`);
                 }}
                 className="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
               >

@@ -133,7 +133,7 @@ const OpportunityDetail = () => {
           </div>
           <button
             onClick={() =>
-              router.push(`/opportunities/edit/${opportunity._id}`)
+              router.push(`/opportunities/${opportunity._id}/edit`)
             }
             className="flex items-center justify-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
           >

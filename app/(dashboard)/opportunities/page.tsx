@@ -278,7 +278,7 @@ const OpportunityManagement = () => {
                       </button>
                       <button
                         onClick={() =>
-                          router.push(`/opportunities/edit/${opp._id}`)
+                          router.push(`/opportunities/${opp._id}/edit`)
                         }
                         className="text-green-600 hover:text-green-900"
                       >
@@ -354,7 +354,7 @@ const OpportunityManagement = () => {
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         opportunity={selectedOpportunity}
-        onEdit={(id) => router.push(`/opportunities/edit/${id}`)}
+        onEdit={(id) => router.push(`/opportunities/${id}/edit`)}
       />
     </div>
   );

@@ -9,9 +9,9 @@ const positionSchema = new mongoose.Schema(
         createdAt: { type: Date, default: Date.now },
         updatedAt: { type: Date, default: Date.now },
     },
-    { collection: "Chức vuj" },
+    { collection: "Chức vụ" },
 );
 
 const Position =
-    mongoose.models.CD_CHUCVU || mongoose.model("CD_CHUCVU", positionSchema);
+    mongoose.models.ChucVu || mongoose.model("ChucVu", positionSchema);
 export default Position;

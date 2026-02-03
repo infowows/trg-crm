@@ -518,17 +518,21 @@ const CategoryGroupsPage = () => {
 
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Mã nhóm <span className="text-red-500">*</span>
+                      Mã nhóm
                     </label>
-                    <input
-                      type="text"
-                      name="code"
-                      required
-                      value={formData.code}
-                      onChange={handleInputChange}
-                      placeholder="Ví dụ: LOG, SUR,..."
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 outline-none uppercase"
-                    />
+                    {editingGroup ? (
+                      <input
+                        type="text"
+                        name="code"
+                        value={formData.code}
+                        readOnly
+                        className="w-full px-3 py-2 border border-gray-200 bg-gray-50 rounded-md outline-none cursor-not-allowed text-gray-500 uppercase"
+                      />
+                    ) : (
+                      <div className="text-sm text-blue-600 bg-blue-50 p-2 rounded-md border border-blue-100 italic">
+                        Mã nhóm sẽ được hệ thống tạo tự động sau khi lưu.
+                      </div>
+                    )}
                   </div>
 
                   <div>

@@ -50,7 +50,7 @@ __turbopack_context__.s([
 ]);
 var __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__ = __turbopack_context__.i("[externals]/mongoose [external] (mongoose, cjs, [project]/node_modules/mongoose)");
 ;
-const CategoryItemSchema = new __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["Schema"]({
+const CategoryGroupSchema = new __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["Schema"]({
     name: {
         type: String,
         required: true,
@@ -75,7 +75,7 @@ const CategoryItemSchema = new __TURBOPACK__imported__module__$5b$externals$5d2f
     timestamps: true,
     collection: "Nhóm hạng mục"
 });
-const __TURBOPACK__default__export__ = __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].models.CategoryGroup || __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].model("CategoryGroup", CategoryItemSchema);
+const __TURBOPACK__default__export__ = __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].models.CategoryGroup || __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].model("CategoryGroup", CategoryGroupSchema);
 }),
 "[project]/lib/dbConnect.ts [app-route] (ecmascript)", ((__turbopack_context__) => {
 "use strict";
@@ -191,30 +191,21 @@ async function POST(request) {
     try {
         await (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$dbConnect$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"])();
         const body = await request.json();
-        const { name, code, note } = body;
-        if (!name || !code) {
+        const { name, note } = body;
+        if (!name) {
             return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
                 success: false,
-                error: "Tên và mã nhóm là bắt buộc"
+                error: "Tên nhóm là bắt buộc"
             }, {
                 status: 400
             });
         }
-        // Check if code already exists
-        const existingGroup = await __TURBOPACK__imported__module__$5b$project$5d2f$models$2f$CategoryGroup$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].findOne({
-            code: code.toUpperCase()
-        });
-        if (existingGroup) {
-            return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
-                success: false,
-                error: "Mã nhóm đã tồn tại"
-            }, {
-                status: 400
-            });
-        }
+        // Tự động tạo mã nhóm: NHM-0001
+        const count = await __TURBOPACK__imported__module__$5b$project$5d2f$models$2f$CategoryGroup$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].countDocuments();
+        const code = `NHM-${String(count + 1).padStart(4, "0")}`;
         const categoryGroup = new __TURBOPACK__imported__module__$5b$project$5d2f$models$2f$CategoryGroup$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"]({
             name: name.trim(),
-            code: code.toUpperCase().trim(),
+            code,
             note: note?.trim() || ""
         });
         await categoryGroup.save();
