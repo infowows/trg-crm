@@ -4,11 +4,13 @@ export interface ICustomerCare extends Document {
   careId: string;
   customerId?: string;
   employeeId?: string;
+  opportunityRef?: mongoose.Types.ObjectId; // id cơ hội
   careType:
-    | "Khảo sát nhu cầu"
-    | "Làm rõ báo giá/hợp đồng"
-    | "Xử lý khiếu nại/bảo hành"
-    | "Thu hồi công nợ";
+    | "Tư vấn – Khảo sát"
+    | "Làm rõ báo giá / hợp đồng"
+    | "Triển khai – Theo dõi"
+    | "Xử lý công nợ"
+    | "Hậu mãi – Chăm sóc định kỳ";
   timeFrom?: Date;
   timeTo?: Date;
   method: "Online" | "Trực tiếp";
@@ -17,10 +19,13 @@ export interface ICustomerCare extends Document {
   actualCareDate?: Date;
   images?: string[];
   files?: (string | { url: string; name: string; format?: string })[];
-  interestedServices?: string;
+  interestedServices?: string[]; // lấy từ demands trong opportunity
+  careResult?: string; // kết quả chăm sóc
+  careClassification?: string; // xếp loại chăm sóc
   discussionContent?: string;
   needsNote?: string;
-  status: "Hoàn thành" | "Chờ báo cáo" | "Hủy";
+  status: "Hoàn thành" | "Chờ báo cáo" | "Hủy"; // tự huỷ sau 30 ngày từ ngày tạo
+  quotationLink?: string; // link báo giá
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -41,15 +46,20 @@ const CustomerCareSchema: Schema = new Schema(
       type: String,
       trim: true,
     },
+    opportunityRef: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Opportunity",
+    },
     careType: {
       type: String,
       enum: [
-        "Khảo sát nhu cầu",
-        "Làm rõ báo giá/hợp đồng",
-        "Xử lý khiếu nại/bảo hành",
-        "Thu hồi công nợ",
+        "Tư vấn – Khảo sát",
+        "Làm rõ báo giá / hợp đồng",
+        "Triển khai – Theo dõi",
+        "Xử lý công nợ",
+        "Hậu mãi – Chăm sóc định kỳ",
       ],
-      default: "Khảo sát nhu cầu",
+      default: "Tư vấn – Khảo sát",
     },
     timeFrom: {
       type: Date,
@@ -85,7 +95,17 @@ const CustomerCareSchema: Schema = new Schema(
         type: Schema.Types.Mixed, // Support both String and Object
       },
     ],
-    interestedServices: {
+    interestedServices: [
+      {
+        type: String,
+        trim: true,
+      },
+    ],
+    careResult: {
+      type: String,
+      trim: true,
+    },
+    careClassification: {
       type: String,
       trim: true,
     },
@@ -102,10 +122,14 @@ const CustomerCareSchema: Schema = new Schema(
       enum: ["Hoàn thành", "Chờ báo cáo", "Hủy"],
       default: "Chờ báo cáo",
     },
+    quotationLink: {
+      type: String,
+      trim: true,
+    },
   },
   {
     timestamps: true,
-    collection: "CSKH",
+    collection: "Chăm sóc khách hàng",
   },
 );
 

@@ -179,9 +179,9 @@ const quotationSchema = new __TURBOPACK__imported__module__$5b$externals$5d2f$mo
         default: Date.now
     }
 }, {
-    collection: "BAOGIA_V2"
+    collection: "Báo giá"
 });
-const Quotation = __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].models.BAOGIA_V2 || __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].model("BAOGIA_V2", quotationSchema);
+const Quotation = __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].models.BaoGia || __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].model("BaoGia", quotationSchema);
 const __TURBOPACK__default__export__ = Quotation;
 }),
 "[externals]/buffer [external] (buffer, cjs)", ((__turbopack_context__, module, exports) => {

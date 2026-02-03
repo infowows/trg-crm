@@ -39,7 +39,7 @@ const CustomerClassificationSchema: Schema = new Schema(
     },
     {
         timestamps: true,
-        collection: "PHAN_LOAI_KH",
+        collection: "Phân loại khách hàng",
     },
 );
 

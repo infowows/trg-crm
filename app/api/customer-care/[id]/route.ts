@@ -34,7 +34,7 @@ export async function GET(
     // Tìm kiếm theo _id hoặc careId
     const customerCare = await CustomerCare.findOne({
       $or: [{ _id: id.match(/^[0-9a-fA-F]{24}$/) ? id : null }, { careId: id }],
-    });
+    }).populate("opportunityRef");
 
     if (!customerCare) {
       return NextResponse.json(
@@ -73,6 +73,11 @@ export async function PUT(
 
     const { id } = await params;
     const body = await request.json();
+
+    // Clean up empty date strings
+    if (body.timeFrom === "") body.timeFrom = null;
+    if (body.timeTo === "") body.timeTo = null;
+    if (body.actualCareDate === "") body.actualCareDate = null;
 
     const customerCare = await CustomerCare.findOneAndUpdate(
       {

@@ -127,11 +127,20 @@ const CustomerSchema = new __TURBOPACK__imported__module__$5b$externals$5d2f$mon
         type: String,
         trim: true
     },
-    serviceGroup: {
+    opportunityHistory: [
+        {
+            type: __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["Schema"].Types.ObjectId,
+            ref: "Opportunity"
+        }
+    ],
+    appraisalDate: {
+        type: Date
+    },
+    appraisalStatus: {
         type: String,
         trim: true
     },
-    marketingClassification: {
+    appraisalNote: {
         type: String,
         trim: true
     },
@@ -151,6 +160,13 @@ const CustomerSchema = new __TURBOPACK__imported__module__$5b$externals$5d2f$mon
         type: Boolean,
         default: true
     },
+    trueCustomerDate: {
+        type: Date
+    },
+    firstContractValue: {
+        type: Number,
+        default: 0
+    },
     latitude: {
         type: Number
     },
@@ -163,7 +179,7 @@ const CustomerSchema = new __TURBOPACK__imported__module__$5b$externals$5d2f$mon
     }
 }, {
     timestamps: true,
-    collection: "DSKH"
+    collection: "Khách hàng"
 });
 const Customer = __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].models.Customer || __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].model("Customer", CustomerSchema);
 const __TURBOPACK__default__export__ = Customer;
@@ -343,9 +359,9 @@ const quotationSchema = new __TURBOPACK__imported__module__$5b$externals$5d2f$mo
         default: Date.now
     }
 }, {
-    collection: "BAOGIA_V2"
+    collection: "Báo giá"
 });
-const Quotation = __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].models.BAOGIA_V2 || __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].model("BAOGIA_V2", quotationSchema);
+const Quotation = __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].models.BaoGia || __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].model("BaoGia", quotationSchema);
 const __TURBOPACK__default__export__ = Quotation;
 }),
 "[project]/models/CustomerCare.ts [app-route] (ecmascript)", ((__turbopack_context__) => {
@@ -372,15 +388,20 @@ const CustomerCareSchema = new __TURBOPACK__imported__module__$5b$externals$5d2f
         type: String,
         trim: true
     },
+    opportunityRef: {
+        type: __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].Schema.Types.ObjectId,
+        ref: "Opportunity"
+    },
     careType: {
         type: String,
         enum: [
-            "Khảo sát nhu cầu",
-            "Làm rõ báo giá/hợp đồng",
-            "Xử lý khiếu nại/bảo hành",
-            "Thu hồi công nợ"
+            "Tư vấn – Khảo sát",
+            "Làm rõ báo giá / hợp đồng",
+            "Triển khai – Theo dõi",
+            "Xử lý công nợ",
+            "Hậu mãi – Chăm sóc định kỳ"
         ],
-        default: "Khảo sát nhu cầu"
+        default: "Tư vấn – Khảo sát"
     },
     timeFrom: {
         type: Date
@@ -419,7 +440,17 @@ const CustomerCareSchema = new __TURBOPACK__imported__module__$5b$externals$5d2f
             type: __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["Schema"].Types.Mixed
         }
     ],
-    interestedServices: {
+    interestedServices: [
+        {
+            type: String,
+            trim: true
+        }
+    ],
+    careResult: {
+        type: String,
+        trim: true
+    },
+    careClassification: {
         type: String,
         trim: true
     },
@@ -439,10 +470,14 @@ const CustomerCareSchema = new __TURBOPACK__imported__module__$5b$externals$5d2f
             "Hủy"
         ],
         default: "Chờ báo cáo"
+    },
+    quotationLink: {
+        type: String,
+        trim: true
     }
 }, {
     timestamps: true,
-    collection: "CSKH"
+    collection: "Chăm sóc khách hàng"
 });
 const __TURBOPACK__default__export__ = __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].models.CustomerCare || __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].model("CustomerCare", CustomerCareSchema);
 }),

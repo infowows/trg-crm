@@ -11,11 +11,15 @@ export interface ICustomer extends Document {
   source?: string;
   referrer?: string;
   referrerPhone?: string;
-  serviceGroup?: string;
-  marketingClassification?: string;
-  potentialLevel?: string;
+  opportunityHistory: mongoose.Types.ObjectId[];
+  appraisalDate?: Date; // Ngày thẩm định
+  appraisalStatus?: string; // Xếp loại (Phù hợp/Không phù hợp...)
+  appraisalNote?: string; // Ghi chú thẩm định chi tiết
+  potentialLevel?: string; // 1 - 5 stars
   salesPerson?: string;
   needsNote?: string;
+  trueCustomerDate?: Date; // khi có hợp đồng đầu tiên thành công
+  firstContractValue?: number; // giá trị hợp đồng đầu tiên thành công
   isActive: boolean;
   latitude?: number;
   longitude?: number;
@@ -68,11 +72,20 @@ const CustomerSchema: Schema = new Schema(
       type: String,
       trim: true,
     },
-    serviceGroup: {
+    opportunityHistory: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Opportunity",
+      },
+    ],
+    appraisalDate: {
+      type: Date,
+    },
+    appraisalStatus: {
       type: String,
       trim: true,
     },
-    marketingClassification: {
+    appraisalNote: {
       type: String,
       trim: true,
     },
@@ -92,6 +105,13 @@ const CustomerSchema: Schema = new Schema(
       type: Boolean,
       default: true,
     },
+    trueCustomerDate: {
+      type: Date,
+    },
+    firstContractValue: {
+      type: Number,
+      default: 0,
+    },
     latitude: {
       type: Number,
     },
@@ -105,7 +125,7 @@ const CustomerSchema: Schema = new Schema(
   },
   {
     timestamps: true,
-    collection: "DSKH",
+    collection: "Khách hàng",
   },
 );
 

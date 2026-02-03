@@ -28,6 +28,7 @@ import {
   LayoutPanelLeft,
   LayoutPanelTop,
   PersonStanding,
+  Target,
   Layers,
   LayoutTemplate,
   Leaf,
@@ -53,32 +54,6 @@ const navigationItems: NavigationItem[] = [
     path: "/",
   },
   {
-    id: "system",
-    text: "Hệ thống",
-    icon: Settings,
-    path: "/",
-    children: [
-      {
-        id: "departments",
-        text: "Phòng ban",
-        icon: HousePlug,
-        path: "/departments",
-      },
-      {
-        id: "position",
-        text: "Chức vụ",
-        icon: Briefcase,
-        path: "/positions",
-      },
-      {
-        id: "employees",
-        text: "Nhân viên",
-        icon: User,
-        path: "/employees",
-      },
-    ],
-  },
-  {
     id: "customers",
     text: "Khách hàng",
     icon: PersonStanding,
@@ -91,10 +66,36 @@ const navigationItems: NavigationItem[] = [
         path: "/customers",
       },
       {
+        id: "opportunities",
+        text: "Cơ hội kinh doanh",
+        icon: Target,
+        path: "/opportunities",
+      },
+      {
         id: "customer-care",
         text: "Kế hoạch CSKH",
         icon: Handshake,
         path: "/customer-care",
+      },
+    ],
+  },
+  {
+    id: "khao-sat-va-bao-gia",
+    text: "Khảo sát & Báo giá",
+    icon: Building,
+    path: "/",
+    children: [
+      {
+        id: "surveys",
+        text: "Khảo sát",
+        icon: Map,
+        path: "/surveys",
+      },
+      {
+        id: "quotations",
+        text: "Báo giá",
+        icon: FileText,
+        path: "/quotations",
       },
     ],
   },
@@ -119,27 +120,6 @@ const navigationItems: NavigationItem[] = [
       },
     ],
   },
-  {
-    id: "khao-sat-va-bao-gia",
-    text: "Khảo sát & Báo giá",
-    icon: Building,
-    path: "/",
-    children: [
-      {
-        id: "surveys",
-        text: "Khảo sát",
-        icon: Map,
-        path: "/surveys",
-      },
-      {
-        id: "quotations",
-        text: "Báo giá",
-        icon: FileText,
-        path: "/quotations",
-      },
-    ],
-  },
-
   // {
   //     id: "payments",
   //     text: "Thanh toán",
@@ -199,6 +179,33 @@ const navigationItems: NavigationItem[] = [
       },
     ],
   },
+
+  {
+    id: "system",
+    text: "Hệ thống",
+    icon: Settings,
+    path: "/",
+    children: [
+      {
+        id: "departments",
+        text: "Phòng ban",
+        icon: HousePlug,
+        path: "/departments",
+      },
+      {
+        id: "position",
+        text: "Chức vụ",
+        icon: Briefcase,
+        path: "/positions",
+      },
+      {
+        id: "employees",
+        text: "Nhân viên",
+        icon: User,
+        path: "/employees",
+      },
+    ],
+  },
   {
     id: "profile",
     text: "Hồ sơ",
@@ -216,7 +223,7 @@ const navigationItems: NavigationItem[] = [
 export default function Navigation() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [expandedItems, setExpandedItems] = useState<Set<string>>(
-    new Set(["system"]),
+    new Set(["customers"]),
   );
   const [userData, setUserData] = useState<any>(null);
   const [isMounted, setIsMounted] = useState(false);
@@ -249,20 +256,20 @@ export default function Navigation() {
 
   const toggleExpanded = (itemId: string) => {
     setExpandedItems((prev) => {
-      // const newSet = new Set(prev);
-      // if (newSet.has(itemId)) {
-      //     newSet.delete(itemId);
-      // } else {
-      //     newSet.add(itemId);
-      // }
-      // return newSet;
-
-      // If clicking on already expanded item, close it
-      if (prev.has(itemId)) {
-        return new Set();
+      const newSet = new Set(prev);
+      if (newSet.has(itemId)) {
+        newSet.delete(itemId);
+      } else {
+        newSet.add(itemId);
       }
-      // Otherwise, close all others and open this one
-      return new Set([itemId]);
+      return newSet;
+
+      // // If clicking on already expanded item, close it
+      // if (prev.has(itemId)) {
+      //   return new Set();
+      // }
+      // // Otherwise, close all others and open this one
+      // return new Set([itemId]);
     });
   };
 
@@ -349,7 +356,7 @@ export default function Navigation() {
                   if (child.id === "service-list") {
                     return (
                       pathname === "/services" ||
-                      pathname.startsWith("/services/tao-moi")
+                      pathname.startsWith("/services/create")
                     );
                   }
                   return (
@@ -372,7 +379,7 @@ export default function Navigation() {
                           ${
                             isParentActive
                               ? "bg-blue-50 text-blue-700 border-l-4 border-blue-700 shadow-sm"
-                              : "text-gray-700 hover:bg-gray-50"
+                              : "text-gray-700 hover:bg-blue-50 hover:text-blue-700"
                           }
                         `}
                       >
@@ -414,7 +421,7 @@ export default function Navigation() {
                             if (child.id === "service-list") {
                               isChildActive =
                                 pathname === "/services" ||
-                                pathname.startsWith("/services/tao-moi");
+                                pathname.startsWith("/services/create");
                             } else {
                               isChildActive =
                                 pathname === child.path ||
@@ -430,7 +437,7 @@ export default function Navigation() {
                                   ${
                                     isChildActive
                                       ? "bg-blue-100 text-blue-800 font-medium translate-x-1 shadow-sm"
-                                      : "text-gray-600 hover:bg-gray-50 hover:translate-x-1"
+                                      : "text-gray-600 hover:bg-blue-50 hover:text-blue-700 hover:translate-x-1"
                                   }
                                 `}
                                 onClick={() => setIsSidebarOpen(false)}
@@ -459,7 +466,7 @@ export default function Navigation() {
                       ${
                         isActive(item.path)
                           ? "bg-blue-50 text-blue-700 border-l-4 border-blue-700 shadow-sm"
-                          : "text-gray-700 hover:bg-gray-50"
+                          : "text-gray-700 hover:bg-blue-50 hover:text-blue-700"
                       }
                     `}
                     onClick={() => setIsSidebarOpen(false)}

@@ -9,7 +9,7 @@ const positionSchema = new mongoose.Schema(
         createdAt: { type: Date, default: Date.now },
         updatedAt: { type: Date, default: Date.now },
     },
-    { collection: "CD_CHUCVU" },
+    { collection: "Chức vuj" },
 );
 
 const Position =

@@ -6,6 +6,7 @@ import {
   ArrowLeft,
   Save,
   User,
+  Target,
   Calendar,
   MapPin,
   FileText,
@@ -15,6 +16,7 @@ import {
   Upload,
   ImageIcon,
   X,
+  Plus,
 } from "lucide-react";
 import { toast } from "react-toastify";
 
@@ -55,6 +57,7 @@ interface FileMetadata {
 interface FormData {
   careId: string;
   customerId: string;
+  opportunityRef: string;
   careType: string;
   timeFrom: string;
   timeTo: string;
@@ -63,7 +66,7 @@ interface FormData {
   carePerson: string;
   discussionContent: string;
   needsNote: string;
-  interestedServices: string;
+  interestedServices: string[];
   status: "Chờ báo cáo" | "Hoàn thành" | "Hủy";
   images?: string[];
   files?: FileMetadata[];
@@ -82,6 +85,9 @@ const CreateCustomerCare = () => {
     null,
   );
 
+  const [opportunities, setOpportunities] = useState<any[]>([]);
+  const [selectedOpportunity, setSelectedOpportunity] = useState<any>(null);
+
   // Employee states
   const [employees, setEmployees] = useState<
     Array<{ _id: string; fullName: string }>
@@ -99,7 +105,8 @@ const CreateCustomerCare = () => {
   const [formData, setFormData] = useState<FormData>({
     careId: "",
     customerId: "",
-    careType: "Khảo sát nhu cầu",
+    opportunityRef: "",
+    careType: "Tư vấn – Khảo sát",
     timeFrom: "",
     timeTo: "",
     method: "Online",
@@ -107,7 +114,7 @@ const CreateCustomerCare = () => {
     carePerson: "",
     discussionContent: "",
     needsNote: "",
-    interestedServices: "",
+    interestedServices: [],
     status: "Chờ báo cáo",
     images: [],
     files: [],
@@ -127,7 +134,45 @@ const CreateCustomerCare = () => {
     fetchCustomers();
     fetchEmployees();
     loadServiceGroups();
+    fetchOpportunities();
   }, []);
+
+  const fetchOpportunities = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const res = await fetch("/api/opportunities?status=Open&limit=100", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setOpportunities(data.data || []);
+      }
+    } catch (err) {
+      console.error("Error fetching opportunities:", err);
+    }
+  };
+
+  const handleOpportunityChange = (opportunityId: string) => {
+    const opp = opportunities.find((o) => o._id === opportunityId);
+    if (opp) {
+      setSelectedOpportunity(opp);
+      setSelectedCustomer(opp.customerRef);
+      setSearchCustomer(opp.customerRef.fullName);
+
+      setFormData((prev) => ({
+        ...prev,
+        opportunityRef: opp._id,
+        customerId: opp.customerRef._id,
+        interestedServices: opp.demands || [],
+      }));
+    } else {
+      setSelectedOpportunity(null);
+      setFormData((prev) => ({
+        ...prev,
+        opportunityRef: "",
+      }));
+    }
+  };
 
   const fetchEmployees = async () => {
     try {
@@ -248,45 +293,26 @@ const CreateCustomerCare = () => {
           console.error("Error loading packages:", error);
           setSelectedPackages([]);
         }
-      } else {
-        setSelectedService(null);
-        setSelectedPackages([]);
       }
     }
   };
 
-  const handlePackageToggle = (packageId: string) => {
-    setSelectedPackages((prev) => {
-      const updated = prev.map((pkg) =>
-        pkg._id === packageId ? { ...pkg, isSelected: !pkg.isSelected } : pkg,
-      );
-      updateInterestedServicesString(selectedService, updated);
-      return updated;
-    });
-  };
-
-  const updateInterestedServicesString = (
-    service: Service | null,
-    packages: ServicePackage[],
-  ) => {
-    if (!service) return;
-
-    const selectedPkgNames = packages
-      .filter((p) => p.isSelected)
-      .map((p) => `${p.packageName} (${p.unitPrice.toLocaleString()} VNĐ)`)
-      .join(", ");
-
-    let newInterestedServices = "";
-    if (selectedPkgNames) {
-      newInterestedServices = `${service.serviceName}: ${selectedPkgNames}`;
-    } else {
-      // If no package selected but service selected, maybe just show service name?
-      newInterestedServices = service.serviceName;
+  const addServiceItem = (item: string) => {
+    if (!item) return;
+    if (formData.interestedServices.includes(item)) {
+      toast.warning("Dịch vụ này đã có trong danh sách");
+      return;
     }
-
     setFormData((prev) => ({
       ...prev,
-      interestedServices: newInterestedServices,
+      interestedServices: [...prev.interestedServices, item],
+    }));
+  };
+
+  const removeServiceItem = (index: number) => {
+    setFormData((prev) => ({
+      ...prev,
+      interestedServices: prev.interestedServices.filter((_, i) => i !== index),
     }));
   };
 
@@ -490,6 +516,28 @@ const CreateCustomerCare = () => {
                 />
               </div>
 
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Liên kết cơ hội kinh doanh
+                </label>
+                <div className="relative">
+                  <Target className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                  <select
+                    name="opportunityRef"
+                    value={formData.opportunityRef}
+                    onChange={(e) => handleOpportunityChange(e.target.value)}
+                    className="text-black w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 appearance-none bg-white"
+                  >
+                    <option value="">-- Không liên kết --</option>
+                    {opportunities.map((opp) => (
+                      <option key={opp._id} value={opp._id}>
+                        {opp.opportunityNo} - {opp.customerRef?.fullName}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
               <div className="relative">
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   Khách hàng
@@ -555,14 +603,17 @@ const CreateCustomerCare = () => {
                   onChange={handleChange}
                   className="text-black w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
                 >
-                  <option value="Khảo sát nhu cầu">Khảo sát nhu cầu</option>
+                  <option value="Tư vấn – Khảo sát">Tư vấn – Khảo sát</option>
                   <option value="Làm rõ báo giá/hợp đồng">
                     Làm rõ báo giá/hợp đồng
                   </option>
-                  <option value="Xử lý khiếu nại/bảo hành">
-                    Xử lý khiếu nại/bảo hành
+                  <option value="Triển khai – Theo dõi">
+                    Triển khai – Theo dõi
                   </option>
-                  <option value="Thu hồi công nợ">Thu hồi công nợ</option>
+                  <option value="Xử lý công nợ">Xử lý công nợ</option>
+                  <option value="Hậu mãi – Chăm sóc định kỳ">
+                    Hậu mãi – Chăm sóc định kỳ
+                  </option>
                 </select>
               </div>
             </div>
@@ -658,88 +709,175 @@ const CreateCustomerCare = () => {
             </h3>
 
             {/* SERVICE SELECTION AREA START */}
-            <div className="bg-blue-50 p-4 rounded-lg border border-blue-100">
-              <label className="text-sm font-medium text-blue-800 mb-3 flex items-center">
-                <Package className="w-4 h-4 mr-2" />
+            <div className="bg-blue-50 p-5 rounded-xl border border-blue-100">
+              <label className="text-sm font-bold text-blue-800 mb-4 flex items-center uppercase tracking-wider">
+                <Package className="w-5 h-5 mr-2" />
                 Dịch vụ quan tâm & Giá tham khảo
               </label>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                <div>
-                  <select
-                    onChange={(e) => handleServiceGroupChange(e.target.value)}
-                    className="w-full px-3 py-2 border border-blue-200 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-white"
-                  >
-                    <option value="">Chọn nhóm dịch vụ...</option>
-                    {serviceGroups.map((group) => (
-                      <option key={group._id} value={group._id}>
-                        {group.name}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <div>
-                  <select
-                    onChange={(e) => handleServiceChange(e.target.value)}
-                    className="w-full px-3 py-2 border border-blue-200 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-white"
-                    disabled={!selectedServiceGroup}
-                    value={selectedService?.name || ""}
-                  >
-                    <option value="">Chọn dịch vụ...</option>
-                    {/* Fix: Add fallback to empty array if services is undefined */}
-                    {(selectedServiceGroup?.services || []).map((service) => (
-                      <option key={service._id} value={service.name}>
-                        {service.name}
-                      </option>
-                    ))}
-                  </select>
-                </div>
+              {/* List of currently selected services */}
+              <div className="space-y-2 mb-6">
+                {formData.interestedServices.length > 0 ? (
+                  formData.interestedServices.map((service, index) => (
+                    <div
+                      key={index}
+                      className="flex items-center justify-between bg-white p-3 rounded-lg border border-blue-200 shadow-sm transition hover:border-blue-400"
+                    >
+                      <div className="flex items-center">
+                        <CheckCircle className="w-4 h-4 text-green-500 mr-3" />
+                        <span className="text-sm font-medium text-gray-700">
+                          {service}
+                        </span>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => removeServiceItem(index)}
+                        className="p-1 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-full transition"
+                        title="Xóa dịch vụ"
+                      >
+                        <X className="w-4 h-4" />
+                      </button>
+                    </div>
+                  ))
+                ) : (
+                  <div className="text-center py-6 bg-blue-50/50 border border-dashed border-blue-200 rounded-lg">
+                    <p className="text-sm text-blue-400 italic">
+                      Chưa có dịch vụ nào được chọn
+                    </p>
+                  </div>
+                )}
               </div>
 
-              {selectedPackages.length > 0 && (
-                <div className="space-y-2 mt-2 bg-white p-3 rounded border border-gray-200">
-                  <p className="text-xs font-semibold text-gray-500 mb-2 uppercase">
-                    Các gói dịch vụ (Tích chọn để thêm vào ghi chú)
-                  </p>
-                  {selectedPackages.map((pkg) => (
-                    <div
-                      key={pkg._id}
-                      className="flex items-center justify-between py-1 border-b last:border-0 border-gray-100"
-                    >
-                      <label className="flex items-center space-x-2 cursor-pointer">
-                        <input
-                          type="checkbox"
-                          checked={pkg.isSelected}
-                          onChange={() => handlePackageToggle(pkg._id)}
-                          className="rounded text-blue-600 focus:ring-blue-500"
-                        />
-                        <span className="text-sm text-gray-700">
-                          {pkg.packageName}
-                        </span>
-                      </label>
-                      <span className="text-sm font-medium text-blue-600">
-                        {pkg.unitPrice.toLocaleString()} VNĐ
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              )}
-
-              <div className="mt-3">
-                <label className="block text-xs text-gray-500 mb-1">
-                  Preview nội dung sẽ lưu:
-                </label>
-                <input
-                  type="text"
-                  name="interestedServices"
-                  value={formData.interestedServices}
-                  onChange={handleChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-50 text-gray-700 font-medium text-sm"
-                  placeholder="Dịch vụ quan tâm..."
-                />
-                <p className="text-xs text-gray-400 mt-1">
-                  Bạn có thể chỉnh sửa nội dung này thủ công nếu cần.
+              {/* Add new service selection */}
+              <div className="bg-white p-4 rounded-xl border border-blue-100 shadow-inner">
+                <p className="text-[14px] font-bold text-blue-800 uppercase mb-4">
+                  Thêm dịch vụ mới
                 </p>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                  <div>
+                    <label className="block text-[12px] font-bold text-gray-500 mb-1 uppercase">
+                      Nhóm dịch vụ
+                    </label>
+                    <select
+                      onChange={(e) => handleServiceGroupChange(e.target.value)}
+                      className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-gray-50 text-sm"
+                    >
+                      <option value="">Chọn nhóm...</option>
+                      {serviceGroups.map((group) => (
+                        <option key={group._id} value={group._id}>
+                          {group.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <div>
+                    <label className="block text-[12px] font-bold text-gray-500 mb-1 uppercase">
+                      Tên dịch vụ
+                    </label>
+                    <select
+                      onChange={(e) => handleServiceChange(e.target.value)}
+                      className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-gray-50 text-sm disabled:opacity-50"
+                      disabled={!selectedServiceGroup}
+                      value={selectedService?.name || ""}
+                    >
+                      <option value="">Chọn dịch vụ...</option>
+                      {(selectedServiceGroup?.services || []).map((service) => (
+                        <option key={service._id} value={service.name}>
+                          {service.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+
+                {selectedPackages.length > 0 && (
+                  <div className="space-y-2 pt-2 border-t border-gray-100">
+                    <p className="text-[12px] font-bold text-gray-500 mb-2 uppercase">
+                      Các gói dịch vụ (Click để thêm nhanh)
+                    </p>
+                    <div className="grid grid-cols-1 gap-2">
+                      {selectedPackages
+                        .filter((pkg) => {
+                          const serviceString = `${selectedService?.serviceName}: ${pkg.packageName} (${pkg.unitPrice.toLocaleString()} VNĐ)`;
+                          return !formData.interestedServices.includes(
+                            serviceString,
+                          );
+                        })
+                        .map((pkg) => (
+                          <button
+                            key={pkg._id}
+                            type="button"
+                            onClick={() =>
+                              addServiceItem(
+                                `${selectedService?.serviceName}: ${pkg.packageName} (${pkg.unitPrice.toLocaleString()} VNĐ)`,
+                              )
+                            }
+                            className="flex items-center justify-between p-3 rounded-lg border border-gray-100 bg-gray-50 hover:bg-blue-50 hover:border-blue-300 transition group text-left"
+                          >
+                            <div className="flex items-center">
+                              <Plus className="w-4 h-4 text-blue-500 mr-3 opacity-0 group-hover:opacity-100 transition" />
+                              <span className="text-sm text-gray-700 font-medium">
+                                {pkg.packageName}
+                              </span>
+                            </div>
+                            <span className="text-sm font-bold text-blue-600">
+                              {pkg.unitPrice.toLocaleString()}đ
+                            </span>
+                          </button>
+                        ))}
+                      {selectedPackages.length > 0 &&
+                        selectedPackages.filter((pkg) => {
+                          const serviceString = `${selectedService?.serviceName}: ${pkg.packageName} (${pkg.unitPrice.toLocaleString()} VNĐ)`;
+                          return !formData.interestedServices.includes(
+                            serviceString,
+                          );
+                        }).length === 0 && (
+                          <div className="text-center py-4 bg-gray-50 rounded-lg border border-dashed border-gray-200">
+                            <p className="text-xs text-black italic">
+                              Tất cả các gói của dịch vụ này đã được chọn
+                            </p>
+                          </div>
+                        )}
+                    </div>
+                  </div>
+                )}
+
+                {/* Manual add input */}
+                <div className="mt-4 pt-4 border-t border-gray-100">
+                  <div className="flex gap-2">
+                    <input
+                      type="text"
+                      id="manualService"
+                      placeholder="Hoặc nhập thủ công nhu cầu khác..."
+                      className="flex-1 px-3 py-2 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 text-black"
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                          e.preventDefault();
+                          const val = (e.target as HTMLInputElement).value;
+                          if (val) {
+                            addServiceItem(val);
+                            (e.target as HTMLInputElement).value = "";
+                          }
+                        }
+                      }}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const input = document.getElementById(
+                          "manualService",
+                        ) as HTMLInputElement;
+                        if (input.value) {
+                          addServiceItem(input.value);
+                          input.value = "";
+                        }
+                      }}
+                      className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg text-sm font-bold hover:bg-gray-200 transition"
+                    >
+                      Thêm
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
             {/* SERVICE SELECTION AREA END */}
@@ -887,7 +1025,7 @@ const CreateCustomerCare = () => {
                     </span>
                     <input
                       type="file"
-                      accept=".pdf,.doc,.docx,.xls,.xlsx,.zip,.rar,.txt"
+                      accept=".pdf,.doc,.docx,.xls,.xlsx,.zip,.rar,.txt,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
                       multiple
                       onChange={handleFileUpload}
                       className="hidden"

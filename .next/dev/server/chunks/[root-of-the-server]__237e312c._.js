@@ -109,7 +109,7 @@ const departmentSchema = new __TURBOPACK__imported__module__$5b$externals$5d2f$m
     }
 }, {
     timestamps: true,
-    collection: "DSPhongBan"
+    collection: "Phòng ban"
 });
 // Index for search
 departmentSchema.index({

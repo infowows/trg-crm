@@ -26,6 +26,8 @@ import {
   Upload,
   X,
   FileSpreadsheet,
+  LayoutGrid,
+  List,
 } from "lucide-react";
 import { toast } from "react-toastify";
 import dynamic from "next/dynamic";
@@ -48,11 +50,11 @@ interface Customer {
   source?: string;
   referrer?: string;
   referrerPhone?: string;
-  serviceGroup?: string;
-  marketingClassification?: string;
   potentialLevel?: string;
   salesPerson?: string;
   needsNote?: string;
+  firstContractValue?: number;
+  trueCustomerDate?: string;
   isActive: boolean;
   createdAt: string;
   updatedAt: string;
@@ -80,6 +82,7 @@ const KhachHangManagement = () => {
   const [showUploadModal, setShowUploadModal] = useState(false);
   const [uploadFile, setUploadFile] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
+  const [viewMode, setViewMode] = useState<"list" | "grid">("list");
 
   // Fetch customers
   const fetchCustomers = async (
@@ -517,6 +520,30 @@ const KhachHangManagement = () => {
           </div>
 
           <div className="flex items-center space-x-3">
+            <div className="flex items-center space-x-1 border border-gray-200 rounded-lg p-1 bg-gray-50 mr-2">
+              <button
+                onClick={() => setViewMode("list")}
+                className={`p-1.5 rounded-md transition ${
+                  viewMode === "list"
+                    ? "bg-white shadow-sm text-blue-600"
+                    : "text-gray-500 hover:text-gray-700"
+                }`}
+                title="Dạng danh sách"
+              >
+                <List className="w-5 h-5" />
+              </button>
+              <button
+                onClick={() => setViewMode("grid")}
+                className={`p-1.5 rounded-md transition ${
+                  viewMode === "grid"
+                    ? "bg-white shadow-sm text-blue-600"
+                    : "text-gray-500 hover:text-gray-700"
+                }`}
+                title="Dạng lưới"
+              >
+                <LayoutGrid className="w-5 h-5" />
+              </button>
+            </div>
             <button
               onClick={handleExportExcel}
               className="flex items-center px-4 py-2 bg-blue-100 text-blue-700 rounded-lg hover:bg-blue-200 transition"
@@ -606,8 +633,10 @@ const KhachHangManagement = () => {
         </div>
       </div>
 
-      {/* Customers List */}
-      <div className="bg-white rounded-lg shadow-sm overflow-hidden">
+      {/* Customers Content */}
+      <div
+        className={`${viewMode === "list" ? "bg-white rounded-lg shadow-sm" : ""} overflow-hidden`}
+      >
         {customers.length === 0 ? (
           <div className="p-12 text-center">
             <Users className="w-12 h-12 mx-auto mb-4 text-gray-400" />
@@ -642,127 +671,230 @@ const KhachHangManagement = () => {
           </div>
         ) : (
           <>
-            <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-gray-50">
-                  <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Khách hàng
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Thông tin liên hệ
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Nguồn & Tiềm năng
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Nhân viên phụ trách
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Trạng thái
-                    </th>
-                    <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Thao tác
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
-                  {customers.map((customer) => (
-                    <tr key={customer._id} className="hover:bg-gray-50">
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="flex items-center">
-                          {customer.image ? (
-                            <img
-                              className="w-10 h-10 object-cover mr-3"
-                              src={customer.image}
-                              alt={customer.fullName || ""}
-                            />
-                          ) : (
-                            <Building className="w-6 h-6 text-gray-400 mr-3" />
-                          )}
-                          <div>
-                            <div className="text-sm font-medium text-gray-900">
-                              {customer.fullName}
-                            </div>
-                            <div className="text-sm text-gray-500">
-                              {customer.customerId}
-                              {customer.shortName && ` • ${customer.shortName}`}
+            {viewMode === "list" ? (
+              <div className="overflow-x-auto">
+                <table className="min-w-full divide-y divide-gray-200">
+                  <thead className="bg-gray-50">
+                    <tr>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Khách hàng
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Thông tin liên hệ
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Nguồn & Tiềm năng
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Nhân viên phụ trách
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Khách hàng thực
+                      </th>
+                      <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Thao tác
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody className="bg-white divide-y divide-gray-200">
+                    {customers.map((customer) => (
+                      <tr key={customer._id} className="hover:bg-gray-50">
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <div className="flex items-center">
+                            {customer.image ? (
+                              <img
+                                className="w-10 h-10 object-cover mr-3 rounded-full"
+                                src={customer.image}
+                                alt={customer.fullName || ""}
+                              />
+                            ) : (
+                              <div className="w-10 h-10 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mr-3 font-bold">
+                                {customer.fullName?.charAt(0).toUpperCase()}
+                              </div>
+                            )}
+                            <div>
+                              <div className="text-sm font-medium text-gray-900">
+                                {customer.fullName}
+                              </div>
+                              <div className="text-sm text-gray-500">
+                                {customer.customerId}
+                                {customer.shortName &&
+                                  ` • ${customer.shortName}`}
+                              </div>
                             </div>
                           </div>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <div className="space-y-1">
+                            {customer.phone && (
+                              <div className="flex items-center text-sm text-gray-900">
+                                <Phone className="w-4 h-4 text-gray-400 mr-2" />
+                                {customer.phone}
+                              </div>
+                            )}
+                            {customer.email && (
+                              <div className="flex items-center text-sm text-gray-900">
+                                <Mail className="w-4 h-4 text-gray-400 mr-2" />
+                                {customer.email}
+                              </div>
+                            )}
+                          </div>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <div className="space-y-2">
+                            {customer.source && (
+                              <div className="text-sm text-gray-900">
+                                <span className="font-medium">Nguồn:</span>{" "}
+                                {customer.source}
+                              </div>
+                            )}
+                            {getPotentialBadge(customer.potentialLevel)}
+                          </div>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <div className="flex items-center text-sm text-gray-900">
+                            <User className="w-4 h-4 text-gray-400 mr-2" />
+                            {customer.salesPerson || "Chưa phân công"}
+                          </div>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <div className="flex flex-col space-y-1">
+                            {getStatusBadge(customer.isActive)}
+                            {customer.trueCustomerDate && (
+                              <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800">
+                                <CheckCircle className="w-3 h-3 mr-1" />
+                                Khách thật:{" "}
+                                {formatDate(customer.trueCustomerDate)}
+                              </span>
+                            )}
+                            {customer.firstContractValue !== undefined &&
+                              customer.firstContractValue > 0 && (
+                                <span className="text-xs font-semibold text-blue-600">
+                                  HĐ đầu:{" "}
+                                  {customer.firstContractValue.toLocaleString(
+                                    "vi-VN",
+                                  )}
+                                  đ
+                                </span>
+                              )}
+                          </div>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                          <div className="flex items-center justify-end space-x-2">
+                            <button
+                              onClick={() => handleViewCustomer(customer)}
+                              className="p-1 text-blue-600 hover:bg-blue-50 rounded"
+                              title="Xem chi tiết"
+                            >
+                              <Eye className="w-4 h-4" />
+                            </button>
+                            <button
+                              onClick={() => handleEditCustomer(customer)}
+                              className="p-1 text-green-600 hover:bg-green-50 rounded"
+                              title="Chỉnh sửa"
+                            >
+                              <Edit className="w-4 h-4" />
+                            </button>
+                            <button
+                              onClick={() => handleDeleteCustomer(customer)}
+                              className="p-1 text-red-600 hover:bg-red-50 rounded"
+                              title="Xóa"
+                            >
+                              <Trash2 className="w-4 h-4" />
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 p-1">
+                {customers.map((customer) => (
+                  <div
+                    key={customer._id}
+                    className="bg-white rounded-xl shadow-sm border border-gray-100 p-5 hover:shadow-md transition-all relative group"
+                  >
+                    <div className="absolute top-4 right-4 flex space-x-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                      <button
+                        onClick={() => handleViewCustomer(customer)}
+                        className="p-1.5 text-blue-600 bg-blue-50 hover:bg-blue-100 rounded-lg"
+                      >
+                        <Eye className="w-4 h-4" />
+                      </button>
+                      <button
+                        onClick={() => handleEditCustomer(customer)}
+                        className="p-1.5 text-green-600 bg-green-50 hover:bg-green-100 rounded-lg"
+                      >
+                        <Edit className="w-4 h-4" />
+                      </button>
+                      <button
+                        onClick={() => handleDeleteCustomer(customer)}
+                        className="p-1.5 text-red-600 bg-red-50 hover:bg-red-100 rounded-lg"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    </div>
+
+                    <div className="flex items-center mb-4">
+                      {customer.image ? (
+                        <img
+                          className="w-14 h-14 object-cover rounded-xl"
+                          src={customer.image}
+                          alt={customer.fullName || ""}
+                        />
+                      ) : (
+                        <div className="w-14 h-14 bg-linear-to-br from-blue-500 to-indigo-600 text-white rounded-xl flex items-center justify-center font-bold text-xl shadow-sm">
+                          {customer.fullName?.charAt(0).toUpperCase()}
                         </div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="space-y-1">
-                          {customer.phone && (
-                            <div className="flex items-center text-sm text-gray-900">
-                              <Phone className="w-4 h-4 text-gray-400 mr-2" />
-                              {customer.phone}
-                            </div>
-                          )}
-                          {customer.email && (
-                            <div className="flex items-center text-sm text-gray-900">
-                              <Mail className="w-4 h-4 text-gray-400 mr-2" />
-                              {customer.email}
-                            </div>
-                          )}
-                          {/* {customer.address && (
-                                                        <div className="flex items-center text-sm text-gray-500">
-                                                            <MapPin className="w-4 h-4 text-gray-400 mr-2" />
-                                                            {customer.address}
-                                                        </div>
-                                                    )} */}
+                      )}
+                      <div className="ml-4">
+                        <h3 className="font-bold text-gray-900 line-clamp-1">
+                          {customer.fullName}
+                        </h3>
+                        <p className="text-xs text-gray-500 font-medium uppercase tracking-wider">
+                          {customer.customerId}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="space-y-3 mb-4">
+                      {customer.phone && (
+                        <div className="flex items-center text-sm text-gray-600">
+                          <Phone className="w-4 h-4 text-blue-500 mr-2 shrink-0" />
+                          <span className="truncate">{customer.phone}</span>
                         </div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="space-y-2">
-                          {customer.source && (
-                            <div className="text-sm text-gray-900">
-                              <span className="font-medium">Nguồn:</span>{" "}
-                              {customer.source}
-                            </div>
-                          )}
-                          {getPotentialBadge(customer.potentialLevel)}
+                      )}
+                      {customer.email && (
+                        <div className="flex items-center text-sm text-gray-600">
+                          <Mail className="w-4 h-4 text-indigo-500 mr-2 shrink-0" />
+                          <span className="truncate">{customer.email}</span>
                         </div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="flex items-center text-sm text-gray-900">
-                          <User className="w-4 h-4 text-gray-400 mr-2" />
-                          {customer.salesPerson || "Chưa phân công"}
+                      )}
+                      {customer.salesPerson && (
+                        <div className="flex items-center text-sm text-gray-600">
+                          <User className="w-4 h-4 text-emerald-500 mr-2 shrink-0" />
+                          <span className="truncate">
+                            {customer.salesPerson}
+                          </span>
                         </div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        {getStatusBadge(customer.isActive)}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                        <div className="flex items-center justify-end space-x-2">
-                          <button
-                            onClick={() => handleViewCustomer(customer)}
-                            className="text-blue-600 hover:text-blue-900"
-                            title="Xem chi tiết"
-                          >
-                            <Eye className="w-4 h-4" />
-                          </button>
-                          <button
-                            onClick={() => handleEditCustomer(customer)}
-                            className="text-green-600 hover:text-green-900"
-                            title="Chỉnh sửa"
-                          >
-                            <Edit className="w-4 h-4" />
-                          </button>
-                          <button
-                            onClick={() => handleDeleteCustomer(customer)}
-                            className="text-red-600 hover:text-red-900"
-                            title="Xóa"
-                          >
-                            <Trash2 className="w-4 h-4" />
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+                      )}
+                    </div>
+
+                    <div className="flex flex-wrap gap-2 pt-3 border-t border-gray-100">
+                      {getStatusBadge(customer.isActive)}
+                      {getPotentialBadge(customer.potentialLevel)}
+                      {customer.source && (
+                        <span className="px-2 py-0.5 bg-gray-100 text-gray-600 text-[10px] font-bold uppercase rounded-full">
+                          {customer.source}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
 
             {/* Pagination */}
             {totalPages > 1 && (

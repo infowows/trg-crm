@@ -108,7 +108,7 @@ const positionSchema = new __TURBOPACK__imported__module__$5b$externals$5d2f$mon
         default: Date.now
     }
 }, {
-    collection: "CD_CHUCVU"
+    collection: "Chức vuj"
 });
 const Position = __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].models.CD_CHUCVU || __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].model("CD_CHUCVU", positionSchema);
 const __TURBOPACK__default__export__ = Position;

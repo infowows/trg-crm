@@ -27,7 +27,7 @@ const departmentSchema = new mongoose.Schema(
     },
     {
         timestamps: true,
-        collection: "DSPhongBan",
+        collection: "Phòng ban",
     },
 );
 

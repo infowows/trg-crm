@@ -32,6 +32,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$re
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$layout$2d$list$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__LayoutList$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/layout-list.js [app-client] (ecmascript) <export default as LayoutList>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$layout$2d$panel$2d$top$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__LayoutPanelTop$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/layout-panel-top.js [app-client] (ecmascript) <export default as LayoutPanelTop>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$person$2d$standing$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__PersonStanding$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/person-standing.js [app-client] (ecmascript) <export default as PersonStanding>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$target$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Target$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/target.js [app-client] (ecmascript) <export default as Target>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$layers$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Layers$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/layers.js [app-client] (ecmascript) <export default as Layers>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$handshake$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Handshake$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/handshake.js [app-client] (ecmascript) <export default as Handshake>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$house$2d$plug$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__HousePlug$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/house-plug.js [app-client] (ecmascript) <export default as HousePlug>");
@@ -51,32 +52,6 @@ const navigationItems = [
         path: "/"
     },
     {
-        id: "system",
-        text: "Hệ thống",
-        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$settings$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Settings$3e$__["Settings"],
-        path: "/",
-        children: [
-            {
-                id: "departments",
-                text: "Phòng ban",
-                icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$house$2d$plug$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__HousePlug$3e$__["HousePlug"],
-                path: "/departments"
-            },
-            {
-                id: "position",
-                text: "Chức vụ",
-                icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$briefcase$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Briefcase$3e$__["Briefcase"],
-                path: "/positions"
-            },
-            {
-                id: "employees",
-                text: "Nhân viên",
-                icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$user$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__User$3e$__["User"],
-                path: "/employees"
-            }
-        ]
-    },
-    {
         id: "customers",
         text: "Khách hàng",
         icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$person$2d$standing$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__PersonStanding$3e$__["PersonStanding"],
@@ -89,10 +64,36 @@ const navigationItems = [
                 path: "/customers"
             },
             {
+                id: "opportunities",
+                text: "Cơ hội kinh doanh",
+                icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$target$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Target$3e$__["Target"],
+                path: "/opportunities"
+            },
+            {
                 id: "customer-care",
                 text: "Kế hoạch CSKH",
                 icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$handshake$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Handshake$3e$__["Handshake"],
                 path: "/customer-care"
+            }
+        ]
+    },
+    {
+        id: "khao-sat-va-bao-gia",
+        text: "Khảo sát & Báo giá",
+        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$building$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Building$3e$__["Building"],
+        path: "/",
+        children: [
+            {
+                id: "surveys",
+                text: "Khảo sát",
+                icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$map$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Map$3e$__["Map"],
+                path: "/surveys"
+            },
+            {
+                id: "quotations",
+                text: "Báo giá",
+                icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$file$2d$text$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__FileText$3e$__["FileText"],
+                path: "/quotations"
             }
         ]
     },
@@ -114,26 +115,6 @@ const navigationItems = [
                 text: "Danh sách Hạng mục chi tiết",
                 icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$layout$2d$panel$2d$top$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__LayoutPanelTop$3e$__["LayoutPanelTop"],
                 path: "/category-items"
-            }
-        ]
-    },
-    {
-        id: "khao-sat-va-bao-gia",
-        text: "Khảo sát & Báo giá",
-        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$building$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Building$3e$__["Building"],
-        path: "/",
-        children: [
-            {
-                id: "surveys",
-                text: "Khảo sát",
-                icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$map$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Map$3e$__["Map"],
-                path: "/surveys"
-            },
-            {
-                id: "quotations",
-                text: "Báo giá",
-                icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$file$2d$text$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__FileText$3e$__["FileText"],
-                path: "/quotations"
             }
         ]
     },
@@ -197,6 +178,32 @@ const navigationItems = [
         ]
     },
     {
+        id: "system",
+        text: "Hệ thống",
+        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$settings$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Settings$3e$__["Settings"],
+        path: "/",
+        children: [
+            {
+                id: "departments",
+                text: "Phòng ban",
+                icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$house$2d$plug$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__HousePlug$3e$__["HousePlug"],
+                path: "/departments"
+            },
+            {
+                id: "position",
+                text: "Chức vụ",
+                icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$briefcase$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Briefcase$3e$__["Briefcase"],
+                path: "/positions"
+            },
+            {
+                id: "employees",
+                text: "Nhân viên",
+                icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$user$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__User$3e$__["User"],
+                path: "/employees"
+            }
+        ]
+    },
+    {
         id: "profile",
         text: "Hồ sơ",
         icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$user$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__User$3e$__["User"],
@@ -213,7 +220,7 @@ function Navigation() {
     _s();
     const [isSidebarOpen, setIsSidebarOpen] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     const [expandedItems, setExpandedItems] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(new Set([
-        "system"
+        "customers"
     ]));
     const [userData, setUserData] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
     const [isMounted, setIsMounted] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
@@ -246,21 +253,19 @@ function Navigation() {
     };
     const toggleExpanded = (itemId)=>{
         setExpandedItems((prev)=>{
-            // const newSet = new Set(prev);
-            // if (newSet.has(itemId)) {
-            //     newSet.delete(itemId);
-            // } else {
-            //     newSet.add(itemId);
-            // }
-            // return newSet;
-            // If clicking on already expanded item, close it
-            if (prev.has(itemId)) {
-                return new Set();
+            const newSet = new Set(prev);
+            if (newSet.has(itemId)) {
+                newSet.delete(itemId);
+            } else {
+                newSet.add(itemId);
             }
-            // Otherwise, close all others and open this one
-            return new Set([
-                itemId
-            ]);
+            return newSet;
+        // // If clicking on already expanded item, close it
+        // if (prev.has(itemId)) {
+        //   return new Set();
+        // }
+        // // Otherwise, close all others and open this one
+        // return new Set([itemId]);
         });
     };
     const isActive = (path, isParent = false)=>{
@@ -290,23 +295,23 @@ function Navigation() {
                         className: "w-6 h-6"
                     }, void 0, false, {
                         fileName: "[project]/app/components/Navigation.tsx",
-                        lineNumber: 296,
+                        lineNumber: 303,
                         columnNumber: 13
                     }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$menu$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Menu$3e$__["Menu"], {
                         className: "w-6 h-6"
                     }, void 0, false, {
                         fileName: "[project]/app/components/Navigation.tsx",
-                        lineNumber: 298,
+                        lineNumber: 305,
                         columnNumber: 13
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/app/components/Navigation.tsx",
-                    lineNumber: 291,
+                    lineNumber: 298,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/components/Navigation.tsx",
-                lineNumber: 290,
+                lineNumber: 297,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -333,7 +338,7 @@ function Navigation() {
                                         unoptimized: true
                                     }, void 0, false, {
                                         fileName: "[project]/app/components/Navigation.tsx",
-                                        lineNumber: 316,
+                                        lineNumber: 323,
                                         columnNumber: 17
                                     }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                         className: "w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center mr-3",
@@ -341,12 +346,12 @@ function Navigation() {
                                             className: "w-6 h-6 text-white"
                                         }, void 0, false, {
                                             fileName: "[project]/app/components/Navigation.tsx",
-                                            lineNumber: 327,
+                                            lineNumber: 334,
                                             columnNumber: 19
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/app/components/Navigation.tsx",
-                                        lineNumber: 326,
+                                        lineNumber: 333,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -356,7 +361,7 @@ function Navigation() {
                                                 children: "Trường Giang CRM"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/components/Navigation.tsx",
-                                                lineNumber: 331,
+                                                lineNumber: 338,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -364,24 +369,24 @@ function Navigation() {
                                                 children: "Hệ thống quản lý CRM"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/components/Navigation.tsx",
-                                                lineNumber: 334,
+                                                lineNumber: 341,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/components/Navigation.tsx",
-                                        lineNumber: 330,
+                                        lineNumber: 337,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/components/Navigation.tsx",
-                                lineNumber: 314,
+                                lineNumber: 321,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/app/components/Navigation.tsx",
-                            lineNumber: 313,
+                            lineNumber: 320,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("nav", {
@@ -395,7 +400,7 @@ function Navigation() {
                                     // Check if any child is active to determine parent active state
                                     const isAnyChildActive = item.children?.some((child)=>{
                                         if (child.id === "service-list") {
-                                            return pathname === "/services" || pathname.startsWith("/services/tao-moi");
+                                            return pathname === "/services" || pathname.startsWith("/services/create");
                                         }
                                         return pathname === child.path || pathname.startsWith(child.path + "/");
                                     });
@@ -407,7 +412,7 @@ function Navigation() {
                                                     onClick: ()=>toggleExpanded(item.id),
                                                     className: `
                           w-full flex items-center justify-between px-4 py-3 text-sm font-medium rounded-lg transition-all duration-300
-                          ${isParentActive ? "bg-blue-50 text-blue-700 border-l-4 border-blue-700 shadow-sm" : "text-gray-700 hover:bg-gray-50"}
+                          ${isParentActive ? "bg-blue-50 text-blue-700 border-l-4 border-blue-700 shadow-sm" : "text-gray-700 hover:bg-blue-50 hover:text-blue-700"}
                         `,
                                                     children: [
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -417,7 +422,7 @@ function Navigation() {
                                                                     className: `w-5 h-5 mr-3 transition-transform duration-300 ${isParentActive ? "scale-125 transform" : ""}`
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/components/Navigation.tsx",
-                                                                    lineNumber: 380,
+                                                                    lineNumber: 387,
                                                                     columnNumber: 27
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -425,26 +430,26 @@ function Navigation() {
                                                                     children: item.text
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/components/Navigation.tsx",
-                                                                    lineNumber: 385,
+                                                                    lineNumber: 392,
                                                                     columnNumber: 27
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/app/components/Navigation.tsx",
-                                                            lineNumber: 379,
+                                                            lineNumber: 386,
                                                             columnNumber: 25
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$down$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronDown$3e$__["ChevronDown"], {
                                                             className: `w-4 h-4 transition-transform duration-300 ${isExpanded ? "rotate-180" : ""}`
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/components/Navigation.tsx",
-                                                            lineNumber: 395,
+                                                            lineNumber: 402,
                                                             columnNumber: 25
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/app/components/Navigation.tsx",
-                                                    lineNumber: 368,
+                                                    lineNumber: 375,
                                                     columnNumber: 23
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -455,7 +460,7 @@ function Navigation() {
                                                             const ChildIcon = child.icon;
                                                             let isChildActive = false;
                                                             if (child.id === "service-list") {
-                                                                isChildActive = pathname === "/services" || pathname.startsWith("/services/tao-moi");
+                                                                isChildActive = pathname === "/services" || pathname.startsWith("/services/create");
                                                             } else {
                                                                 isChildActive = pathname === child.path || pathname.startsWith(child.path + "/");
                                                             }
@@ -463,7 +468,7 @@ function Navigation() {
                                                                 href: child.path,
                                                                 className: `
                                   flex items-center px-4 py-2 text-sm rounded-lg transition-all duration-200
-                                  ${isChildActive ? "bg-blue-100 text-blue-800 font-medium translate-x-1 shadow-sm" : "text-gray-600 hover:bg-gray-50 hover:translate-x-1"}
+                                  ${isChildActive ? "bg-blue-100 text-blue-800 font-medium translate-x-1 shadow-sm" : "text-gray-600 hover:bg-blue-50 hover:text-blue-700 hover:translate-x-1"}
                                 `,
                                                                 onClick: ()=>setIsSidebarOpen(false),
                                                                 children: [
@@ -471,31 +476,31 @@ function Navigation() {
                                                                         className: `w-4 h-4 mr-3 transition-transform duration-200 ${isChildActive ? "scale-110" : ""}`
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/app/components/Navigation.tsx",
-                                                                        lineNumber: 438,
+                                                                        lineNumber: 445,
                                                                         columnNumber: 33
                                                                     }, this),
                                                                     child.text
                                                                 ]
                                                             }, child.id, true, {
                                                                 fileName: "[project]/app/components/Navigation.tsx",
-                                                                lineNumber: 425,
+                                                                lineNumber: 432,
                                                                 columnNumber: 31
                                                             }, this);
                                                         })
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/components/Navigation.tsx",
-                                                        lineNumber: 409,
+                                                        lineNumber: 416,
                                                         columnNumber: 25
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/components/Navigation.tsx",
-                                                    lineNumber: 402,
+                                                    lineNumber: 409,
                                                     columnNumber: 23
                                                 }, this)
                                             ]
                                         }, item.id, true, {
                                             fileName: "[project]/app/components/Navigation.tsx",
-                                            lineNumber: 367,
+                                            lineNumber: 374,
                                             columnNumber: 21
                                         }, this);
                                     }
@@ -503,7 +508,7 @@ function Navigation() {
                                         href: item.path,
                                         className: `
                       flex items-center px-4 py-3 text-sm font-medium rounded-lg transition-all duration-300
-                      ${isActive(item.path) ? "bg-blue-50 text-blue-700 border-l-4 border-blue-700 shadow-sm" : "text-gray-700 hover:bg-gray-50"}
+                      ${isActive(item.path) ? "bg-blue-50 text-blue-700 border-l-4 border-blue-700 shadow-sm" : "text-gray-700 hover:bg-blue-50 hover:text-blue-700"}
                     `,
                                         onClick: ()=>setIsSidebarOpen(false),
                                         children: [
@@ -511,7 +516,7 @@ function Navigation() {
                                                 className: `w-5 h-5 mr-3 transition-transform duration-300 ${isActive(item.path) ? "scale-125 transform" : ""}`
                                             }, void 0, false, {
                                                 fileName: "[project]/app/components/Navigation.tsx",
-                                                lineNumber: 467,
+                                                lineNumber: 474,
                                                 columnNumber: 21
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -519,24 +524,24 @@ function Navigation() {
                                                 children: item.text
                                             }, void 0, false, {
                                                 fileName: "[project]/app/components/Navigation.tsx",
-                                                lineNumber: 472,
+                                                lineNumber: 479,
                                                 columnNumber: 21
                                             }, this)
                                         ]
                                     }, item.id, true, {
                                         fileName: "[project]/app/components/Navigation.tsx",
-                                        lineNumber: 454,
+                                        lineNumber: 461,
                                         columnNumber: 19
                                     }, this);
                                 })
                             }, void 0, false, {
                                 fileName: "[project]/app/components/Navigation.tsx",
-                                lineNumber: 341,
+                                lineNumber: 348,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/app/components/Navigation.tsx",
-                            lineNumber: 340,
+                            lineNumber: 347,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -550,7 +555,7 @@ function Navigation() {
                                             children: userData.ho_ten
                                         }, void 0, false, {
                                             fileName: "[project]/app/components/Navigation.tsx",
-                                            lineNumber: 491,
+                                            lineNumber: 498,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -558,13 +563,13 @@ function Navigation() {
                                             children: userData.chuc_vu
                                         }, void 0, false, {
                                             fileName: "[project]/app/components/Navigation.tsx",
-                                            lineNumber: 494,
+                                            lineNumber: 501,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/components/Navigation.tsx",
-                                    lineNumber: 490,
+                                    lineNumber: 497,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -575,31 +580,31 @@ function Navigation() {
                                             className: "w-4 h-4 mr-2"
                                         }, void 0, false, {
                                             fileName: "[project]/app/components/Navigation.tsx",
-                                            lineNumber: 501,
+                                            lineNumber: 508,
                                             columnNumber: 15
                                         }, this),
                                         "Đăng xuất"
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/components/Navigation.tsx",
-                                    lineNumber: 497,
+                                    lineNumber: 504,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/components/Navigation.tsx",
-                            lineNumber: 488,
+                            lineNumber: 495,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/app/components/Navigation.tsx",
-                    lineNumber: 311,
+                    lineNumber: 318,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/components/Navigation.tsx",
-                lineNumber: 304,
+                lineNumber: 311,
                 columnNumber: 7
             }, this),
             isSidebarOpen && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -607,13 +612,13 @@ function Navigation() {
                 onClick: toggleSidebar
             }, void 0, false, {
                 fileName: "[project]/app/components/Navigation.tsx",
-                lineNumber: 510,
+                lineNumber: 517,
                 columnNumber: 9
             }, this)
         ]
     }, void 0, true);
 }
-_s(Navigation, "MwSEn6oaQEROBPpX+5YD5QQp9t0=", false, function() {
+_s(Navigation, "9xQgWBe1GBmY7Wuv8t04zWNgyNM=", false, function() {
     return [
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"],
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["usePathname"]

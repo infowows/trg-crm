@@ -127,11 +127,20 @@ const CustomerSchema = new __TURBOPACK__imported__module__$5b$externals$5d2f$mon
         type: String,
         trim: true
     },
-    serviceGroup: {
+    opportunityHistory: [
+        {
+            type: __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["Schema"].Types.ObjectId,
+            ref: "Opportunity"
+        }
+    ],
+    appraisalDate: {
+        type: Date
+    },
+    appraisalStatus: {
         type: String,
         trim: true
     },
-    marketingClassification: {
+    appraisalNote: {
         type: String,
         trim: true
     },
@@ -151,15 +160,26 @@ const CustomerSchema = new __TURBOPACK__imported__module__$5b$externals$5d2f$mon
         type: Boolean,
         default: true
     },
+    trueCustomerDate: {
+        type: Date
+    },
+    firstContractValue: {
+        type: Number,
+        default: 0
+    },
     latitude: {
         type: Number
     },
     longitude: {
         type: Number
+    },
+    isDel: {
+        type: Boolean,
+        default: false
     }
 }, {
     timestamps: true,
-    collection: "DSKH"
+    collection: "Khách hàng"
 });
 const Customer = __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].models.Customer || __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].model("Customer", CustomerSchema);
 const __TURBOPACK__default__export__ = Customer;
@@ -282,7 +302,12 @@ async function GET(request, { params }) {
                 status: 400
             });
         }
-        const customer = await __TURBOPACK__imported__module__$5b$project$5d2f$models$2f$Customer$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].findById(id);
+        const customer = await __TURBOPACK__imported__module__$5b$project$5d2f$models$2f$Customer$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].findOne({
+            _id: id,
+            isDel: {
+                $ne: true
+            }
+        });
         if (!customer) {
             return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
                 success: false,
@@ -382,11 +407,14 @@ async function DELETE(request, { params }) {
                 status: 400
             });
         }
-        const customer = await __TURBOPACK__imported__module__$5b$project$5d2f$models$2f$Customer$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].findByIdAndDelete(id);
+        const customer = await __TURBOPACK__imported__module__$5b$project$5d2f$models$2f$Customer$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].findByIdAndUpdate(id, {
+            isDel: true,
+            updatedAt: new Date()
+        });
         if (!customer) {
             return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
                 success: false,
-                message: "Không tìm thấy khách hàng"
+                message: "Không tìm thấy khách hàng hoặc đã bị xóa"
             }, {
                 status: 404
             });

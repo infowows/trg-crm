@@ -32,7 +32,7 @@ const projectSurveySchema = new mongoose.Schema(
         createdAt: { type: Date, default: Date.now },
         updatedAt: { type: Date, default: Date.now },
     },
-    { collection: "PROJECT_SURVEY" },
+    { collection: "Khảo sát dự án" },
 );
 
 // Pre-save middleware để tính toán các giá trị

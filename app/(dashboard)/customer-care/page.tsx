@@ -15,10 +15,12 @@ import {
   MapPin,
   ChevronLeft,
   ChevronRight,
+  Target,
   FileText,
   Download,
 } from "lucide-react";
 import { toast } from "react-toastify";
+import CustomerCareDetailModal from "@/components/CustomerCareDetailModal";
 
 interface FileMetadata {
   url: string;
@@ -39,9 +41,13 @@ interface CustomerCare {
   customerId?: string;
   discussionContent?: string;
   needsNote?: string;
-  interestedServices?: string;
+  interestedServices?: string[];
   images?: string[];
   files?: FileMetadata[] | string[]; // Support both old and new format
+  opportunityRef?: {
+    _id: string;
+    opportunityNo: string;
+  };
   createdAt?: string;
   updatedAt?: string;
 }
@@ -62,18 +68,19 @@ const CustomerCareManagement = () => {
   const [showDetailModal, setShowDetailModal] = useState(false);
   const [viewingItem, setViewingItem] = useState<CustomerCare | null>(null);
 
-  // Helper function: Tạo URL xem trước file với Google Docs Viewer
+  // Helper function: Tạo URL xem trước file
   const getPreviewUrl = (fileUrl: string, fileFormat?: string) => {
-    const officeFormats = ["doc", "docx", "xls", "xlsx", "ppt", "pptx"];
+    const officeFormats = ["doc", "docx", "xls", "xlsx", "ppt", "pptx", "pdf"];
     const format = fileFormat?.toLowerCase();
 
-    // Nếu là file Office, dùng Google Docs Viewer
+    // Nếu là file Office hoặc PDF, dùng Google Docs Viewer
     if (format && officeFormats.includes(format)) {
       return `https://docs.google.com/viewer?url=${encodeURIComponent(fileUrl)}&embedded=true`;
     }
 
     // Các file khác (PDF, ảnh) mở trực tiếp
-    return fileUrl;
+    // Với Cloudinary, đảm bảo URL không có flag 'attachment'
+    return fileUrl.replace("/upload/", "/upload/fl_inline/");
   };
 
   // Helper function: Tải file về máy mà không mở tab mới
@@ -289,8 +296,17 @@ const CustomerCareManagement = () => {
                 {careList.length > 0 ? (
                   careList.map((item) => (
                     <tr key={item._id} className="hover:bg-gray-50">
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-blue-600">
-                        {item.careId}
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                        <div className="flex flex-col">
+                          <span className="text-blue-600 font-bold">
+                            {item.careId}
+                          </span>
+                          {item.opportunityRef && (
+                            <span className="text-[10px] text-gray-400 font-medium">
+                              Link: {item.opportunityRef.opportunityNo}
+                            </span>
+                          )}
+                        </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                         <div className="flex items-center">
@@ -482,315 +498,15 @@ const CustomerCareManagement = () => {
             setViewingItem(null);
           }}
         >
-          <div
-            className="bg-white rounded-lg max-w-4xl w-full my-8 shadow-xl"
-            onClick={(e) => e.stopPropagation()}
-          >
-            {/* Header */}
-            <div className="bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-4 rounded-t-lg">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center">
-                  <Eye className="w-6 h-6 text-white mr-3" />
-                  <h3 className="text-xl font-semibold text-white">
-                    Chi tiết kế hoạch CSKH
-                  </h3>
-                </div>
-                <button
-                  onClick={() => {
-                    setShowDetailModal(false);
-                    setViewingItem(null);
-                  }}
-                  className="text-white hover:bg-blue-500 rounded-lg p-2 transition"
-                >
-                  <svg
-                    className="w-5 h-5"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M6 18L18 6M6 6l12 12"
-                    />
-                  </svg>
-                </button>
-              </div>
-            </div>
-
-            {/* Content */}
-            <div className="p-6 max-h-[calc(100vh-200px)] overflow-y-auto">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {/* Basic Information */}
-                <div className="space-y-4">
-                  <h4 className="text-lg font-semibold text-gray-900 border-b pb-2">
-                    Thông tin cơ bản
-                  </h4>
-
-                  <div>
-                    <label className="text-sm font-medium text-gray-500">
-                      Mã CSKH
-                    </label>
-                    <p className="text-gray-900 font-semibold">
-                      {viewingItem.careId}
-                    </p>
-                  </div>
-
-                  <div>
-                    <label className="text-sm font-medium text-gray-500">
-                      Người phụ trách
-                    </label>
-                    <p className="text-gray-900 flex items-center">
-                      <User className="w-4 h-4 mr-2 text-gray-400" />
-                      {viewingItem.carePerson}
-                    </p>
-                  </div>
-
-                  <div>
-                    <label className="text-sm font-medium text-gray-500">
-                      Loại hình CSKH
-                    </label>
-                    <p className="text-gray-900">{viewingItem.careType}</p>
-                  </div>
-
-                  <div>
-                    <label className="text-sm font-medium text-gray-500">
-                      Trạng thái
-                    </label>
-                    <div className="mt-1">
-                      {getStatusBadge(viewingItem.status)}
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="text-sm font-medium text-gray-500">
-                      Hình thức
-                    </label>
-                    <p className="text-gray-900">{viewingItem.method}</p>
-                  </div>
-                </div>
-
-                {/* Time & Location */}
-                <div className="space-y-4">
-                  <h4 className="text-lg font-semibold text-gray-900 border-b pb-2">
-                    Thời gian & Địa điểm
-                  </h4>
-
-                  <div>
-                    <label className="text-sm font-medium text-gray-500">
-                      Từ thời gian
-                    </label>
-                    <p className="text-gray-900 flex items-center">
-                      <Calendar className="w-4 h-4 mr-2 text-gray-400" />
-                      {viewingItem.timeFrom
-                        ? new Date(viewingItem.timeFrom).toLocaleString("vi-VN")
-                        : "-"}
-                    </p>
-                  </div>
-
-                  <div>
-                    <label className="text-sm font-medium text-gray-500">
-                      Đến thời gian
-                    </label>
-                    <p className="text-gray-900 flex items-center">
-                      <Calendar className="w-4 h-4 mr-2 text-gray-400" />
-                      {viewingItem.timeTo
-                        ? new Date(viewingItem.timeTo).toLocaleString("vi-VN")
-                        : "-"}
-                    </p>
-                  </div>
-
-                  {viewingItem.location && (
-                    <div>
-                      <label className="text-sm font-medium text-gray-500">
-                        Địa điểm
-                      </label>
-                      <p className="text-gray-900 flex items-center">
-                        <MapPin className="w-4 h-4 mr-2 text-gray-400" />
-                        {viewingItem.location}
-                      </p>
-                    </div>
-                  )}
-
-                  <div>
-                    <label className="text-sm font-medium text-gray-500">
-                      Ngày tạo
-                    </label>
-                    <p className="text-gray-900 text-sm">
-                      {viewingItem.createdAt
-                        ? new Date(viewingItem.createdAt).toLocaleString(
-                            "vi-VN",
-                          )
-                        : "-"}
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Content Details */}
-              <div className="mt-6 space-y-4">
-                <h4 className="text-lg font-semibold text-gray-900 border-b pb-2">
-                  Nội dung chi tiết
-                </h4>
-
-                {viewingItem.interestedServices && (
-                  <div>
-                    <label className="text-sm font-medium text-gray-500">
-                      Dịch vụ quan tâm
-                    </label>
-                    <p className="text-gray-900 bg-blue-50 p-3 rounded-lg mt-1">
-                      {viewingItem.interestedServices}
-                    </p>
-                  </div>
-                )}
-
-                {viewingItem.discussionContent && (
-                  <div>
-                    <label className="text-sm font-medium text-gray-500">
-                      Nội dung trao đổi
-                    </label>
-                    <p className="text-gray-900 bg-gray-50 p-3 rounded-lg mt-1 whitespace-pre-wrap">
-                      {viewingItem.discussionContent}
-                    </p>
-                  </div>
-                )}
-
-                {viewingItem.needsNote && (
-                  <div>
-                    <label className="text-sm font-medium text-gray-500">
-                      Ghi chú nhu cầu
-                    </label>
-                    <p className="text-gray-900 bg-gray-50 p-3 rounded-lg mt-1 whitespace-pre-wrap">
-                      {viewingItem.needsNote}
-                    </p>
-                  </div>
-                )}
-              </div>
-
-              {/* Images */}
-              {viewingItem.images && viewingItem.images.length > 0 && (
-                <div className="mt-6">
-                  <h4 className="text-lg font-semibold text-gray-900 border-b pb-2 mb-3">
-                    Hình ảnh ({viewingItem.images.length})
-                  </h4>
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    {viewingItem.images.map((img, index) => (
-                      <a
-                        key={index}
-                        href={img}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="group relative aspect-square rounded-lg overflow-hidden border border-gray-200 hover:border-blue-500 transition"
-                      >
-                        <img
-                          src={img}
-                          alt={`Image ${index + 1}`}
-                          className="w-full h-full object-cover group-hover:scale-110 transition"
-                        />
-                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition flex items-center justify-center">
-                          <Eye className="w-6 h-6 text-white opacity-0 group-hover:opacity-100 transition" />
-                        </div>
-                      </a>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Files - Cập nhật với nút Xem/Tải về riêng biệt và tối ưu Mobile */}
-              {viewingItem.files && viewingItem.files.length > 0 && (
-                <div className="mt-6">
-                  <h4 className="text-lg font-semibold text-gray-900 border-b pb-2 mb-4 flex items-center">
-                    <FileText className="w-5 h-5 mr-2 text-blue-600" />
-                    Tài liệu đính kèm ({viewingItem.files.length})
-                  </h4>
-                  <div className="grid grid-cols-1 gap-3">
-                    {viewingItem.files.map((file, idx) => {
-                      const fileUrl =
-                        typeof file === "string" ? file : file.url;
-                      const fileName =
-                        typeof file === "string"
-                          ? `Tài liệu ${idx + 1}`
-                          : file.name;
-                      const fileFormat =
-                        typeof file === "string"
-                          ? fileUrl.split(".").pop()
-                          : file.format;
-
-                      return (
-                        <div
-                          key={idx}
-                          className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-200 hover:border-blue-300 hover:bg-blue-50/50 transition gap-3"
-                        >
-                          <div className="flex items-center min-w-0 w-full sm:w-auto">
-                            <div className="flex-shrink-0 p-2 bg-white rounded-lg border border-gray-200 text-blue-600">
-                              <FileText className="w-6 h-6" />
-                            </div>
-                            <div className="ml-3 min-w-0 flex-1">
-                              <p
-                                className="text-sm font-semibold text-gray-900 truncate pr-2"
-                                title={fileName}
-                              >
-                                {fileName}
-                              </p>
-                              <p className="text-[10px] text-gray-400 uppercase font-bold">
-                                {fileFormat || "FILE"}
-                              </p>
-                            </div>
-                          </div>
-
-                          <div className="flex w-full sm:w-auto gap-2">
-                            {/* Nút Xem - Tích hợp Google Docs Viewer */}
-                            <a
-                              href={getPreviewUrl(fileUrl, fileFormat)}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="flex-1 sm:flex-none flex items-center justify-center px-4 py-2 bg-blue-100 text-blue-700 rounded-lg text-sm font-bold hover:bg-blue-200 transition whitespace-nowrap"
-                            >
-                              <Eye className="w-4 h-4 mr-2" />
-                              Xem
-                            </a>
-                            {/* Nút Tải về - Tự động tải không mở tab */}
-                            <button
-                              onClick={() =>
-                                handleDownloadFile(fileUrl, fileName)
-                              }
-                              className="flex-1 sm:flex-none flex items-center justify-center px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-lg text-sm font-bold hover:bg-gray-50 transition shadow-sm whitespace-nowrap"
-                            >
-                              <Download className="w-4 h-4 mr-2" />
-                              Tải về
-                            </button>
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* Footer */}
-            <div className="bg-gray-50 px-6 py-4 rounded-b-lg flex justify-end gap-3">
-              <button
-                onClick={() =>
-                  router.push(`/customer-care/${viewingItem._id}/edit`)
-                }
-                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition flex items-center"
-              >
-                <Edit className="w-4 h-4 mr-2" />
-                Chỉnh sửa
-              </button>
-              <button
-                onClick={() => {
-                  setShowDetailModal(false);
-                  setViewingItem(null);
-                }}
-                className="px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition"
-              >
-                Đóng
-              </button>
-            </div>
-          </div>
+          {/* Modal chi tiết CSKH */}
+          <CustomerCareDetailModal
+            isOpen={showDetailModal}
+            onClose={() => {
+              setShowDetailModal(false);
+              setViewingItem(null);
+            }}
+            item={viewingItem}
+          />
         </div>
       )}
     </div>

@@ -65,7 +65,11 @@ export async function GET(request: NextRequest) {
     const skip = (page - 1) * limit;
 
     const [data, total] = await Promise.all([
-      CustomerCare.find(query).sort({ createdAt: -1 }).skip(skip).limit(limit),
+      CustomerCare.find(query)
+        .populate("opportunityRef", "opportunityNo")
+        .sort({ createdAt: -1 })
+        .skip(skip)
+        .limit(limit),
       CustomerCare.countDocuments(query),
     ]);
 
@@ -112,8 +116,21 @@ export async function POST(request: NextRequest) {
       body.careId = `CSKH${month}${year}${random}`;
     }
 
+    // Clean up empty date strings
+    if (body.timeFrom === "") body.timeFrom = null;
+    if (body.timeTo === "") body.timeTo = null;
+    if (body.actualCareDate === "") body.actualCareDate = null;
+
     const customerCare = new CustomerCare(body);
     await customerCare.save();
+
+    // Nếu có liên kết cơ hội, cập nhật careHistory trong Opportunity
+    if (body.opportunityRef) {
+      const Opportunity = (await import("../../../models/Opportunity")).default;
+      await Opportunity.findByIdAndUpdate(body.opportunityRef, {
+        $push: { careHistory: customerCare._id },
+      });
+    }
 
     return NextResponse.json(
       {

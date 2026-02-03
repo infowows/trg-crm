@@ -34,7 +34,7 @@ const CareTypeSchema: Schema = new Schema(
     },
     {
         timestamps: true,
-        collection: "care_types",
+        collection: "Loại chăm sóc",
     },
 );
 

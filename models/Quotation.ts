@@ -39,9 +39,9 @@ const quotationSchema = new mongoose.Schema(
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
   },
-  { collection: "BAOGIA_V2" }, // Đổi tên để force model mới
+  { collection: "Báo giá" }, // Đổi tên để force model mới
 );
 
 const Quotation =
-  mongoose.models.BAOGIA_V2 || mongoose.model("BAOGIA_V2", quotationSchema);
+  mongoose.models.BaoGia || mongoose.model("BaoGia", quotationSchema);
 export default Quotation;
