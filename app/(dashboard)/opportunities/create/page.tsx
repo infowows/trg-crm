@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import {
   Target,
   ArrowLeft,
@@ -20,6 +20,8 @@ import { formatNumberInput, parseNumberInput } from "@/lib/utils";
 
 const CreateOpportunity = () => {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const customerIdFromUrl = searchParams.get("customer");
   const [loading, setLoading] = useState(false);
   const [customers, setCustomers] = useState<any[]>([]);
   const [services, setServices] = useState<any[]>([]);
@@ -73,6 +75,15 @@ const CreateOpportunity = () => {
     };
     fetchData();
   }, []);
+
+  useEffect(() => {
+    if (customerIdFromUrl) {
+      setFormData((prev) => ({
+        ...prev,
+        customerRef: customerIdFromUrl,
+      }));
+    }
+  }, [customerIdFromUrl]);
 
   const handleInputChange = (
     e: React.ChangeEvent<

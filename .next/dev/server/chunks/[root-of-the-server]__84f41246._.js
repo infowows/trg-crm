@@ -152,6 +152,10 @@ const CustomerSchema = new __TURBOPACK__imported__module__$5b$externals$5d2f$mon
         type: String,
         trim: true
     },
+    assignedTo: {
+        type: __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["Schema"].Types.ObjectId,
+        ref: "Employee"
+    },
     needsNote: {
         type: String,
         trim: true
@@ -354,10 +358,23 @@ async function PUT(request, { params }) {
                 status: 400
             });
         }
-        const customer = await __TURBOPACK__imported__module__$5b$project$5d2f$models$2f$Customer$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].findByIdAndUpdate(id, {
+        // Xử lý assignedTo theo phân quyền
+        const updateData = {
             ...body,
             updatedAt: new Date()
-        }, {
+        };
+        if (body.assignedTo !== undefined) {
+            const position = auth.chuc_vu?.toLowerCase() || "";
+            const isAdmin = auth.phan_quyen === "admin";
+            const isLead = position.includes("lead") || position.includes("trưởng") || position.includes("quản lý");
+            // Staff không được phép thay đổi assignedTo
+            if (!isAdmin && !isLead) {
+                delete updateData.assignedTo;
+            }
+        // Admin và Lead có thể thay đổi assignedTo
+        // (TODO: Lead nên chỉ được gán cho team của mình)
+        }
+        const customer = await __TURBOPACK__imported__module__$5b$project$5d2f$models$2f$Customer$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].findByIdAndUpdate(id, updateData, {
             new: true,
             runValidators: true
         });

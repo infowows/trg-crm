@@ -18,6 +18,8 @@ import {
   Target,
   FileText,
   Download,
+  LayoutGrid,
+  List,
 } from "lucide-react";
 import { toast } from "react-toastify";
 import CustomerCareDetailModal from "@/components/CustomerCareDetailModal";
@@ -61,6 +63,14 @@ const CustomerCareManagement = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [statusFilter, setStatusFilter] = useState("all");
   const [careTypeFilter, setCareTypeFilter] = useState("all");
+  const [viewMode, setViewMode] = useState<"list" | "grid">("list");
+
+  // Tự động chuyển sang dạng lưới trên mobile khi load trang
+  useEffect(() => {
+    if (window.innerWidth < 768) {
+      setViewMode("grid");
+    }
+  }, []);
 
   // Modal states
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -194,67 +204,108 @@ const CustomerCareManagement = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
-      <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
-        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+    <div className="min-h-screen bg-gray-50 p-3 sm:p-6">
+      <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6 mb-4 sm:mb-6">
+        <div className="flex flex-col space-y-4 lg:space-y-0 lg:flex-row lg:items-center lg:justify-between">
           <div className="flex items-center">
-            <Handshake className="w-8 h-8 text-blue-600 mr-3" />
+            <div className="p-2 bg-blue-50 rounded-lg mr-3">
+              <Handshake className="w-6 h-6 sm:w-8 sm:h-8 text-blue-600" />
+            </div>
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">
+              <h1 className="text-xl sm:text-2xl font-bold text-gray-900">
                 Chăm sóc khách hàng
               </h1>
-              <p className="text-gray-600">
+              <p className="text-xs sm:text-sm text-gray-600 hidden sm:block">
                 Quản lý hoạt động chăm sóc khách hàng
               </p>
             </div>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-3">
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-              <input
-                type="text"
-                placeholder="Tìm kiếm..."
-                className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full sm:w-64"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
+          <div className="flex flex-wrap items-center gap-2 justify-between">
+            <div className="flex items-center space-x-1 border border-gray-200 rounded-lg p-1 bg-gray-50">
+              <button
+                onClick={() => setViewMode("list")}
+                className={`p-1.5 rounded-md transition ${
+                  viewMode === "list"
+                    ? "bg-white shadow-sm text-blue-600"
+                    : "text-gray-500 hover:text-gray-700"
+                }`}
+                title="Dạng danh sách"
+              >
+                <List className="w-4 h-4 sm:w-5 sm:h-5" />
+              </button>
+              <button
+                onClick={() => setViewMode("grid")}
+                className={`p-1.5 rounded-md transition ${
+                  viewMode === "grid"
+                    ? "bg-white shadow-sm text-blue-600"
+                    : "text-gray-500 hover:text-gray-700"
+                }`}
+                title="Dạng lưới"
+              >
+                <LayoutGrid className="w-4 h-4 sm:w-5 sm:h-5" />
+              </button>
             </div>
-
-            <select
-              value={statusFilter}
-              onChange={(e) => setStatusFilter(e.target.value)}
-              className="border border-gray-300 rounded-lg px-3 py-2 text-black"
-            >
-              <option value="all">Tất cả trạng thái</option>
-              <option value="Chờ báo cáo">Chờ báo cáo</option>
-              <option value="Hoàn thành">Hoàn thành</option>
-              <option value="Hủy">Hủy</option>
-            </select>
-
-            <select
-              value={careTypeFilter}
-              onChange={(e) => setCareTypeFilter(e.target.value)}
-              className="border border-gray-300 rounded-lg px-3 py-2 text-black"
-            >
-              <option value="all">Tất cả loại hình</option>
-              <option value="Khảo sát nhu cầu">Khảo sát nhu cầu</option>
-              <option value="Làm rõ báo giá/hợp đồng">
-                Làm rõ báo giá/hợp đồng
-              </option>
-              <option value="Xử lý khiếu nại/bảo hành">
-                Xử lý khiếu nại/bảo hành
-              </option>
-              <option value="Thu hồi công nợ">Thu hồi công nợ</option>
-            </select>
 
             <button
               onClick={() => router.push("/customer-care/create")}
-              className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+              className="flex-none flex items-center justify-center p-2 sm:px-4 sm:py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition text-sm font-bold shadow-md shadow-blue-200"
             >
-              <Plus className="w-5 h-5 mr-2" />
-              Thêm mới
+              <Plus className="w-5 h-5 sm:mr-2" />
+              <span className="hidden sm:inline">Thêm mới</span>
             </button>
+          </div>
+        </div>
+
+        <div className="mt-4 sm:mt-6 space-y-4">
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 sm:w-5 sm:h-5" />
+            <input
+              type="text"
+              placeholder="Tìm kiếm..."
+              className="pl-9 sm:pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none w-full text-sm"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-4">
+            <div className="flex flex-col space-y-1">
+              <label className="text-[10px] uppercase font-bold text-gray-400 ml-1 flex items-center">
+                <Filter className="w-3 h-3 mr-1" /> Trạng thái
+              </label>
+              <select
+                value={statusFilter}
+                onChange={(e) => setStatusFilter(e.target.value)}
+                className="w-full px-3 py-1.5 border border-gray-300 rounded-lg text-sm bg-white focus:ring-2 focus:ring-blue-500 outline-none"
+              >
+                <option value="all">Tất cả trạng thái</option>
+                <option value="Chờ báo cáo">Chờ báo cáo</option>
+                <option value="Hoàn thành">Hoàn thành</option>
+                <option value="Hủy">Hủy</option>
+              </select>
+            </div>
+
+            <div className="flex flex-col space-y-1">
+              <label className="text-[10px] uppercase font-bold text-gray-400 ml-1">
+                Loại hình
+              </label>
+              <select
+                value={careTypeFilter}
+                onChange={(e) => setCareTypeFilter(e.target.value)}
+                className="w-full px-3 py-1.5 border border-gray-300 rounded-lg text-sm bg-white focus:ring-2 focus:ring-blue-500 outline-none"
+              >
+                <option value="all">Tất cả loại hình</option>
+                <option value="Khảo sát nhu cầu">Khảo sát nhu cầu</option>
+                <option value="Làm rõ báo giá/hợp đồng">
+                  Làm rõ báo giá/hợp đồng
+                </option>
+                <option value="Xử lý khiếu nại/bảo hành">
+                  Xử lý khiếu nại/bảo hành
+                </option>
+                <option value="Thu hồi công nợ">Thu hồi công nợ</option>
+              </select>
+            </div>
           </div>
         </div>
       </div>
@@ -265,129 +316,231 @@ const CustomerCareManagement = () => {
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
           </div>
         ) : (
-          <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
-                <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Mã CSKH
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Phụ trách
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Loại hình
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Thời gian / Địa điểm
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Hình thức
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Trạng thái
-                  </th>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Thao tác
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
-                {careList.length > 0 ? (
-                  careList.map((item) => (
-                    <tr key={item._id} className="hover:bg-gray-50">
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                        <div className="flex flex-col">
-                          <span className="text-blue-600 font-bold">
-                            {item.careId}
-                          </span>
-                          {item.opportunityRef && (
-                            <span className="text-[10px] text-gray-400 font-medium">
-                              Link: {item.opportunityRef.opportunityNo}
-                            </span>
-                          )}
-                        </div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                        <div className="flex items-center">
-                          <User className="w-4 h-4 mr-2 text-gray-400" />
-                          {item.carePerson}
-                        </div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {item.careType}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        <div className="flex flex-col">
-                          <span className="flex items-center mb-1">
-                            <Calendar className="w-3 h-3 mr-1" />
-                            {item.timeFrom
-                              ? new Date(item.timeFrom).toLocaleDateString(
-                                  "vi-VN",
-                                )
-                              : "-"}
-                          </span>
-                          {item.location && (
-                            <span className="flex items-center text-xs">
-                              <MapPin className="w-3 h-3 mr-1" />
-                              {item.location}
-                            </span>
-                          )}
-                        </div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {item.method}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        {getStatusBadge(item.status)}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                        <div className="flex justify-end space-x-2">
-                          <button
-                            onClick={() => {
-                              setViewingItem(item);
-                              setShowDetailModal(true);
-                            }}
-                            className="text-green-600 hover:text-green-900"
-                            title="Xem chi tiết"
-                          >
-                            <Eye className="w-4 h-4" />
-                          </button>
-                          <button
-                            onClick={() =>
-                              router.push(`/customer-care/${item._id}/edit`)
-                            }
-                            className="text-blue-600 hover:text-blue-900"
-                            title="Chỉnh sửa"
-                          >
-                            <Edit className="w-4 h-4" />
-                          </button>
-                          <button
-                            onClick={() => {
-                              setDeletingItem(item);
-                              setShowDeleteModal(true);
-                            }}
-                            className="text-red-600 hover:text-red-900"
-                            title="Xóa"
-                          >
-                            <Trash2 className="w-4 h-4" />
-                          </button>
-                        </div>
-                      </td>
+          <div
+            className={`${viewMode === "list" ? "bg-white rounded-lg shadow-sm" : ""} overflow-hidden`}
+          >
+            {viewMode === "list" ? (
+              <div className="overflow-x-auto">
+                <table className="min-w-full divide-y divide-gray-200">
+                  <thead className="bg-gray-50">
+                    <tr>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Mã CSKH
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Phụ trách
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Loại hình
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Thời gian / Địa điểm
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Hình thức
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Trạng thái
+                      </th>
+                      <th className="sticky right-0 px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider bg-gray-50 z-20 shadow-[-4px_0_4px_-2px_rgba(0,0,0,0.05)]">
+                        Thao tác
+                      </th>
                     </tr>
-                  ))
-                ) : (
-                  <tr>
-                    <td
-                      colSpan={7}
-                      className="px-6 py-4 text-center text-gray-500"
-                    >
-                      Không tìm thấy dữ liệu
-                    </td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
+                  </thead>
+                  <tbody className="bg-white divide-y divide-gray-200">
+                    {careList.length > 0 ? (
+                      careList.map((item) => (
+                        <tr
+                          key={item._id}
+                          className="hover:bg-gray-50 cursor-pointer group"
+                          onClick={() => {
+                            setViewingItem(item);
+                            setShowDetailModal(true);
+                          }}
+                        >
+                          <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                            <div className="flex flex-col">
+                              <span className="text-blue-600 font-bold">
+                                {item.careId}
+                              </span>
+                              {item.opportunityRef && (
+                                <span className="text-[10px] text-gray-400 font-medium">
+                                  Link: {item.opportunityRef.opportunityNo}
+                                </span>
+                              )}
+                            </div>
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                            <div className="flex items-center">
+                              <User className="w-4 h-4 mr-2 text-gray-400" />
+                              {item.carePerson}
+                            </div>
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            {item.careType}
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            <div className="flex flex-col">
+                              <span className="flex items-center mb-1">
+                                <Calendar className="w-3 h-3 mr-1" />
+                                {item.timeFrom
+                                  ? new Date(item.timeFrom).toLocaleDateString(
+                                      "vi-VN",
+                                    )
+                                  : "-"}
+                              </span>
+                              {item.location && (
+                                <span className="flex items-center text-xs">
+                                  <MapPin className="w-3 h-3 mr-1" />
+                                  {item.location}
+                                </span>
+                              )}
+                            </div>
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            {item.method}
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap">
+                            {getStatusBadge(item.status)}
+                          </td>
+                          <td className="sticky right-0 px-6 py-4 whitespace-nowrap text-right text-sm font-medium bg-white group-hover:bg-gray-50 transition-colors z-10 shadow-[-4px_0_4px_-2px_rgba(0,0,0,0.05)]">
+                            <div className="flex justify-end space-x-2">
+                              <button
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  setViewingItem(item);
+                                  setShowDetailModal(true);
+                                }}
+                                className="p-1 text-green-600 hover:bg-green-50 rounded"
+                                title="Xem chi tiết"
+                              >
+                                <Eye className="w-4 h-4" />
+                              </button>
+                              <button
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  router.push(
+                                    `/customer-care/${item._id}/edit`,
+                                  );
+                                }}
+                                className="p-1 text-blue-600 hover:bg-blue-50 rounded"
+                                title="Chỉnh sửa"
+                              >
+                                <Edit className="w-4 h-4" />
+                              </button>
+                              <button
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  setDeletingItem(item);
+                                  setShowDeleteModal(true);
+                                }}
+                                className="p-1 text-red-600 hover:bg-red-50 rounded"
+                                title="Xóa"
+                              >
+                                <Trash2 className="w-4 h-4" />
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      ))
+                    ) : (
+                      <tr>
+                        <td
+                          colSpan={7}
+                          className="px-6 py-4 text-center text-gray-500"
+                        >
+                          Không tìm thấy dữ liệu
+                        </td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                {careList.map((item) => (
+                  <div
+                    key={item._id}
+                    className="bg-white rounded-xl shadow-sm border border-gray-100 p-5 hover:shadow-md transition-all relative group overflow-hidden"
+                  >
+                    <div className="absolute top-0 right-0 bottom-0 flex flex-col w-12 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity z-10">
+                      <button
+                        onClick={() => {
+                          setViewingItem(item);
+                          setShowDetailModal(true);
+                        }}
+                        className="flex-1 w-full flex items-center justify-center text-green-700 bg-green-100 hover:bg-green-200 rounded-none transition-colors"
+                        title="Xem chi tiết"
+                      >
+                        <Eye className="w-4 h-4" />
+                      </button>
+                      <button
+                        onClick={() =>
+                          router.push(`/customer-care/${item._id}/edit`)
+                        }
+                        className="flex-1 w-full flex items-center justify-center text-blue-700 bg-blue-100 hover:bg-blue-200 rounded-none transition-colors"
+                        title="Chỉnh sửa"
+                      >
+                        <Edit className="w-4 h-4" />
+                      </button>
+                      <button
+                        onClick={() => {
+                          setDeletingItem(item);
+                          setShowDeleteModal(true);
+                        }}
+                        className="flex-1 w-full flex items-center justify-center text-red-700 bg-red-100 hover:bg-red-200 rounded-none transition-colors"
+                        title="Xóa"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    </div>
+
+                    <div className="flex items-center mb-4 pr-10">
+                      <div className="w-12 h-12 bg-linear-to-br from-blue-500 to-indigo-600 text-white rounded-xl flex items-center justify-center font-bold text-lg shadow-sm shrink-0">
+                        <Handshake className="w-6 h-6" />
+                      </div>
+                      <div className="ml-3 overflow-hidden">
+                        <h3 className="font-bold text-gray-900 truncate">
+                          {item.careId}
+                        </h3>
+                        {item.opportunityRef && (
+                          <p className="text-xs text-blue-600 font-medium truncate">
+                            Link: {item.opportunityRef.opportunityNo}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="space-y-3 pt-3 border-t border-gray-100 pr-10 lg:pr-0">
+                      <div className="flex items-center text-sm text-gray-600">
+                        <User className="w-4 h-4 text-gray-400 mr-2 shrink-0" />
+                        <span className="truncate">{item.carePerson}</span>
+                      </div>
+                      <div className="flex items-center text-sm text-gray-600">
+                        <Calendar className="w-4 h-4 text-gray-400 mr-2 shrink-0" />
+                        <span className="truncate">
+                          {item.timeFrom
+                            ? new Date(item.timeFrom).toLocaleDateString(
+                                "vi-VN",
+                              )
+                            : "-"}
+                        </span>
+                      </div>
+                      <div className="flex items-center text-sm text-gray-600">
+                        <FileText className="w-4 h-4 text-gray-400 mr-2 shrink-0" />
+                        <span className="truncate">{item.careType}</span>
+                      </div>
+                      <div className="flex justify-between items-center pt-1">
+                        {getStatusBadge(item.status)}
+                        <span className="text-xs font-medium text-gray-500 bg-gray-100 px-2 py-0.5 rounded">
+                          {item.method}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         )}
 

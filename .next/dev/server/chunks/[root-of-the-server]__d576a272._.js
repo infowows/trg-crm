@@ -152,6 +152,10 @@ const CustomerSchema = new __TURBOPACK__imported__module__$5b$externals$5d2f$mon
         type: String,
         trim: true
     },
+    assignedTo: {
+        type: __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["Schema"].Types.ObjectId,
+        ref: "Employee"
+    },
     needsNote: {
         type: String,
         trim: true
@@ -321,6 +325,10 @@ const quotationSchema = new __TURBOPACK__imported__module__$5b$externals$5d2f$mo
         type: __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].Schema.Types.ObjectId,
         ref: "ProjectSurvey"
     },
+    careRef: {
+        type: __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].Schema.Types.ObjectId,
+        ref: "CustomerCare"
+    },
     packages: [
         quotationPackageSchema
     ],
@@ -380,9 +388,26 @@ const CustomerCareSchema = new __TURBOPACK__imported__module__$5b$externals$5d2f
         unique: true,
         trim: true
     },
+    // ID khách hàng dạng string
     customerId: {
         type: String,
         trim: true
+    },
+    // Reference chuẩn đến collection Customers
+    customerRef: {
+        type: __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].Schema.Types.ObjectId,
+        ref: "Customer"
+    },
+    // THÔNG TIN NHÚNG: Đây là mấu chốt để bạn lấy shortName nhanh
+    customerInfo: {
+        _id: {
+            type: __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].Schema.Types.ObjectId,
+            ref: "Customer"
+        },
+        shortName: {
+            type: String,
+            trim: true
+        }
     },
     employeeId: {
         type: String,
@@ -471,13 +496,34 @@ const CustomerCareSchema = new __TURBOPACK__imported__module__$5b$externals$5d2f
         ],
         default: "Chờ báo cáo"
     },
-    quotationLink: {
+    quotationRef: {
+        type: __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].Schema.Types.ObjectId,
+        ref: "BaoGia"
+    },
+    quotationNo: {
+        type: String,
+        trim: true
+    },
+    surveyRef: {
+        type: __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].Schema.Types.ObjectId,
+        ref: "PROJECT_SURVEY"
+    },
+    surveyNo: {
         type: String,
         trim: true
     }
 }, {
     timestamps: true,
+    // Tên collection có dấu thường gây khó khăn ở một số môi trường quản lý database, 
+    // nhưng tôi giữ nguyên theo ý bạn.
     collection: "Chăm sóc khách hàng"
+});
+// Index để tìm kiếm theo tên khách hàng nhúng nhanh hơn
+CustomerCareSchema.index({
+    "customerInfo.shortName": "text"
+});
+CustomerCareSchema.index({
+    customerRef: 1
 });
 const __TURBOPACK__default__export__ = __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].models.CustomerCare || __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].model("CustomerCare", CustomerCareSchema);
 }),

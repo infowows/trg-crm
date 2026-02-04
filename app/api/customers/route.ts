@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import dbConnect from "../../../lib/dbConnect";
 import Customer from "../../../models/Customer";
 import { verifyToken } from "../../../lib/auth";
+import { getPermissionQuery } from "../../../lib/permissions";
 import mongoose from "mongoose";
 // import image from "next/image";
 
@@ -36,8 +37,16 @@ export async function GET(request: NextRequest) {
     const isActive = searchParams.get("isActive");
     const potentialLevel = searchParams.get("potentialLevel");
     const source = searchParams.get("source");
+    const permissionQuery = getPermissionQuery(auth, "assignedTo");
 
-    const query: any = { isDel: { $ne: true } };
+    const query: any = { isDel: { $ne: true }, ...permissionQuery };
+
+    // Ensure assignedTo is transformed to ObjectId for proper querying
+    if (query.assignedTo && typeof query.assignedTo === "string") {
+      if (mongoose.Types.ObjectId.isValid(query.assignedTo)) {
+        query.assignedTo = new mongoose.Types.ObjectId(query.assignedTo);
+      }
+    }
 
     if (search) {
       query.$and = [
@@ -229,6 +238,7 @@ export async function POST(request: NextRequest) {
       marketingClassification: marketingClassification?.trim() || undefined,
       potentialLevel: potentialLevel?.trim() || undefined,
       salesPerson: salesPerson?.trim() || undefined,
+      assignedTo: determineAssignedTo(auth, body.assignedTo),
       needsNote: needsNote?.trim() || undefined,
       isActive: isActive !== undefined ? isActive : true,
       latitude: lat !== undefined ? lat : undefined,
@@ -262,4 +272,27 @@ export async function POST(request: NextRequest) {
       { status: 500 },
     );
   }
+}
+
+// Helper function to determine assignedTo based on user role
+function determineAssignedTo(auth: any, requestedAssignedTo?: string) {
+  const position = auth.chuc_vu?.toLowerCase() || "";
+  const isAdmin = auth.phan_quyen === "admin";
+  const isLead =
+    position.includes("lead") ||
+    position.includes("trưởng") ||
+    position.includes("quản lý");
+
+  // Admin: Có thể gán cho bất kỳ ai
+  if (isAdmin) {
+    return requestedAssignedTo || auth.id;
+  }
+
+  // Lead: Có thể gán cho chính mình hoặc nhân viên (TODO: validate employee belongs to team)
+  if (isLead) {
+    return requestedAssignedTo || auth.id;
+  }
+
+  // Staff: Bắt buộc gán cho chính mình
+  return auth.id;
 }

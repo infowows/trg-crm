@@ -26,6 +26,10 @@ const quotationSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "ProjectSurvey",
     }, // reference to survey
+    careRef: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "CustomerCare",
+    }, // reference to customer care
     packages: [quotationPackageSchema], // mảng các gói dịch vụ với giá
     totalAmount: { type: Number, default: 0 }, // tổng thành tiền
     grandTotal: { type: Number, default: 0 }, // tổng cộng

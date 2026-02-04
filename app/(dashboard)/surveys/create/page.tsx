@@ -16,6 +16,7 @@ import {
   ChevronDown,
   Check,
   X,
+  Handshake,
 } from "lucide-react";
 import { useRef } from "react";
 
@@ -213,16 +214,38 @@ const CreateSurvey = () => {
     },
   ]);
 
+  const [customerCares, setCustomerCares] = useState<any[]>([]);
   const [formData, setFormData] = useState({
     surveyDate: new Date().toISOString().split("T")[0],
     surveyAddress: "",
     surveyNotes: "",
+    careRef: "",
   });
 
   useEffect(() => {
     loadCategoryGroups();
     loadCategoryItems();
+    loadCustomerCares();
   }, []);
+
+  const loadCustomerCares = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      // Load all available customer plans (limit 100 for now, or implement search later)
+      const response = await fetch("/api/customer-care?limit=100", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const data = await response.json();
+      if (data.success || data.data) {
+        setCustomerCares(data.data || []);
+      }
+      // console.log("CSKH:", data);
+    } catch (error) {
+      console.error("Error loading customer cares:", error);
+    }
+  };
 
   const loadCategoryGroups = async () => {
     try {
@@ -349,6 +372,7 @@ const CreateSurvey = () => {
         surveyDate: formData.surveyDate,
         surveyAddress: formData.surveyAddress,
         surveyNotes: formData.surveyNotes,
+        careRef: formData.careRef || null,
       };
 
       const response = await fetch("/api/surveys", {
@@ -400,6 +424,38 @@ const CreateSurvey = () => {
             Thông tin Khảo sát
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="md:col-span-2">
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Kế hoạch CSKH (Nguồn)
+              </label>
+              <div className="relative">
+                <Handshake className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                <select
+                  name="careRef"
+                  value={formData.careRef}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      careRef: e.target.value,
+                    })
+                  }
+                  className="pl-10 pr-4 py-2 w-full border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none appearance-none bg-white"
+                >
+                  <option value="">
+                    -- Chọn khách hàng / Kế hoạch CSKH --
+                  </option>
+                  {customerCares.map((care) => (
+                    <option key={care._id} value={care._id}>
+                      {care.careId} - {care.carePerson} ({care.careType})
+                    </option>
+                  ))}
+                </select>
+                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                  <ChevronDown className="h-4 w-4" />
+                </div>
+              </div>
+            </div>
+
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Ngày khảo sát <span className="text-red-500">*</span>

@@ -49,9 +49,12 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    console.log("🔑 Comparing password (plain text)...");
-    // Simple password comparison
-    if (user.password !== password) {
+    console.log("🔑 Comparing password with bcrypt...");
+    const { comparePassword } = await import("../../../../lib/auth");
+    const isPasswordMatch = await comparePassword(password, user.password);
+
+    // if (user.password !== password) { // dùng cho dăng nhập không mã hoá pass
+    if (!isPasswordMatch) {
       console.log("❌ Invalid password");
       return NextResponse.json(
         {

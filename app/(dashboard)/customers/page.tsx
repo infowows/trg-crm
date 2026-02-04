@@ -84,6 +84,13 @@ const KhachHangManagement = () => {
   const [uploading, setUploading] = useState(false);
   const [viewMode, setViewMode] = useState<"list" | "grid">("list");
 
+  // Tự động chuyển sang dạng lưới trên mobile khi load trang
+  useEffect(() => {
+    if (window.innerWidth < 768) {
+      setViewMode("grid");
+    }
+  }, []);
+
   // Fetch customers
   const fetchCustomers = async (
     page: number = 1,
@@ -503,24 +510,26 @@ const KhachHangManagement = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
+    <div className="min-h-screen bg-gray-50 p-3 sm:p-6">
       {/* Header */}
-      <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
-        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between">
-          <div className="flex items-center mb-4 lg:mb-0">
-            <Users className="w-8 h-8 text-blue-600 mr-3" />
+      <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6 mb-4 sm:mb-6">
+        <div className="flex flex-col space-y-4 lg:space-y-0 lg:flex-row lg:items-center lg:justify-between">
+          <div className="flex items-center">
+            <div className="p-2 bg-blue-50 rounded-lg mr-3">
+              <Users className="w-6 h-6 sm:w-8 sm:h-8 text-blue-600" />
+            </div>
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">
+              <h1 className="text-xl sm:text-2xl font-bold text-gray-900">
                 Quản lý khách hàng
               </h1>
-              <p className="text-gray-600">
+              <p className="text-xs sm:text-sm text-gray-500 hidden sm:block">
                 Quản lý thông tin khách hàng tiềm năng và hiện tại
               </p>
             </div>
           </div>
 
-          <div className="flex items-center space-x-3">
-            <div className="flex items-center space-x-1 border border-gray-200 rounded-lg p-1 bg-gray-50 mr-2">
+          <div className="flex flex-wrap items-center gap-2">
+            <div className="flex items-center space-x-1 border border-gray-200 rounded-lg p-1 bg-gray-50">
               <button
                 onClick={() => setViewMode("list")}
                 className={`p-1.5 rounded-md transition ${
@@ -530,7 +539,7 @@ const KhachHangManagement = () => {
                 }`}
                 title="Dạng danh sách"
               >
-                <List className="w-5 h-5" />
+                <List className="w-4 h-4 sm:w-5 sm:h-5" />
               </button>
               <button
                 onClick={() => setViewMode("grid")}
@@ -541,57 +550,65 @@ const KhachHangManagement = () => {
                 }`}
                 title="Dạng lưới"
               >
-                <LayoutGrid className="w-5 h-5" />
+                <LayoutGrid className="w-4 h-4 sm:w-5 sm:h-5" />
               </button>
             </div>
+
             <button
               onClick={handleExportExcel}
-              className="flex items-center px-4 py-2 bg-blue-100 text-blue-700 rounded-lg hover:bg-blue-200 transition"
+              className="flex-1 sm:flex-none flex items-center justify-center px-3 py-2 bg-blue-100 text-blue-700 rounded-lg hover:bg-blue-200 transition text-sm font-medium"
               title="Xuất danh sách hiện tại ra file Excel"
             >
-              <FileSpreadsheet className="w-5 h-5 mr-2" />
-              Xuất Excel
+              <FileSpreadsheet className="w-4 h-4 sm:mr-2" />
+              <span className="ml-1 sm:ml-0 hidden xs:inline">Xuất Excel</span>
+              <span className="xs:hidden ml-1">Xuất</span>
             </button>
+
             <button
               onClick={() => setShowUploadModal(true)}
-              className="flex items-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition"
+              className="flex-1 sm:flex-none flex items-center justify-center px-3 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition text-sm font-medium"
             >
-              <Upload className="w-5 h-5 mr-2" />
-              Import từ Excel
+              <Upload className="w-4 h-4 sm:mr-2" />
+              <span className="ml-1 sm:ml-0 hidden xs:inline">
+                Import từ Excel
+              </span>
+              <span className="xs:hidden ml-1">Import</span>
             </button>
+
             <button
               onClick={() => router.push("/customers/create")}
-              className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+              className="flex-none flex items-center justify-center p-2 sm:px-4 sm:py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition text-sm font-bold shadow-md shadow-blue-200"
             >
-              <Plus className="w-5 h-5 mr-2" />
-              Thêm khách hàng
+              <Plus className="w-5 h-5 sm:mr-2" />
+              <span className="hidden sm:inline">Thêm khách hàng</span>
             </button>
           </div>
         </div>
 
         {/* Filters */}
-        <div className="mt-6 space-y-4">
+        <div className="mt-4 sm:mt-6 space-y-4">
           {/* Search */}
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 sm:w-5 sm:h-5" />
             <input
               type="text"
-              placeholder="Tìm kiếm theo tên, mã KH, điện thoại, email..."
+              placeholder="Tìm kiếm khách hàng..."
               value={searchQuery}
               onChange={(e) => handleSearch(e.target.value)}
-              className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none w-full"
+              className="pl-9 sm:pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none w-full text-sm"
             />
           </div>
 
-          {/* Filter buttons */}
-          <div className="flex flex-wrap gap-4">
-            <div className="flex items-center space-x-2">
-              <Filter className="w-5 h-5 text-gray-400" />
-              <span className="text-sm text-gray-600">Trạng thái:</span>
+          {/* Filter selects */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-4">
+            <div className="flex flex-col space-y-1">
+              <label className="text-[10px] uppercase font-bold text-gray-400 ml-1 flex items-center">
+                <Filter className="w-3 h-3 mr-1" /> Trạng thái
+              </label>
               <select
                 value={statusFilter}
                 onChange={(e) => handleStatusFilter(e.target.value)}
-                className="px-3 py-1 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                className="w-full px-3 py-1.5 border border-gray-300 rounded-lg text-sm bg-white focus:ring-2 focus:ring-blue-500 outline-none"
               >
                 <option value="all">Tất cả</option>
                 <option value="true">Hoạt động</option>
@@ -599,12 +616,14 @@ const KhachHangManagement = () => {
               </select>
             </div>
 
-            <div className="flex items-center space-x-2">
-              <span className="text-sm text-gray-600">Tiềm năng:</span>
+            <div className="flex flex-col space-y-1">
+              <label className="text-[10px] uppercase font-bold text-gray-400 ml-1">
+                Tiềm năng
+              </label>
               <select
                 value={potentialFilter}
                 onChange={(e) => handlePotentialFilter(e.target.value)}
-                className="px-3 py-1 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                className="w-full px-3 py-1.5 border border-gray-300 rounded-lg text-sm bg-white focus:ring-2 focus:ring-blue-500 outline-none"
               >
                 <option value="all">Tất cả</option>
                 <option value="Ngắn hạn">Ngắn hạn</option>
@@ -614,12 +633,14 @@ const KhachHangManagement = () => {
               </select>
             </div>
 
-            <div className="flex items-center space-x-2">
-              <span className="text-sm text-gray-600">Nguồn:</span>
+            <div className="flex flex-col space-y-1">
+              <label className="text-[10px] uppercase font-bold text-gray-400 ml-1">
+                Nguồn khách
+              </label>
               <select
                 value={sourceFilter}
                 onChange={(e) => handleSourceFilter(e.target.value)}
-                className="px-3 py-1 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                className="w-full px-3 py-1.5 border border-gray-300 rounded-lg text-sm bg-white focus:ring-2 focus:ring-blue-500 outline-none"
               >
                 <option value="all">Tất cả</option>
                 {sources.map((source) => (
@@ -691,14 +712,18 @@ const KhachHangManagement = () => {
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Khách hàng thực
                       </th>
-                      <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th className="sticky right-0 px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider bg-gray-50 z-20 shadow-[-4px_0_4px_-2px_rgba(0,0,0,0.05)]">
                         Thao tác
                       </th>
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
                     {customers.map((customer) => (
-                      <tr key={customer._id} className="hover:bg-gray-50">
+                      <tr
+                        key={customer._id}
+                        className="hover:bg-gray-50 cursor-pointer group"
+                        onClick={() => handleViewCustomer(customer)}
+                      >
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div className="flex items-center">
                             {customer.image ? (
@@ -713,13 +738,13 @@ const KhachHangManagement = () => {
                               </div>
                             )}
                             <div>
-                              <div className="text-sm font-medium text-gray-900">
+                              <div className="text-sm font-medium text-gray-900 max-w-[200px] truncate">
                                 {customer.fullName}
                               </div>
                               <div className="text-sm text-gray-500">
                                 {customer.customerId}
-                                {customer.shortName &&
-                                  ` • ${customer.shortName}`}
+                                {/* {customer.shortName &&
+                                  ` • ${customer.shortName}`} */}
                               </div>
                             </div>
                           </div>
@@ -779,24 +804,45 @@ const KhachHangManagement = () => {
                               )}
                           </div>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                        <td className="sticky right-0 px-6 py-4 whitespace-nowrap text-right text-sm font-medium bg-white group-hover:bg-gray-50 transition-colors z-10 shadow-[-4px_0_4px_-2px_rgba(0,0,0,0.05)]">
                           <div className="flex items-center justify-end space-x-2">
-                            <button
-                              onClick={() => handleViewCustomer(customer)}
+                            {/* <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleViewCustomer(customer);
+                              }}
                               className="p-1 text-blue-600 hover:bg-blue-50 rounded"
                               title="Xem chi tiết"
                             >
                               <Eye className="w-4 h-4" />
+                            </button> */}
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                router.push(
+                                  `/opportunities/create?customer=${customer._id}`,
+                                );
+                              }}
+                              className="p-1 text-purple-600 hover:bg-purple-50 rounded"
+                              title="Tạo cơ hội"
+                            >
+                              <TrendingUp className="w-4 h-4" />
                             </button>
                             <button
-                              onClick={() => handleEditCustomer(customer)}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleEditCustomer(customer);
+                              }}
                               className="p-1 text-green-600 hover:bg-green-50 rounded"
                               title="Chỉnh sửa"
                             >
                               <Edit className="w-4 h-4" />
                             </button>
                             <button
-                              onClick={() => handleDeleteCustomer(customer)}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleDeleteCustomer(customer);
+                              }}
                               className="p-1 text-red-600 hover:bg-red-50 rounded"
                               title="Xóa"
                             >
@@ -814,24 +860,38 @@ const KhachHangManagement = () => {
                 {customers.map((customer) => (
                   <div
                     key={customer._id}
-                    className="bg-white rounded-xl shadow-sm border border-gray-100 p-5 hover:shadow-md transition-all relative group"
+                    className="bg-white rounded-xl shadow-sm border border-gray-100 p-5 hover:shadow-md transition-all relative group overflow-hidden"
                   >
-                    <div className="absolute top-4 right-4 flex space-x-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <div className="absolute top-0 right-0 bottom-0 flex flex-col w-12 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity z-10">
                       <button
                         onClick={() => handleViewCustomer(customer)}
-                        className="p-1.5 text-blue-600 bg-blue-50 hover:bg-blue-100 rounded-lg"
+                        className="flex-1 w-full flex items-center justify-center text-blue-700 bg-blue-100 hover:bg-blue-200 rounded-none transition-colors"
+                        title="Xem chi tiết"
                       >
                         <Eye className="w-4 h-4" />
                       </button>
                       <button
+                        onClick={() =>
+                          router.push(
+                            `/opportunities/create?customer=${customer._id}`,
+                          )
+                        }
+                        className="flex-1 w-full flex items-center justify-center text-purple-700 bg-purple-100 hover:bg-purple-200 rounded-none transition-colors"
+                        title="Tạo cơ hội"
+                      >
+                        <TrendingUp className="w-4 h-4" />
+                      </button>
+                      <button
                         onClick={() => handleEditCustomer(customer)}
-                        className="p-1.5 text-green-600 bg-green-50 hover:bg-green-100 rounded-lg"
+                        className="flex-1 w-full flex items-center justify-center text-green-700 bg-green-100 hover:bg-green-200 rounded-none transition-colors"
+                        title="Chỉnh sửa"
                       >
                         <Edit className="w-4 h-4" />
                       </button>
                       <button
                         onClick={() => handleDeleteCustomer(customer)}
-                        className="p-1.5 text-red-600 bg-red-50 hover:bg-red-100 rounded-lg"
+                        className="flex-1 w-full flex items-center justify-center text-red-700 bg-red-100 hover:bg-red-200 rounded-none transition-colors"
+                        title="Xóa"
                       >
                         <Trash2 className="w-4 h-4" />
                       </button>

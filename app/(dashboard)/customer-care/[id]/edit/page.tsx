@@ -314,9 +314,20 @@ const EditCustomerCare = ({ params }: { params: Promise<{ id: string }> }) => {
         const result = await response.json();
         const data = result.data;
 
+        // Set selected customer data if available
+        if (data.customerRef && typeof data.customerRef === "object") {
+          setSelectedCustomer({
+            _id: data.customerRef._id,
+            customerCode: data.customerRef.customerCode || "",
+            fullName: data.customerRef.fullName || "",
+            phone: data.customerRef.phone || "",
+            address: data.customerRef.address || "",
+          });
+        }
+
         setFormData({
           careId: data.careId || "",
-          customerId: data.customerId || "",
+          customerId: data.customerRef?._id || data.customerId || "", // Use ID from Ref first
           careType: data.careType || "Khảo sát nhu cầu",
           timeFrom: formatDateForInput(data.timeFrom),
           timeTo: formatDateForInput(data.timeTo),
@@ -334,13 +345,12 @@ const EditCustomerCare = ({ params }: { params: Promise<{ id: string }> }) => {
           files: data.files || [],
         });
 
-        if (data.opportunityRef) {
-          setSearchCustomer(data.customerRef?.fullName || data.customerId);
+        if (data.customerRef) {
+          setSearchCustomer(data.customerRef.fullName || "");
+        } else if (data.customerId) {
+          // Fallback if only string ID is available
+          setSearchCustomer(data.customerId);
         }
-
-        // If customerId exists, try to find/set search text (basic implementation)
-        // Ideally we fetch the specific customer details if not in list
-        // For simplicity, we assume we might need to search again or just show ID if not found
       } else {
         toast.error("Không thể tải thông tin kế hoạch");
         router.push("/customer-care");
@@ -400,13 +410,21 @@ const EditCustomerCare = ({ params }: { params: Promise<{ id: string }> }) => {
 
     try {
       const token = localStorage.getItem("token");
+
+      const submitData = {
+        ...formData,
+        customerRef: formData.customerId,
+        customerId: selectedCustomer?.customerCode || "",
+        opportunityRef: formData.opportunityRef?._id || undefined, // Extract ID
+      };
+
       const response = await fetch(`/api/customer-care/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(submitData),
       });
 
       const data = await response.json();

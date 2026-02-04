@@ -1,7 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import dbConnect from "../../../lib/dbConnect";
 import CustomerCare from "../../../models/CustomerCare";
+import Customer from "../../../models/Customer";
+import "../../../models/Opportunity"; // Import to register model
+import "../../../models/ProjectSurvey"; // Import to register model
+import "../../../models/Quotation"; // Import to register "BaoGia" model
 import { verifyToken } from "../../../lib/auth";
+import { getAssignedCustomerIds } from "../../../lib/permissions";
+import mongoose from "mongoose";
 
 // Helper function to verify authentication
 async function verifyAuth(request: NextRequest) {
@@ -37,15 +43,40 @@ export async function GET(request: NextRequest) {
 
     const query: any = {};
 
+    // Áp dụng phân quyền
+    const assignedCustomerIds = await getAssignedCustomerIds(auth, Customer);
+    if (assignedCustomerIds) {
+      // Lấy danh sách customerId string để hỗ trợ dữ liệu cũ
+      const customers = await Customer.find({
+        _id: { $in: assignedCustomerIds },
+      }).select("customerId");
+      const customerIdStrings = customers.map((c) => c.customerId);
+
+      query.$or = [
+        { customerRef: { $in: assignedCustomerIds } },
+        { "customerInfo._id": { $in: assignedCustomerIds } }, // Hỗ trợ query trên object nhúng mới
+        { customerId: { $in: customerIdStrings } },
+      ];
+    }
+
     if (search) {
       const searchRegex = { $regex: search, $options: "i" };
-      query.$or = [
+      const searchConditions = [
         { careId: searchRegex },
         { carePerson: searchRegex },
         { location: searchRegex },
-        { customerId: searchRegex }, // Tìm theo mã khách hàng nếu cần
+        { "customerInfo.shortName": searchRegex }, // Tìm trực tiếp trên tên khách hàng đã nhúng
+        { customerId: searchRegex },
         { interestedServices: searchRegex },
       ];
+
+      if (query.$or) {
+        // Nếu đã có $or từ phân quyền, dùng $and để kết hợp
+        query.$and = [{ $or: query.$or }, { $or: searchConditions }];
+        delete query.$or;
+      } else {
+        query.$or = searchConditions;
+      }
     }
 
     if (status && status !== "all") {
@@ -67,9 +98,12 @@ export async function GET(request: NextRequest) {
     const [data, total] = await Promise.all([
       CustomerCare.find(query)
         .populate("opportunityRef", "opportunityNo")
+        .populate("surveyRef", "surveyNo status")
+        .populate("quotationRef", "quotationNo status")
         .sort({ createdAt: -1 })
         .skip(skip)
-        .limit(limit),
+        .limit(limit)
+        .lean(), // Sử dụng lean() để trả về plain JS object, tăng tốc độ
       CustomerCare.countDocuments(query),
     ]);
 
@@ -105,7 +139,20 @@ export async function POST(request: NextRequest) {
     await dbConnect();
     const body = await request.json();
 
-    // Generate careId if not provided
+    // 1. Tự động lấy shortName từ Customer để nhúng vào CustomerCare
+    if (body.customerRef) {
+      const customerDoc = await Customer.findById(body.customerRef).select(
+        "shortName",
+      );
+      if (customerDoc) {
+        body.customerInfo = {
+          _id: customerDoc._id,
+          shortName: customerDoc.shortName,
+        };
+      }
+    }
+
+    // 2. Tạo careId tự động nếu không có
     if (!body.careId) {
       const date = new Date();
       const month = (date.getMonth() + 1).toString().padStart(2, "0");
@@ -116,7 +163,7 @@ export async function POST(request: NextRequest) {
       body.careId = `CSKH${month}${year}${random}`;
     }
 
-    // Clean up empty date strings
+    // 3. Làm sạch dữ liệu ngày tháng
     if (body.timeFrom === "") body.timeFrom = null;
     if (body.timeTo === "") body.timeTo = null;
     if (body.actualCareDate === "") body.actualCareDate = null;
@@ -124,20 +171,19 @@ export async function POST(request: NextRequest) {
     const customerCare = new CustomerCare(body);
     await customerCare.save();
 
-    // Nếu có liên kết cơ hội, cập nhật careHistory và demands trong Opportunity
+    // 4. Cập nhật lịch sử và nhu cầu vào Opportunity
     if (body.opportunityRef) {
       const Opportunity = (await import("../../../models/Opportunity")).default;
+
       const updateData: any = {
         $push: { careHistory: customerCare._id },
       };
 
-      // Cập nhật thêm demands nếu có interestedServices
-      if (
-        body.interestedServices &&
-        Array.isArray(body.interestedServices) &&
-        body.interestedServices.length > 0
-      ) {
-        updateData.$addToSet = { demands: { $each: body.interestedServices } };
+      // Cập nhật lại toàn bộ demands theo interestedServices mới nhất
+      // Vì UI đã load demands cũ vào interestedServices để user chỉnh sửa (thêm/bớt)
+      // nên việc dùng $set sẽ chính xác hơn $addToSet
+      if (body.interestedServices && Array.isArray(body.interestedServices)) {
+        updateData.$set = { demands: body.interestedServices };
       }
 
       await Opportunity.findByIdAndUpdate(body.opportunityRef, updateData);

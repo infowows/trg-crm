@@ -34,7 +34,9 @@ export async function GET(
     // Tìm kiếm theo _id hoặc careId
     const customerCare = await CustomerCare.findOne({
       $or: [{ _id: id.match(/^[0-9a-fA-F]{24}$/) ? id : null }, { careId: id }],
-    }).populate("opportunityRef");
+    })
+      .populate("opportunityRef")
+      .populate("customerRef");
 
     if (!customerCare) {
       return NextResponse.json(
@@ -95,6 +97,19 @@ export async function PUT(
         { success: false, message: "Không tìm thấy kế hoạch CSKH" },
         { status: 404 },
       );
+    }
+
+    // Đồng bộ ngược lại demands cho Opportunity nếu có thay đổi dịch vụ quan tâm
+    if (
+      customerCare.opportunityRef &&
+      body.interestedServices &&
+      Array.isArray(body.interestedServices)
+    ) {
+      const Opportunity = (await import("../../../../models/Opportunity"))
+        .default;
+      await Opportunity.findByIdAndUpdate(customerCare.opportunityRef, {
+        $set: { demands: body.interestedServices },
+      });
     }
 
     return NextResponse.json({

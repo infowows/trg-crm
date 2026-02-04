@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import {
   ArrowLeft,
   Save,
@@ -74,6 +74,7 @@ interface FormData {
 
 const CreateCustomerCare = () => {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [loading, setLoading] = useState(false);
   const [uploadingImages, setUploadingImages] = useState(false);
   const [uploadingFiles, setUploadingFiles] = useState(false);
@@ -136,6 +137,17 @@ const CreateCustomerCare = () => {
     loadServiceGroups();
     fetchOpportunities();
   }, []);
+
+  // Effect to handle opportunityId from URL
+  useEffect(() => {
+    const opportunityId = searchParams.get("opportunityId");
+    if (opportunityId && opportunities.length > 0) {
+      // Check if not already selected to avoid infinite loop or reset
+      if (formData.opportunityRef !== opportunityId) {
+        handleOpportunityChange(opportunityId);
+      }
+    }
+  }, [opportunities, searchParams]);
 
   const fetchOpportunities = async () => {
     try {
@@ -450,7 +462,14 @@ const CreateCustomerCare = () => {
 
     try {
       const token = localStorage.getItem("token");
-      const submitData = { ...formData };
+
+      // Prepare data for the updated API and Model
+      const submitData = {
+        ...formData,
+        customerRef: formData.customerId, // Map the selected ID to customerRef
+        // If we have the detailed customer object, pass the code to customerId string field
+        customerId: selectedCustomer?.customerCode || "",
+      };
 
       const response = await fetch("/api/customer-care", {
         method: "POST",
@@ -844,12 +863,12 @@ const CreateCustomerCare = () => {
 
                 {/* Manual add input */}
                 <div className="mt-4 pt-4 border-t border-gray-100">
-                  <div className="flex gap-2">
+                  <div className="flex gap-2 flex-col lg:flex-row">
                     <input
                       type="text"
                       id="manualService"
                       placeholder="Hoặc nhập thủ công nhu cầu khác..."
-                      className="flex-1 px-3 py-2 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 text-black"
+                      className="flex-2 px-3 py-2 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 text-black"
                       onKeyDown={(e) => {
                         if (e.key === "Enter") {
                           e.preventDefault();
@@ -872,7 +891,7 @@ const CreateCustomerCare = () => {
                           input.value = "";
                         }
                       }}
-                      className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg text-sm font-bold hover:bg-gray-200 transition"
+                      className="flex-1 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg text-sm font-bold hover:bg-gray-200 transition"
                     >
                       Thêm
                     </button>

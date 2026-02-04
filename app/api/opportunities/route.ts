@@ -1,7 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import dbConnect from "../../../lib/dbConnect";
 import Opportunity from "../../../models/Opportunity";
+import Customer from "../../../models/Customer";
 import { verifyToken } from "../../../lib/auth";
+import { getAssignedCustomerIds } from "../../../lib/permissions";
+import mongoose from "mongoose";
 
 async function verifyAuth(request: NextRequest) {
   const token = request.cookies.get("token")?.value;
@@ -32,7 +35,26 @@ export async function GET(request: NextRequest) {
 
     const query: any = {};
     if (status && status !== "all") query.status = status;
-    if (customerId) query.customerRef = customerId;
+
+    // Áp dụng phân quyền
+    const assignedCustomerIds = await getAssignedCustomerIds(auth, Customer);
+    if (assignedCustomerIds) {
+      if (customerId) {
+        // Nếu có customerId trong filter, kiểm tra xem có thuộc quyền quản lý không
+        if (
+          assignedCustomerIds.some((id: any) => id.toString() === customerId)
+        ) {
+          query.customerRef = customerId;
+        } else {
+          // Nếu không thuộc quyền quản lý, trả về rỗng hoặc lỗi
+          query.customerRef = new mongoose.Types.ObjectId(); // Query không khớp gì cả
+        }
+      } else {
+        query.customerRef = { $in: assignedCustomerIds };
+      }
+    } else if (customerId) {
+      query.customerRef = customerId;
+    }
 
     const skip = (page - 1) * limit;
 

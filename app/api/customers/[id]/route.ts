@@ -98,11 +98,29 @@ export async function PUT(
       );
     }
 
-    const customer = await Customer.findByIdAndUpdate(
-      id,
-      { ...body, updatedAt: new Date() },
-      { new: true, runValidators: true },
-    );
+    // Xử lý assignedTo theo phân quyền
+    const updateData = { ...body, updatedAt: new Date() };
+
+    if (body.assignedTo !== undefined) {
+      const position = auth.chuc_vu?.toLowerCase() || "";
+      const isAdmin = auth.phan_quyen === "admin";
+      const isLead =
+        position.includes("lead") ||
+        position.includes("trưởng") ||
+        position.includes("quản lý");
+
+      // Staff không được phép thay đổi assignedTo
+      if (!isAdmin && !isLead) {
+        delete updateData.assignedTo;
+      }
+      // Admin và Lead có thể thay đổi assignedTo
+      // (TODO: Lead nên chỉ được gán cho team của mình)
+    }
+
+    const customer = await Customer.findByIdAndUpdate(id, updateData, {
+      new: true,
+      runValidators: true,
+    });
 
     if (!customer) {
       return NextResponse.json(

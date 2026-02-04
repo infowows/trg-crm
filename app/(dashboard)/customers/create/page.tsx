@@ -45,6 +45,7 @@ interface CustomerFormData {
   firstContractValue: number;
   potentialLevel: string;
   salesPerson: string;
+  assignedTo: string; // ID của nhân viên được gán
   needsNote: string;
   isActive: boolean;
   lat: number;
@@ -72,6 +73,7 @@ const CreateCustomer = () => {
     Array<{ _id: string; fullName: string; position: string }>
   >([]);
   const [sources, setSources] = useState<any[]>([]);
+  const [currentUser, setCurrentUser] = useState<any>(null);
 
   // Mapbox state
   const mapRef = useRef<mapboxgl.Map | null>(null);
@@ -84,6 +86,7 @@ const CreateCustomer = () => {
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(-1);
   const searchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const shortNameTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const [formData, setFormData] = useState<CustomerFormData>({
     registrationDate: new Date().toISOString().split("T")[0],
@@ -103,6 +106,7 @@ const CreateCustomer = () => {
     firstContractValue: 0,
     potentialLevel: "⭐⭐⭐",
     salesPerson: "",
+    assignedTo: "",
     needsNote: "",
     isActive: true,
     lat: 0,
@@ -117,6 +121,25 @@ const CreateCustomer = () => {
         if (!token) {
           router.push("/login");
           return;
+        }
+
+        // Get current user info
+        const userDataStr = localStorage.getItem("userData");
+        if (userDataStr) {
+          const userData = JSON.parse(userDataStr);
+          setCurrentUser(userData);
+
+          // Auto-assign to current user if staff
+          const position = userData.chuc_vu?.toLowerCase() || "";
+          const isStaff =
+            !position.includes("lead") &&
+            !position.includes("trưởng") &&
+            !position.includes("quản lý") &&
+            userData.phan_quyen !== "admin";
+
+          if (isStaff) {
+            setFormData((prev) => ({ ...prev, assignedTo: userData.id }));
+          }
         }
 
         // Fetch sales persons
@@ -163,6 +186,9 @@ const CreateCustomer = () => {
     return () => {
       if (searchTimeoutRef.current) {
         clearTimeout(searchTimeoutRef.current);
+      }
+      if (shortNameTimeoutRef.current) {
+        clearTimeout(shortNameTimeoutRef.current);
       }
     };
   }, []);
@@ -671,6 +697,53 @@ const CreateCustomer = () => {
     }
   };
 
+  // Hàm tạo tên viết tắt từ tên đầy đủ theo quy tắc:
+  // Tên cuối (Normalized) + Ký tự đầu của tất cả các từ phía trước
+  const generateShortName = (name: string) => {
+    if (!name) return "";
+
+    // Chuẩn hóa và loại bỏ dấu tiếng Việt
+    const normalized = name
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/đ/g, "d")
+      .replace(/Đ/g, "D")
+      .trim();
+
+    const words = normalized.split(/\s+/).filter((w) => w.length > 0);
+    if (words.length === 0) return "";
+    if (words.length === 1) return words[0].toUpperCase();
+
+    const lastWord = words[words.length - 1];
+    const otherWords = words.slice(0, words.length - 1);
+
+    // Lấy ký tự đầu của tất cả các từ phía trước
+    const suffix = otherWords.map((w) => w[0]).join("");
+
+    return (lastWord + suffix).toUpperCase();
+  };
+
+  // Xử lý khi rời khỏi trường Tên đầy đủ
+  const handleFullNameBlur = () => {
+    // Xóa timeout cũ nếu có
+    if (shortNameTimeoutRef.current) {
+      clearTimeout(shortNameTimeoutRef.current);
+    }
+
+    // Luôn cập nhật tên viết tắt theo tên đầy đủ mới nhất
+    shortNameTimeoutRef.current = setTimeout(() => {
+      setFormData((prev) => {
+        if (prev.fullName.trim()) {
+          return {
+            ...prev,
+            shortName: generateShortName(prev.fullName),
+          };
+        }
+        return prev;
+      });
+    }, 2000);
+  };
+
   // Validate form
   const validateForm = () => {
     if (!formData.fullName.trim()) {
@@ -945,6 +1018,7 @@ const CreateCustomer = () => {
                 name="fullName"
                 value={formData.fullName}
                 onChange={handleInputChange}
+                onBlur={handleFullNameBlur}
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
                 placeholder="Nhập tên đầy đủ của khách hàng"
                 required
