@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
   ArrowLeft,
@@ -72,7 +72,7 @@ interface FormData {
   files?: FileMetadata[];
 }
 
-const CreateCustomerCare = () => {
+const CreateCustomerCareForm = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [loading, setLoading] = useState(false);
@@ -1080,6 +1080,14 @@ const CreateCustomerCare = () => {
         </form>
       </div>
     </div>
+  );
+};
+
+const CreateCustomerCare = () => {
+  return (
+    <Suspense fallback={<div>Đang tải...</div>}>
+      <CreateCustomerCareForm />
+    </Suspense>
   );
 };
 

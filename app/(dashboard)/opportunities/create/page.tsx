@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
   Target,
@@ -18,7 +18,7 @@ import { toast } from "react-toastify";
 import Popup from "@/components/Popup";
 import { formatNumberInput, parseNumberInput } from "@/lib/utils";
 
-const CreateOpportunity = () => {
+const CreateOpportunityForm = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const customerIdFromUrl = searchParams.get("customer");
@@ -344,6 +344,14 @@ const CreateOpportunity = () => {
         type={popup.type}
       />
     </div>
+  );
+};
+
+const CreateOpportunity = () => {
+  return (
+    <Suspense fallback={<div>Đang tải...</div>}>
+      <CreateOpportunityForm />
+    </Suspense>
   );
 };
 
