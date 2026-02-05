@@ -73,7 +73,7 @@ const ServiceGroupSchema = new __TURBOPACK__imported__module__$5b$externals$5d2f
     }
 }, {
     timestamps: true,
-    collection: "Nhóm Dịch Vụ"
+    collection: "Nhóm dịch vụ"
 });
 const __TURBOPACK__default__export__ = __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].models.ServiceGroup || __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].model("ServiceGroup", ServiceGroupSchema);
 }),
@@ -86,28 +86,44 @@ __turbopack_context__.s([
 ]);
 var __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__ = __turbopack_context__.i("[externals]/mongoose [external] (mongoose, cjs, [project]/node_modules/mongoose)");
 ;
-const connection = {
-    isConnected: false
-};
+const MONGODB_URI = process.env.MONGODB_URI;
+if (!MONGODB_URI) {
+    throw new Error("Please define the MONGODB_URI environment variable inside .env.local");
+}
+/**
+ * Global is used here to maintain a cached connection across hot reloads
+ * in development. This prevents connections growing exponentially
+ * during API Route usage.
+ */ let cached = /*TURBOPACK member replacement*/ __turbopack_context__.g.mongoose;
+if (!cached) {
+    cached = /*TURBOPACK member replacement*/ __turbopack_context__.g.mongoose = {
+        conn: null,
+        promise: null
+    };
+}
 async function dbConnect() {
-    if (connection.isConnected) {
-        console.log("♻️ Using existing MongoDB connection");
-        return __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"];
+    if (cached.conn) {
+        // console.log("♻️ Using existing MongoDB connection");
+        return cached.conn;
+    }
+    if (!cached.promise) {
+        const opts = {
+            bufferCommands: false
+        };
+        console.log("📡 Connecting to MongoDB...");
+        cached.promise = __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].connect(MONGODB_URI, opts).then((mongoose)=>{
+            console.log("✅ MongoDB connected successfully");
+            return mongoose;
+        });
     }
     try {
-        console.log("📡 Connecting to MongoDB...");
-        const db = await __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].connect(process.env.MONGODB_URI, {
-            bufferCommands: false
-        });
-        connection.isConnected = db.connections[0].readyState === 1;
-        console.log("✅ MongoDB connected successfully");
-        console.log("📊 Database name:", db.connection.name);
-        return db;
-    } catch (error) {
-        console.error("❌ MongoDB connection error:", error);
-        connection.isConnected = false;
-        throw error;
+        cached.conn = await cached.promise;
+    } catch (e) {
+        cached.promise = null;
+        console.error("❌ MongoDB connection error:", e);
+        throw e;
     }
+    return cached.conn;
 }
 const __TURBOPACK__default__export__ = dbConnect;
 }),
@@ -187,7 +203,7 @@ async function POST(request) {
     try {
         await (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$dbConnect$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"])();
         const body = await request.json();
-        const { name, code, description, isActive } = body;
+        const { name, description, isActive } = body;
         // Validation
         if (!name || !name.trim()) {
             return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
@@ -197,30 +213,27 @@ async function POST(request) {
                 status: 400
             });
         }
-        if (!code || !code.trim()) {
-            return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
-                success: false,
-                message: "Mã nhóm dịch vụ là bắt buộc"
-            }, {
-                status: 400
-            });
-        }
-        // Kiểm tra mã đã tồn tại chưa
-        const existingGroup = await __TURBOPACK__imported__module__$5b$project$5d2f$models$2f$ServiceGroup$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].findOne({
-            code: code.toUpperCase().trim()
+        // Tự động tạo mã nhóm dịch vụ (SG-XXXX)
+        const lastGroup = await __TURBOPACK__imported__module__$5b$project$5d2f$models$2f$ServiceGroup$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].findOne({}, {
+            code: 1
+        }).sort({
+            code: -1
         });
-        if (existingGroup) {
-            return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
-                success: false,
-                message: "Mã nhóm dịch vụ đã tồn tại"
-            }, {
-                status: 400
-            });
+        let newCode = "SG-0001";
+        if (lastGroup && lastGroup.code && lastGroup.code.startsWith("SG-")) {
+            const currentNumber = parseInt(lastGroup.code.replace("SG-", ""));
+            if (!isNaN(currentNumber)) {
+                newCode = `SG-${(currentNumber + 1).toString().padStart(4, "0")}`;
+            }
+        } else if (lastGroup && lastGroup.code) {
+            // Trường hợp có dữ liệu cũ không đúng format SG-
+            const count = await __TURBOPACK__imported__module__$5b$project$5d2f$models$2f$ServiceGroup$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].countDocuments();
+            newCode = `SG-${(count + 1).toString().padStart(4, "0")}`;
         }
         // Tạo nhóm dịch vụ mới
         const serviceGroup = new __TURBOPACK__imported__module__$5b$project$5d2f$models$2f$ServiceGroup$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"]({
             name: name.trim(),
-            code: code.toUpperCase().trim(),
+            code: newCode,
             description: description?.trim() || "",
             isActive: isActive !== undefined ? isActive : true
         });
@@ -232,14 +245,6 @@ async function POST(request) {
         });
     } catch (error) {
         console.error("Error creating service group:", error);
-        if (error.code === 11000) {
-            return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
-                success: false,
-                message: "Mã nhóm dịch vụ đã tồn tại"
-            }, {
-                status: 400
-            });
-        }
         return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
             success: false,
             message: "Không thể tạo nhóm dịch vụ mới"

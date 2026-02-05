@@ -3,6 +3,8 @@ import dbConnect from "../../../lib/dbConnect";
 import Quotation from "../../../models/Quotation";
 import ProjectSurvey from "../../../models/ProjectSurvey";
 import Customer from "../../../models/Customer";
+import CustomerCare from "../../../models/CustomerCare";
+import ServicePricing from "../../../models/ServicePricing";
 import { verifyToken } from "../../../lib/auth";
 import { getAssignedCustomerIds } from "../../../lib/permissions";
 import mongoose from "mongoose";
@@ -31,6 +33,13 @@ export async function GET(request: NextRequest) {
 
     await dbConnect();
     await mongoose.connection.db;
+
+    // Force registration of models
+    const _cc = CustomerCare;
+    const _ps = ProjectSurvey;
+    const _sp = ServicePricing;
+    const _c = Customer;
+    const _q = Quotation;
 
     const { searchParams } = new URL(request.url);
     const page = parseInt(searchParams.get("page") || "1");
@@ -69,6 +78,7 @@ export async function GET(request: NextRequest) {
 
     const skip = (page - 1) * limit;
 
+    console.log("Querying quotations with populate..."); // Force reload and debug
     const [quotations, total] = await Promise.all([
       Quotation.find(query)
         .populate("customerRef", "fullName customerId")
@@ -136,9 +146,9 @@ export async function POST(request: NextRequest) {
       quotationNo = `BG${String(lastNumber + 1).padStart(3, "0")}`;
     }
 
-    console.log("=== CREATING QUOTATION ===");
-    console.log("Request body:", body);
-    console.log("Packages:", packages);
+    // console.log("=== CREATING QUOTATION ===");
+    // console.log("Request body:", body);
+    // console.log("Packages:", packages);
 
     // Tính toán totalAmount và grandTotal manual
     let totalAmount = 0;
@@ -158,15 +168,15 @@ export async function POST(request: NextRequest) {
         return processedService;
       }) || [];
 
-    console.log("Processed packages:", processedPackages);
-    console.log("Calculated totalAmount:", totalAmount);
+    // console.log("Processed packages:", processedPackages);
+    // console.log("Calculated totalAmount:", totalAmount);
 
     const quotation = new Quotation({
       quotationNo,
       customer,
-      customerRef,
-      surveyRef,
-      careRef,
+      customerRef: customerRef || undefined,
+      surveyRef: surveyRef || undefined,
+      careRef: careRef || undefined,
       date: date ? new Date(date) : new Date(),
       packages: processedPackages,
       totalAmount,
@@ -176,14 +186,14 @@ export async function POST(request: NextRequest) {
       createdBy: auth.username,
     });
 
-    console.log("Quotation object before save:", quotation);
-    console.log("Quotation packages before save:", quotation.packages);
+    // console.log("Quotation object before save:", quotation);
+    // console.log("Quotation packages before save:", quotation.packages);
 
     await quotation.save();
 
     // Cập nhật isUsed = true cho các service pricing đã sử dụng
-    const ServicePricing = mongoose.models.ServicePricing;
-    if (ServicePricing && packages && packages.length > 0) {
+    const ServicePricingModel = ServicePricing;
+    if (ServicePricingModel && packages && packages.length > 0) {
       const pricingIds: string[] = [];
 
       // Lấy tất cả pricing IDs từ packages
@@ -197,7 +207,7 @@ export async function POST(request: NextRequest) {
 
       // Cập nhật isUsed = true cho các pricing đã sử dụng
       if (pricingIds.length > 0) {
-        await ServicePricing.updateMany(
+        await ServicePricingModel.updateMany(
           { _id: { $in: pricingIds } },
           { isUsed: true },
         );
@@ -206,9 +216,9 @@ export async function POST(request: NextRequest) {
 
     // Nếu có surveyRef, cập nhật quotationNo trong survey
     if (surveyRef) {
-      const ProjectSurvey = mongoose.models.PROJECT_SURVEY;
-      if (ProjectSurvey) {
-        await ProjectSurvey.findByIdAndUpdate(surveyRef, {
+      const ProjectSurveyModel = ProjectSurvey;
+      if (ProjectSurveyModel) {
+        await ProjectSurveyModel.findByIdAndUpdate(surveyRef, {
           quotationNo,
           status: "quoted",
           updatedAt: new Date(),
@@ -218,9 +228,9 @@ export async function POST(request: NextRequest) {
 
     // Nếu có careRef, cập nhật quotationRef trong CustomerCare
     if (careRef) {
-      const CustomerCare = mongoose.models.CustomerCare;
-      if (CustomerCare) {
-        await CustomerCare.findByIdAndUpdate(careRef, {
+      const CustomerCareModel = CustomerCare;
+      if (CustomerCareModel) {
+        await CustomerCareModel.findByIdAndUpdate(careRef, {
           quotationRef: quotation._id,
           quotationNo: quotation.quotationNo,
         });

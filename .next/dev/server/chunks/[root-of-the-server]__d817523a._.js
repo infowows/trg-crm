@@ -50,28 +50,44 @@ __turbopack_context__.s([
 ]);
 var __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__ = __turbopack_context__.i("[externals]/mongoose [external] (mongoose, cjs, [project]/node_modules/mongoose)");
 ;
-const connection = {
-    isConnected: false
-};
+const MONGODB_URI = process.env.MONGODB_URI;
+if (!MONGODB_URI) {
+    throw new Error("Please define the MONGODB_URI environment variable inside .env.local");
+}
+/**
+ * Global is used here to maintain a cached connection across hot reloads
+ * in development. This prevents connections growing exponentially
+ * during API Route usage.
+ */ let cached = /*TURBOPACK member replacement*/ __turbopack_context__.g.mongoose;
+if (!cached) {
+    cached = /*TURBOPACK member replacement*/ __turbopack_context__.g.mongoose = {
+        conn: null,
+        promise: null
+    };
+}
 async function dbConnect() {
-    if (connection.isConnected) {
-        console.log("♻️ Using existing MongoDB connection");
-        return __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"];
+    if (cached.conn) {
+        // console.log("♻️ Using existing MongoDB connection");
+        return cached.conn;
+    }
+    if (!cached.promise) {
+        const opts = {
+            bufferCommands: false
+        };
+        console.log("📡 Connecting to MongoDB...");
+        cached.promise = __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].connect(MONGODB_URI, opts).then((mongoose)=>{
+            console.log("✅ MongoDB connected successfully");
+            return mongoose;
+        });
     }
     try {
-        console.log("📡 Connecting to MongoDB...");
-        const db = await __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].connect(process.env.MONGODB_URI, {
-            bufferCommands: false
-        });
-        connection.isConnected = db.connections[0].readyState === 1;
-        console.log("✅ MongoDB connected successfully");
-        console.log("📊 Database name:", db.connection.name);
-        return db;
-    } catch (error) {
-        console.error("❌ MongoDB connection error:", error);
-        connection.isConnected = false;
-        throw error;
+        cached.conn = await cached.promise;
+    } catch (e) {
+        cached.promise = null;
+        console.error("❌ MongoDB connection error:", e);
+        throw e;
     }
+    return cached.conn;
 }
 const __TURBOPACK__default__export__ = dbConnect;
 }),
@@ -108,9 +124,9 @@ const positionSchema = new __TURBOPACK__imported__module__$5b$externals$5d2f$mon
         default: Date.now
     }
 }, {
-    collection: "Chức vuj"
+    collection: "Chức vụ"
 });
-const Position = __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].models.CD_CHUCVU || __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].model("CD_CHUCVU", positionSchema);
+const Position = __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].models.ChucVu || __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].model("ChucVu", positionSchema);
 const __TURBOPACK__default__export__ = Position;
 }),
 "[externals]/buffer [external] (buffer, cjs)", ((__turbopack_context__, module, exports) => {

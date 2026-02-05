@@ -30,7 +30,7 @@ interface Customer {
   serviceGroup?: string;
   marketingClassification?: string;
   potentialLevel?: string;
-  salesPerson?: string;
+
   assignedTo?: any; // ObjectId hoặc populated employee object
   needsNote?: string;
   isActive: boolean;
@@ -74,7 +74,7 @@ const CustomerUpdate = () => {
   >([]);
   const [sources, setSources] = useState<SourceSetting[]>([]);
   const [employees, setEmployees] = useState<
-    Array<{ _id: string; fullName: string; position: string }>
+    Array<{ _id: string; fullName: string; position: string; role: string }>
   >([]);
   const [currentUser, setCurrentUser] = useState<any>(null);
   const [customer, setCustomer] = useState<Customer | null>(null);
@@ -93,13 +93,24 @@ const CustomerUpdate = () => {
     serviceGroup: "",
     marketingClassification: "",
     potentialLevel: "Trung bình",
-    salesPerson: "",
+
     assignedTo: "",
     needsNote: "",
     isActive: true,
     latitude: "",
     longitude: "",
   });
+
+  const position = currentUser?.chuc_vu?.toLowerCase() || "";
+  const role = currentUser?.phan_quyen || "";
+
+  const isAdmin = role === "admin";
+  const isLead =
+    !isAdmin &&
+    (position.includes("lead") ||
+      position.includes("trưởng") ||
+      position.includes("quản lý"));
+  const isStaff = !isAdmin && !isLead;
 
   useEffect(() => {
     const initializeCustomerId = async () => {
@@ -182,12 +193,7 @@ const CustomerUpdate = () => {
   useEffect(() => {
     console.log("Customer loaded:", {
       customer: !!customer,
-      salesPerson: customer?.salesPerson,
     });
-
-    if (customer && customer.salesPerson) {
-      console.log("Sales person string:", customer.salesPerson);
-    }
   }, [customer]);
 
   const loadSources = async () => {
@@ -277,7 +283,7 @@ const CustomerUpdate = () => {
           serviceGroup: customerData.serviceGroup || "",
           marketingClassification: customerData.marketingClassification || "",
           potentialLevel: customerData.potentialLevel || "Trung bình",
-          salesPerson: customerData.salesPerson || "",
+
           assignedTo:
             typeof customerData.assignedTo === "object"
               ? customerData.assignedTo?._id || ""
@@ -617,56 +623,40 @@ const CustomerUpdate = () => {
                                     </select>
                                 </div> */}
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Sales phụ trách
-                  </label>
-                  <input
-                    type="text"
-                    name="salesPerson"
-                    value={formData.salesPerson}
-                    onChange={handleInputChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
-                    placeholder="Nhập tên nhân viên phụ trách"
-                  />
-                </div>
-
                 {/* Người phụ trách */}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     <User className="w-4 h-4 inline mr-1" />
                     Người phụ trách <span className="text-red-500">*</span>
                   </label>
-                  {currentUser &&
-                  (currentUser.phan_quyen === "admin" ||
-                    currentUser.chuc_vu?.toLowerCase().includes("lead") ||
-                    currentUser.chuc_vu?.toLowerCase().includes("trưởng") ||
-                    currentUser.chuc_vu?.toLowerCase().includes("quản lý")) ? (
-                    <select
-                      name="assignedTo"
-                      value={formData.assignedTo}
-                      onChange={handleInputChange}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
-                      required
-                    >
+                  <select
+                    name="assignedTo"
+                    value={formData.assignedTo}
+                    onChange={handleInputChange}
+                    disabled={isStaff}
+                    className={`w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none ${isStaff ? "bg-gray-100 cursor-not-allowed" : ""}`}
+                    required
+                  >
+                    {!isStaff && (
                       <option value="">-- Chọn người phụ trách --</option>
-                      {employees.map((person) => (
+                    )}
+                    {employees
+                      .filter((emp) => {
+                        // Nếu là staff, chỉ hiện chính mình (để hiển thị đúng value đã chọn)
+                        // Hoặc có thể hiện tất cả trong list nhưng disabled.
+                        // Logic thống nhất:
+                        // Staff: chỉ xem chính mình (nếu data assign đúng behavior)
+                        // Lead: không xem admin
+                        if (isStaff) return emp._id === currentUser?.id;
+                        if (isLead) return emp.role !== "admin";
+                        return true;
+                      })
+                      .map((person) => (
                         <option key={person._id} value={person._id}>
                           {person.fullName} ({person.position})
                         </option>
                       ))}
-                    </select>
-                  ) : (
-                    <div className="w-full px-3 py-2 border border-gray-200 rounded-lg bg-gray-50 text-gray-700 flex items-center">
-                      <User className="w-4 h-4 mr-2 text-gray-500" />
-                      {currentUser?.ho_ten || "Đang tải..."}
-                      <input
-                        type="hidden"
-                        name="assignedTo"
-                        value={formData.assignedTo}
-                      />
-                    </div>
-                  )}
+                  </select>
                 </div>
               </div>
             </div>

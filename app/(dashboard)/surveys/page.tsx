@@ -259,9 +259,9 @@ const SurveyList = () => {
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Địa chỉ
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  {/* <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Trạng thái
-                  </th>
+                  </th> */}
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Báo giá
                   </th>
@@ -295,12 +295,12 @@ const SurveyList = () => {
                           {survey.surveyAddress || "-"}
                         </div>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-black">
+                      {/* <td className="px-6 py-4 whitespace-nowrap text-black">
                         <span className="inline-flex items-center gap-1 px-2 py-1 text-xs font-semibold rounded-full ${statusConfig.color}">
                           <StatusIcon className="w-3 h-3" />
                           {statusConfig.label}
                         </span>
-                      </td>
+                      </td> */}
                       <td className="px-6 py-4 whitespace-nowrap">
                         {survey.quotationNo ? (
                           <span className="text-sm font-medium text-green-600">

@@ -16,7 +16,6 @@ export interface ICustomer extends Document {
   appraisalStatus?: string; // Xếp loại (Phù hợp/Không phù hợp...)
   appraisalNote?: string; // Ghi chú thẩm định chi tiết
   potentialLevel?: string; // 1 - 5 stars
-  salesPerson?: string;
   assignedTo?: mongoose.Types.ObjectId;
   needsNote?: string;
   trueCustomerDate?: Date; // khi có hợp đồng đầu tiên thành công
@@ -91,10 +90,6 @@ const CustomerSchema: Schema = new Schema(
       trim: true,
     },
     potentialLevel: {
-      type: String,
-      trim: true,
-    },
-    salesPerson: {
       type: String,
       trim: true,
     },

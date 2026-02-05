@@ -44,7 +44,6 @@ interface CustomerFormData {
   trueCustomerDate: string;
   firstContractValue: number;
   potentialLevel: string;
-  salesPerson: string;
   assignedTo: string; // ID của nhân viên được gán
   needsNote: string;
   isActive: boolean;
@@ -70,7 +69,7 @@ const CreateCustomer = () => {
     type: "success",
   });
   const [salesPersons, setSalesPersons] = useState<
-    Array<{ _id: string; fullName: string; position: string }>
+    Array<{ _id: string; fullName: string; position: string; role: string }>
   >([]);
   const [sources, setSources] = useState<any[]>([]);
   const [currentUser, setCurrentUser] = useState<any>(null);
@@ -105,13 +104,23 @@ const CreateCustomer = () => {
     trueCustomerDate: "",
     firstContractValue: 0,
     potentialLevel: "⭐⭐⭐",
-    salesPerson: "",
     assignedTo: "",
     needsNote: "",
     isActive: true,
     lat: 0,
     lng: 0,
   });
+
+  const position = currentUser?.chuc_vu?.toLowerCase() || "";
+  const role = currentUser?.phan_quyen || "";
+
+  const isAdmin = role === "admin";
+  const isLead =
+    !isAdmin &&
+    (position.includes("lead") ||
+      position.includes("trưởng") ||
+      position.includes("quản lý"));
+  const isStaff = !isAdmin && !isLead;
 
   // Fetch sales persons and service groups
   useEffect(() => {
@@ -806,7 +815,7 @@ const CreateCustomer = () => {
           ? new Date(formData.trueCustomerDate)
           : undefined,
         firstContractValue: formData.firstContractValue,
-        salesPerson: formData.salesPerson.trim() || undefined,
+        assignedTo: formData.assignedTo || undefined,
         needsNote: formData.needsNote.trim() || undefined,
       };
 
@@ -1438,17 +1447,24 @@ const CreateCustomer = () => {
                 Nhân viên phụ trách
               </label>
               <select
-                name="salesPerson"
-                value={formData.salesPerson}
+                name="assignedTo"
+                value={formData.assignedTo}
                 onChange={handleInputChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                disabled={isStaff}
+                className={`w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none ${isStaff ? "bg-gray-100 cursor-not-allowed" : ""}`}
               >
-                <option value="">-- Chọn nhân viên --</option>
-                {salesPersons.map((person) => (
-                  <option key={person._id} value={person.fullName}>
-                    {person.fullName} - {person.position || "Nhân viên"}
-                  </option>
-                ))}
+                {!isStaff && <option value="">-- Chọn nhân viên --</option>}
+                {salesPersons
+                  .filter((person) => {
+                    if (isStaff) return person._id === currentUser?.id;
+                    if (isLead) return person.role !== "admin";
+                    return true;
+                  })
+                  .map((person) => (
+                    <option key={person._id} value={person._id}>
+                      {person.fullName} - {person.position || "Nhân viên"}
+                    </option>
+                  ))}
               </select>
             </div>
 

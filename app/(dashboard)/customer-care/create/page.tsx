@@ -58,6 +58,8 @@ interface FormData {
   careId: string;
   customerId: string;
   opportunityRef: string;
+  surveyRef: string;
+  quotationRef: string;
   careType: string;
   timeFrom: string;
   timeTo: string;
@@ -89,6 +91,9 @@ const CreateCustomerCareForm = () => {
   const [opportunities, setOpportunities] = useState<any[]>([]);
   const [selectedOpportunity, setSelectedOpportunity] = useState<any>(null);
 
+  const [surveys, setSurveys] = useState<any[]>([]);
+  const [quotations, setQuotations] = useState<any[]>([]);
+
   // Employee states
   const [employees, setEmployees] = useState<
     Array<{ _id: string; fullName: string }>
@@ -107,6 +112,8 @@ const CreateCustomerCareForm = () => {
     careId: "",
     customerId: "",
     opportunityRef: "",
+    surveyRef: "",
+    quotationRef: "",
     careType: "Tư vấn – Khảo sát",
     timeFrom: "",
     timeTo: "",
@@ -136,6 +143,8 @@ const CreateCustomerCareForm = () => {
     fetchEmployees();
     loadServiceGroups();
     fetchOpportunities();
+    fetchSurveys();
+    fetchQuotations();
   }, []);
 
   // Effect to handle opportunityId from URL
@@ -161,6 +170,36 @@ const CreateCustomerCareForm = () => {
       }
     } catch (err) {
       console.error("Error fetching opportunities:", err);
+    }
+  };
+
+  const fetchSurveys = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const res = await fetch("/api/surveys?limit=100", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setSurveys(data.data || []);
+      }
+    } catch (err) {
+      console.error("Error fetching surveys:", err);
+    }
+  };
+
+  const fetchQuotations = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const res = await fetch("/api/quotations?limit=100", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setQuotations(data.data || []);
+      }
+    } catch (err) {
+      console.error("Error fetching quotations:", err);
     }
   };
 
@@ -551,6 +590,89 @@ const CreateCustomerCareForm = () => {
                     {opportunities.map((opp) => (
                       <option key={opp._id} value={opp._id}>
                         {opp.opportunityNo} - {opp.customerRef?.fullName}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Liên kết khảo sát (Tùy chọn)
+                </label>
+                <div className="relative">
+                  <FileText className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                  <select
+                    name="surveyRef"
+                    value={formData.surveyRef}
+                    onChange={(e) => {
+                      const surveyId = e.target.value;
+                      setFormData((prev) => ({ ...prev, surveyRef: surveyId }));
+
+                      // Auto-select customer if survey selected and customer not set
+                      if (surveyId && !formData.customerId) {
+                        const survey = surveys.find((s) => s._id === surveyId);
+                        if (survey && survey.customerRef) {
+                          const customer =
+                            typeof survey.customerRef === "object"
+                              ? survey.customerRef
+                              : customers.find(
+                                  (c) => c._id === survey.customerRef,
+                                );
+                          if (customer) selectCustomer(customer);
+                        }
+                      }
+                    }}
+                    className="text-black w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 appearance-none bg-white"
+                  >
+                    <option value="">-- Chọn khảo sát --</option>
+                    {surveys.map((survey) => (
+                      <option key={survey._id} value={survey._id}>
+                        {survey.surveyNo} -{" "}
+                        {survey.customerRef?.fullName || "Khách lẻ"}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Liên kết báo giá (Tùy chọn)
+                </label>
+                <div className="relative">
+                  <FileText className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                  <select
+                    name="quotationRef"
+                    value={formData.quotationRef}
+                    onChange={(e) => {
+                      const quoteId = e.target.value;
+                      setFormData((prev) => ({
+                        ...prev,
+                        quotationRef: quoteId,
+                      }));
+
+                      // Auto-select customer if quote selected and customer not set
+                      if (quoteId && !formData.customerId) {
+                        const quote = quotations.find((q) => q._id === quoteId);
+                        if (quote && quote.customerRef) {
+                          const customer =
+                            typeof quote.customerRef === "object"
+                              ? quote.customerRef
+                              : customers.find(
+                                  (c) => c._id === quote.customerRef,
+                                );
+                          if (customer) selectCustomer(customer);
+                        }
+                      }
+                    }}
+                    className="text-black w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 appearance-none bg-white"
+                  >
+                    <option value="">-- Chọn báo giá --</option>
+                    {quotations.map((quote) => (
+                      <option key={quote._id} value={quote._id}>
+                        {quote.quotationNo} -{" "}
+                        {quote.customerRef?.fullName || quote.customer}
                       </option>
                     ))}
                   </select>

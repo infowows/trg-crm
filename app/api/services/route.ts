@@ -3,108 +3,113 @@ import dbConnect from "../../../lib/dbConnect";
 import Service from "../../../models/Service";
 
 export async function GET(request: NextRequest) {
-    try {
-        await dbConnect();
+  try {
+    await dbConnect();
 
-        const { searchParams } = new URL(request.url);
-        const page = parseInt(searchParams.get("page") || "1");
-        const limit = parseInt(searchParams.get("limit") || "10");
-        const active = searchParams.get("active");
-        const category = searchParams.get("category");
+    const { searchParams } = new URL(request.url);
+    const page = parseInt(searchParams.get("page") || "1");
+    const limit = parseInt(searchParams.get("limit") || "10");
+    const active = searchParams.get("active");
+    const category = searchParams.get("category");
 
-        console.log("API Services - Query params:", {
-            page,
-            limit,
-            active,
-            category,
-        });
+    console.log("API Services - Query params:", {
+      page,
+      limit,
+      active,
+      category,
+    });
 
-        const query: any = {};
-        if (active !== null && active !== undefined) {
-            query.isActive = active === "true";
-        }
-        if (category) {
-            query.serviceGroup = category;
-        }
-
-        console.log("API Services - MongoDB query:", query);
-
-        const skip = (page - 1) * limit;
-
-        const [data, total] = await Promise.all([
-            Service.find(query).sort({ createdAt: -1 }).skip(skip).limit(limit),
-            Service.countDocuments(query),
-        ]);
-
-        console.log("API Services - Found services:", data.length);
-
-        return NextResponse.json({
-            success: true,
-            data,
-            pagination: {
-                page,
-                limit,
-                total,
-                pages: Math.ceil(total / limit),
-            },
-        });
-    } catch (error) {
-        console.error("Error fetching services:", error);
-        return NextResponse.json(
-            { success: false, error: "Failed to fetch services" },
-            { status: 500 },
-        );
+    const query: any = {};
+    if (active !== null && active !== undefined) {
+      query.isActive = active === "true";
     }
+    if (category) {
+      query.serviceGroup = category;
+    }
+
+    console.log("API Services - MongoDB query:", query);
+
+    const skip = (page - 1) * limit;
+
+    const [data, total] = await Promise.all([
+      Service.find(query).sort({ createdAt: -1 }).skip(skip).limit(limit),
+      Service.countDocuments(query),
+    ]);
+
+    console.log("API Services - Found services:", data.length);
+
+    return NextResponse.json({
+      success: true,
+      data,
+      pagination: {
+        page,
+        limit,
+        total,
+        pages: Math.ceil(total / limit),
+      },
+    });
+  } catch (error) {
+    console.error("Error fetching services:", error);
+    return NextResponse.json(
+      { success: false, error: "Failed to fetch services" },
+      { status: 500 },
+    );
+  }
 }
 
 export async function POST(request: NextRequest) {
-    try {
-        await dbConnect();
-        const body = await request.json();
+  try {
+    await dbConnect();
+    const body = await request.json();
 
-        // Map frontend fields to database fields
-        const serviceData = {
-            serviceName: body.serviceName,
-            code: body.code || generateServiceCode(body.serviceName),
-            serviceGroup: body.serviceGroup,
-            description: body.description,
-            isActive: body.isActive,
-        };
+    // Tự động tạo mã dịch vụ (SVC-XXXX)
+    const lastService = await Service.findOne({}, { code: 1 }).sort({
+      code: -1,
+    });
+    let newCode = "SVC-0001";
 
-        const service = new Service(serviceData);
-        await service.save();
-
-        return NextResponse.json(
-            {
-                success: true,
-                data: service,
-            },
-            { status: 201 },
-        );
-    } catch (error: any) {
-        console.error("Error creating service:", error);
-
-        if (error.code === 11000) {
-            return NextResponse.json(
-                { success: false, error: "Code already exists" },
-                { status: 400 },
-            );
-        }
-
-        return NextResponse.json(
-            {
-                success: false,
-                error: error.message || "Failed to create service",
-            },
-            { status: 500 },
-        );
+    if (
+      lastService &&
+      lastService.code &&
+      lastService.code.startsWith("SVC-")
+    ) {
+      const currentNumber = parseInt(lastService.code.replace("SVC-", ""));
+      if (!isNaN(currentNumber)) {
+        newCode = `SVC-${(currentNumber + 1).toString().padStart(4, "0")}`;
+      }
+    } else if (lastService && lastService.code) {
+      const count = await Service.countDocuments();
+      newCode = `SVC-${(count + 1).toString().padStart(4, "0")}`;
     }
-}
 
-// Helper function to generate service code
-function generateServiceCode(serviceName: string): string {
-    return serviceName
-        .toUpperCase()
-        .replace(/[^A-Z0-9]/g, "_")
-        .substring(0, 10);
+    // Map frontend fields to database fields
+    const serviceData = {
+      serviceName: body.serviceName,
+      code: newCode,
+      serviceGroup: body.serviceGroup,
+      description: body.description,
+      isActive: body.isActive,
+    };
+
+    const service = new Service(serviceData);
+    await service.save();
+
+    return NextResponse.json(
+      {
+        success: true,
+        data: service,
+      },
+      { status: 201 },
+    );
+  } catch (error: any) {
+    console.error("Error creating service:", error);
+
+    return NextResponse.json(
+      {
+        success: false,
+        error: error.message || "Failed to create service",
+      },
+      { status: 500 },
+    );
+  }
 }

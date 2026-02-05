@@ -15,6 +15,8 @@ import {
   ChevronLeft,
   ChevronRight,
   X,
+  ChevronDown,
+  Package,
 } from "lucide-react";
 import { toast } from "react-toastify";
 
@@ -28,11 +30,97 @@ interface ServiceGroup {
   updatedAt: string;
 }
 
+interface Service {
+  _id: string;
+  serviceName: string;
+  code: string;
+  serviceGroup: string;
+  description?: string;
+  isActive: boolean;
+}
+
 const ServiceGroupManagement = () => {
   const router = useRouter();
   const [serviceGroups, setServiceGroups] = useState<ServiceGroup[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  const groupColors = [
+    {
+      bg: "bg-blue-50",
+      text: "text-blue-600",
+      shadow: "shadow-blue-50",
+      border: "border-blue-100",
+    },
+    {
+      bg: "bg-emerald-50",
+      text: "text-emerald-600",
+      shadow: "shadow-emerald-50",
+      border: "border-emerald-100",
+    },
+    {
+      bg: "bg-amber-50",
+      text: "text-amber-600",
+      shadow: "shadow-amber-50",
+      border: "border-amber-100",
+    },
+    {
+      bg: "bg-rose-50",
+      text: "text-rose-600",
+      shadow: "shadow-rose-50",
+      border: "border-rose-100",
+    },
+    {
+      bg: "bg-purple-50",
+      text: "text-purple-600",
+      shadow: "shadow-purple-50",
+      border: "border-purple-100",
+    },
+    {
+      bg: "bg-indigo-50",
+      text: "text-indigo-600",
+      shadow: "shadow-indigo-50",
+      border: "border-indigo-100",
+    },
+    {
+      bg: "bg-cyan-50",
+      text: "text-cyan-600",
+      shadow: "shadow-cyan-50",
+      border: "border-cyan-100",
+    },
+    {
+      bg: "bg-orange-50",
+      text: "text-orange-600",
+      shadow: "shadow-orange-50",
+      border: "border-orange-100",
+    },
+  ];
+
+  // const getGroupColor = (id: string, isActive: boolean) => {
+  //   if (!isActive)
+  //     return {
+  //       bg: "bg-gray-50",
+  //       text: "text-gray-400",
+  //       shadow: "shadow-none",
+  //       border: "border-gray-100",
+  //     };
+  //   const hash = id
+  //     .split("")
+  //     .reduce((acc, char) => acc + char.charCodeAt(0), 0);
+  //   return groupColors[hash % groupColors.length];
+  // };
+
+  const getGroupHeaderStyle = (id: string, isActive: boolean) => {
+    if (!isActive) return {};
+    const hash = id
+      .split("")
+      .reduce((acc, char) => acc + char.charCodeAt(0), 0);
+    const hue = hash % 360;
+    return {
+      backgroundColor: `hsla(${hue}, 50%, 85%, 0.8)`,
+      borderLeft: `6px solid hsla(${hue}, 50%, 60%, 1)`,
+    };
+  };
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState<string>("all");
   const [currentPage, setCurrentPage] = useState(1);
@@ -46,6 +134,10 @@ const ServiceGroupManagement = () => {
   const [viewingGroup, setViewingGroup] = useState<ServiceGroup | null>(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [deletingGroup, setDeletingGroup] = useState<ServiceGroup | null>(null);
+  const [collapsedGroups, setCollapsedGroups] = useState<Set<string>>(
+    new Set(),
+  );
+  const [services, setServices] = useState<Service[]>([]);
   const [submitLoading, setSubmitLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -98,6 +190,23 @@ const ServiceGroupManagement = () => {
     }
   };
 
+  const fetchServices = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await fetch("/api/services?limit=1000", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const data = await response.json();
+      if (data.success) {
+        setServices(data.data);
+      }
+    } catch (err) {
+      console.error("Error fetching services:", err);
+    }
+  };
+
   // Modal helpers
   const handleOpenModal = (group: ServiceGroup | null = null) => {
     if (group) {
@@ -136,6 +245,18 @@ const ServiceGroupManagement = () => {
     setViewingGroup(null);
   };
 
+  const toggleGroupCollapse = (groupId: string) => {
+    setCollapsedGroups((prev) => {
+      const newSet = new Set(prev);
+      if (newSet.has(groupId)) {
+        newSet.delete(groupId);
+      } else {
+        newSet.add(groupId);
+      }
+      return newSet;
+    });
+  };
+
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
@@ -164,16 +285,23 @@ const ServiceGroupManagement = () => {
         : "/api/service-groups";
       const method = editingGroup ? "PUT" : "POST";
 
+      const payload = {
+        ...formData,
+      };
+      if (editingGroup) {
+        payload.code = formData.code.toUpperCase().trim();
+      } else {
+        // @ts-ignore
+        delete payload.code;
+      }
+
       const response = await fetch(url, {
         method,
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({
-          ...formData,
-          code: formData.code.toUpperCase().trim(),
-        }),
+        body: JSON.stringify(payload),
       });
 
       const data = await response.json();
@@ -237,6 +365,7 @@ const ServiceGroupManagement = () => {
 
   useEffect(() => {
     fetchServiceGroups(currentPage, searchQuery, statusFilter);
+    fetchServices();
   }, [currentPage, searchQuery, statusFilter]);
 
   if (loading) {
@@ -331,24 +460,24 @@ const ServiceGroupManagement = () => {
         </div>
       )}
 
-      {/* Table */}
-      <div className="bg-white shadow rounded-lg overflow-hidden">
+      {/* Grouped Accordion View */}
+      <div className="space-y-6">
         {serviceGroups.length === 0 ? (
-          <div className="text-center py-12">
-            <Tag className="mx-auto h-12 w-12 text-gray-400" />
-            <h3 className="mt-2 text-sm font-medium text-gray-900">
+          <div className="bg-white shadow rounded-lg text-center py-20">
+            <Tag className="mx-auto h-16 w-16 text-gray-200" />
+            <h3 className="mt-4 text-lg font-bold text-gray-900 uppercase">
               Không có nhóm dịch vụ nào
             </h3>
-            <p className="mt-1 text-sm text-gray-500">
+            <p className="mt-2 text-gray-500 font-medium">
               {searchQuery || statusFilter !== "all"
                 ? "Thử thay đổi bộ lọc hoặc từ khóa tìm kiếm"
                 : "Thêm nhóm dịch vụ đầu tiên để bắt đầu quản lý"}
             </p>
             {!searchQuery && statusFilter === "all" && (
-              <div className="mt-6">
+              <div className="mt-8">
                 <button
                   onClick={() => handleOpenModal()}
-                  className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition mx-auto"
+                  className="inline-flex items-center px-8 py-4 bg-blue-600 text-white rounded-2xl font-black hover:bg-blue-700 transition-all shadow-xl shadow-blue-100 active:scale-95"
                 >
                   <Plus className="w-5 h-5 mr-2" />
                   Thêm nhóm dịch vụ đầu tiên
@@ -357,181 +486,240 @@ const ServiceGroupManagement = () => {
             )}
           </div>
         ) : (
-          <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
-                <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Mã nhóm
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Tên nhóm dịch vụ
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Mô tả
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Trạng thái
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Ngày tạo
-                  </th>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Thao tác
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
-                {serviceGroups.map((group) => (
-                  <tr key={group._id} className="hover:bg-gray-50">
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                      {group.code}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                      {group.name}
-                    </td>
-                    <td className="px-6 py-4 text-sm text-gray-500">
-                      <div className="max-w-xs truncate">
-                        {group.description || "-"}
-                      </div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <span
-                        className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                          group.isActive
-                            ? "bg-green-100 text-green-800"
-                            : "bg-red-100 text-red-800"
-                        }`}
-                      >
-                        {group.isActive ? (
-                          <>
-                            <CheckCircle className="w-3 h-3 mr-1" />
-                            Đang hoạt động
-                          </>
-                        ) : (
-                          <>
-                            <AlertCircle className="w-3 h-3 mr-1" />
-                            Ngừng hoạt động
-                          </>
-                        )}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      {formatDate(group.createdAt)}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                      <div className="flex items-center justify-end space-x-2">
-                        <button
-                          onClick={() => handleOpenViewModal(group)}
-                          className="text-blue-600 hover:text-blue-900"
-                          title="Xem chi tiết"
-                        >
-                          <Eye className="w-4 h-4" />
-                        </button>
-                        <button
-                          onClick={() => handleOpenModal(group)}
-                          className="text-green-600 hover:text-green-900"
-                          title="Chỉnh sửa"
-                        >
-                          <Edit className="w-4 h-4" />
-                        </button>
-                        <button
-                          onClick={() => {
-                            setDeletingGroup(group);
-                            setShowDeleteModal(true);
-                          }}
-                          className="text-red-600 hover:text-red-900"
-                          title="Xóa"
-                        >
-                          <Trash2 className="w-4 h-4" />
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
+          serviceGroups.map((group) => {
+            const groupServices = services.filter(
+              (s) => s.serviceGroup === group.name,
+            );
+            // const isCollapsed = collapsedGroups.has(group._id);
+            const isCollapsed = collapsedGroups.has(group._id);
 
-        {/* Pagination */}
-        {totalPages > 1 && (
-          <div className="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
-            <div className="flex-1 flex justify-between sm:hidden">
-              <button
-                onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-                disabled={currentPage === 1}
-                className="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+            return (
+              <div
+                key={group._id}
+                className="bg-white rounded-[2.5rem] shadow-sm border border-gray-100 overflow-hidden group transition-all"
               >
-                Trước
-              </button>
-              <button
-                onClick={() =>
-                  setCurrentPage((prev) => Math.min(prev + 1, totalPages))
-                }
-                disabled={currentPage === totalPages}
-                className="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                Sau
-              </button>
-            </div>
-            <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
-              <div>
-                <p className="text-sm text-gray-700">
-                  Hiển thị{" "}
-                  <span className="font-medium">
-                    {(currentPage - 1) * 10 + 1}
-                  </span>{" "}
-                  đến{" "}
-                  <span className="font-medium">
-                    {Math.min(currentPage * 10, total)}
-                  </span>{" "}
-                  trong tổng số <span className="font-medium">{total}</span> kết
-                  quả
-                </p>
-              </div>
-              <div>
-                <nav className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px">
-                  <button
-                    onClick={() =>
-                      setCurrentPage((prev) => Math.max(prev - 1, 1))
-                    }
-                    disabled={currentPage === 1}
-                    className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
-                  >
-                    <ChevronLeft className="w-5 h-5" />
-                  </button>
-                  {[...Array(totalPages)].map((_, index) => {
-                    const page = index + 1;
-                    return (
+                {/* Accordion Header */}
+                <div
+                  className={`flex flex-col sm:flex-row sm:items-center justify-between p-6 cursor-pointer hover:brightness-95 transition-all ${
+                    !isCollapsed ? "border-b border-gray-50" : ""
+                  }`}
+                  style={getGroupHeaderStyle(group._id, group.isActive)}
+                  onClick={() => toggleGroupCollapse(group._id)}
+                >
+                  <div className="flex items-center gap-6">
+                    {/* <div
+                      className={`w-12 h-12 rounded-2xl flex items-center justify-center transition-all ${
+                        getGroupColor(group._id, group.isActive).bg
+                      } ${getGroupColor(group._id, group.isActive).text} shadow-sm ${
+                        getGroupColor(group._id, group.isActive).shadow
+                      }`}
+                    >
+                      <Tag className="w-6 h-6" />
+                    </div> */}
+                    <div>
+                      <div className="flex items-center gap-3">
+                        <h3 className="text-xl font-bold text-gray-900 uppercase tracking-tight">
+                          {group.name}
+                        </h3>
+                        <span className="px-2 py-0.5 bg-gray-100 text-gray-500 rounded-lg text-[10px] font-black tracking-widest uppercase">
+                          {group.code}
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-4 mt-1">
+                        <div className="text-xs font-bold text-gray-400">
+                          {groupServices.length} dịch vụ trực thuộc
+                        </div>
+                        <div className="w-1 h-1 bg-gray-300 rounded-full"></div>
+                        <div className="text-xs text-gray-400 font-bold">
+                          {formatDate(group.createdAt)}
+                        </div>
+                      </div>
+                      {group.description && (
+                        <p className="mt-2 text-xs text-gray-500 font-medium line-clamp-1 max-w-lg">
+                          {group.description}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-4 mt-4 sm:mt-0">
+                    <div
+                      className="flex items-center gap-2"
+                      onClick={(e) => e.stopPropagation()}
+                    >
                       <button
-                        key={page}
-                        onClick={() => setCurrentPage(page)}
-                        className={`relative inline-flex items-center px-4 py-2 border text-sm font-medium ${
-                          currentPage === page
-                            ? "z-10 bg-blue-50 border-blue-500 text-blue-600"
-                            : "bg-white border-gray-300 text-gray-500 hover:bg-gray-50"
-                        }`}
+                        onClick={() =>
+                          router.push(`/services/create?group=${group.name}`)
+                        }
+                        className="w-10 h-10 flex items-center justify-center bg-blue-600 text-white hover:bg-black rounded-xl transition-all shadow-lg shadow-blue-100"
+                        title="Thêm dịch vụ vào nhóm này"
                       >
-                        {page}
+                        <Plus className="w-5 h-5" />
                       </button>
-                    );
-                  })}
-                  <button
-                    onClick={() =>
-                      setCurrentPage((prev) => Math.min(prev + 1, totalPages))
-                    }
-                    disabled={currentPage === totalPages}
-                    className="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
-                  >
-                    <ChevronRight className="w-5 h-5" />
-                  </button>
-                </nav>
+                      <button
+                        onClick={() => handleOpenViewModal(group)}
+                        className="w-10 h-10 flex items-center justify-center bg-gray-50 text-gray-500 hover:bg-blue-50 hover:text-blue-600 rounded-xl transition-all"
+                        title="Xem chi tiết"
+                      >
+                        <Eye className="w-5 h-5" />
+                      </button>
+                      <button
+                        onClick={() => handleOpenModal(group)}
+                        className="w-10 h-10 flex items-center justify-center bg-gray-50 text-gray-500 hover:bg-emerald-50 hover:text-emerald-600 rounded-xl transition-all"
+                        title="Chỉnh sửa"
+                      >
+                        <Edit className="w-5 h-5" />
+                      </button>
+                      <button
+                        onClick={() => {
+                          setDeletingGroup(group);
+                          setShowDeleteModal(true);
+                        }}
+                        className="w-10 h-10 flex items-center justify-center bg-gray-50 text-gray-500 hover:bg-red-50 hover:text-red-600 rounded-xl transition-all"
+                        title="Xóa"
+                      >
+                        <Trash2 className="w-5 h-5" />
+                      </button>
+                    </div>
+                    <div className="w-px h-8 bg-gray-100 mx-2 hidden sm:block"></div>
+                    <div
+                      className={`w-10 h-10 flex items-center justify-center rounded-xl transition-all ${
+                        isCollapsed
+                          ? "bg-gray-50 text-gray-400"
+                          : "bg-blue-600 text-white shadow-lg shadow-blue-100"
+                      }`}
+                    >
+                      <ChevronDown
+                        className={`w-6 h-6 transition-transform duration-300 ${isCollapsed ? "-rotate-90" : "rotate-0"}`}
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {!isCollapsed && (
+                  <div className="p-6 bg-gray-50/10">
+                    {groupServices.length > 0 ? (
+                      <div className="space-y-3">
+                        {groupServices.map((service) => (
+                          <div
+                            key={service._id}
+                            className="bg-white p-4 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md hover:border-blue-200 transition-all group/item flex items-center justify-between"
+                          >
+                            <div className="flex items-center gap-4">
+                              <div className="w-11 h-11 bg-blue-50/50 text-blue-600 rounded-xl flex items-center justify-center shadow-xs">
+                                <Package className="w-5 h-5" />
+                              </div>
+                              <div>
+                                <h4 className="font-bold text-gray-900 text-sm">
+                                  {service.serviceName}
+                                </h4>
+                                <div className="flex items-center gap-2 mt-0.5">
+                                  <span className="text-[10px] font-black text-blue-500 uppercase tracking-widest bg-blue-50 px-1.5 py-0.5 rounded-md">
+                                    {service.code}
+                                  </span>
+                                  {service.description && (
+                                    <>
+                                      <div className="w-1 h-1 bg-gray-200 rounded-full"></div>
+                                      <span className="text-[10px] text-gray-400 font-medium line-clamp-1 italic">
+                                        {service.description}
+                                      </span>
+                                    </>
+                                  )}
+                                </div>
+                              </div>
+                            </div>
+
+                            <div className="flex items-center gap-6">
+                              <div
+                                className={`px-3 py-1 rounded-lg text-[10px] font-black tracking-widest uppercase ${
+                                  service.isActive
+                                    ? "bg-emerald-50 text-emerald-600"
+                                    : "bg-red-50 text-red-600"
+                                }`}
+                              >
+                                {service.isActive ? "Hoạt động" : "Ngừng"}
+                              </div>
+
+                              <div className="flex items-center gap-1 opacity-0 group-hover/item:opacity-100 transition-opacity">
+                                <button
+                                  onClick={() =>
+                                    router.push(`/services/${service._id}/edit`)
+                                  }
+                                  className="p-2.5 bg-gray-50 text-gray-400 hover:bg-blue-600 hover:text-white rounded-xl transition-all"
+                                  title="Chỉnh sửa dịch vụ"
+                                >
+                                  <Edit className="w-4 h-4" />
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <div className="text-center py-12 border-2 border-dashed border-gray-100 rounded-4xl bg-white">
+                        <Package className="w-12 h-12 text-gray-200 mx-auto mb-4" />
+                        <p className="text-sm font-bold text-gray-400">
+                          Chưa có dịch vụ nào trong nhóm này
+                        </p>
+                        <button
+                          onClick={() =>
+                            router.push(`/services/create?group=${group.name}`)
+                          }
+                          className="mt-4 text-xs font-black text-blue-600 uppercase tracking-widest hover:underline"
+                        >
+                          + Thêm dịch vụ mới
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
-            </div>
-          </div>
+            );
+          })
         )}
       </div>
+
+      {/* Pagination (Optional if list is large) */}
+      {totalPages > 1 && (
+        <div className="mt-12 bg-white rounded-full shadow-sm border border-gray-100 p-4 flex items-center justify-between">
+          <button
+            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+            disabled={currentPage === 1}
+            className="w-12 h-12 flex items-center justify-center bg-gray-50 text-gray-400 hover:bg-blue-600 hover:text-white rounded-full transition-all disabled:opacity-30 disabled:hover:bg-gray-50 disabled:hover:text-gray-400"
+          >
+            <ChevronLeft className="w-6 h-6" />
+          </button>
+
+          <div className="flex items-center gap-2">
+            {[...Array(totalPages)].map((_, idx) => {
+              const p = idx + 1;
+              return (
+                <button
+                  key={p}
+                  onClick={() => setCurrentPage(p)}
+                  className={`w-10 h-10 rounded-full font-black text-xs transition-all ${
+                    currentPage === p
+                      ? "bg-blue-600 text-white shadow-lg shadow-blue-100"
+                      : "bg-gray-50 text-gray-400 hover:bg-gray-100"
+                  }`}
+                >
+                  {p}
+                </button>
+              );
+            })}
+          </div>
+
+          <button
+            onClick={() =>
+              setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+            }
+            disabled={currentPage === totalPages}
+            className="w-12 h-12 flex items-center justify-center bg-gray-50 text-gray-400 hover:bg-blue-600 hover:text-white rounded-full transition-all disabled:opacity-30 disabled:hover:bg-gray-50 disabled:hover:text-gray-400"
+          >
+            <ChevronRight className="w-6 h-6" />
+          </button>
+        </div>
+      )}
 
       {/* Modal */}
       {isModalOpen && (
@@ -581,20 +769,23 @@ const ServiceGroupManagement = () => {
                     />
                   </div>
 
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Mã nhóm <span className="text-red-500">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      name="code"
-                      required
-                      value={formData.code}
-                      onChange={handleInputChange}
-                      placeholder="Ví dụ: LOG, SUR,..."
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 outline-none uppercase"
-                    />
-                  </div>
+                  {editingGroup && (
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        Mã nhóm
+                      </label>
+                      <input
+                        type="text"
+                        name="code"
+                        readOnly
+                        value={formData.code}
+                        className="w-full px-3 py-2 border border-gray-200 bg-gray-50 rounded-md text-gray-500 outline-none cursor-not-allowed"
+                      />
+                      <p className="mt-1 text-[10px] text-gray-400">
+                        Mã hệ thống không thể thay đổi
+                      </p>
+                    </div>
+                  )}
 
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">

@@ -51,7 +51,11 @@ interface Customer {
   referrer?: string;
   referrerPhone?: string;
   potentialLevel?: string;
-  salesPerson?: string;
+  assignedTo?: {
+    _id: string;
+    fullName: string;
+    email?: string;
+  } | null;
   needsNote?: string;
   firstContractValue?: number;
   trueCustomerDate?: string;
@@ -779,7 +783,7 @@ const KhachHangManagement = () => {
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div className="flex items-center text-sm text-gray-900">
                             <User className="w-4 h-4 text-gray-400 mr-2" />
-                            {customer.salesPerson || "Chưa phân công"}
+                            {customer.assignedTo?.fullName || "Chưa phân công"}
                           </div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
@@ -932,11 +936,11 @@ const KhachHangManagement = () => {
                           <span className="truncate">{customer.email}</span>
                         </div>
                       )}
-                      {customer.salesPerson && (
+                      {customer.assignedTo && (
                         <div className="flex items-center text-sm text-gray-600">
                           <User className="w-4 h-4 text-emerald-500 mr-2 shrink-0" />
                           <span className="truncate">
-                            {customer.salesPerson}
+                            {customer.assignedTo.fullName}
                           </span>
                         </div>
                       )}

@@ -3,6 +3,8 @@ import dbConnect from "../../../../lib/dbConnect";
 import Opportunity from "../../../../models/Opportunity";
 import Customer from "../../../../models/Customer"; // Cần thiết để populate
 import CustomerCare from "../../../../models/CustomerCare"; // Cần thiết để populate
+import ProjectSurvey from "../../../../models/ProjectSurvey";
+import Quotation from "../../../../models/Quotation";
 import { verifyToken } from "../../../../lib/auth";
 import mongoose from "mongoose";
 
@@ -39,7 +41,14 @@ export async function GET(
 
     const opportunity = await Opportunity.findById(id)
       .populate("customerRef")
-      .populate("careHistory");
+      .populate({
+        path: "careHistory",
+        populate: [
+          { path: "opportunityRef", select: "opportunityNo" },
+          { path: "surveyRef", select: "surveyNo" },
+          { path: "quotationRef", select: "quotationNo" },
+        ],
+      });
 
     if (!opportunity) {
       return NextResponse.json(

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import dbConnect from "../../../lib/dbConnect";
 import Customer from "../../../models/Customer";
+import Employee from "../../../models/Employee";
 import { verifyToken } from "../../../lib/auth";
 import { getPermissionQuery } from "../../../lib/permissions";
 import mongoose from "mongoose";
@@ -29,6 +30,8 @@ export async function GET(request: NextRequest) {
     }
 
     await dbConnect();
+    // Force registration of models
+    const _e = Employee;
 
     const { searchParams } = new URL(request.url);
     const page = parseInt(searchParams.get("page") || "1");
@@ -79,7 +82,11 @@ export async function GET(request: NextRequest) {
     const skip = (page - 1) * limit;
 
     const [customers, total] = await Promise.all([
-      Customer.find(query).sort({ createdAt: -1 }).skip(skip).limit(limit),
+      Customer.find(query)
+        .populate("assignedTo", "fullName")
+        .sort({ createdAt: -1 })
+        .skip(skip)
+        .limit(limit),
       Customer.countDocuments(query),
     ]);
 
@@ -237,7 +244,7 @@ export async function POST(request: NextRequest) {
       serviceGroup: serviceGroup?.trim() || undefined,
       marketingClassification: marketingClassification?.trim() || undefined,
       potentialLevel: potentialLevel?.trim() || undefined,
-      salesPerson: salesPerson?.trim() || undefined,
+
       assignedTo: determineAssignedTo(auth, body.assignedTo),
       needsNote: needsNote?.trim() || undefined,
       isActive: isActive !== undefined ? isActive : true,

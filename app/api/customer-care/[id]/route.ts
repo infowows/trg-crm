@@ -36,7 +36,9 @@ export async function GET(
       $or: [{ _id: id.match(/^[0-9a-fA-F]{24}$/) ? id : null }, { careId: id }],
     })
       .populate("opportunityRef")
-      .populate("customerRef");
+      .populate("customerRef")
+      .populate("surveyRef", "surveyNo")
+      .populate("quotationRef", "quotationNo");
 
     if (!customerCare) {
       return NextResponse.json(
@@ -76,10 +78,14 @@ export async function PUT(
     const { id } = await params;
     const body = await request.json();
 
-    // Clean up empty date strings
+    // Clean up empty date strings and ObjectIds
     if (body.timeFrom === "") body.timeFrom = null;
     if (body.timeTo === "") body.timeTo = null;
     if (body.actualCareDate === "") body.actualCareDate = null;
+    if (body.quotationRef === "") body.quotationRef = null;
+    if (body.surveyRef === "") body.surveyRef = null;
+    if (body.opportunityRef === "") body.opportunityRef = null;
+    if (body.customerRef === "") body.customerRef = null;
 
     const customerCare = await CustomerCare.findOneAndUpdate(
       {
@@ -109,6 +115,22 @@ export async function PUT(
         .default;
       await Opportunity.findByIdAndUpdate(customerCare.opportunityRef, {
         $set: { demands: body.interestedServices },
+      });
+    }
+
+    // Đồng bộ ngược lại cho Survey và Quotation nếu có thay đổi
+    if (body.surveyRef) {
+      const ProjectSurvey = (await import("../../../../models/ProjectSurvey"))
+        .default;
+      await ProjectSurvey.findByIdAndUpdate(body.surveyRef, {
+        careRef: customerCare._id,
+      });
+    }
+
+    if (body.quotationRef) {
+      const Quotation = (await import("../../../../models/Quotation")).default;
+      await Quotation.findByIdAndUpdate(body.quotationRef, {
+        careRef: customerCare._id,
       });
     }
 

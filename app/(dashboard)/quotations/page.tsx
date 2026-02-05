@@ -476,315 +476,314 @@ const BaoGiaManagement = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
-      {/* Header */}
-      <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
-        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between">
-          <div className="flex items-center mb-4 lg:mb-0">
-            <FileText className="w-8 h-8 text-blue-600 mr-3" />
-            <div>
-              <h1 className="text-2xl font-bold text-gray-900">
-                Quản lý báo giá
-              </h1>
-              <p className="text-gray-600">
-                Quản lý báo giá dịch vụ cho khách hàng
-              </p>
-            </div>
+    <div className="min-h-screen bg-white p-4 md:p-8">
+      {/* Header Section */}
+      <div className="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
+        <div>
+          <div className="flex items-center gap-2 text-blue-600 mb-2">
+            <div className="w-8 h-1 bg-blue-600 rounded-full"></div>
+            <span className="text-xs font-black uppercase tracking-[0.2em]">
+              Hệ thống Quản lý
+            </span>
           </div>
-
-          <div className="flex flex-wrap gap-2">
-            <button
-              onClick={handleOpenSurveyModal}
-              className="flex items-center px-4 py-2 border border-blue-600 text-blue-600 rounded-lg hover:bg-blue-50 transition"
-              title="Tải file mẫu dựa trên khảo sát hiện có"
-            >
-              <Download className="w-5 h-5 mr-2" />
-              Tải mẫu Báo giá
-            </button>
-            <label className="flex items-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition cursor-pointer">
-              <Upload className="w-5 h-5 mr-2" />
-              {isImporting ? "Đang xử lý..." : "Import Excel"}
-              <input
-                type="file"
-                accept=".xlsx, .xls"
-                onChange={handleImport}
-                className="hidden"
-                disabled={isImporting}
-              />
-            </label>
-            <button
-              onClick={() => router.push("/quotations/create")}
-              className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
-            >
-              <Plus className="w-5 h-5 mr-2" />
-              Tạo báo giá
-            </button>
-          </div>
+          <h1 className="text-4xl font-black text-gray-900 tracking-tight mb-2">
+            Hồ sơ{" "}
+            <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-600 to-indigo-600">
+              Báo giá
+            </span>
+          </h1>
+          <p className="text-gray-500 font-medium italic">
+            Tổng số <span className="text-gray-900 font-black">{total}</span> hồ
+            sơ báo giá đã được khởi tạo
+          </p>
         </div>
 
-        {/* Filters */}
-        <div className="mt-6 flex flex-col sm:flex-row gap-4">
-          <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-            <input
-              type="text"
-              placeholder="Tìm kiếm theo số báo giá, tên khách hàng..."
-              value={searchQuery}
-              onChange={(e) => handleSearch(e.target.value)}
-              className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none w-full"
-            />
-          </div>
+        <div className="flex flex-wrap gap-3">
+          <button
+            onClick={handleOpenSurveyModal}
+            className="flex items-center gap-2 px-6 py-3 bg-white border-2 border-gray-100 text-gray-600 rounded-2xl font-black hover:border-blue-600 hover:text-blue-600 transition-all active:scale-95"
+            title="Tải file mẫu dựa trên khảo sát hiện có"
+          >
+            <Download className="w-5 h-5" />
+            Tải File mẫu
+          </button>
 
-          <div className="flex items-center space-x-2">
-            <Filter className="w-5 h-5 text-gray-400" />
-            <select
-              value={statusFilter}
-              onChange={(e) => handleStatusFilter(e.target.value)}
-              className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
-            >
-              <option value="all">Tất cả trạng thái</option>
-              <option value="draft">Nháp</option>
-              <option value="sent">Đã gửi</option>
-              <option value="approved">Đã duyệt</option>
-              <option value="rejected">Từ chối</option>
-              <option value="completed">Hoàn thành</option>
-            </select>
-          </div>
+          <label className="flex items-center gap-2 px-6 py-3 bg-gray-900 text-white rounded-2xl font-black hover:bg-black transition-all cursor-pointer shadow-xl shadow-gray-100 active:scale-95">
+            <Upload className="w-5 h-5" />
+            {isImporting ? "Đang xử lý..." : "Import Excel"}
+            <input
+              type="file"
+              accept=".xlsx, .xls"
+              onChange={handleImport}
+              className="hidden"
+              disabled={isImporting}
+            />
+          </label>
+
+          <button
+            onClick={() => router.push("/quotations/create")}
+            className="flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-2xl font-black hover:bg-blue-700 transition-all shadow-xl shadow-blue-100 active:scale-95"
+          >
+            <Plus className="w-5 h-5" />
+            Tạo Báo giá
+          </button>
         </div>
       </div>
 
-      {/* Quotations List */}
-      <div className="bg-white rounded-lg shadow-sm overflow-hidden">
+      {/* Tabs & Search Section */}
+      <div className="mb-8 space-y-6">
+        {/* Status Tabs */}
+        <div className="flex border-b border-gray-100 overflow-x-auto hide-scrollbar sticky top-0 bg-white/80 backdrop-blur-md z-20 pt-2">
+          {[
+            { id: "all", label: "Tất cả", icon: FileText },
+            { id: "draft", label: "Bản nháp", icon: Clock },
+            { id: "sent", label: "Đã gửi", icon: AlertCircle },
+            { id: "approved", label: "Đã duyệt", icon: CheckCircle },
+            { id: "rejected", label: "Từ chối", icon: XCircle },
+            { id: "completed", label: "Hoàn thành", icon: CheckCircle },
+          ].map((tab) => {
+            const Icon = tab.icon;
+            const isActive = statusFilter === tab.id;
+            return (
+              <button
+                key={tab.id}
+                onClick={() => handleStatusFilter(tab.id)}
+                className={`flex items-center gap-2 px-6 py-4 border-b-4 font-bold text-sm transition-all whitespace-nowrap ${
+                  isActive
+                    ? "border-blue-600 text-blue-600 bg-blue-50/30"
+                    : "border-transparent text-gray-500 hover:text-gray-600 hover:border-gray-200"
+                }`}
+              >
+                <Icon
+                  className={`w-4 h-4 ${isActive ? "text-blue-600" : "text-gray-400"}`}
+                />
+                {tab.label}
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Search Bar */}
+        <div className="relative group max-w-2xl">
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5 group-focus-within:text-blue-600 transition-colors" />
+          <input
+            type="text"
+            placeholder="Tìm kiếm theo mã số, tên khách hàng hoặc địa chỉ..."
+            value={searchQuery}
+            onChange={(e) => handleSearch(e.target.value)}
+            className="w-full pl-12 pr-4 py-4 bg-gray-50 border border-transparent rounded-2xl focus:bg-white focus:border-blue-600 outline-none transition-all font-bold text-gray-900 shadow-sm"
+          />
+          {searchQuery && (
+            <button
+              onClick={() => handleSearch("")}
+              className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          )}
+        </div>
+      </div>
+
+      {/* Content Section */}
+      <div className="bg-white">
         {quotations.length === 0 ? (
-          <div className="p-12 text-center">
-            <FileText className="w-12 h-12 mx-auto mb-4 text-gray-400" />
-            <h3 className="text-lg font-medium text-gray-900 mb-2">
+          <div className="flex flex-col items-center justify-center py-24 bg-gray-50 rounded-[3rem] border-2 border-dashed border-gray-200">
+            <div className="w-24 h-24 bg-white rounded-3xl shadow-xl flex items-center justify-center mb-6">
+              <FileDown className="w-10 h-10 text-gray-300" />
+            </div>
+            <h3 className="text-xl font-black text-gray-900 mb-2">
               {searchQuery || statusFilter !== "all"
-                ? "Không tìm thấy báo giá"
-                : "Chưa có báo giá nào"}
+                ? "Không tìm thấy kết quả"
+                : "Chưa có dữ liệu báo giá"}
             </h3>
-            <p className="text-gray-600 mb-4">
+            <p className="text-gray-500 font-medium italic mb-8 text-center max-w-xs">
               {searchQuery || statusFilter !== "all"
-                ? "Thử thay đổi bộ lọc hoặc từ khóa tìm kiếm"
-                : "Tạo báo giá đầu tiên để bắt đầu quản lý"}
+                ? "Hãy thử điều chỉnh bộ lọc hoặc từ khóa tìm kiếm của bạn"
+                : "Hãy tạo báo giá đầu tiên để bắt đầu hệ thống quản trị"}
             </p>
             {!searchQuery && statusFilter === "all" && (
               <button
                 onClick={() => router.push("/quotations/create")}
-                className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition mx-auto"
+                className="flex items-center gap-3 px-8 py-4 bg-gray-900 text-white rounded-2xl font-black hover:bg-black transition-all shadow-xl active:scale-95"
               >
-                <Plus className="w-5 h-5 mr-2" />
-                Tạo báo giá đầu tiên
+                <Plus className="w-5 h-5" />
+                Khởi tạo ngay
               </button>
             )}
           </div>
         ) : (
           <>
-            <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-gray-50">
-                  <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Số báo giá
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Khách hàng
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Ngày tạo
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Tổng tiền
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Trạng thái
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Người tạo
-                    </th>
-                    <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Thao tác
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
-                  {quotations.map((quotation) => (
-                    <tr key={quotation._id} className="hover:bg-gray-50">
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm font-medium text-gray-900">
-                          {quotation.quotationNo}
-                        </div>
-                        {quotation.validTo && (
-                          <div className="text-xs text-gray-500">
-                            Hết hạn: {formatDate(quotation.validTo)}
-                          </div>
-                        )}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="flex items-center">
-                          <Building className="w-4 h-4 text-gray-400 mr-2" />
-                          <div className="text-sm text-gray-900">
-                            {quotation.customer}
-                          </div>
-                        </div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="flex items-center text-sm text-gray-900">
-                          <Calendar className="w-4 h-4 text-gray-400 mr-2" />
-                          {formatDate(quotation.date)}
-                        </div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm text-gray-900">
-                          {formatCurrency(quotation.grandTotal)}
-                        </div>
-                        {/* {quotation.taxAmount && quotation.taxAmount > 0 && (
-                          <div className="text-xs text-gray-500">
-                            (VAT: {formatCurrency(quotation.taxAmount)})
-                          </div>
-                        )} */}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        {getStatusBadge(quotation.status)}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="flex items-center text-sm text-gray-900">
-                          <User className="w-4 h-4 text-gray-400 mr-2" />
-                          {quotation.createdBy}
-                        </div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                        <div className="flex items-center justify-end space-x-2">
-                          <button
-                            onClick={() => {
-                              setSelectedQuotation(quotation);
-                              setShowViewModal(true);
-                            }}
-                            className="text-blue-600 hover:text-blue-900"
-                            title="Xem chi tiết"
-                          >
-                            <Eye className="w-4 h-4" />
-                          </button>
-                          <button
-                            onClick={() =>
-                              router.push(`/quotations/${quotation._id}/edit`)
-                            }
-                            className="text-green-600 hover:text-green-900"
-                            title="Chỉnh sửa"
-                          >
-                            <Edit className="w-4 h-4" />
-                          </button>
-                          <button
-                            onClick={() => {
-                              setSelectedQuotation(quotation);
-                              setShowDeleteModal(true);
-                            }}
-                            className="text-red-600 hover:text-red-900"
-                            title="Xóa"
-                          >
-                            <Trash2 className="w-4 h-4" />
-                          </button>
-                        </div>
-                      </td>
+            <div className="bg-white border border-gray-100 rounded-[2.5rem] shadow-sm overflow-hidden">
+              <div className="overflow-x-auto">
+                <table className="min-w-full divide-y divide-gray-100">
+                  <thead>
+                    <tr className="bg-gray-50/50">
+                      <th className="px-8 py-5 text-left text-[12px] text-gray-400 uppercase tracking-widest">
+                        Hồ sơ
+                      </th>
+                      <th className="px-8 py-5 text-left text-[12px] text-gray-400 uppercase tracking-widest">
+                        Khách hàng
+                      </th>
+                      <th className="px-8 py-5 text-left text-[12px] text-gray-400 uppercase tracking-widest">
+                        Ngày lập
+                      </th>
+                      <th className="px-8 py-5 text-left text-[12px] text-gray-400 uppercase tracking-widest">
+                        Giá trị (VND)
+                      </th>
+                      <th className="px-8 py-5 text-left text-[12px] text-gray-400 uppercase tracking-widest">
+                        Trạng thái
+                      </th>
+                      <th className="px-8 py-5 text-right text-[12px] text-gray-400 uppercase tracking-widest">
+                        Quản trị
+                      </th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-
-            {/* Pagination */}
-            {totalPages > 1 && (
-              <div className="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
-                <div className="flex-1 flex justify-between sm:hidden">
-                  <button
-                    onClick={() => handlePageChange(currentPage - 1)}
-                    disabled={currentPage === 1}
-                    className="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
-                  >
-                    <ChevronLeft className="w-4 h-4 mr-1" />
-                    Trước
-                  </button>
-                  <button
-                    onClick={() => handlePageChange(currentPage + 1)}
-                    disabled={currentPage === totalPages}
-                    className="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
-                  >
-                    Sau
-                    <ChevronRight className="w-4 h-4 ml-1" />
-                  </button>
-                </div>
-                <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
-                  <div>
-                    <p className="text-sm text-gray-700">
-                      Hiển thị{" "}
-                      <span className="font-medium">
-                        {(currentPage - 1) * 10 + 1}
-                      </span>{" "}
-                      đến{" "}
-                      <span className="font-medium">
-                        {Math.min(currentPage * 10, total)}
-                      </span>{" "}
-                      trong <span className="font-medium">{total}</span> kết quả
-                    </p>
-                  </div>
-                  <div>
-                    <nav
-                      className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px"
-                      aria-label="Pagination"
-                    >
-                      <button
-                        onClick={() => handlePageChange(currentPage - 1)}
-                        disabled={currentPage === 1}
-                        className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                  </thead>
+                  <tbody className="divide-y divide-gray-50">
+                    {quotations.map((quotation) => (
+                      <tr
+                        key={quotation._id}
+                        className="group hover:bg-blue-50/30 transition-colors"
                       >
-                        <ChevronLeft className="w-4 h-4" />
-                      </button>
+                        <td className="px-8 py-6 whitespace-nowrap">
+                          <div className="text-sm font-black text-gray-900 group-hover:text-blue-600 transition-colors">
+                            {quotation.quotationNo}
+                          </div>
+                          {quotation.validTo && (
+                            <div className="text-[10px] text-gray-400 font-bold mt-1">
+                              Hết hạn: {formatDate(quotation.validTo)}
+                            </div>
+                          )}
+                        </td>
+                        <td className="px-8 py-6 whitespace-nowrap">
+                          <div className="flex items-center gap-3">
+                            <div className="w-8 h-8 rounded-xl bg-gray-100 flex items-center justify-center text-gray-500 group-hover:bg-blue-100 group-hover:text-blue-600 transition-colors font-black text-xs">
+                              {quotation.customer.charAt(0)}
+                            </div>
+                            <div className="text-sm font-bold text-gray-700">
+                              {quotation.customer}
+                            </div>
+                          </div>
+                        </td>
+                        <td className="px-8 py-6 whitespace-nowrap">
+                          <div className="text-sm font-bold text-gray-600">
+                            {formatDate(quotation.date)}
+                          </div>
+                        </td>
+                        <td className="px-8 py-6 whitespace-nowrap">
+                          <div className="text-sm font-black text-gray-900 tracking-tight">
+                            {formatCurrency(quotation.grandTotal)}
+                          </div>
+                        </td>
+                        <td className="px-8 py-6 whitespace-nowrap">
+                          {getStatusBadge(quotation.status)}
+                        </td>
+                        <td className="px-8 py-6 whitespace-nowrap text-right text-sm">
+                          <div className="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-all translate-x-4 group-hover:translate-x-0">
+                            <button
+                              // onClick={() => {
+                              //   setSelectedQuotation(quotation);
+                              //   setShowViewModal(true);
+                              // }}
+                              // onclick mở id
+                              onClick={() => router.push(`/quotations/${quotation._id}`)}
+                              className="p-2.5 bg-white shadow-sm border border-gray-100 text-blue-600 rounded-xl hover:bg-blue-600 hover:text-white transition-all active:scale-95"
+                              title="Xem chi tiết"
+                            >
+                              <Eye className="w-4 h-4" />
+                            </button>
+                            <button
+                              onClick={() =>
+                                router.push(`/quotations/${quotation._id}/edit`)
+                              }
+                              className="p-2.5 bg-white shadow-sm border border-gray-100 text-green-600 rounded-xl hover:bg-green-600 hover:text-white transition-all active:scale-95"
+                              title="Chỉnh sửa"
+                            >
+                              <Edit className="w-4 h-4" />
+                            </button>
+                            <button
+                              onClick={() => {
+                                setSelectedQuotation(quotation);
+                                setShowDeleteModal(true);
+                              }}
+                              className="p-2.5 bg-white shadow-sm border border-gray-100 text-red-600 rounded-xl hover:bg-red-600 hover:text-white transition-all active:scale-95"
+                              title="Xóa"
+                            >
+                              <Trash2 className="w-4 h-4" />
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
 
-                      {/* Page numbers */}
-                      {Array.from(
-                        {
-                          length: Math.min(5, totalPages),
-                        },
-                        (_, i) => {
-                          let pageNum;
-                          if (totalPages <= 5) {
-                            pageNum = i + 1;
-                          } else if (currentPage <= 3) {
-                            pageNum = i + 1;
-                          } else if (currentPage >= totalPages - 2) {
-                            pageNum = totalPages - 4 + i;
-                          } else {
-                            pageNum = currentPage - 2 + i;
-                          }
+              {/* Pagination */}
+              {totalPages > 1 && (
+                <div className="px-10 py-8 bg-gray-50/50 flex flex-col md:flex-row items-center justify-between gap-6">
+                  <div className="text-xs font-black text-gray-400 uppercase tracking-widest">
+                    Trang <span className="text-gray-900">{currentPage}</span> /{" "}
+                    {totalPages} (TỔNG {total} HỒ SƠ)
+                  </div>
+
+                  <nav className="flex items-center gap-2">
+                    <button
+                      onClick={() => handlePageChange(currentPage - 1)}
+                      disabled={currentPage === 1}
+                      className="p-3 bg-white border border-gray-100 rounded-xl text-gray-400 hover:text-gray-900 disabled:opacity-30 disabled:cursor-not-allowed transition-all shadow-sm active:scale-90"
+                    >
+                      <ChevronLeft className="w-5 h-5" />
+                    </button>
+
+                    <div className="flex items-center gap-1 bg-white p-1 rounded-2xl border border-gray-100 shadow-sm">
+                      {Array.from({ length: totalPages }, (_, i) => i + 1)
+                        .filter(
+                          (pageNum) =>
+                            pageNum === 1 ||
+                            pageNum === totalPages ||
+                            Math.abs(pageNum - currentPage) <= 1,
+                        )
+                        .map((pageNum, idx, arr) => {
+                          const isCurrent = currentPage === pageNum;
+                          const showEllipsis =
+                            idx > 0 && pageNum - arr[idx - 1] > 1;
 
                           return (
-                            <button
+                            <div
                               key={pageNum}
-                              onClick={() => handlePageChange(pageNum)}
-                              className={`relative inline-flex items-center px-4 py-2 border text-sm font-medium ${
-                                currentPage === pageNum
-                                  ? "z-10 bg-blue-50 border-blue-500 text-blue-600"
-                                  : "bg-white border-gray-300 text-gray-500 hover:bg-gray-50"
-                              }`}
+                              className="flex items-center gap-1"
                             >
-                              {pageNum}
-                            </button>
+                              {showEllipsis && (
+                                <span className="px-2 text-gray-300 font-black">
+                                  ...
+                                </span>
+                              )}
+                              <button
+                                onClick={() => handlePageChange(pageNum)}
+                                className={`w-10 h-10 rounded-xl font-black text-sm transition-all active:scale-90 ${
+                                  isCurrent
+                                    ? "bg-blue-600 text-white shadow-lg shadow-blue-100"
+                                    : "text-gray-400 hover:bg-gray-50 hover:text-gray-900"
+                                }`}
+                              >
+                                {pageNum}
+                              </button>
+                            </div>
                           );
-                        },
-                      )}
+                        })}
+                    </div>
 
-                      <button
-                        onClick={() => handlePageChange(currentPage + 1)}
-                        disabled={currentPage === totalPages}
-                        className="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
-                      >
-                        <ChevronRight className="w-4 h-4" />
-                      </button>
-                    </nav>
-                  </div>
+                    <button
+                      onClick={() => handlePageChange(currentPage + 1)}
+                      disabled={currentPage === totalPages}
+                      className="p-3 bg-white border border-gray-100 rounded-xl text-gray-400 hover:text-gray-900 disabled:opacity-30 disabled:cursor-not-allowed transition-all shadow-sm active:scale-90"
+                    >
+                      <ChevronRight className="w-5 h-5" />
+                    </button>
+                  </nav>
                 </div>
-              </div>
-            )}
+              )}
+            </div>
           </>
         )}
         {/* View Modal */}

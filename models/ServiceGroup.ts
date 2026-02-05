@@ -34,7 +34,7 @@ const ServiceGroupSchema: Schema = new Schema(
     },
     {
         timestamps: true,
-        collection: "Nhóm Dịch Vụ",
+        collection: "Nhóm dịch vụ",
     },
 );
 

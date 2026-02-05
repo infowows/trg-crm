@@ -77,6 +77,11 @@ const ServicePricingManagement = () => {
     isActive: true,
   });
 
+  const [modalStep, setModalStep] = useState(1);
+  const [packagePrices, setPackagePrices] = useState<Record<string, number>>(
+    {},
+  );
+
   // Fetch all services, groups and packages for the filter
   const fetchFilterData = async () => {
     try {
@@ -214,6 +219,8 @@ const ServicePricingManagement = () => {
         isActive: true,
       });
     }
+    setModalStep(1);
+    setPackagePrices({});
     setIsModalOpen(true);
   };
 
@@ -253,6 +260,14 @@ const ServicePricingManagement = () => {
     }));
   };
 
+  const handlePackagePriceChange = (packageName: string, value: string) => {
+    const numericValue = parseNumberInput(value);
+    setPackagePrices((prev) => ({
+      ...prev,
+      [packageName]: numericValue,
+    }));
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitLoading(true);
@@ -270,25 +285,47 @@ const ServicePricingManagement = () => {
         : "/api/service-pricing";
       const method = editingPricing ? "PUT" : "POST";
 
+      let payload;
+      if (editingPricing) {
+        payload = formData;
+      } else {
+        // Bulk create for new entries
+        const pricingEntries = Object.entries(packagePrices)
+          .filter(([_, price]) => price > 0)
+          .map(([pkg, price]) => ({
+            serviceName: formData.serviceName,
+            packageName: pkg,
+            unitPrice: price,
+            effectiveFrom: formData.effectiveFrom,
+            effectiveTo: formData.effectiveTo || undefined,
+            isActive: formData.isActive,
+          }));
+
+        if (pricingEntries.length === 0) {
+          throw new Error("Vui lòng nhập giá cho ít nhất một gói dịch vụ");
+        }
+        payload = pricingEntries;
+      }
+
       const response = await fetch(url, {
         method,
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(payload),
       });
 
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.message || "Đã có lỗi xảy ra");
+        throw new Error(data.error || data.message || "Đã có lỗi xảy ra");
       }
 
       toast.success(
         editingPricing
           ? "Cập nhật cài đặt giá thành công"
-          : "Thêm cài đặt giá thành công",
+          : `Đã tạo ${data.count || ""} cài đặt giá thành công`,
       );
       handleCloseModal();
       fetchPricings(
@@ -707,146 +744,316 @@ const ServicePricingManagement = () => {
             className="fixed inset-0 bg-gray-500/75 transition"
             onClick={handleCloseModal}
           ></div>
-          <div className="relative bg-white rounded-lg shadow-xl max-w-lg w-full max-h-[90vh] overflow-y-auto z-10">
+          <div
+            className={`relative bg-white rounded-2xl shadow-xl transition-all duration-500 ease-in-out z-10 overflow-hidden ${
+              modalStep === 1 ? "max-w-lg" : "max-w-4xl"
+            } w-full`}
+          >
             <form onSubmit={handleSubmit}>
               <div className="px-4 pt-5 pb-4 sm:p-6">
                 <div className="flex items-center justify-between mb-4 pb-4 border-b">
-                  <h3 className="text-lg font-medium text-gray-900">
-                    {editingPricing
-                      ? "Chỉnh sửa cài đặt giá"
-                      : "Thêm cài đặt giá mới"}
-                  </h3>
+                  <div>
+                    <h3 className="text-xl font-black text-gray-900 uppercase tracking-tight">
+                      {editingPricing
+                        ? "Chỉnh sửa cài đặt giá"
+                        : "Cài đặt bảng giá dịch vụ"}
+                    </h3>
+                    {!editingPricing && (
+                      <div className="flex items-center gap-2 mt-1">
+                        <div
+                          className={`h-1.5 rounded-full transition-all duration-300 ${modalStep === 1 ? "w-8 bg-blue-600" : "w-2 bg-gray-200"}`}
+                        ></div>
+                        <div
+                          className={`h-1.5 rounded-full transition-all duration-300 ${modalStep === 2 ? "w-8 bg-blue-600" : "w-2 bg-gray-200"}`}
+                        ></div>
+                        <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">
+                          Bước {modalStep}/2
+                        </span>
+                      </div>
+                    )}
+                  </div>
                   <button
                     type="button"
                     onClick={handleCloseModal}
-                    className="text-gray-400 hover:text-gray-500"
+                    className="w-10 h-10 flex items-center justify-center bg-gray-50 text-gray-400 hover:bg-gray-100 hover:text-gray-900 rounded-xl transition-all"
                   >
                     <X className="w-6 h-6" />
                   </button>
                 </div>
-                <div className="space-y-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700">
-                      Nhóm dịch vụ
-                    </label>
-                    <select
-                      name="serviceGroup"
-                      value={formData.serviceGroup}
-                      onChange={(e) => {
-                        handleInputChange(e);
-                        setFormData((prev) => ({ ...prev, serviceName: "" })); // Reset service name when group changes
-                      }}
-                      className="w-full px-3 py-2 border rounded-md outline-none focus:ring-2 focus:ring-blue-500"
-                    >
-                      <option value="">-- Tất cả nhóm --</option>
-                      {allServiceGroups.map((group) => (
-                        <option key={group._id} value={group.name}>
-                          {group.name}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700">
-                      Tên dịch vụ *
-                    </label>
-                    <select
-                      name="serviceName"
-                      required
-                      value={formData.serviceName}
-                      onChange={handleInputChange}
-                      className="w-full px-3 py-2 border rounded-md outline-none focus:ring-2 focus:ring-blue-500"
-                    >
-                      <option value="">-- Chọn dịch vụ --</option>
-                      {allServices
-                        .filter(
-                          (svc) =>
-                            !formData.serviceGroup ||
-                            svc.serviceGroup === formData.serviceGroup,
-                        )
-                        .map((svc) => (
-                          <option key={svc._id} value={svc.serviceName}>
-                            {svc.serviceName}
-                          </option>
-                        ))}
-                    </select>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700">
-                      Gói dịch vụ
-                    </label>
-                    <select
-                      name="packageName"
-                      value={formData.packageName}
-                      onChange={handleInputChange}
-                      className="w-full px-3 py-2 border rounded-md outline-none focus:ring-2 focus:ring-blue-500"
-                    >
-                      <option value="">-- Chọn gói --</option>
-                      {availablePackages.map((pkg) => (
-                        <option key={pkg} value={pkg}>
-                          {pkg}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700">
-                      Đơn giá *
-                    </label>
-                    <input
-                      type="text"
-                      name="unitPrice"
-                      required
-                      value={formatNumberInput(formData.unitPrice)}
-                      onChange={handleInputChange}
-                      placeholder="0"
-                      className="w-full px-3 py-2 border rounded-md outline-none focus:ring-2 focus:ring-blue-500"
-                    />
-                  </div>
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700">
-                        Hiệu lực từ *
-                      </label>
-                      <input
-                        type="date"
-                        name="effectiveFrom"
-                        required
-                        value={formData.effectiveFrom}
-                        onChange={handleInputChange}
-                        className="w-full px-3 py-2 border rounded-md outline-none focus:ring-2 focus:ring-blue-500"
-                      />
+
+                <div className="relative overflow-hidden">
+                  <div
+                    className="transition-transform duration-500 ease-in-out flex"
+                    style={{
+                      transform:
+                        modalStep === 1
+                          ? "translateX(0%)"
+                          : "translateX(-100%)",
+                    }}
+                  >
+                    {/* Step 1: Selection */}
+                    <div className="w-full shrink-0 space-y-5 px-1">
+                      <div>
+                        <label className="block text-xs font-black text-gray-400 uppercase tracking-widest mb-2">
+                          Nhóm dịch vụ
+                        </label>
+                        <select
+                          name="serviceGroup"
+                          value={formData.serviceGroup}
+                          onChange={(e) => {
+                            handleInputChange(e);
+                            setFormData((prev) => ({
+                              ...prev,
+                              serviceName: "",
+                            }));
+                          }}
+                          className="w-full px-4 py-3 bg-gray-50 border border-transparent rounded-2xl outline-none focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-50/50 transition-all font-medium"
+                        >
+                          <option value="">-- Chọn nhóm dịch vụ --</option>
+                          {allServiceGroups.map((group) => (
+                            <option key={group._id} value={group.name}>
+                              {group.name}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-black text-gray-400 uppercase tracking-widest mb-2">
+                          Tên dịch vụ *
+                        </label>
+                        <select
+                          name="serviceName"
+                          required
+                          disabled={!formData.serviceGroup}
+                          value={formData.serviceName}
+                          onChange={handleInputChange}
+                          className="w-full px-4 py-3 bg-gray-50 border border-transparent rounded-2xl outline-none focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-50/50 transition-all font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                          <option value="">-- Chọn dịch vụ --</option>
+                          {allServices
+                            .filter(
+                              (svc) =>
+                                !formData.serviceGroup ||
+                                svc.serviceGroup === formData.serviceGroup,
+                            )
+                            .map((svc) => (
+                              <option key={svc._id} value={svc.serviceName}>
+                                {svc.serviceName}
+                              </option>
+                            ))}
+                        </select>
+                      </div>
+
+                      {editingPricing ? (
+                        <>
+                          <div>
+                            <label className="block text-xs font-black text-gray-400 uppercase tracking-widest mb-2">
+                              Gói dịch vụ
+                            </label>
+                            <select
+                              name="packageName"
+                              value={formData.packageName}
+                              onChange={handleInputChange}
+                              className="w-full px-4 py-3 bg-gray-50 border border-transparent rounded-2xl outline-none focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-50/50 transition-all font-medium"
+                            >
+                              <option value="">-- Không có gói --</option>
+                              {availablePackages.map((pkg) => (
+                                <option key={pkg} value={pkg}>
+                                  {pkg}
+                                </option>
+                              ))}
+                            </select>
+                          </div>
+                          <div>
+                            <label className="block text-xs font-black text-gray-400 uppercase tracking-widest mb-2">
+                              Đơn giá *
+                            </label>
+                            <div className="relative">
+                              <input
+                                type="text"
+                                name="unitPrice"
+                                required
+                                value={formatNumberInput(formData.unitPrice)}
+                                onChange={handleInputChange}
+                                className="w-full pl-10 pr-4 py-3 bg-gray-50 border border-transparent rounded-2xl outline-none focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-50/50 transition-all font-bold text-lg text-blue-600"
+                                placeholder="0"
+                              />
+                              <DollarSign className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
+                            </div>
+                          </div>
+                        </>
+                      ) : null}
+
+                      <div className="grid grid-cols-2 gap-4">
+                        <div>
+                          <label className="block text-xs font-black text-gray-400 uppercase tracking-widest mb-2">
+                            Hiệu lực từ *
+                          </label>
+                          <input
+                            type="date"
+                            name="effectiveFrom"
+                            required
+                            value={formData.effectiveFrom}
+                            onChange={handleInputChange}
+                            className="w-full px-4 py-3 bg-gray-50 border border-transparent rounded-2xl outline-none focus:bg-white focus:border-blue-500 transition-all font-medium"
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-xs font-black text-gray-400 uppercase tracking-widest mb-2">
+                            Đến ngày
+                          </label>
+                          <input
+                            type="date"
+                            name="effectiveTo"
+                            value={formData.effectiveTo}
+                            onChange={handleInputChange}
+                            className="w-full px-4 py-3 bg-gray-50 border border-transparent rounded-2xl outline-none focus:bg-white focus:border-blue-500 transition-all font-medium"
+                          />
+                        </div>
+                      </div>
+
+                      <div
+                        className="flex items-center gap-3 p-4 bg-gray-50 rounded-2xl cursor-pointer hover:bg-gray-100 transition-all border border-transparent active:scale-[0.98]"
+                        onClick={() =>
+                          setFormData((prev) => ({
+                            ...prev,
+                            isActive: !prev.isActive,
+                          }))
+                        }
+                      >
+                        <div
+                          className={`w-6 h-6 rounded-lg flex items-center justify-center border-2 transition-all ${formData.isActive ? "bg-blue-600 border-blue-600" : "bg-white border-gray-300"}`}
+                        >
+                          {formData.isActive && (
+                            <CheckCircle className="w-4 h-4 text-white" />
+                          )}
+                        </div>
+                        <span className="text-sm font-bold text-gray-700">
+                          Kích hoạt trạng thái hoạt động ngay
+                        </span>
+                      </div>
+
+                      {!editingPricing && (
+                        <div className="pt-4">
+                          <button
+                            type="button"
+                            disabled={!formData.serviceName}
+                            onClick={() => setModalStep(2)}
+                            className="w-full py-4 bg-gray-900 text-white rounded-2xl font-black uppercase tracking-widest hover:bg-black transition-all shadow-xl shadow-gray-200 disabled:opacity-30 disabled:cursor-not-allowed group"
+                          >
+                            Tiếp tục thiết lập giá
+                            <ChevronRight className="w-5 h-5 inline-block ml-2 group-hover:translate-x-1 transition-transform" />
+                          </button>
+                        </div>
+                      )}
                     </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700">
-                        Đến ngày
-                      </label>
-                      <input
-                        type="date"
-                        name="effectiveTo"
-                        value={formData.effectiveTo}
-                        onChange={handleInputChange}
-                        className="w-full px-3 py-2 border rounded-md outline-none focus:ring-2 focus:ring-blue-500"
-                      />
-                    </div>
+
+                    {/* Step 2: Package Prices */}
+                    {!editingPricing && (
+                      <div className="w-full shrink-0 px-1">
+                        <div className="mb-6 p-4 bg-blue-50 rounded-2xl border border-blue-100 flex items-center justify-between">
+                          <div className="flex items-center gap-4">
+                            <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-sm text-blue-600">
+                              <Tag className="w-6 h-6" />
+                            </div>
+                            <div>
+                              <p className="text-[10px] font-black text-blue-400 uppercase tracking-widest mb-0.5">
+                                Đang cấu hình cho dịch vụ
+                              </p>
+                              <h4 className="text-base font-black text-gray-900 uppercase">
+                                {formData.serviceName}
+                              </h4>
+                            </div>
+                          </div>
+                          <button
+                            type="button"
+                            onClick={() => setModalStep(1)}
+                            className="px-4 py-2 bg-white text-gray-600 text-xs font-black uppercase tracking-widest rounded-xl border border-gray-100 hover:bg-gray-50 transition-all shadow-sm"
+                          >
+                            Quay lại
+                          </button>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
+                          {availablePackages.map((pkg) => (
+                            <div
+                              key={pkg}
+                              className="p-4 bg-white border border-gray-100 rounded-2xl hover:border-blue-200 transition-all group/pkg"
+                            >
+                              <label className="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-3">
+                                {pkg}
+                              </label>
+                              <div className="relative">
+                                <input
+                                  type="text"
+                                  value={formatNumberInput(
+                                    packagePrices[pkg] || 0,
+                                  )}
+                                  onChange={(e) =>
+                                    handlePackagePriceChange(
+                                      pkg,
+                                      e.target.value,
+                                    )
+                                  }
+                                  className="w-full pl-10 pr-4 py-3 bg-gray-50 border border-transparent rounded-xl outline-none focus:bg-white focus:border-blue-500 transition-all font-bold text-gray-900"
+                                  placeholder="0"
+                                />
+                                <DollarSign className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-300 w-5 h-5 group-hover/pkg:text-blue-400 transition-colors" />
+                                <div className="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] font-black text-gray-300">
+                                  VNĐ
+                                </div>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+
+                        <div className="mt-8 p-4 bg-gray-50 rounded-2xl flex items-center justify-between">
+                          <p className="text-xs font-bold text-gray-500">
+                            * Chỉ những gói có nhập giá mới được lưu lại.
+                          </p>
+                          <div className="flex gap-3">
+                            <button
+                              type="button"
+                              onClick={handleCloseModal}
+                              className="px-6 py-3 text-gray-400 font-black uppercase tracking-widest text-xs hover:text-gray-900 transition-colors"
+                            >
+                              Hủy bỏ
+                            </button>
+                            <button
+                              type="submit"
+                              disabled={submitLoading}
+                              className="px-8 py-3 bg-blue-600 text-white rounded-xl font-black uppercase tracking-widest text-xs hover:bg-blue-700 transition-all shadow-lg shadow-blue-100 active:scale-95 disabled:opacity-50"
+                            >
+                              {submitLoading
+                                ? "Đang lưu..."
+                                : "Xác nhận lưu bảng giá"}
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
-              </div>
-              <div className="px-4 py-3 bg-gray-50 flex flex-row-reverse sm:px-6 gap-2">
-                <button
-                  type="submit"
-                  disabled={submitLoading}
-                  className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 disabled:opacity-50"
-                >
-                  {submitLoading ? "Đang lưu..." : "Lưu lại"}
-                </button>
-                <button
-                  type="button"
-                  onClick={handleCloseModal}
-                  className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border rounded-md hover:bg-gray-50"
-                >
-                  Hủy
-                </button>
+
+                {editingPricing && (
+                  <div className="mt-8 flex justify-end gap-3 pt-6 border-t">
+                    <button
+                      type="button"
+                      onClick={handleCloseModal}
+                      className="px-6 py-3 text-gray-400 font-black uppercase tracking-widest text-xs hover:text-gray-900 transition-colors"
+                    >
+                      Hủy bỏ
+                    </button>
+                    <button
+                      type="submit"
+                      disabled={submitLoading}
+                      className="px-8 py-3 bg-blue-600 text-white rounded-xl font-black uppercase tracking-widest text-xs hover:bg-blue-700 transition-all shadow-lg shadow-blue-100 active:scale-95 disabled:opacity-50"
+                    >
+                      {submitLoading ? "Đang lưu..." : "Cập nhật thay đổi"}
+                    </button>
+                  </div>
+                )}
               </div>
             </form>
           </div>

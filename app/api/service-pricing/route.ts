@@ -101,6 +101,19 @@ export async function POST(request: NextRequest) {
     await dbConnect();
     const body = await request.json();
 
+    if (Array.isArray(body)) {
+      // Create many
+      const result = await ServicePricing.insertMany(body, { ordered: false });
+      return NextResponse.json(
+        {
+          success: true,
+          count: result.length,
+          data: result,
+        },
+        { status: 201 },
+      );
+    }
+
     const servicePricing = new ServicePricing(body);
     await servicePricing.save();
 
@@ -114,9 +127,12 @@ export async function POST(request: NextRequest) {
   } catch (error: any) {
     console.error("Error creating service pricing:", error);
 
-    if (error.code === 11000) {
+    if (error.code === 11000 || error.name === "BulkWriteError") {
       return NextResponse.json(
-        { success: false, error: "Service pricing already exists" },
+        {
+          success: false,
+          error: "Một số cài đặt giá đã tồn tại hoặc bị trùng lặp",
+        },
         { status: 400 },
       );
     }

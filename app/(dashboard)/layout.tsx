@@ -1,16 +1,16 @@
 import Navigation from "../../components/Navigation";
 
 export default function DashboardLayout({
-    children,
+  children,
 }: {
-    children: React.ReactNode;
+  children: React.ReactNode;
 }) {
-    return (
-        <div className="min-h-screen bg-gray-50">
-            <Navigation />
-            <main className="flex-1 bg-white overflow-x-hidden min-h-screen lg:pl-70">
-                {children}
-            </main>
-        </div>
-    );
+  return (
+    <div className="h-screen bg-gray-50 flex overflow-hidden">
+      <Navigation />
+      <main className="flex-1 bg-white overflow-x-hidden overflow-y-auto h-screen lg:pl-70">
+        {children}
+      </main>
+    </div>
+  );
 }

@@ -24,7 +24,7 @@ const quotationSchema = new mongoose.Schema(
     customerRef: { type: mongoose.Schema.Types.ObjectId, ref: "Customer" }, // reference to customer
     surveyRef: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "ProjectSurvey",
+      ref: "PROJECT_SURVEY",
     }, // reference to survey
     careRef: {
       type: mongoose.Schema.Types.ObjectId,

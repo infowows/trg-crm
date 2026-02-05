@@ -1,35 +1,51 @@
 import mongoose from "mongoose";
 
-interface Connection {
-    isConnected: boolean;
+const MONGODB_URI = process.env.MONGODB_URI!;
+
+if (!MONGODB_URI) {
+  throw new Error(
+    "Please define the MONGODB_URI environment variable inside .env.local",
+  );
 }
 
-const connection: Connection = { isConnected: false };
+/**
+ * Global is used here to maintain a cached connection across hot reloads
+ * in development. This prevents connections growing exponentially
+ * during API Route usage.
+ */
+let cached = (global as any).mongoose;
 
-async function dbConnect(): Promise<typeof mongoose> {
-    if (connection.isConnected) {
-        console.log("♻️ Using existing MongoDB connection");
-        return mongoose;
-    }
+if (!cached) {
+  cached = (global as any).mongoose = { conn: null, promise: null };
+}
 
-    try {
-        console.log("📡 Connecting to MongoDB...");
+async function dbConnect() {
+  if (cached.conn) {
+    // console.log("♻️ Using existing MongoDB connection");
+    return cached.conn;
+  }
 
-        const db = await mongoose.connect(process.env.MONGODB_URI!, {
-            bufferCommands: false,
-        });
+  if (!cached.promise) {
+    const opts = {
+      bufferCommands: false,
+    };
 
-        connection.isConnected = db.connections[0].readyState === 1;
+    console.log("📡 Connecting to MongoDB...");
+    cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
+      console.log("✅ MongoDB connected successfully");
+      return mongoose;
+    });
+  }
 
-        console.log("✅ MongoDB connected successfully");
-        console.log("📊 Database name:", db.connection.name);
+  try {
+    cached.conn = await cached.promise;
+  } catch (e) {
+    cached.promise = null;
+    console.error("❌ MongoDB connection error:", e);
+    throw e;
+  }
 
-        return db;
-    } catch (error) {
-        console.error("❌ MongoDB connection error:", error);
-        connection.isConnected = false;
-        throw error;
-    }
+  return cached.conn;
 }
 
 export default dbConnect;

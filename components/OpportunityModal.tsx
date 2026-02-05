@@ -212,7 +212,7 @@ const OpportunityModal = ({
                     opportunity.careHistory.length > 0 ? (
                       opportunity.careHistory.map((care, idx) => (
                         <div
-                          key={care._id}
+                          key={`${care._id}-${idx}`}
                           className="relative pl-6 border-l-2 border-blue-100 pb-4 last:pb-0"
                         >
                           <div className="absolute left-[-9px] top-1 w-4 h-4 rounded-full bg-blue-100 border-2 border-white flex items-center justify-center">

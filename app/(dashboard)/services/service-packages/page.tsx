@@ -173,16 +173,23 @@ const ServicePackageManagement = () => {
         : "/api/service-packages";
       const method = editingPackage ? "PUT" : "POST";
 
+      const payload = {
+        ...formData,
+      };
+      if (editingPackage) {
+        payload.code = formData.code.toUpperCase().trim();
+      } else {
+        // @ts-ignore
+        delete payload.code;
+      }
+
       const response = await fetch(url, {
         method,
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({
-          ...formData,
-          code: formData.code.toUpperCase().trim(),
-        }),
+        body: JSON.stringify(payload),
       });
 
       const data = await response.json();
@@ -593,20 +600,23 @@ const ServicePackageManagement = () => {
                     />
                   </div>
 
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Mã gói <span className="text-red-500">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      name="code"
-                      required
-                      value={formData.code}
-                      onChange={handleInputChange}
-                      placeholder="Ví dụ: BASIC, GOLD,..."
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 outline-none uppercase"
-                    />
-                  </div>
+                  {editingPackage && (
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        Mã gói
+                      </label>
+                      <input
+                        type="text"
+                        name="code"
+                        readOnly
+                        value={formData.code}
+                        className="w-full px-3 py-2 border border-gray-200 bg-gray-50 rounded-md text-gray-500 outline-none cursor-not-allowed"
+                      />
+                      <p className="mt-1 text-[10px] text-gray-400">
+                        Mã hệ thống không thể thay đổi
+                      </p>
+                    </div>
+                  )}
 
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">

@@ -163,10 +163,14 @@ export async function POST(request: NextRequest) {
       body.careId = `CSKH${month}${year}${random}`;
     }
 
-    // 3. Làm sạch dữ liệu ngày tháng
+    // 3. Làm sạch dữ liệu: Chuyển chuỗi rỗng sang null cho các trường Date và ObjectId
     if (body.timeFrom === "") body.timeFrom = null;
     if (body.timeTo === "") body.timeTo = null;
     if (body.actualCareDate === "") body.actualCareDate = null;
+    if (body.quotationRef === "") body.quotationRef = null;
+    if (body.surveyRef === "") body.surveyRef = null;
+    if (body.opportunityRef === "") body.opportunityRef = null;
+    if (body.customerRef === "") body.customerRef = null;
 
     const customerCare = new CustomerCare(body);
     await customerCare.save();
@@ -187,6 +191,22 @@ export async function POST(request: NextRequest) {
       }
 
       await Opportunity.findByIdAndUpdate(body.opportunityRef, updateData);
+    }
+
+    // 5. Cập nhật ngược lại cho Survey và Quotation nếu có
+    if (body.surveyRef) {
+      const ProjectSurvey = (await import("../../../models/ProjectSurvey"))
+        .default;
+      await ProjectSurvey.findByIdAndUpdate(body.surveyRef, {
+        careRef: customerCare._id,
+      });
+    }
+
+    if (body.quotationRef) {
+      const Quotation = (await import("../../../models/Quotation")).default;
+      await Quotation.findByIdAndUpdate(body.quotationRef, {
+        careRef: customerCare._id,
+      });
     }
 
     return NextResponse.json(
