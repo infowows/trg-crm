@@ -34,6 +34,7 @@ import {
   AlertCircle,
   CheckCircle,
   LayoutList,
+  HandHelping,
 } from "lucide-react";
 
 interface DashboardStats {
@@ -158,24 +159,24 @@ const Dashboard = () => {
         badge: stats.customerCare,
         color: "pink",
       },
-      {
-        id: "customer_classifications",
-        text: "Phân loại KH",
-        icon: UserCheck,
-        path: "/customer-classifications",
-        description: "Phân loại khách hàng theo nhóm và tiêu chí",
-        groupName: "Quản lý khách hàng",
-        color: "teal",
-      },
-      {
-        id: "customer_map",
-        text: "Bản đồ KH",
-        icon: Map,
-        path: "/customer-map",
-        description: "Xem vị trí khách hàng trên bản đồ trực quan",
-        groupName: "Quản lý khách hàng",
-        color: "cyan",
-      },
+      // {
+      //   id: "customer_classifications",
+      //   text: "Phân loại KH",
+      //   icon: UserCheck,
+      //   path: "/customer-classifications",
+      //   description: "Phân loại khách hàng theo nhóm và tiêu chí",
+      //   groupName: "Quản lý khách hàng",
+      //   color: "teal",
+      // },
+      // {
+      //   id: "customer_map",
+      //   text: "Bản đồ KH",
+      //   icon: Map,
+      //   path: "/customer-map",
+      //   description: "Xem vị trí khách hàng trên bản đồ trực quan",
+      //   groupName: "Quản lý khách hàng",
+      //   color: "cyan",
+      // },
 
       // Khảo sát & Báo giá
       {
@@ -286,27 +287,47 @@ const Dashboard = () => {
         badge: stats.employees,
         color: "green",
       },
-      {
-        id: "settings",
-        text: "Cài đặt",
-        icon: Settings,
-        path: "/settings",
-        description: "Cấu hình các tham số hệ thống",
-        groupName: "Hệ thống",
-        color: "gray",
-      },
-
-      // Khác
+      // {
+      //   id: "settings",
+      //   text: "Cài đặt",
+      //   icon: Settings,
+      //   path: "/settings",
+      //   description: "Cấu hình các tham số hệ thống",
+      //   groupName: "Hệ thống",
+      //   color: "gray",
+      // },
       {
         id: "source_settings",
         text: "Nguồn khách hàng",
         icon: Activity,
         path: "/source-settings",
         description: "Quản lý nguồn gốc tiếp cận khách hàng",
-        groupName: "Khác",
+        groupName: "Hệ thống",
         badge: stats.sourceSettings,
         color: "violet",
       },
+      {
+        id: "care_groups",
+        text: "Nhóm / Kết quả chăm sóc",
+        icon: HandHelping,
+        path: "/care-results",
+        description: "Quản lý các nhóm chăm sóc",
+        groupName: "Hệ thống",
+        badge: stats.sourceSettings,
+        color: "blue",
+      },
+      {
+        id: "reject_settings",
+        text: "Lý do từ chối",
+        icon: AlertCircle,
+        path: "/reject-settings",
+        description: "Quản lý các lý do từ chối",
+        groupName: "Hệ thống",
+        badge: stats.sourceSettings,
+        color: "red",
+      },
+
+      // Khác
       {
         id: "profile",
         text: "Hồ sơ cá nhân",
@@ -475,6 +496,19 @@ const Dashboard = () => {
     return colors[color] || colors.blue;
   };
 
+  const getGroupColorClasses = (groupName: string) => {
+    const colors: Record<string, string> = {
+      "Trang chủ": "bg-blue-100/100 border-blue-300",
+      "Quản lý khách hàng": "bg-pink-100/100 border-pink-300",
+      "Khảo sát & Báo giá": "bg-emerald-100/100 border-emerald-300",
+      "Hạng mục": "bg-amber-100/100 border-amber-300",
+      "Quản lý dịch vụ": "bg-indigo-100/100 border-indigo-300",
+      "Hệ thống": "bg-slate-100/100 border-slate-300",
+      Khác: "bg-gray-100/100 border-gray-100",
+    };
+    return colors[groupName] || "bg-white border-gray-100";
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
@@ -506,63 +540,75 @@ const Dashboard = () => {
   return (
     <div className="bg-gray-50 p-6">
       {/* Header */}
-      <div className="bg-linear-to-r from-blue-600 to-indigo-700 rounded-2xl shadow-lg p-8 mb-8 text-white relative overflow-hidden">
-        {/* Decorative Circles */}
-        <div className="absolute top-[-20%] right-[-10%] w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-[-20%] left-[-5%] w-48 h-48 bg-indigo-400/20 rounded-full blur-2xl"></div>
+      <div className="bg-linear-to-br from-[#3f6cd4] via-[#50b17c] to-[#cfdc3b] rounded-2xl shadow-xl p-6 md:p-8 mb-8 text-white relative overflow-hidden group">
+        {/* Decorative Elements */}
+        <div className="absolute top-[-20%] right-[-10%] w-64 h-64 bg-white/10 rounded-full blur-3xl group-hover:bg-white/15 transition-all duration-700"></div>
+        <div className="absolute bottom-[-20%] left-[-5%] w-48 h-48 bg-green-400/20 rounded-full blur-2xl"></div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(circle,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-size-[20px_20px] opacity-30"></div>
 
-        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between relative z-10">
-          <div>
-            <h1 className="text-4xl font-black mb-3 tracking-tight font-heading-vn">
-              Trường Giang CRM Dashboard
-            </h1>
-            <p className="text-blue-100 text-lg font-medium opacity-90">
-              Hệ thống quản lý khách hàng chuyên nghiệp & hiệu quả
-            </p>
+        <div className="flex flex-col xl:flex-row xl:items-center xl:justify-between relative z-10 gap-8">
+          <div className="flex flex-col md:flex-row items-center gap-6 text-center md:text-left">
+            <div className="bg-white p-3 rounded-2xl shadow-lg shrink-0 overflow-hidden">
+              <img
+                src="/images/logo_trg.png"
+                alt="Trường Giang Logo"
+                className="h-16 w-auto object-contain hover:scale-105 transition-transform"
+              />
+            </div>
+            <div>
+              <h1 className="text-3xl md:text-4xl font-black mb-2 tracking-tight font-heading-vn drop-shadow-md">
+                CRM <span className="text-[#fbc02d]">Dashboard</span>
+              </h1>
+              <p className="text-blue-50 text-base md:text-lg font-medium opacity-90 max-w-md">
+                Hệ thống quản trị khách hàng của Trường Giang JSC
+              </p>
+            </div>
           </div>
 
-          {/* Stats Cards */}
-          <div className="mt-8 lg:mt-0 grid grid-cols-2 lg:grid-cols-3 gap-4">
-            <div className="bg-white/10 backdrop-blur-md rounded-xl p-5 border border-white/20 hover:bg-white/20 transition-all duration-300 group">
-              <div className="flex items-center">
-                <div className="p-3 bg-white/20 rounded-lg mr-4 group-hover:scale-110 transition-transform">
-                  <Building className="w-8 h-8 text-white" />
+          {/* Stats Cards - Responsive Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full xl:w-auto">
+            <div className="bg-white/15 backdrop-blur-md rounded-2xl p-4 md:p-5 border border-white/20 hover:bg-white/25 transition-all duration-300 group/stat">
+              <div className="flex items-center sm:flex-col sm:items-start lg:flex-row lg:items-center gap-4">
+                <div className="p-3 bg-white/20 rounded-xl group-hover/stat:scale-110 transition-transform shadow-inner">
+                  <Building className="w-6 h-6 md:w-8 md:h-8 text-[#342dfb]" />
                 </div>
                 <div>
-                  <p className="text-xs font-bold text-blue-100 uppercase tracking-wider">
+                  <p className="text-[10px] md:text-xs font-bold text-green-100 uppercase tracking-widest opacity-80">
                     Khách hàng
                   </p>
-                  <p className="text-3xl font-black text-white mt-1">
+                  <p className="text-2xl md:text-3xl font-black text-[#fbf72d] mt-1 tabular-nums">
                     {stats.customers.toLocaleString()}
                   </p>
                 </div>
               </div>
             </div>
-            <div className="bg-white/10 backdrop-blur-md rounded-xl p-5 border border-white/20 hover:bg-white/20 transition-all duration-300 group">
-              <div className="flex items-center">
-                <div className="p-3 bg-white/20 rounded-lg mr-4 group-hover:scale-110 transition-transform">
-                  <Users className="w-8 h-8 text-white" />
+
+            <div className="bg-white/15 backdrop-blur-md rounded-2xl p-4 md:p-5 border border-white/20 hover:bg-white/25 transition-all duration-300 group/stat">
+              <div className="flex items-center sm:flex-col sm:items-start lg:flex-row lg:items-center gap-4">
+                <div className="p-3 bg-white/20 rounded-xl group-hover/stat:scale-110 transition-transform shadow-inner">
+                  <Users className="w-6 h-6 md:w-8 md:h-8 text-[#342dfb]" />
                 </div>
                 <div>
-                  <p className="text-xs font-bold text-blue-100 uppercase tracking-wider">
+                  <p className="text-[10px] md:text-xs font-bold text-green-100 uppercase tracking-widest opacity-80">
                     Nhân viên
                   </p>
-                  <p className="text-3xl font-black text-white mt-1">
+                  <p className="text-2xl md:text-3xl font-black text-[#fbf72d] mt-1 tabular-nums">
                     {stats.employees.toLocaleString()}
                   </p>
                 </div>
               </div>
             </div>
-            <div className="bg-white/10 backdrop-blur-md rounded-xl p-5 border border-white/20 hover:bg-white/20 transition-all duration-300 group">
-              <div className="flex items-center">
-                <div className="p-3 bg-white/20 rounded-lg mr-4 group-hover:scale-110 transition-transform">
-                  <FileText className="w-8 h-8 text-white" />
+
+            <div className="bg-white/15 backdrop-blur-md rounded-2xl p-4 md:p-5 border border-white/20 hover:bg-white/25 transition-all duration-300 group/stat">
+              <div className="flex items-center sm:flex-col sm:items-start lg:flex-row lg:items-center gap-4">
+                <div className="p-3 bg-white/20 rounded-xl group-hover/stat:scale-110 transition-transform shadow-inner">
+                  <FileText className="w-6 h-6 md:w-8 md:h-8 text-[#342dfb]" />
                 </div>
                 <div>
-                  <p className="text-xs font-bold text-blue-100 uppercase tracking-wider">
+                  <p className="text-[10px] md:text-xs font-bold text-green-100 uppercase tracking-widest opacity-80">
                     Báo giá
                   </p>
-                  <p className="text-3xl font-black text-white mt-1">
+                  <p className="text-2xl md:text-3xl font-black text-[#fbf72d] mt-1 tabular-nums">
                     {stats.quotations.toLocaleString()}
                   </p>
                 </div>
@@ -651,15 +697,16 @@ const Dashboard = () => {
             if (groupItems.length === 0) return null;
 
             const isCollapsed = collapsedGroups.has(group.name);
+            const groupColors = getGroupColorClasses(group.name);
 
             return (
               <div
                 key={group.name}
-                className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden"
+                className={`rounded-xl shadow-sm  overflow-hidden transition-all duration-300`}
               >
                 <button
                   onClick={() => toggleGroupCollapse(group.name)}
-                  className="w-full px-6 py-4 bg-linear-to-r from-gray-50 to-white border-b border-gray-100 flex items-center justify-between hover:bg-gray-100 transition-colors"
+                  className={`${groupColors} w-full px-6 py-4 border-b  flex items-center justify-between transition-colors`}
                 >
                   <div className="flex items-center">
                     <div className="w-1.5 h-6 bg-blue-600 rounded-full mr-3"></div>

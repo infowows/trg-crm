@@ -1,5 +1,9 @@
 {
   "app": {
+    "[project]/app/(dashboard)/care-results/page": [
+      "static/media/2bbe8d2671613f1f-s.p.76dcb0b2.woff2",
+      "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2"
+    ],
     "[project]/app/(dashboard)/category-groups/page": [
       "static/media/2bbe8d2671613f1f-s.p.76dcb0b2.woff2",
       "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2"
@@ -24,7 +28,7 @@
       "static/media/2bbe8d2671613f1f-s.p.76dcb0b2.woff2",
       "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2"
     ],
-    "[project]/app/(dashboard)/dashboard/page": [
+    "[project]/app/(dashboard)/departments/page": [
       "static/media/2bbe8d2671613f1f-s.p.76dcb0b2.woff2",
       "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2"
     ],
@@ -32,11 +36,7 @@
       "static/media/2bbe8d2671613f1f-s.p.76dcb0b2.woff2",
       "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2"
     ],
-    "[project]/app/(dashboard)/quotations/[id]/edit/page": [
-      "static/media/2bbe8d2671613f1f-s.p.76dcb0b2.woff2",
-      "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2"
-    ],
-    "[project]/app/(dashboard)/quotations/[id]/page": [
+    "[project]/app/(dashboard)/positions/page": [
       "static/media/2bbe8d2671613f1f-s.p.76dcb0b2.woff2",
       "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2"
     ],
@@ -45,14 +45,6 @@
       "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2"
     ],
     "[project]/app/(dashboard)/quotations/page": [
-      "static/media/2bbe8d2671613f1f-s.p.76dcb0b2.woff2",
-      "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2"
-    ],
-    "[project]/app/(dashboard)/services/[id]/edit/page": [
-      "static/media/2bbe8d2671613f1f-s.p.76dcb0b2.woff2",
-      "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2"
-    ],
-    "[project]/app/(dashboard)/services/create/page": [
       "static/media/2bbe8d2671613f1f-s.p.76dcb0b2.woff2",
       "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2"
     ],
@@ -68,7 +60,11 @@
       "static/media/2bbe8d2671613f1f-s.p.76dcb0b2.woff2",
       "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2"
     ],
-    "[project]/app/(dashboard)/services/service-packages/page": [
+    "[project]/app/(dashboard)/source-settings/page": [
+      "static/media/2bbe8d2671613f1f-s.p.76dcb0b2.woff2",
+      "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2"
+    ],
+    "[project]/app/(dashboard)/surveys/[id]/edit/page": [
       "static/media/2bbe8d2671613f1f-s.p.76dcb0b2.woff2",
       "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2"
     ],
@@ -81,14 +77,6 @@
       "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2"
     ],
     "[project]/app/_not-found/page": [
-      "static/media/2bbe8d2671613f1f-s.p.76dcb0b2.woff2",
-      "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2"
-    ],
-    "[project]/app/login/page": [
-      "static/media/2bbe8d2671613f1f-s.p.76dcb0b2.woff2",
-      "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2"
-    ],
-    "[project]/app/page": [
       "static/media/2bbe8d2671613f1f-s.p.76dcb0b2.woff2",
       "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2"
     ]

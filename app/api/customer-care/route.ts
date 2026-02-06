@@ -171,11 +171,41 @@ export async function POST(request: NextRequest) {
     if (body.surveyRef === "") body.surveyRef = null;
     if (body.opportunityRef === "") body.opportunityRef = null;
     if (body.customerRef === "") body.customerRef = null;
+    if (body.opportunityRef === "") body.opportunityRef = null;
+
+    // 4. Nếu có opportunityRef nhưng chưa có surveyRef/quotationRef, tự động tìm các bản ghi chưa gán của cơ hội đó
+    if (body.opportunityRef && (!body.surveyRef || !body.quotationRef)) {
+      const ProjectSurvey = (await import("../../../models/ProjectSurvey"))
+        .default;
+      const Quotation = (await import("../../../models/Quotation")).default;
+
+      if (!body.surveyRef) {
+        const latestSurvey = await ProjectSurvey.findOne({
+          opportunityRef: body.opportunityRef,
+          careRef: { $exists: false },
+        }).sort({ createdAt: -1 });
+        if (latestSurvey) {
+          body.surveyRef = latestSurvey._id;
+          body.surveyNo = latestSurvey.surveyNo;
+        }
+      }
+
+      if (!body.quotationRef) {
+        const latestQuotation = await Quotation.findOne({
+          opportunityRef: body.opportunityRef,
+          careRef: { $exists: false },
+        }).sort({ createdAt: -1 });
+        if (latestQuotation) {
+          body.quotationRef = latestQuotation._id;
+          body.quotationNo = latestQuotation.quotationNo;
+        }
+      }
+    }
 
     const customerCare = new CustomerCare(body);
     await customerCare.save();
 
-    // 4. Cập nhật lịch sử và nhu cầu vào Opportunity
+    // 5. Cập nhật lịch sử và nhu cầu vào Opportunity
     if (body.opportunityRef) {
       const Opportunity = (await import("../../../models/Opportunity")).default;
 
@@ -193,7 +223,7 @@ export async function POST(request: NextRequest) {
       await Opportunity.findByIdAndUpdate(body.opportunityRef, updateData);
     }
 
-    // 5. Cập nhật ngược lại cho Survey và Quotation nếu có
+    // 6. Cập nhật ngược lại cho Survey và Quotation nếu có
     if (body.surveyRef) {
       const ProjectSurvey = (await import("../../../models/ProjectSurvey"))
         .default;

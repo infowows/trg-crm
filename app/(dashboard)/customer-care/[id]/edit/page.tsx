@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, use } from "react";
+import { useState, useEffect, use, Suspense, useRef } from "react";
 import { useRouter } from "next/navigation";
 import {
   ArrowLeft,
@@ -16,6 +16,11 @@ import {
   CheckCircle,
   ImageIcon,
   Upload,
+  Handshake,
+  Layers,
+  FileCheck,
+  ChevronDown,
+  Clock,
 } from "lucide-react";
 import { toast } from "react-toastify";
 
@@ -40,10 +45,11 @@ interface FormData {
   needsNote: string;
   interestedServices: string[];
   status: "Chờ báo cáo" | "Hoàn thành" | "Hủy";
-  opportunityRef?: {
-    _id: string;
-    opportunityNo: string;
-  };
+  careResult?: string;
+  careResultClassification?: string;
+  rejectGroup?: string;
+  rejectReason?: string;
+  opportunityRef?: any;
   surveyRef?: string;
   quotationRef?: string;
   images?: string[];
@@ -53,7 +59,6 @@ interface FormData {
 const formatDateForInput = (dateString?: string) => {
   if (!dateString) return "";
   const date = new Date(dateString);
-  // Format YYYY-MM-DDThh:mm for datetime-local
   const year = date.getFullYear();
   const month = (date.getMonth() + 1).toString().padStart(2, "0");
   const day = date.getDate().toString().padStart(2, "0");
@@ -62,15 +67,17 @@ const formatDateForInput = (dateString?: string) => {
   return `${year}-${month}-${day}T${hours}:${minutes}`;
 };
 
-const EditCustomerCare = ({ params }: { params: Promise<{ id: string }> }) => {
+const EditCustomerCareForm = ({ params }: { params: { id: string } }) => {
   const router = useRouter();
-  const { id } = use(params);
+  const id = params.id;
   const [loading, setLoading] = useState(false);
   const [initialLoading, setInitialLoading] = useState(true);
 
   const [customers, setCustomers] = useState<Customer[]>([]);
   const [searchCustomer, setSearchCustomer] = useState("");
   const [showCustomerDropdown, setShowCustomerDropdown] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
   const [selectedCustomer, setSelectedCustomer] = useState<Customer | null>(
     null,
   );
@@ -90,7 +97,22 @@ const EditCustomerCare = ({ params }: { params: Promise<{ id: string }> }) => {
     status: "Chờ báo cáo",
     images: [],
     files: [],
+    careResult: "",
+    careResultClassification: "",
+    rejectGroup: "",
+    rejectReason: "",
   });
+
+  const [employees, setEmployees] = useState<
+    Array<{ _id: string; fullName: string }>
+  >([]);
+  const [careGroups, setCareGroups] = useState<any[]>([]);
+  const [careResults, setCareResults] = useState<any[]>([]);
+  const [filteredCareResults, setFilteredCareResults] = useState<any[]>([]);
+
+  const [rejectGroups, setRejectGroups] = useState<any[]>([]);
+  const [rejectReasons, setRejectReasons] = useState<any[]>([]);
+  const [filteredRejectReasons, setFilteredRejectReasons] = useState<any[]>([]);
 
   const [uploadingImages, setUploadingImages] = useState(false);
   const [uploadingFiles, setUploadingFiles] = useState(false);
@@ -104,12 +126,43 @@ const EditCustomerCare = ({ params }: { params: Promise<{ id: string }> }) => {
   const [quotations, setQuotations] = useState<any[]>([]);
 
   useEffect(() => {
-    fetchCustomers();
     fetchCareDetail();
+    fetchEmployees();
     loadServiceGroups();
     fetchSurveys();
     fetchQuotations();
+    fetchCareGroups();
+    fetchCareResults();
+    fetchRejectGroups();
+    fetchRejectReasons();
+
+    // Close dropdown when clicking outside
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setShowCustomerDropdown(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [id]);
+
+  const fetchEmployees = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await fetch("/api/employees?isActive=true&limit=100", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (response.ok) {
+        const data = await response.json();
+        setEmployees(data.data || []);
+      }
+    } catch (error) {
+      console.error("Error fetching employees:", error);
+    }
+  };
 
   const loadServiceGroups = async () => {
     try {
@@ -153,6 +206,88 @@ const EditCustomerCare = ({ params }: { params: Promise<{ id: string }> }) => {
       console.error("Error fetching quotations:", err);
     }
   };
+
+  const fetchCareGroups = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const res = await fetch("/api/care-groups?active=true", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setCareGroups(data.data || []);
+      }
+    } catch (err) {
+      console.error("Error fetching care groups:", err);
+    }
+  };
+
+  const fetchCareResults = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const res = await fetch("/api/care-results?active=true", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setCareResults(data.data || []);
+      }
+    } catch (err) {
+      console.error("Error fetching care results:", err);
+    }
+  };
+
+  const fetchRejectGroups = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const res = await fetch("/api/reject-groups?active=true", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setRejectGroups(data.data || []);
+      }
+    } catch (err) {
+      console.error("Error fetching reject groups:", err);
+    }
+  };
+
+  const fetchRejectReasons = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const res = await fetch("/api/reject-reasons?active=true", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setRejectReasons(data.data || []);
+      }
+    } catch (err) {
+      console.error("Error fetching reject reasons:", err);
+    }
+  };
+
+  useEffect(() => {
+    if (formData.careType) {
+      const filtered = careResults.filter(
+        (result) => result.careGroupName === formData.careType,
+      );
+      setFilteredCareResults(filtered);
+    } else {
+      setFilteredCareResults([]);
+    }
+  }, [formData.careType, careResults]);
+
+  useEffect(() => {
+    if (formData.rejectGroup) {
+      const filtered = rejectReasons.filter(
+        (reason) => reason.rejectGroupName === formData.rejectGroup,
+      );
+      setFilteredRejectReasons(filtered);
+    } else {
+      setFilteredRejectReasons([]);
+    }
+  }, [formData.rejectGroup, rejectReasons]);
 
   const loadServices = async (groupId: string) => {
     try {
@@ -265,31 +400,21 @@ const EditCustomerCare = ({ params }: { params: Promise<{ id: string }> }) => {
       for (let i = 0; i < files.length; i++) {
         const file = files[i];
         if (!file.type.startsWith("image/")) continue;
-        if (file.size > 5 * 1024 * 1024) {
-          toast.error(`File ${file.name} quá lớn (max 5MB)`);
-          continue;
-        }
-
         const data = new FormData();
         data.append("file", file);
         data.append("folder", "care");
-
         const res = await fetch("/api/upload", {
           method: "POST",
           body: data,
         });
-
         const result = await res.json();
         if (result.success && result.data.secure_url) {
           newImages.push(result.data.secure_url);
-        } else {
-          toast.error(`Lỗi upload ảnh ${file.name}`);
         }
       }
       setFormData((prev) => ({ ...prev, images: newImages }));
     } catch (error) {
       console.error("Upload image error:", error);
-      toast.error("Lỗi khi tải ảnh lên");
     } finally {
       setUploadingImages(false);
     }
@@ -305,35 +430,25 @@ const EditCustomerCare = ({ params }: { params: Promise<{ id: string }> }) => {
     try {
       for (let i = 0; i < files.length; i++) {
         const file = files[i];
-        if (file.size > 10 * 1024 * 1024) {
-          toast.error(`File ${file.name} quá lớn (max 10MB)`);
-          continue;
-        }
-
         const data = new FormData();
         data.append("file", file);
         data.append("folder", "file");
-
         const res = await fetch("/api/upload", {
           method: "POST",
           body: data,
         });
-
         const result = await res.json();
         if (result.success && result.data.secure_url) {
           newFiles.push({
             url: result.data.secure_url,
             name: file.name,
-            format: result.data.format || file.name.split(".").pop() || "file",
+            format: result.data.format || "file",
           });
-        } else {
-          toast.error(`Lỗi upload file ${file.name}`);
         }
       }
       setFormData((prev) => ({ ...prev, files: newFiles }));
     } catch (error) {
       console.error("Upload file error:", error);
-      toast.error("Lỗi khi tải file lên");
     } finally {
       setUploadingFiles(false);
     }
@@ -351,7 +466,6 @@ const EditCustomerCare = ({ params }: { params: Promise<{ id: string }> }) => {
         const result = await response.json();
         const data = result.data;
 
-        // Set selected customer data if available
         if (data.customerRef && typeof data.customerRef === "object") {
           setSelectedCustomer({
             _id: data.customerRef._id,
@@ -360,11 +474,14 @@ const EditCustomerCare = ({ params }: { params: Promise<{ id: string }> }) => {
             phone: data.customerRef.phone || "",
             address: data.customerRef.address || "",
           });
+          setSearchCustomer(data.customerRef.fullName || "");
+        } else if (data.customerId) {
+          setSearchCustomer(data.customerId);
         }
 
         setFormData({
           careId: data.careId || "",
-          customerId: data.customerRef?._id || data.customerId || "", // Use ID from Ref first
+          customerId: data.customerRef?._id || data.customerId || "",
           careType: data.careType || "Khảo sát nhu cầu",
           timeFrom: formatDateForInput(data.timeFrom),
           timeTo: formatDateForInput(data.timeTo),
@@ -382,13 +499,23 @@ const EditCustomerCare = ({ params }: { params: Promise<{ id: string }> }) => {
           quotationRef: data.quotationRef?._id || "",
           images: data.images || [],
           files: data.files || [],
+          careResult: data.careResult || "",
+          careResultClassification: data.careResultClassification || "",
+          rejectReason: data.rejectReason || "",
         });
 
-        if (data.customerRef) {
-          setSearchCustomer(data.customerRef.fullName || "");
-        } else if (data.customerId) {
-          // Fallback if only string ID is available
-          setSearchCustomer(data.customerId);
+        if (data.rejectReason) {
+          const res = await fetch(
+            `/api/reject-reasons?name=${encodeURIComponent(data.rejectReason)}&active=true`,
+            { headers: { Authorization: `Bearer ${token}` } },
+          );
+          const rData = await res.json();
+          if (rData.success && rData.data.length > 0) {
+            setFormData((prev) => ({
+              ...prev,
+              rejectGroup: rData.data[0].rejectGroupName,
+            }));
+          }
         }
       } else {
         toast.error("Không thể tải thông tin kế hoạch");
@@ -396,7 +523,6 @@ const EditCustomerCare = ({ params }: { params: Promise<{ id: string }> }) => {
       }
     } catch (error) {
       console.error("Error fetching detail:", error);
-      toast.error("Lỗi khi tải dữ liệu");
     } finally {
       setInitialLoading(false);
     }
@@ -407,7 +533,6 @@ const EditCustomerCare = ({ params }: { params: Promise<{ id: string }> }) => {
       const token = localStorage.getItem("token");
       const params = new URLSearchParams({ limit: "20" });
       if (search) params.append("search", search);
-
       const response = await fetch(`/api/customers?${params.toString()}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -443,18 +568,17 @@ const EditCustomerCare = ({ params }: { params: Promise<{ id: string }> }) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async (e?: React.FormEvent) => {
+    e?.preventDefault();
     setLoading(true);
 
     try {
       const token = localStorage.getItem("token");
-
       const submitData = {
         ...formData,
         customerRef: formData.customerId,
         customerId: selectedCustomer?.customerCode || "",
-        opportunityRef: formData.opportunityRef?._id || undefined, // Extract ID
+        opportunityRef: formData.opportunityRef?._id || undefined,
         surveyRef: formData.surveyRef || undefined,
         quotationRef: formData.quotationRef || undefined,
       };
@@ -468,17 +592,15 @@ const EditCustomerCare = ({ params }: { params: Promise<{ id: string }> }) => {
         body: JSON.stringify(submitData),
       });
 
-      const data = await response.json();
-
       if (response.ok) {
         toast.success("Cập nhật kế hoạch CSKH thành công");
         router.push("/customer-care");
       } else {
-        toast.error(data.message || "Không thể cập nhật kế hoạch");
+        const d = await response.json();
+        toast.error(d.message || "Không thể cập nhật");
       }
     } catch (error) {
-      console.error("Error updating customer care:", error);
-      toast.error("Đã xảy ra lỗi khi cập nhật");
+      console.error("Error updating:", error);
     } finally {
       setLoading(false);
     }
@@ -486,607 +608,732 @@ const EditCustomerCare = ({ params }: { params: Promise<{ id: string }> }) => {
 
   if (initialLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+      <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center space-y-4">
+        <div className="relative w-16 h-16">
+          <div className="absolute inset-0 border-4 border-blue-100 rounded-full"></div>
+          <div className="absolute inset-0 border-4 border-blue-600 rounded-full border-t-transparent animate-spin"></div>
+        </div>
+        <p className="font-bold text-gray-500 animate-pulse tracking-widest uppercase text-xs">
+          Đang tải dữ liệu hồ sơ...
+        </p>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
-      <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
-        <button
-          onClick={() => router.back()}
-          className="flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-4"
-        >
-          <ArrowLeft className="w-5 h-5" />
-          Quay lại
-        </button>
-
-        <h1 className="text-2xl font-bold text-gray-900">
-          Chỉnh sửa kế hoạch CSKH:{" "}
-          <span className="text-blue-600">{formData.careId}</span>
-        </h1>
-      </div>
-
-      <div className="bg-white rounded-lg shadow-sm p-6">
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Thông tin chung */}
-            <div className="space-y-4">
-              <h3 className="text-lg font-medium text-gray-900 border-b pb-2">
-                Thông tin chung
-              </h3>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Mã CSKH
-                </label>
-                <input
-                  type="text"
-                  name="careId"
-                  value={formData.careId}
-                  disabled
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100 text-gray-500 cursor-not-allowed"
-                />
-              </div>
-
-              <div className="relative">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Liên kết khảo sát (Tùy chọn)
-                </label>
-                <div className="relative">
-                  <FileText className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                  <select
-                    name="surveyRef"
-                    value={formData.surveyRef || ""}
-                    onChange={handleChange}
-                    className="text-black w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 appearance-none bg-white"
-                  >
-                    <option value="">-- Không liên kết --</option>
-                    {surveys.map((survey) => (
-                      <option key={survey._id} value={survey._id}>
-                        {survey.surveyNo} -{" "}
-                        {survey.customerRef?.fullName || "Khách lẻ"}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              </div>
-
-              <div className="relative">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Liên kết báo giá (Tùy chọn)
-                </label>
-                <div className="relative">
-                  <FileText className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                  <select
-                    name="quotationRef"
-                    value={formData.quotationRef || ""}
-                    onChange={handleChange}
-                    className="text-black w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 appearance-none bg-white"
-                  >
-                    <option value="">-- Không liên kết --</option>
-                    {quotations.map((quote) => (
-                      <option key={quote._id} value={quote._id}>
-                        {quote.quotationNo} -{" "}
-                        {quote.customerRef?.fullName || quote.customer}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              </div>
-
-              {formData.opportunityRef && (
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Cơ hội liên kết
-                  </label>
-                  <div className="flex items-center px-3 py-2 border border-blue-100 rounded-lg bg-blue-50 text-blue-700 font-bold">
-                    <Target className="w-5 h-5 mr-2" />
-                    {formData.opportunityRef.opportunityNo}
-                  </div>
-                </div>
-              )}
-
-              <div className="relative">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Khách hàng (ID: {formData.customerId})
-                </label>
-                <div className="relative">
-                  <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                  <input
-                    type="text"
-                    value={searchCustomer}
-                    onChange={handleCustomerSearch}
-                    onFocus={() => setShowCustomerDropdown(true)}
-                    placeholder="Tìm kiếm khách hàng để thay đổi..."
-                    className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
-                  />
-                </div>
-                {showCustomerDropdown && customers.length > 0 && (
-                  <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto">
-                    {customers.map((customer) => (
-                      <div
-                        key={customer._id}
-                        onClick={() => selectCustomer(customer)}
-                        className="px-4 py-2 hover:bg-gray-50 cursor-pointer"
-                      >
-                        <div className="font-medium text-gray-900">
-                          {customer.fullName}
-                        </div>
-                        <div className="text-sm text-gray-500">
-                          {customer.phone} - {customer.address}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Người phụ trách <span className="text-red-500">*</span>
-                </label>
-                <input
-                  type="text"
-                  name="carePerson"
-                  required
-                  value={formData.carePerson}
-                  onChange={handleChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Loại hình CSKH
-                </label>
-                <select
-                  name="careType"
-                  value={formData.careType}
-                  onChange={handleChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
-                >
-                  <option value="Khảo sát nhu cầu">Khảo sát nhu cầu</option>
-                  <option value="Làm rõ báo giá/hợp đồng">
-                    Làm rõ báo giá/hợp đồng
-                  </option>
-                  <option value="Xử lý khiếu nại/bảo hành">
-                    Xử lý khiếu nại/bảo hành
-                  </option>
-                  <option value="Thu hồi công nợ">Thu hồi công nợ</option>
-                </select>
-              </div>
+    <div className="bg-white min-h-screen flex flex-col">
+      {/* Sticky Top Header */}
+      <div className="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-gray-100 pt-8 px-6 pb-0">
+        <div className="max-w-[1800px] mx-auto">
+          <div className="mb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div>
+              <button
+                onClick={() => router.back()}
+                className="flex items-center gap-2 text-gray-700 hover:text-gray-900 mb-4 transition-colors"
+              >
+                <ArrowLeft className="w-5 h-5" />
+                <span className="text-sm font-medium">Quay lại danh sách</span>
+              </button>
+              <h1 className="text-2xl font-bold text-gray-900 tracking-tight">
+                Chỉnh sửa Kế hoạch Chăm sóc:{" "}
+                <span className="text-blue-600">{formData.careId}</span>
+              </h1>
+              <p className="text-gray-500 mt-1">
+                Cập nhật thông tin và tiến độ làm việc với khách hàng
+              </p>
             </div>
 
-            {/* Thời gian và Địa điểm */}
-            <div className="space-y-4">
-              <h3 className="text-lg font-medium text-gray-900 border-b pb-2">
-                Thời gian & Địa điểm
-              </h3>
-
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Từ thời gian
-                  </label>
-                  <input
-                    type="datetime-local"
-                    name="timeFrom"
-                    value={formData.timeFrom}
-                    onChange={handleChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Đến thời gian
-                  </label>
-                  <input
-                    type="datetime-local"
-                    name="timeTo"
-                    value={formData.timeTo}
-                    onChange={handleChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Hình thức
-                </label>
-                <select
-                  name="method"
-                  value={formData.method}
-                  onChange={handleChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
-                >
-                  <option value="Online">Online</option>
-                  <option value="Trực tiếp">Trực tiếp</option>
-                </select>
-              </div>
-
-              {formData.method === "Trực tiếp" && (
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Địa điểm
-                  </label>
-                  <div className="relative">
-                    <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                    <input
-                      type="text"
-                      name="location"
-                      value={formData.location}
-                      onChange={handleChange}
-                      placeholder="Nhập địa điểm..."
-                      className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
-                    />
-                  </div>
-                </div>
-              )}
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Trạng thái
-                </label>
-                <select
-                  name="status"
-                  value={formData.status}
-                  onChange={handleChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
-                >
-                  <option value="Chờ báo cáo">Chờ báo cáo</option>
-                  <option value="Hoàn thành">Hoàn thành</option>
-                  <option value="Hủy">Hủy</option>
-                </select>
-              </div>
+            <div className="flex gap-3">
+              <button
+                type="button"
+                onClick={() => handleSubmit()}
+                disabled={loading}
+                className="flex items-center gap-2 px-8 py-2.5 bg-blue-600 text-white rounded-xl hover:bg-blue-700 disabled:opacity-50 transition-all shadow-lg shadow-blue-50 font-bold active:scale-95"
+              >
+                {loading ? (
+                  <span className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></span>
+                ) : (
+                  <Save className="w-5 h-5" />
+                )}
+                {loading ? "Đang lưu..." : "Cập nhật hồ sơ"}
+              </button>
             </div>
           </div>
+        </div>
+      </div>
 
-          <div className="space-y-4">
-            <h3 className="text-lg font-medium text-gray-900 border-b pb-2">
-              Nội dung chi tiết
-            </h3>
+      <div className="p-4 md:p-6 lg:p-8 bg-gray-50/30">
+        <div className="max-w-[1800px] mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {/* Left Column: General Info */}
+            <div className="lg:col-span-2 space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              {/* Card 1: Customer & Links */}
+              <div className="bg-blue-300/50 border border-blue-500 rounded-[2.5rem] shadow-sm p-6 md:p-10 space-y-8">
+                <h2 className="text-xl font-bold text-gray-900 flex items-center gap-3">
+                  <div className="w-1.5 h-6 bg-blue-600 rounded-full"></div>
+                  Khách hàng & Liên kết
+                </h2>
 
-            {/* UI CHỌN DỊCH VỤ TƯƠNG TỰ CREATE PAGE */}
-            <div className="bg-blue-50 p-5 rounded-xl border border-blue-100 mt-6">
-              <label className="text-sm font-bold text-blue-800 mb-4 flex items-center uppercase tracking-wider">
-                <Package className="w-5 h-5 mr-2" />
-                Dịch vụ quan tâm & Giá tham khảo
-              </label>
-
-              <div className="space-y-2 mb-6">
-                {formData.interestedServices.length > 0 ? (
-                  formData.interestedServices.map((service, index) => (
-                    <div
-                      key={index}
-                      className="flex items-center justify-between bg-white p-3 rounded-lg border border-blue-200 shadow-sm"
-                    >
-                      <div className="flex items-center">
-                        <CheckCircle className="w-4 h-4 text-green-500 mr-3" />
-                        <span className="text-sm font-medium text-gray-700">
-                          {service}
-                        </span>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div className="space-y-6">
+                    <div ref={dropdownRef}>
+                      <label className="block text-xs font-bold text-gray-700 uppercase tracking-widest mb-2 ml-1">
+                        Khách hàng <span className="text-red-500">*</span>
+                      </label>
+                      <div className="relative group">
+                        <User className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-700 w-5 h-5 group-focus-within:text-blue-600 transition-colors" />
+                        <input
+                          type="text"
+                          value={searchCustomer}
+                          onChange={handleCustomerSearch}
+                          onFocus={() => setShowCustomerDropdown(true)}
+                          placeholder="Tìm mã hoặc tên khách hàng..."
+                          className="w-full pl-12 pr-4 py-3.5 bg-white border border-transparent rounded-2xl focus:bg-white focus:border-blue-600 outline-none transition-all font-bold text-gray-900 shadow-sm"
+                          required
+                        />
+                        {showCustomerDropdown && (
+                          <div className="absolute z-50 w-full mt-2 bg-white border border-gray-100 rounded-2xl shadow-2xl max-h-80 overflow-y-auto p-2">
+                            {customers.length > 0 ? (
+                              customers.map((c) => (
+                                <div
+                                  key={c._id}
+                                  onClick={() => selectCustomer(c)}
+                                  className="px-4 py-3 hover:bg-blue-50 cursor-pointer rounded-xl transition-colors"
+                                >
+                                  <div className="font-bold text-gray-900">
+                                    {c.fullName}
+                                  </div>
+                                  <div className="text-xs text-gray-500 mt-1">
+                                    {c.customerCode} - {c.phone}
+                                  </div>
+                                </div>
+                              ))
+                            ) : (
+                              <div className="p-4 text-center text-gray-700 italic border-b border-gray-100">
+                                Không tìm thấy khách hàng
+                              </div>
+                            )}
+                          </div>
+                        )}
                       </div>
-                      <button
-                        type="button"
-                        onClick={() => removeServiceItem(index)}
-                        className="p-1 text-gray-400 hover:text-red-500 rounded-full transition"
-                      >
-                        <X className="w-4 h-4" />
-                      </button>
                     </div>
-                  ))
-                ) : (
-                  <div className="text-center py-6 bg-blue-50/50 border border-dashed border-blue-200 rounded-lg">
-                    <p className="text-sm text-blue-400 italic">
-                      Chưa có dịch vụ nào được chọn
-                    </p>
+
+                    {formData.opportunityRef && (
+                      <div>
+                        <label className="block text-xs font-bold text-gray-700 uppercase tracking-widest mb-2 ml-1">
+                          Cơ hội kinh doanh (Gốc)
+                        </label>
+                        <div className="flex items-center gap-3 px-5 py-3.5 bg-white border border-blue-100 rounded-2xl shadow-sm">
+                          <Handshake className="text-blue-600 w-5 h-5" />
+                          <span className="font-bold text-blue-800">
+                            {formData.opportunityRef.opportunityNo}
+                          </span>
+                        </div>
+                      </div>
+                    )}
                   </div>
-                )}
+
+                  <div className="space-y-6">
+                    <div>
+                      <label className="block text-xs font-bold text-gray-700 uppercase tracking-widest mb-2 ml-1">
+                        Mã định danh CSKH
+                      </label>
+                      <div className="relative">
+                        <FileText className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-700 w-5 h-5" />
+                        <input
+                          type="text"
+                          value={formData.careId}
+                          disabled
+                          className="w-full pl-12 pr-4 py-3.5 bg-gray-100 border-none rounded-2xl font-bold text-gray-500 cursor-not-allowed"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-4">
+                      <div
+                        className={!formData.opportunityRef ? "opacity-60" : ""}
+                      >
+                        <label className="block text-xs font-bold text-gray-700 uppercase tracking-widest mb-2 ml-1">
+                          Phiếu Khảo sát
+                        </label>
+                        <select
+                          name="surveyRef"
+                          value={formData.surveyRef}
+                          disabled={!formData.opportunityRef}
+                          onChange={handleChange}
+                          className="w-full px-4 py-3.5 bg-white border border-transparent rounded-2xl focus:bg-white focus:border-blue-600 outline-none transition-all font-bold text-sm text-gray-900 disabled:cursor-not-allowed shadow-sm"
+                        >
+                          <option value="">
+                            {formData.opportunityRef
+                              ? "--"
+                              : "Chọn cơ hội trước"}
+                          </option>
+                          {surveys.map((s) => (
+                            <option key={s._id} value={s._id}>
+                              {s.surveyNo}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                      <div
+                        className={!formData.opportunityRef ? "opacity-60" : ""}
+                      >
+                        <label className="block text-xs font-bold text-gray-700 uppercase tracking-widest mb-2 ml-1">
+                          Bản Báo giá
+                        </label>
+                        <select
+                          name="quotationRef"
+                          value={formData.quotationRef}
+                          disabled={!formData.opportunityRef}
+                          onChange={handleChange}
+                          className="w-full px-4 py-3.5 bg-white border border-transparent rounded-2xl focus:bg-white focus:border-blue-600 outline-none transition-all font-bold text-sm text-gray-900 disabled:cursor-not-allowed shadow-sm"
+                        >
+                          <option value="">
+                            {formData.opportunityRef
+                              ? "--"
+                              : "Chọn cơ hội trước"}
+                          </option>
+                          {quotations.map((q) => (
+                            <option key={q._id} value={q._id}>
+                              {q.quotationNo}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
 
-              <div className="bg-white p-4 rounded-xl border border-blue-100">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+              {/* Card 2: Nội dung & Nhu cầu */}
+              <div className="bg-emerald-300/50 border border-emerald-500 rounded-[2.5rem] shadow-sm p-6 md:p-10 space-y-8">
+                <h2 className="text-xl font-bold text-gray-900 flex items-center gap-3">
+                  <div className="w-1.5 h-6 bg-emerald-500 rounded-full"></div>
+                  Chi tiết Trao đổi & Nhu cầu
+                </h2>
+
+                <div className="space-y-6">
                   <div>
-                    <label className="block text-[10px] font-bold text-gray-500 mb-1 uppercase">
-                      Nhóm dịch vụ
+                    <label className="block text-xs font-bold text-gray-700 uppercase tracking-widest mb-2 ml-1">
+                      Nội dung trao đổi chi tiết
+                    </label>
+                    <textarea
+                      name="discussionContent"
+                      value={formData.discussionContent}
+                      onChange={handleChange}
+                      rows={5}
+                      className="w-full p-6 bg-white border border-transparent rounded-3xl focus:bg-white focus:border-blue-600 outline-none transition-all font-bold text-gray-900 shadow-sm resize-none"
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    {/* Dịch vụ quan tâm */}
+                    <div className="bg-white rounded-[2rem] p-6 space-y-4 shadow-sm">
+                      <label className="text-xs font-bold text-gray-700 uppercase tracking-widest flex items-center gap-2">
+                        <Layers className="w-4 h-4 text-blue-500" />
+                        Dịch vụ & Gói quan tâm
+                      </label>
+
+                      <div className="flex flex-wrap gap-2 min-h-[40px]">
+                        {formData.interestedServices.map((service, index) => (
+                          <div
+                            key={index}
+                            className="group flex items-center gap-2 px-3 py-1.5 bg-blue-50 border border-blue-100 rounded-xl shadow-sm hover:border-red-200 transition-all font-bold text-blue-800 text-xs"
+                          >
+                            <span>{service}</span>
+                            <button
+                              type="button"
+                              onClick={() => removeServiceItem(index)}
+                              className="text-gray-300 group-hover:text-red-500 transition-colors"
+                            >
+                              <X className="w-4 h-4" />
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+
+                      <div className="pt-4 border-t border-gray-100 space-y-4">
+                        <div className="grid grid-cols-2 gap-2">
+                          <select
+                            onChange={(e) => {
+                              const groupId = e.target.value;
+                              const group = serviceGroups.find(
+                                (g) => g._id === groupId,
+                              );
+                              setSelectedServiceGroup(group);
+                              setSelectedService(null);
+                              setSelectedPackages([]);
+                              if (groupId) loadServices(groupId);
+                            }}
+                            className="bg-gray-50 px-3 py-2 rounded-xl border-none text-xs font-bold outline-none shadow-sm"
+                          >
+                            <option value="">Chọn Nhóm...</option>
+                            {serviceGroups.map((g) => (
+                              <option key={g._id} value={g._id}>
+                                {g.name}
+                              </option>
+                            ))}
+                          </select>
+                          <select
+                            onChange={(e) =>
+                              handleServiceChange(e.target.value)
+                            }
+                            disabled={!selectedServiceGroup}
+                            className="bg-gray-50 px-3 py-2 rounded-xl border-none text-xs font-bold outline-none shadow-sm disabled:opacity-50"
+                          >
+                            <option value="">Chọn Dịch vụ...</option>
+                            {(selectedServiceGroup?.services || []).map(
+                              (s: any) => (
+                                <option key={s._id} value={s.name}>
+                                  {s.name}
+                                </option>
+                              ),
+                            )}
+                          </select>
+                        </div>
+
+                        {selectedPackages.length > 0 && (
+                          <div className="grid grid-cols-1 gap-2 animate-in fade-in slide-in-from-top-2 max-h-40 overflow-y-auto pr-1 custom-scrollbar">
+                            {selectedPackages
+                              .filter(
+                                (pkg) =>
+                                  !formData.interestedServices.includes(
+                                    `${selectedService?.serviceName}: ${pkg.packageName}`,
+                                  ),
+                              )
+                              .map((pkg) => (
+                                <button
+                                  key={pkg._id}
+                                  type="button"
+                                  onClick={() =>
+                                    addServiceItem(
+                                      `${selectedService?.serviceName}: ${pkg.packageName}`,
+                                    )
+                                  }
+                                  className="flex items-center justify-between p-3 bg-gray-50 hover:bg-blue-600 hover:text-white rounded-xl shadow-sm transition-all group"
+                                >
+                                  <span className="text-xs font-bold">
+                                    {pkg.packageName}
+                                  </span>
+                                  <Plus className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                                </button>
+                              ))}
+                            {selectedPackages.filter(
+                              (pkg) =>
+                                !formData.interestedServices.includes(
+                                  `${selectedService?.serviceName}: ${pkg.packageName}`,
+                                ),
+                            ).length === 0 && (
+                              <div className="text-center py-2 text-[10px] text-gray-700 italic">
+                                Tất cả các gói đã được chọn
+                              </div>
+                            )}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-bold text-gray-700 uppercase tracking-widest mb-2 ml-1">
+                        Ghi chú nhu cầu đặc biệt
+                      </label>
+                      <textarea
+                        name="needsNote"
+                        value={formData.needsNote}
+                        onChange={handleChange}
+                        rows={6}
+                        className="w-full p-6 bg-white border border-transparent rounded-3xl focus:bg-white focus:border-blue-600 outline-none transition-all font-bold text-gray-900 shadow-sm resize-none"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Card 3: File & Images */}
+              <div className="bg-purple-300/50 border border-purple-500 rounded-[2.5rem] shadow-sm p-6 md:p-10 space-y-8">
+                <h2 className="text-xl font-bold text-gray-900 flex items-center gap-3">
+                  <div className="w-1.5 h-6 bg-purple-500 rounded-full"></div>
+                  Hình ảnh & Tài liệu
+                </h2>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+                  <div className="space-y-4">
+                    <label className="block text-xs font-bold text-gray-700 uppercase tracking-widest ml-1">
+                      Ảnh chụp buổi làm việc
+                    </label>
+                    <div className="flex flex-wrap gap-4">
+                      {formData.images?.map((url, i) => (
+                        <div
+                          key={i}
+                          className="relative w-24 h-24 rounded-2xl overflow-hidden shadow-lg group hover:scale-105 transition-transform"
+                        >
+                          <img
+                            src={url}
+                            className="w-full h-full object-cover"
+                          />
+                          <button
+                            type="button"
+                            onClick={() => {
+                              const news = [...(formData.images || [])];
+                              news.splice(i, 1);
+                              setFormData({ ...formData, images: news });
+                            }}
+                            className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                          >
+                            <X className="w-6 h-6 text-white" />
+                          </button>
+                        </div>
+                      ))}
+                      <label className="bg-white w-24 h-24 border-2 border-dashed border-gray-200 rounded-2xl flex flex-col items-center justify-center cursor-pointer hover:border-blue-400 hover:bg-blue-100 transition-all text-gray-700">
+                        {uploadingImages ? (
+                          <div className="animate-spin rounded-full h-6 w-6 border-2 border-blue-600 border-t-transparent" />
+                        ) : (
+                          <>
+                            <ImageIcon className="w-6 h-6" />
+                            <span className="text-[10px] font-bold mt-1 uppercase">
+                              Tải ảnh
+                            </span>
+                          </>
+                        )}
+                        <input
+                          type="file"
+                          multiple
+                          accept="image/*"
+                          onChange={handleImageUpload}
+                          className="hidden"
+                          disabled={uploadingImages}
+                        />
+                      </label>
+                    </div>
+                  </div>
+
+                  <div className="space-y-4">
+                    <label className="block text-xs font-bold text-gray-700 uppercase tracking-widest ml-1">
+                      Tệp tài liệu đính kèm
+                    </label>
+                    <div className="space-y-3">
+                      {formData.files?.map((f, i) => (
+                        <div
+                          key={i}
+                          className="flex items-center justify-between p-3 bg-white border border-gray-100 rounded-2xl shadow-sm"
+                        >
+                          <div className="flex items-center gap-3 overflow-hidden">
+                            <div className="w-10 h-10 bg-gray-50 rounded-xl flex items-center justify-center shrink-0 shadow-sm border border-gray-100">
+                              <FileCheck className="w-5 h-5 text-emerald-500" />
+                            </div>
+                            <span className="text-sm font-bold text-gray-700 truncate">
+                              {f.name}
+                            </span>
+                          </div>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              const news = [...(formData.files || [])];
+                              news.splice(i, 1);
+                              setFormData({ ...formData, files: news });
+                            }}
+                            className="text-gray-300 hover:text-red-500 transition-colors"
+                          >
+                            <X className="w-5 h-5" />
+                          </button>
+                        </div>
+                      ))}
+                      <label className="bg-white flex items-center justify-center p-4 border-2 border-dashed border-gray-200 rounded-2xl cursor-pointer hover:border-emerald-400 hover:bg-emerald-100 transition-all group">
+                        <div className="flex items-center gap-3">
+                          {uploadingFiles ? (
+                            <div className="animate-spin rounded-full h-5 w-5 border-2 border-emerald-600 border-t-transparent" />
+                          ) : (
+                            <Upload className="w-5 h-5 text-gray-700 group-hover:text-emerald-500 transition-colors" />
+                          )}
+                          <span className="text-sm font-bold text-gray-700 group-hover:text-emerald-600 uppercase tracking-widest">
+                            {uploadingFiles ? "Đang tải..." : "Tải tài liệu"}
+                          </span>
+                        </div>
+                        <input
+                          type="file"
+                          multiple
+                          onChange={handleFileUpload}
+                          className="hidden"
+                          disabled={uploadingFiles}
+                        />
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Column: Config & Schedule */}
+            <div className="space-y-8 animate-in fade-in slide-in-from-right-4 duration-500">
+              {/* Card 4: Schedule */}
+              <div className="bg-orange-300/50 border border-orange-100 rounded-[2.5rem] shadow-sm p-6 md:p-8 space-y-6">
+                <h2 className="text-xl font-bold text-gray-900 flex items-center gap-3">
+                  <div className="w-1.5 h-6 bg-orange-500 rounded-full"></div>
+                  Lịch làm việc
+                </h2>
+
+                <div className="space-y-6">
+                  <div>
+                    <label className="block text-xs font-bold text-gray-700 uppercase tracking-widest mb-2 ml-1">
+                      Người phụ trách <span className="text-red-500">*</span>
+                    </label>
+                    <div className="relative group">
+                      <User className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-700 w-5 h-5 group-focus-within:text-blue-600 transition-colors" />
+                      <select
+                        name="carePerson"
+                        value={formData.carePerson}
+                        onChange={handleChange}
+                        className="w-full pl-12 pr-4 py-3.5 bg-white border border-transparent rounded-2xl focus:bg-white focus:border-blue-600 outline-none appearance-none transition-all font-bold text-gray-900 shadow-sm"
+                        required
+                      >
+                        <option value="">Chọn nhân sự...</option>
+                        {employees.map((e) => (
+                          <option key={e._id} value={e.fullName}>
+                            {e.fullName}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 gap-4">
+                    <div>
+                      <label className="block text-xs font-bold text-gray-700 uppercase tracking-widest mb-2 ml-1">
+                        Từ thời gian
+                      </label>
+                      <div className="relative group">
+                        <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-700 w-5 h-5 group-focus-within:text-blue-600 transition-colors" />
+                        <input
+                          type="datetime-local"
+                          name="timeFrom"
+                          value={formData.timeFrom}
+                          onChange={handleChange}
+                          className="w-full pl-12 pr-4 py-3.5 bg-white border border-transparent rounded-2xl focus:bg-white focus:border-blue-600 outline-none transition-all font-bold text-gray-900 shadow-sm"
+                        />
+                      </div>
+                    </div>
+                    <div>
+                      <label className="block text-xs font-bold text-gray-700 uppercase tracking-widest mb-2 ml-1">
+                        Đến thời gian
+                      </label>
+                      <div className="relative group">
+                        <Clock className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-700 w-5 h-5 group-focus-within:text-blue-600 transition-colors" />
+                        <input
+                          type="datetime-local"
+                          name="timeTo"
+                          value={formData.timeTo}
+                          onChange={handleChange}
+                          className="w-full pl-12 pr-4 py-3.5 bg-white border border-transparent rounded-2xl focus:bg-white focus:border-blue-600 outline-none transition-all font-bold text-gray-900 shadow-sm"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-gray-700 uppercase tracking-widest mb-2 ml-1">
+                      Hình thức & Địa điểm
+                    </label>
+                    <div className="grid grid-cols-1 gap-4">
+                      <select
+                        name="method"
+                        value={formData.method}
+                        onChange={handleChange}
+                        className="w-full px-5 py-3.5 bg-white border border-transparent rounded-2xl focus:bg-white focus:border-blue-600 outline-none transition-all font-bold text-gray-900 shadow-sm"
+                      >
+                        <option value="Online">Online / Điện thoại</option>
+                        <option value="Trực tiếp">Gặp mặt trực tiếp</option>
+                      </select>
+                      {formData.method === "Trực tiếp" && (
+                        <div className="relative group">
+                          <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-700 w-5 h-5 group-focus-within:text-blue-600 transition-colors" />
+                          <input
+                            type="text"
+                            name="location"
+                            value={formData.location}
+                            onChange={handleChange}
+                            placeholder="Địa chỉ cụ thể..."
+                            className="w-full pl-12 pr-4 py-3.5 bg-white border border-transparent rounded-2xl focus:bg-white focus:border-blue-600 outline-none transition-all font-bold text-gray-900 shadow-sm"
+                          />
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Card 5: Results & Status */}
+              <div className="bg-blue-300/50 border border-blue-100 rounded-[2.5rem] shadow-sm p-6 md:p-8 space-y-6">
+                <h2 className="text-xl font-bold text-gray-900 flex items-center gap-3">
+                  <div className="w-1.5 h-6 bg-blue-600 rounded-full"></div>
+                  Kết quả & Trạng thái
+                </h2>
+
+                <div className="space-y-6">
+                  <div>
+                    <label className="block text-xs font-bold text-gray-700 uppercase tracking-widest mb-2 ml-1">
+                      Nhóm Chăm sóc <span className="text-red-500">*</span>
                     </label>
                     <select
-                      onChange={(e) => {
-                        const groupId = e.target.value;
-                        const group = serviceGroups.find(
-                          (g) => g._id === groupId,
-                        );
-                        setSelectedServiceGroup(group);
-                        setSelectedService(null);
-                        setSelectedPackages([]);
-                        if (groupId) loadServices(groupId);
-                      }}
-                      className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm bg-gray-50"
+                      name="careType"
+                      value={formData.careType}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          careType: e.target.value,
+                          careResult: "",
+                        })
+                      }
+                      className="w-full px-5 py-3.5 bg-white border border-transparent rounded-2xl focus:bg-white focus:border-blue-600 outline-none transition-all font-bold text-gray-900 shadow-sm"
+                      required
                     >
-                      <option value="">Chọn nhóm...</option>
-                      {serviceGroups.map((group) => (
-                        <option key={group._id} value={group._id}>
-                          {group.name}
+                      <option value="">Chọn loại chăm sóc...</option>
+                      {careGroups.map((g) => (
+                        <option key={g._id} value={g.name}>
+                          {g.name}
                         </option>
                       ))}
                     </select>
                   </div>
+
                   <div>
-                    <label className="block text-[10px] font-bold text-gray-500 mb-1 uppercase">
-                      Tên dịch vụ
+                    <label className="block text-xs font-bold text-gray-700 uppercase tracking-widest mb-2 ml-1">
+                      Kết quả cụ thể
                     </label>
                     <select
-                      onChange={(e) => handleServiceChange(e.target.value)}
-                      className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm bg-gray-50"
-                      disabled={!selectedServiceGroup}
-                      value={selectedService?.name || ""}
-                    >
-                      <option value="">Chọn dịch vụ...</option>
-                      {(selectedServiceGroup?.services || []).map(
-                        (service: any) => (
-                          <option key={service._id} value={service.name}>
-                            {service.name}
-                          </option>
-                        ),
-                      )}
-                    </select>
-                  </div>
-                </div>
-
-                {selectedPackages.length > 0 && (
-                  <div className="grid grid-cols-1 gap-2 pt-2 border-t border-gray-100">
-                    {selectedPackages
-                      .filter((pkg) => {
-                        const serviceString = `${selectedService?.serviceName}: ${pkg.packageName} (${pkg.unitPrice.toLocaleString()} VNĐ)`;
-                        return !formData.interestedServices.includes(
-                          serviceString,
+                      name="careResult"
+                      value={formData.careResult}
+                      onChange={(e) => {
+                        const selectedResult = filteredCareResults.find(
+                          (r) => r.resultName === e.target.value,
                         );
-                      })
-                      .map((pkg) => (
+                        setFormData({
+                          ...formData,
+                          careResult: e.target.value,
+                          careResultClassification:
+                            selectedResult?.classification || "",
+                        });
+                      }}
+                      disabled={!formData.careType}
+                      className="w-full px-5 py-3.5 bg-white border border-transparent rounded-2xl focus:bg-white focus:border-blue-600 outline-none transition-all font-bold text-gray-900 shadow-sm disabled:opacity-50"
+                    >
+                      <option value="">Chọn kết quả...</option>
+                      {filteredCareResults.map((r) => (
+                        <option key={r._id} value={r.resultName}>
+                          {r.resultName}
+                        </option>
+                      ))}
+                    </select>
+                    {formData.careResultClassification && (
+                      <div className="mt-2 text-[10px] font-black uppercase text-blue-600 bg-white border border-blue-100 px-3 py-1 rounded-lg inline-block shadow-sm">
+                        Xếp loại: {formData.careResultClassification}
+                      </div>
+                    )}
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-gray-700 uppercase tracking-widest mb-2 ml-1">
+                      Trạng thái Hồ sơ
+                    </label>
+                    <div className="flex bg-gray-100 p-1.5 rounded-2xl gap-1">
+                      {["Chờ báo cáo", "Hoàn thành", "Hủy"].map((s) => (
                         <button
-                          key={pkg._id}
+                          key={s}
                           type="button"
                           onClick={() =>
-                            addServiceItem(
-                              `${selectedService?.serviceName}: ${pkg.packageName} (${pkg.unitPrice.toLocaleString()} VNĐ)`,
-                            )
+                            setFormData({
+                              ...formData,
+                              status: s as any,
+                            })
                           }
-                          className="flex items-center justify-between p-3 rounded-lg border border-gray-100 bg-gray-50 hover:bg-blue-50 hover:border-blue-300 transition group text-left"
+                          className={`flex-1 py-2.5 rounded-xl font-bold text-xs transition-all ${
+                            formData.status === s
+                              ? "bg-white text-blue-600 shadow-sm scale-100"
+                              : "text-gray-700 hover:text-gray-600 scale-95"
+                          }`}
                         >
-                          <div className="flex items-center">
-                            <Plus className="w-4 h-4 text-blue-500 mr-3" />
-                            <span className="text-sm text-gray-700 font-medium">
-                              {pkg.packageName}
-                            </span>
-                          </div>
-                          <span className="text-sm font-bold text-blue-600">
-                            {pkg.unitPrice.toLocaleString()}đ
-                          </span>
+                          {s}
                         </button>
                       ))}
-                    {selectedPackages.length > 0 &&
-                      selectedPackages.filter((pkg) => {
-                        const serviceString = `${selectedService?.serviceName}: ${pkg.packageName} (${pkg.unitPrice.toLocaleString()} VNĐ)`;
-                        return !formData.interestedServices.includes(
-                          serviceString,
-                        );
-                      }).length === 0 && (
-                        <div className="text-center py-4 bg-gray-50 rounded-lg border border-dashed border-gray-200">
-                          <p className="text-xs text-gray-400 italic">
-                            Tất cả các gói của dịch vụ này đã được chọn
-                          </p>
-                        </div>
-                      )}
+                    </div>
                   </div>
-                )}
-                {/* Manual add input */}
-                <div className="mt-4 pt-4 border-t border-gray-100">
-                  <div className="flex gap-2">
-                    <input
-                      type="text"
-                      id="manualService"
-                      placeholder="Hoặc nhập thủ công nhu cầu khác..."
-                      className="flex-1 px-3 py-2 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-blue-500"
-                      onKeyDown={(e) => {
-                        if (e.key === "Enter") {
-                          e.preventDefault();
-                          const val = (e.target as HTMLInputElement).value;
-                          if (val) {
-                            addServiceItem(val);
-                            (e.target as HTMLInputElement).value = "";
+
+                  {(formData.careResultClassification === "Thất bại" ||
+                    formData.careResultClassification === "Từ chối") && (
+                    <div className="p-6 bg-red-50 rounded-3xl border border-red-100 space-y-4 animate-in zoom-in-95">
+                      <div>
+                        <label className="block text-[10px] font-black text-red-800 uppercase tracking-widest mb-2 ml-1">
+                          Nhóm lý do từ chối
+                        </label>
+                        <select
+                          name="rejectGroup"
+                          value={formData.rejectGroup}
+                          onChange={(e) =>
+                            setFormData({
+                              ...formData,
+                              rejectGroup: e.target.value,
+                              rejectReason: "",
+                            })
                           }
-                        }
-                      }}
-                    />
-                    <button
-                      type="button"
-                      onClick={() => {
-                        const input = document.getElementById(
-                          "manualService",
-                        ) as HTMLInputElement;
-                        if (input.value) {
-                          addServiceItem(input.value);
-                          input.value = "";
-                        }
-                      }}
-                      className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-bold hover:bg-blue-700 transition flex items-center"
-                    >
-                      <Plus className="w-4 h-4 mr-2" />
-                      Thêm
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Nội dung trao đổi
-              </label>
-              <div className="relative">
-                <FileText className="absolute left-3 top-3 text-gray-400 w-5 h-5" />
-                <textarea
-                  name="discussionContent"
-                  rows={4}
-                  value={formData.discussionContent}
-                  onChange={handleChange}
-                  className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
-                  placeholder="Ghi chú nội dung trao đổi..."
-                />
-              </div>
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Ghi chú nhu cầu
-              </label>
-              <textarea
-                name="needsNote"
-                rows={2}
-                value={formData.needsNote}
-                onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
-              />
-            </div>
-
-            {/* Images & Files Section */}
-            <div className="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-gray-100">
-              {/* Image Upload */}
-              <div className="bg-gray-50 p-4 rounded-xl border border-gray-100">
-                <label className="text-sm font-bold text-gray-700 mb-4 uppercase flex items-center">
-                  <ImageIcon className="w-4 h-4 mr-2 text-blue-600" />
-                  Hình ảnh đính kèm
-                </label>
-                <div className="flex flex-wrap gap-3">
-                  {formData.images?.map((imgUrl, index) => (
-                    <div
-                      key={index}
-                      className="relative group w-20 h-20 border border-gray-200 rounded-lg overflow-hidden bg-white"
-                    >
-                      <img
-                        src={imgUrl}
-                        alt="Care"
-                        className="w-full h-full object-cover"
-                      />
-                      <button
-                        type="button"
-                        onClick={() => {
-                          const newImages = [...(formData.images || [])];
-                          newImages.splice(index, 1);
-                          setFormData((prev) => ({
-                            ...prev,
-                            images: newImages,
-                          }));
-                        }}
-                        className="absolute top-1 right-1 bg-red-500 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
-                      >
-                        <X className="w-3 h-3" />
-                      </button>
-                    </div>
-                  ))}
-                  <label className="w-20 h-20 flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:bg-white hover:border-blue-500 transition-colors">
-                    {uploadingImages ? (
-                      <Upload className="w-5 h-5 text-blue-500 animate-pulse" />
-                    ) : (
-                      <Upload className="w-5 h-5 text-gray-400" />
-                    )}
-                    <span className="text-[10px] text-gray-500 mt-1">
-                      {uploadingImages ? "..." : "Thêm ảnh"}
-                    </span>
-                    <input
-                      type="file"
-                      accept="image/*"
-                      multiple
-                      onChange={handleImageUpload}
-                      className="hidden"
-                      disabled={uploadingImages}
-                    />
-                  </label>
-                </div>
-              </div>
-
-              {/* File Upload */}
-              <div className="bg-gray-50 p-4 rounded-xl border border-gray-100">
-                <label className="text-sm font-bold text-gray-700 mb-4 uppercase flex items-center">
-                  <FileText className="w-4 h-4 mr-2 text-blue-600" />
-                  Tài liệu (PDF, DOC...)
-                </label>
-                <div className="space-y-3">
-                  {formData.files?.map((fileData, index) => (
-                    <div
-                      key={index}
-                      className="flex items-center justify-between p-2 bg-white rounded-lg border border-gray-200"
-                    >
-                      <div className="flex items-center min-w-0">
-                        <FileText className="w-4 h-4 text-blue-500 mr-2 shrink-0" />
-                        <span className="text-xs text-gray-700 truncate">
-                          {fileData.name}
-                        </span>
+                          className="w-full px-4 py-2.5 bg-white border border-red-200 rounded-xl outline-none font-bold text-sm text-red-900 shadow-sm"
+                        >
+                          <option value="">Chọn nhóm...</option>
+                          {rejectGroups.map((g) => (
+                            <option key={g._id} value={g.name}>
+                              {g.name}
+                            </option>
+                          ))}
+                        </select>
                       </div>
-                      <button
-                        type="button"
-                        onClick={() => {
-                          const newFiles = [...(formData.files || [])];
-                          newFiles.splice(index, 1);
-                          setFormData((prev) => ({ ...prev, files: newFiles }));
-                        }}
-                        className="text-gray-400 hover:text-red-500"
-                      >
-                        <X className="w-4 h-4" />
-                      </button>
+                      <div>
+                        <label className="block text-[10px] font-black text-red-800 uppercase tracking-widest mb-2 ml-1">
+                          Lý do chi tiết
+                        </label>
+                        <select
+                          name="rejectReason"
+                          value={formData.rejectReason}
+                          onChange={handleChange}
+                          disabled={!formData.rejectGroup}
+                          className="w-full px-4 py-2.5 bg-white border border-red-200 rounded-xl outline-none font-bold text-sm text-red-900 disabled:opacity-50 shadow-sm"
+                        >
+                          <option value="">Chọn lý do...</option>
+                          {filteredRejectReasons.map((r) => (
+                            <option key={r._id} value={r.name}>
+                              {r.name}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
                     </div>
-                  ))}
-                  <label className="inline-flex items-center px-4 py-2 border border-gray-200 rounded-lg shadow-sm text-xs font-bold text-gray-700 bg-white hover:bg-gray-50 cursor-pointer transition">
-                    {uploadingFiles ? (
-                      <Upload className="w-4 h-4 mr-2 animate-spin" />
-                    ) : (
-                      <Upload className="w-4 h-4 mr-2" />
-                    )}
-                    <span>
-                      {uploadingFiles ? "Đang tải..." : "Tải tài liệu lên"}
-                    </span>
-                    <input
-                      type="file"
-                      accept=".pdf,.doc,.docx,.xls,.xlsx,.zip,.rar,.txt,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-                      multiple
-                      onChange={handleFileUpload}
-                      className="hidden"
-                      disabled={uploadingFiles}
-                    />
-                  </label>
+                  )}
                 </div>
               </div>
             </div>
           </div>
-
-          <div className="flex justify-end gap-3 pt-4 border-t">
-            <button
-              type="button"
-              onClick={() => router.back()}
-              className="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition"
-            >
-              Hủy
-            </button>
-            <button
-              type="submit"
-              disabled={loading}
-              className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition disabled:opacity-50"
-            >
-              {loading ? (
-                <span className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></span>
-              ) : (
-                <Save className="w-4 h-4 mr-2" />
-              )}
-              Lưu thay đổi
-            </button>
-          </div>
-        </form>
+        </div>
       </div>
+
+      <style jsx global>{`
+        .custom-scrollbar::-webkit-scrollbar {
+          width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+          background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+          background: #e2e8f0;
+          border-radius: 10px;
+        }
+      `}</style>
     </div>
+  );
+};
+
+const EditCustomerCare = ({ params }: { params: Promise<{ id: string }> }) => {
+  const resolvedParams = use(params);
+  return (
+    <Suspense fallback={<div>Đang tải...</div>}>
+      <EditCustomerCareForm params={resolvedParams} />
+    </Suspense>
   );
 };
 

@@ -42,11 +42,22 @@ interface Opportunity {
     customerId: string;
     phone?: string;
     email?: string;
+    assignedTo?: {
+      _id: string;
+      fullName: string;
+    };
   };
   demands: string[];
+  unitPrice?: number;
   opportunityValue: number;
   probability: number;
-  status: "Open" | "Closed" | "Lost";
+  status:
+    | "Mới ghi nhận"
+    | "Đang tư vấn"
+    | "Đã gửi đề xuất"
+    | "Chờ quyết định"
+    | "Thành công"
+    | "Không thành công";
   closingDate?: string;
   actualRevenue?: number;
   careHistory: any[];
@@ -141,23 +152,50 @@ const OpportunityManagement = () => {
 
   const getStatusBadge = (status: string) => {
     const configs = {
-      Open: {
-        color: "bg-blue-100 text-blue-800",
-        label: "Đang mở",
+      "Mới ghi nhận": {
+        color: "bg-sky-100 text-sky-800",
+        label: "Mới ghi nhận",
         icon: Clock,
       },
-      Closed: {
-        color: "bg-green-100 text-green-800",
+      "Đang tư vấn": {
+        color: "bg-orange-100 text-orange-800",
+        label: "Đang tư vấn",
+        icon: Clock,
+      },
+      "Đã gửi đề xuất": {
+        color: "bg-indigo-100 text-indigo-800",
+        label: "Đã gửi đề xuất",
+        icon: Clock,
+      },
+      "Chờ quyết định": {
+        color: "bg-amber-100 text-amber-800",
+        label: "Chờ quyết định",
+        icon: Clock,
+      },
+      "Thành công": {
+        color: "bg-emerald-100 text-emerald-800",
         label: "Thành công",
         icon: CheckCircle,
       },
-      Lost: {
-        color: "bg-red-100 text-red-800",
-        label: "Thất bại",
+      "Không thành công": {
+        color: "bg-rose-100 text-rose-800",
+        label: "Không thành công",
         icon: AlertCircle,
       },
     };
-    const config = configs[status as keyof typeof configs];
+
+    const normalizedStatus =
+      status === "Open"
+        ? "Mới ghi nhận"
+        : status === "Closed"
+          ? "Thành công"
+          : status === "Lost"
+            ? "Không thành công"
+            : status;
+
+    const config =
+      configs[normalizedStatus as keyof typeof configs] ||
+      configs["Mới ghi nhận"];
     const Icon = config.icon;
 
     return (
@@ -242,9 +280,12 @@ const OpportunityManagement = () => {
               className="w-full px-3 py-1.5 border border-gray-300 rounded-lg text-sm bg-white focus:ring-2 focus:ring-blue-500 outline-none"
             >
               <option value="all">Tất cả</option>
-              <option value="Open">Đang mở</option>
-              <option value="Closed">Thành công</option>
-              <option value="Lost">Thất bại</option>
+              <option value="Mới ghi nhận">Mới ghi nhận</option>
+              <option value="Đang tư vấn">Đang tư vấn</option>
+              <option value="Đã gửi đề xuất">Đã gửi đề xuất</option>
+              <option value="Chờ quyết định">Chờ quyết định</option>
+              <option value="Thành công">Thành công</option>
+              <option value="Không thành công">Không thành công</option>
             </select>
           </div>
         </div>
@@ -262,13 +303,30 @@ const OpportunityManagement = () => {
                     Mã cơ hội
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                    Khách hàng
+                    Ngày tạo
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                    Giá trị dự kiến
+                    Khách hàng
+                  </th>
+                  {/* <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                    Nhu cầu
+                  </th> */}
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                    Giá trị cơ hội dự kiến
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
                     Xác suất
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                    Doanh thu dự kiến
+                  </th>
+                  {/* ngày chốt cơ hội sẽ được update data sau khi chốt cơ hội */}
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                    Ngày chốt cơ hội
+                  </th>
+                  {/* doanh thu thực tế sẽ được update data sau khi chốt cơ hội */}
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                    Doanh thu thực tế
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
                     Trạng thái
@@ -288,6 +346,9 @@ const OpportunityManagement = () => {
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                       {opp.opportunityNo}
                     </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      {new Date(opp.createdAt).toLocaleDateString("vi-VN")}
+                    </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="text-sm font-medium text-gray-900">
                         {opp.customerRef?.fullName}
@@ -296,21 +357,53 @@ const OpportunityManagement = () => {
                         {opp.customerRef?.customerId}
                       </div>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-semibold">
-                      {opp.opportunityValue.toLocaleString("vi-VN")}đ
+                    {/* <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="flex flex-wrap gap-1 max-w-[200px]">
+                        {opp.demands?.length > 0
+                          ? opp.demands.slice(0, 2).map((d, i) => (
+                              <span
+                                key={i}
+                                className="px-1.5 py-0.5 bg-gray-100 text-gray-600 rounded text-[10px]"
+                              >
+                                {d}
+                              </span>
+                            ))
+                          : "---"}
+                        {opp.demands?.length > 2 && (
+                          <span className="text-[10px] text-gray-400">
+                            +{opp.demands.length - 2}
+                          </span>
+                        )}
+                      </div>
+                    </td> */}
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-blue-600 font-bold">
+                      {(opp.unitPrice || 0).toLocaleString("vi-VN")}đ
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center">
-                        <div className="w-16 bg-gray-200 rounded-full h-1.5 mr-2">
+                        <div className="w-12 bg-gray-200 rounded-full h-1 mr-2">
                           <div
-                            className="bg-blue-600 h-1.5 rounded-full"
+                            className="bg-blue-600 h-1 rounded-full"
                             style={{ width: `${opp.probability}%` }}
                           ></div>
                         </div>
-                        <span className="text-sm text-gray-700">
+                        <span className="text-[11px] text-gray-700">
                           {opp.probability}%
                         </span>
                       </div>
+                    </td>
+                    <td className="text-red-600 px-6 py-4 whitespace-nowrap text-sm font-semibold">
+                      {opp.opportunityValue.toLocaleString("vi-VN")}đ
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      {opp.closingDate
+                        ? new Date(opp.closingDate).toLocaleDateString("vi-VN")
+                        : "---"}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-green-600 font-bold">
+                      {opp.actualRevenue
+                        ? `${opp.actualRevenue.toLocaleString("vi-VN")}đ`
+                        : "---"}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       {getStatusBadge(opp.status)}

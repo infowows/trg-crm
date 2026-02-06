@@ -24,7 +24,13 @@ interface FormData {
   unitPrice: number;
   probability: number;
   opportunityValue: number;
-  status: "Open" | "Closed" | "Lost";
+  status:
+    | "Mới ghi nhận"
+    | "Đang tư vấn"
+    | "Đã gửi đề xuất"
+    | "Chờ quyết định"
+    | "Thành công"
+    | "Không thành công";
   closingDate: string;
   description: string;
 }
@@ -36,17 +42,6 @@ const EditOpportunity = ({ params }: { params: Promise<{ id: string }> }) => {
   const [initialLoading, setInitialLoading] = useState(true);
   const [customers, setCustomers] = useState<any[]>([]);
   const [services, setServices] = useState<any[]>([]);
-  const [popup, setPopup] = useState<{
-    isOpen: boolean;
-    title: string;
-    message: string;
-    type: "success" | "error" | "warning";
-  }>({
-    isOpen: false,
-    title: "",
-    message: "",
-    type: "success",
-  });
 
   const [formData, setFormData] = useState<FormData>({
     customerRef: "",
@@ -54,7 +49,7 @@ const EditOpportunity = ({ params }: { params: Promise<{ id: string }> }) => {
     unitPrice: 0,
     probability: 50,
     opportunityValue: 0,
-    status: "Open",
+    status: "Mới ghi nhận",
     closingDate: "",
     description: "",
   });
@@ -92,7 +87,7 @@ const EditOpportunity = ({ params }: { params: Promise<{ id: string }> }) => {
             unitPrice: opp.unitPrice || 0,
             probability: opp.probability || 0,
             opportunityValue: opp.opportunityValue || 0,
-            status: opp.status || "Open",
+            status: opp.status || "Mới ghi nhận",
             closingDate: opp.closingDate ? opp.closingDate.split("T")[0] : "",
             description: opp.description || "",
           });
@@ -153,12 +148,7 @@ const EditOpportunity = ({ params }: { params: Promise<{ id: string }> }) => {
       });
 
       if (res.ok) {
-        setPopup({
-          isOpen: true,
-          title: "Thành công",
-          message: "Cập nhật cơ hội kinh doanh thành công!",
-          type: "success",
-        });
+        toast.success("Cập nhật cơ hội kinh doanh thành công!");
         setTimeout(() => router.push("/opportunities"), 2000);
       } else {
         const err = await res.json();
@@ -329,9 +319,12 @@ const EditOpportunity = ({ params }: { params: Promise<{ id: string }> }) => {
                   onChange={handleInputChange}
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
                 >
-                  <option value="Open">Đang mở (Open)</option>
-                  <option value="Closed">Thành công (Closed)</option>
-                  <option value="Lost">Thất bại (Lost)</option>
+                  <option value="Mới ghi nhận">Mới ghi nhận</option>
+                  <option value="Đang tư vấn">Đang tư vấn</option>
+                  <option value="Đã gửi đề xuất">Đã gửi đề xuất</option>
+                  <option value="Chờ quyết định">Chờ quyết định</option>
+                  <option value="Thành công">Thành công</option>
+                  <option value="Không thành công">Không thành công</option>
                 </select>
               </div>
               <div>
@@ -366,14 +359,6 @@ const EditOpportunity = ({ params }: { params: Promise<{ id: string }> }) => {
           </div>
         </div>
       </form>
-
-      <Popup
-        isOpen={popup.isOpen}
-        onClose={() => setPopup((prev) => ({ ...prev, isOpen: false }))}
-        title={popup.title}
-        message={popup.message}
-        type={popup.type}
-      />
     </div>
   );
 };

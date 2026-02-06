@@ -39,6 +39,10 @@ interface Survey {
   createdBy: string;
   createdAt: string;
   updatedAt: string;
+  opportunityRef?: {
+    _id: string;
+    opportunityNo: string;
+  };
 }
 
 const SurveyList = () => {
@@ -257,11 +261,14 @@ const SurveyList = () => {
                     Ngày Khảo sát
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Mã Cơ hội
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Địa chỉ
                   </th>
-                  {/* <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Trạng thái
-                  </th> */}
+                  <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Khối lượng
+                  </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Báo giá
                   </th>
@@ -290,17 +297,23 @@ const SurveyList = () => {
                           {formatDate(survey.surveyDate)}
                         </div>
                       </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="text-sm font-bold text-blue-600">
+                          {survey.opportunityRef?.opportunityNo || "-"}
+                        </div>
+                      </td>
                       <td className="px-6 py-4">
-                        <div className="text-sm text-gray-900">
+                        <div className="text-sm text-gray-900 max-w-[200px] overflow-hidden text-ellipsis">
                           {survey.surveyAddress || "-"}
                         </div>
                       </td>
-                      {/* <td className="px-6 py-4 whitespace-nowrap text-black">
-                        <span className="inline-flex items-center gap-1 px-2 py-1 text-xs font-semibold rounded-full ${statusConfig.color}">
-                          <StatusIcon className="w-3 h-3" />
-                          {statusConfig.label}
-                        </span>
-                      </td> */}
+                      <td className="px-6 py-4 whitespace-nowrap text-center">
+                        <div className="text-sm font-bold text-green-600">
+                          {survey.surveys
+                            .reduce((acc, s) => acc + (s.volume || 0), 0)
+                            .toLocaleString()}
+                        </div>
+                      </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         {survey.quotationNo ? (
                           <span className="text-sm font-medium text-green-600">
@@ -492,6 +505,14 @@ const SurveyList = () => {
                         {selectedSurvey.createdBy}
                       </span>
                     </div>
+                    {selectedSurvey.opportunityRef && (
+                      <div className="flex justify-between text-sm">
+                        <span className="text-gray-500">Mã Cơ hội:</span>
+                        <span className="text-blue-600 font-bold">
+                          {selectedSurvey.opportunityRef.opportunityNo}
+                        </span>
+                      </div>
+                    )}
                     {selectedSurvey.quotationNo && (
                       <div className="flex justify-between text-sm">
                         <span className="text-gray-500">

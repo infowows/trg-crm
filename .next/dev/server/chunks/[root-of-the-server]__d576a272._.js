@@ -341,6 +341,10 @@ const quotationSchema = new __TURBOPACK__imported__module__$5b$externals$5d2f$mo
         type: __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].Schema.Types.ObjectId,
         ref: "CustomerCare"
     },
+    opportunityRef: {
+        type: __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].Schema.Types.ObjectId,
+        ref: "Opportunity"
+    },
     packages: [
         quotationPackageSchema
     ],
@@ -487,6 +491,10 @@ const CustomerCareSchema = new __TURBOPACK__imported__module__$5b$externals$5d2f
         type: String,
         trim: true
     },
+    careResultClassification: {
+        type: String,
+        trim: true
+    },
     careClassification: {
         type: String,
         trim: true
@@ -526,7 +534,7 @@ const CustomerCareSchema = new __TURBOPACK__imported__module__$5b$externals$5d2f
     }
 }, {
     timestamps: true,
-    // Tên collection có dấu thường gây khó khăn ở một số môi trường quản lý database, 
+    // Tên collection có dấu thường gây khó khăn ở một số môi trường quản lý database,
     // nhưng tôi giữ nguyên theo ý bạn.
     collection: "Chăm sóc khách hàng"
 });

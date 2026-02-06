@@ -77,6 +77,7 @@ export async function GET(request: NextRequest) {
       ProjectSurvey.find(query)
         .populate("customerRef", "fullName customerId")
         .populate("careRef", "careId careType")
+        .populate("opportunityRef", "opportunityNo")
         .sort({ createdAt: -1 })
         .skip(skip)
         .limit(limit),
@@ -123,13 +124,14 @@ export async function POST(request: NextRequest) {
       surveyNotes,
       customerRef,
       careRef,
+      opportunityRef,
     } = body;
 
-    if (!customerRef && !careRef) {
+    if (!customerRef && !careRef && !opportunityRef) {
       return NextResponse.json(
         {
           success: false,
-          message: "Vui lòng chọn khách hàng hoặc lượt chăm sóc",
+          message: "Vui lòng chọn khách hàng, cơ hội hoặc lượt chăm sóc",
         },
         { status: 400 },
       );
@@ -188,6 +190,16 @@ export async function POST(request: NextRequest) {
           shortName = care.customerInfo.shortName;
         }
       }
+    } else if (opportunityRef) {
+      const Opportunity = (await import("@/models/Opportunity")).default;
+      const opp =
+        await Opportunity.findById(opportunityRef).populate("customerRef");
+      if (opp && opp.customerRef) {
+        finalCustomerRef = opp.customerRef._id;
+        if (opp.customerRef.shortName) {
+          shortName = opp.customerRef.shortName;
+        }
+      }
     }
 
     // Nếu chưa có shortName (do không có careRef hoặc careRef không có info), lấy từ Customer
@@ -237,6 +249,7 @@ export async function POST(request: NextRequest) {
       surveyNotes,
       customerRef: finalCustomerRef,
       careRef,
+      opportunityRef,
       createdBy: auth.username,
     });
 

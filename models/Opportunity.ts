@@ -10,7 +10,13 @@ export interface IOpportunity extends Document {
   careHistory: mongoose.Types.ObjectId[]; // lịch sử chăm sóc (danh sách các lần chăm sóc)
   closingDate?: Date; // ngày chốt cơ hội
   actualRevenue?: number; // doanh thu thực tế
-  status: "Open" | "Closed" | "Lost";
+  status:
+    | "Mới ghi nhận"
+    | "Đang tư vấn"
+    | "Đã gửi đề xuất"
+    | "Chờ quyết định"
+    | "Thành công"
+    | "Không thành công";
   createdBy: string;
   createdAt: Date;
   updatedAt: Date;
@@ -61,8 +67,15 @@ const OpportunitySchema: Schema = new Schema(
     },
     status: {
       type: String,
-      enum: ["Open", "Closed", "Lost"],
-      default: "Open",
+      enum: [
+        "Mới ghi nhận",
+        "Đang tư vấn",
+        "Đã gửi đề xuất",
+        "Chờ quyết định",
+        "Thành công",
+        "Không thành công",
+      ],
+      default: "Mới ghi nhận",
     },
     createdBy: {
       type: String,

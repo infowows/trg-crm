@@ -79,20 +79,63 @@ export async function GET(request: NextRequest) {
     const skip = (page - 1) * limit;
 
     console.log("Querying quotations with populate..."); // Force reload and debug
-    const [quotations, total] = await Promise.all([
+
+    // Build base query for status counts (without status filter)
+    const baseQuery: any = {};
+    if (assignedCustomerIds) {
+      baseQuery.customerRef = { $in: assignedCustomerIds };
+    }
+    if (search) {
+      const searchConditions = [
+        { quotationNo: { $regex: search, $options: "i" } },
+        { customer: { $regex: search, $options: "i" } },
+      ];
+      if (baseQuery.customerRef) {
+        baseQuery.$and = [
+          { customerRef: baseQuery.customerRef },
+          { $or: searchConditions },
+        ];
+        delete baseQuery.customerRef;
+      } else {
+        baseQuery.$or = searchConditions;
+      }
+    }
+
+    const [quotations, total, statusCounts] = await Promise.all([
       Quotation.find(query)
         .populate("customerRef", "fullName customerId")
         .populate("surveyRef", "surveyNo status")
         .populate("careRef", "careId careType")
+        .populate("opportunityRef", "opportunityNo")
         .sort({ createdAt: -1 })
         .skip(skip)
         .limit(limit),
       Quotation.countDocuments(query),
+      // Count by status
+      Promise.all([
+        Quotation.countDocuments(baseQuery), // all
+        Quotation.countDocuments({ ...baseQuery, status: "draft" }),
+        Quotation.countDocuments({ ...baseQuery, status: "sent" }),
+        Quotation.countDocuments({ ...baseQuery, status: "approved" }),
+        Quotation.countDocuments({ ...baseQuery, status: "rejected" }),
+        Quotation.countDocuments({ ...baseQuery, status: "completed" }),
+      ]),
     ]);
 
     return NextResponse.json({
       success: true,
       data: quotations,
+      total,
+      currentPage: page,
+      totalPages: Math.ceil(total / limit),
+      statusCounts: {
+        all: statusCounts[0],
+        draft: statusCounts[1],
+        sent: statusCounts[2],
+        approved: statusCounts[3],
+        rejected: statusCounts[4],
+        completed: statusCounts[5],
+      },
       pagination: {
         page,
         limit,
@@ -124,8 +167,16 @@ export async function POST(request: NextRequest) {
     await mongoose.connection.db;
 
     const body = await request.json();
-    const { customer, customerRef, surveyRef, careRef, date, packages, notes } =
-      body;
+    const {
+      customer,
+      customerRef,
+      surveyRef,
+      careRef,
+      opportunityRef,
+      date,
+      packages,
+      notes,
+    } = body;
 
     if (!customer) {
       return NextResponse.json(
@@ -177,6 +228,7 @@ export async function POST(request: NextRequest) {
       customerRef: customerRef || undefined,
       surveyRef: surveyRef || undefined,
       careRef: careRef || undefined,
+      opportunityRef: opportunityRef || undefined,
       date: date ? new Date(date) : new Date(),
       packages: processedPackages,
       totalAmount,

@@ -25,6 +25,7 @@ import {
   Calendar,
   Save,
 } from "lucide-react";
+import { toast } from "react-toastify";
 import Popup from "@/components/Popup";
 
 interface CustomerFormData {
@@ -57,17 +58,6 @@ const CreateCustomer = () => {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const [uploadingImage, setUploadingImage] = useState(false);
-  const [popup, setPopup] = useState<{
-    isOpen: boolean;
-    title: string;
-    message: string;
-    type: "success" | "error" | "warning";
-  }>({
-    isOpen: false,
-    title: "",
-    message: "",
-    type: "success",
-  });
   const [salesPersons, setSalesPersons] = useState<
     Array<{ _id: string; fullName: string; position: string; role: string }>
   >([]);
@@ -663,22 +653,13 @@ const CreateCustomer = () => {
           }
         }
       } else {
-        setPopup({
-          isOpen: true,
-          title: "Lỗi",
-          message:
-            "Không thể lấy tọa độ từ đường dẫn Google Maps. Vui lòng kiểm tra lại URL.",
-          type: "error",
-        });
+        toast.error(
+          "Không thể lấy tọa độ từ đường dẫn Google Maps. Vui lòng kiểm tra lại URL.",
+        );
       }
     } catch (error) {
       console.error("Error processing Google Maps URL:", error);
-      setPopup({
-        isOpen: true,
-        title: "Lỗi",
-        message: "Có lỗi xảy ra khi xử lý đường dẫn Google Maps.",
-        type: "error",
-      });
+      toast.error("Có lỗi xảy ra khi xử lý đường dẫn Google Maps.");
     } finally {
       setIsSearching(false);
     }
@@ -835,24 +816,12 @@ const CreateCustomer = () => {
 
       const data = await response.json();
       if (data.success) {
-        setPopup({
-          isOpen: true,
-          title: "Thành công",
-          message: "Tạo khách hàng mới thành công!",
-          type: "success",
-        });
-        setTimeout(() => {
-          router.push("/customers");
-        }, 2000);
+        toast.success("Tạo khách hàng mới thành công!");
+        setTimeout(() => router.push("/customers"), 2000);
       }
-    } catch (err) {
+    } catch (err: any) {
       console.error("Error creating customer:", err);
-      setPopup({
-        isOpen: true,
-        title: "Lỗi",
-        message: err instanceof Error ? err.message : "Có lỗi xảy ra",
-        type: "error",
-      });
+      toast.error(err.message || "Có lỗi xảy ra");
     } finally {
       setLoading(false);
     }
@@ -1484,37 +1453,51 @@ const CreateCustomer = () => {
           </div>
         </div>
 
-        {/* Action Buttons */}
-        <div className="bg-white rounded-lg shadow-sm p-6">
-          <div className="flex items-center justify-end space-x-4">
-            <button
-              type="button"
-              onClick={() => router.back()}
-              className="flex items-center px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition"
-            >
-              <X className="w-5 h-5 mr-2" />
-              Hủy
-            </button>
-            <button
-              type="submit"
-              disabled={loading}
-              className="flex items-center px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              <Save className="w-5 h-5 mr-2" />
-              {loading ? "Đang lưu..." : "Lưu khách hàng"}
-            </button>
+        {/* Action Buttons Sticky Bar */}
+        <div className="sticky bottom-6 z-50 mt-6">
+          <div className="bg-white/80 backdrop-blur-xl border border-blue-100 shadow-[0_20px_50px_rgba(0,0,0,0.15)] rounded-[2.5rem] p-6 space-y-4">
+            <div className="flex items-center justify-between px-2">
+              <div className="flex flex-col">
+                <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest leading-none mb-1">
+                  Tên khách hàng
+                </span>
+                <span className="text-lg font-bold text-gray-900 truncate max-w-[150px]">
+                  {formData.fullName || "Mới"}
+                </span>
+              </div>
+              <div className="h-8 w-px bg-gray-100"></div>
+              <div className="flex flex-col items-end">
+                <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest leading-none mb-1">
+                  Mức độ TN
+                </span>
+                <span className="text-lg">{formData.potentialLevel}</span>
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-3">
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full py-4 bg-blue-600 text-white font-bold rounded-2xl shadow-xl shadow-blue-400/30 hover:bg-blue-700 active:scale-95 transition-all flex items-center justify-center disabled:opacity-50"
+              >
+                {loading ? (
+                  <Loader2 className="w-5 h-5 mr-3 animate-spin" />
+                ) : (
+                  <Save className="w-5 h-5 mr-3" />
+                )}
+                Lưu khách hàng
+              </button>
+              <button
+                type="button"
+                onClick={() => router.back()}
+                className="w-full py-2 text-gray-400 font-bold hover:text-gray-600 transition-colors text-sm"
+              >
+                Hủy bỏ
+              </button>
+            </div>
           </div>
         </div>
       </form>
-
-      {/* Popup Component */}
-      <Popup
-        isOpen={popup.isOpen}
-        onClose={() => setPopup((prev) => ({ ...prev, isOpen: false }))}
-        title={popup.title}
-        message={popup.message}
-        type={popup.type}
-      />
     </div>
   );
 };

@@ -79,6 +79,7 @@ interface Survey {
   surveyAddress: string;
   customerRef?: any;
   surveyNotes: string;
+  opportunityRef?: any;
   createdBy: string;
   createdAt: string;
 }
@@ -111,10 +112,10 @@ const CreateQuotation = () => {
   const [formData, setFormData] = useState({
     date: new Date().toISOString().split("T")[0],
     notes: "",
-    careRef: "",
+    opportunityRef: "",
   });
 
-  const [customerCares, setCustomerCares] = useState<any[]>([]);
+  const [opportunities, setOpportunities] = useState<any[]>([]);
   const [activeTab, setActiveTab] = useState("general");
 
   const [availablePackageHeaders, setAvailablePackageHeaders] = useState<any[]>(
@@ -125,9 +126,58 @@ const CreateQuotation = () => {
     loadCustomers();
     loadServiceGroups();
     loadSurveys();
-    loadCustomerCares();
+    loadOpportunities();
     loadAvailablePackages();
   }, []);
+
+  useEffect(() => {
+    // Hàm cuộn mượt tùy chỉnh để có thể kiểm soát tốc độ (ms)
+    const customSmoothScroll = (
+      element: HTMLElement | Window,
+      target: number,
+      duration: number,
+    ) => {
+      const start =
+        element instanceof Window
+          ? window.scrollY
+          : (element as HTMLElement).scrollTop;
+      const change = target - start;
+      let startTime: number | null = null;
+
+      const animateScroll = (timestamp: number) => {
+        if (!startTime) startTime = timestamp;
+        const progress = timestamp - startTime;
+        const percent = Math.min(progress / duration, 1);
+
+        // Easing function: easeInOutCubic (giúp lướt êm hơn)
+        const ease =
+          percent < 0.5
+            ? 4 * percent * percent * percent
+            : 1 - Math.pow(-2 * percent + 2, 3) / 2;
+
+        if (element instanceof Window) {
+          window.scrollTo(0, start + change * ease);
+        } else {
+          (element as HTMLElement).scrollTop = start + change * ease;
+        }
+
+        if (progress < duration) {
+          requestAnimationFrame(animateScroll);
+        }
+      };
+
+      requestAnimationFrame(animateScroll);
+    };
+
+    const timer = setTimeout(() => {
+      const mainContent = document.querySelector("main");
+      const scrollTarget = mainContent || window;
+      // 500ms là tốc độ lướt (bạn có thể tăng/giảm số này)
+      customSmoothScroll(scrollTarget, 0, 700);
+    }, 10);
+
+    return () => clearTimeout(timer);
+  }, [activeTab]);
 
   const loadAvailablePackages = async () => {
     try {
@@ -147,20 +197,20 @@ const CreateQuotation = () => {
     }
   };
 
-  const loadCustomerCares = async () => {
+  const loadOpportunities = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("/api/customer-care?limit=100", {
+      const response = await fetch("/api/opportunities?limit=100&status=Open", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
       const data = await response.json();
       if (data.success || data.data) {
-        setCustomerCares(data.data || []);
+        setOpportunities(data.data || []);
       }
     } catch (error) {
-      console.error("Error loading customer cares:", error);
+      console.error("Error loading opportunities:", error);
     }
   };
 
@@ -594,7 +644,7 @@ const CreateQuotation = () => {
         customer: selectedCustomer.fullName,
         customerRef: selectedCustomer._id,
         surveyRef: selectedSurvey?._id || null,
-        careRef: formData.careRef || null,
+        opportunityRef: formData.opportunityRef || null,
         packages: sanitizedPackages,
         totalAmount: calculateTotal(),
         grandTotal: calculateTotal(),
@@ -667,7 +717,7 @@ const CreateQuotation = () => {
             </div>
 
             {/* Tabs Navigation */}
-            <div className="flex overflow-x-auto hide-scrollbar pt-2">
+            <div className="flex overflow-x-auto hide-scrollbar pt-2 max-w-[700px]">
               {[
                 { id: "general", label: "Thông tin chung", icon: User },
                 { id: "services", label: "Cấu hình dịch vụ", icon: Plus },
@@ -714,62 +764,6 @@ const CreateQuotation = () => {
 
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
                     <div className="space-y-6">
-                      <div className="md:col-span-2">
-                        <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2 ml-1">
-                          Kế hoạch CSKH (Nguồn)
-                        </label>
-                        <div className="relative group">
-                          <Handshake className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5 group-focus-within:text-blue-600 transition-colors" />
-                          <select
-                            name="careRef"
-                            value={formData.careRef}
-                            onChange={(e) => {
-                              const careId = e.target.value;
-                              setFormData({ ...formData, careRef: careId });
-                              if (careId) {
-                                const care = customerCares.find(
-                                  (c) => c._id === careId,
-                                );
-                                if (care) {
-                                  // Thử tìm theo nhiều nguồn: customerRef, customerInfo._id, hoặc name (nếu cần)
-                                  const targetCustomerId =
-                                    (typeof care.customerRef === "object"
-                                      ? care.customerRef?._id ||
-                                        care.customerRef
-                                      : care.customerRef) ||
-                                    care.customerInfo?._id ||
-                                    care.customerRef;
-
-                                  let customer = customers.find(
-                                    (c) => c._id === targetCustomerId,
-                                  );
-
-                                  // Nếu không tìm thấy theo _id, thử tìm theo mã khách hàng (nếu care có customerId)
-                                  if (!customer && care.customerId) {
-                                    customer = customers.find(
-                                      (c) => c.customerId === care.customerId,
-                                    );
-                                  }
-
-                                  if (customer) handleCustomerSelect(customer);
-                                }
-                              }
-                            }}
-                            className="w-full pl-12 pr-4 py-3.5 bg-gray-50 border border-transparent rounded-2xl focus:bg-white focus:border-blue-600 outline-none appearance-none transition-all font-bold text-gray-900"
-                          >
-                            <option value="">
-                              -- Chọn Kế hoạch CSKH (Không bắt buộc) --
-                            </option>
-                            {customerCares.map((care) => (
-                              <option key={care._id} value={care._id}>
-                                {care.careId} - {care.carePerson} (
-                                {care.careType})
-                              </option>
-                            ))}
-                          </select>
-                        </div>
-                      </div>
-
                       <div>
                         <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2 ml-1">
                           Khách hàng <span className="text-red-500">*</span>
@@ -782,9 +776,21 @@ const CreateQuotation = () => {
                               const customer = customers.find(
                                 (c) => c._id === e.target.value,
                               );
-                              if (customer) handleCustomerSelect(customer);
+                              if (customer) {
+                                handleCustomerSelect(customer);
+                                setFormData({
+                                  ...formData,
+                                  opportunityRef: "",
+                                });
+                              } else {
+                                setSelectedCustomer(null);
+                                setFormData({
+                                  ...formData,
+                                  opportunityRef: "",
+                                });
+                              }
                             }}
-                            className="w-full pl-12 pr-4 py-3.5 bg-gray-50 border border-transparent rounded-2xl focus:bg-white focus:border-blue-600 outline-none appearance-none transition-all font-bold text-gray-900"
+                            className="w-full pl-12 pr-4 py-3.5 bg-gray-50 border border-transparent rounded-2xl focus:bg-white focus:border-blue-600 outline-none appearance-none transition-all font-bold text-gray-900 shadow-sm"
                             required
                           >
                             <option value="">Chọn khách hàng...</option>
@@ -793,6 +799,58 @@ const CreateQuotation = () => {
                                 {c.customerId} - {c.fullName}
                               </option>
                             ))}
+                          </select>
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2 ml-1">
+                          Cơ hội kinh doanh (Nguồn)
+                        </label>
+                        <div className="relative group">
+                          <Handshake className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5 group-focus-within:text-blue-600 transition-colors" />
+                          <select
+                            name="opportunityRef"
+                            value={formData.opportunityRef}
+                            onChange={(e) => {
+                              const oppId = e.target.value;
+                              setFormData({
+                                ...formData,
+                                opportunityRef: oppId,
+                              });
+
+                              // Tự động tìm khảo sát tương ứng nếu có
+                              if (oppId) {
+                                const relatedSurvey = surveys.find((s) => {
+                                  const sOppId =
+                                    typeof s.opportunityRef === "string"
+                                      ? s.opportunityRef
+                                      : s.opportunityRef?._id;
+                                  return sOppId === oppId;
+                                });
+                                if (relatedSurvey) {
+                                  handleSurveySelect(relatedSurvey);
+                                }
+                              }
+                            }}
+                            disabled={!selectedCustomer}
+                            className="w-full pl-12 pr-4 py-3.5 bg-gray-50 border border-transparent rounded-2xl focus:bg-white focus:border-blue-600 outline-none appearance-none transition-all font-bold text-gray-900 disabled:opacity-50 shadow-sm"
+                          >
+                            <option value="">
+                              -- Chọn Cơ hội kinh doanh --
+                            </option>
+                            {opportunities
+                              .filter((opp) => {
+                                if (!selectedCustomer) return false;
+                                const custId =
+                                  opp.customerRef?._id || opp.customerRef;
+                                return custId === selectedCustomer._id;
+                              })
+                              .map((opp) => (
+                                <option key={opp._id} value={opp._id}>
+                                  {opp.opportunityNo}
+                                </option>
+                              ))}
                           </select>
                         </div>
                       </div>
@@ -851,7 +909,7 @@ const CreateQuotation = () => {
                               })
                               .map((s) => (
                                 <option key={s._id} value={s._id}>
-                                  {s.surveyNo} - {s.surveyAddress}
+                                  {s.surveyNo}
                                 </option>
                               ))}
                           </select>
@@ -879,7 +937,7 @@ const CreateQuotation = () => {
                   </div>
                 </div>
 
-                <div className="flex justify-end">
+                <div className="flex justify-end pt-8">
                   <button
                     onClick={() => setActiveTab("services")}
                     className="group flex items-center gap-3 px-10 py-4 bg-gray-900 text-white rounded-2xl font-bold hover:bg-black transition-all active:scale-95 shadow-xl"
@@ -1601,10 +1659,11 @@ const CreateQuotation = () => {
                       Ngày lập
                     </label>
                     <p className="text-gray-900 font-bold">
-                      {new Date(selectedSurvey.surveyDate).toLocaleDateString(
-                        "vi-VN",
-                        { dateStyle: "full" },
-                      )}
+                      {selectedSurvey &&
+                        new Date(selectedSurvey.surveyDate).toLocaleDateString(
+                          "vi-VN",
+                          { dateStyle: "full" },
+                        )}
                     </p>
                   </div>
                   <div className="bg-gray-50 rounded-2xl p-4">
@@ -1612,7 +1671,7 @@ const CreateQuotation = () => {
                       Địa chỉ
                     </label>
                     <p className="text-gray-900 font-bold truncate">
-                      {selectedSurvey.surveyAddress}
+                      {selectedSurvey?.surveyAddress}
                     </p>
                   </div>
                 </div>
@@ -1622,7 +1681,7 @@ const CreateQuotation = () => {
                     Danh sách hạng mục
                   </label>
                   <div className="space-y-3">
-                    {selectedSurvey.surveys.map((survey, index) => (
+                    {selectedSurvey?.surveys?.map((survey, index) => (
                       <div
                         key={index}
                         className="flex items-center justify-between p-4 border border-gray-100 rounded-2xl hover:bg-gray-50/50 transition-colors"

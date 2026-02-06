@@ -14,32 +14,34 @@ export interface ICustomerCare extends Document {
   customerId?: string; // Dạng string (nếu bạn vẫn muốn dùng song song)
   customerRef?: mongoose.Types.ObjectId; // Reference chuẩn để join nếu cần
   customerInfo?: ICustomerShortInfo; // Dữ liệu nhúng để truy vấn cực nhanh
-  employeeId?: string;
-  opportunityRef?: mongoose.Types.ObjectId;
+  employeeId?: string; // ID nhân viên
+  opportunityRef?: mongoose.Types.ObjectId; // Reference chuẩn để join nếu cần
   careType:
     | "Tư vấn – Khảo sát"
     | "Làm rõ báo giá / hợp đồng"
     | "Triển khai – Theo dõi"
     | "Xử lý công nợ"
-    | "Hậu mãi – Chăm sóc định kỳ";
-  timeFrom?: Date;
-  timeTo?: Date;
-  method: "Online" | "Trực tiếp";
-  location?: string;
-  carePerson: string;
-  actualCareDate?: Date;
-  images?: string[];
-  files?: (string | { url: string; name: string; format?: string })[];
-  interestedServices?: string[];
-  careResult?: string;
-  careClassification?: string;
-  discussionContent?: string;
-  needsNote?: string;
-  status: "Hoàn thành" | "Chờ báo cáo" | "Hủy";
-  quotationRef?: mongoose.Types.ObjectId;
-  quotationNo?: string;
-  surveyRef?: mongoose.Types.ObjectId;
-  surveyNo?: string;
+    | "Hậu mãi – Chăm sóc định kỳ"; // Loại hình chăm sóc
+  timeFrom?: Date; // Thời gian bắt đầu
+  timeTo?: Date; // Thời gian kết thúc
+  method: "Online" | "Trực tiếp"; // Phương thức
+  location?: string; // Địa điểm
+  carePerson: string; // Người chăm sóc
+  actualCareDate?: Date; // Ngày thực tế
+  images?: string[]; // Hình ảnh
+  files?: (string | { url: string; name: string; format?: string })[]; // File
+  interestedServices?: string[]; // Dịch vụ quan tâm
+  careResult?: string; // Kết quả chăm sóc
+  careResultClassification?: string; // Xếp loại: Đạt, Không đạt, Chưa rõ, v.v.
+  careClassification?: string; // Phân loại chăm sóc
+  discussionContent?: string; // Nội dung thảo luận
+  rejectReason?: string; // lý do từ chối
+  needsNote?: string; // Ghi chú nhu cầu
+  status: "Hoàn thành" | "Chờ báo cáo" | "Hủy"; // Trạng thái
+  quotationRef?: mongoose.Types.ObjectId; // Reference chuẩn để join nếu cần
+  quotationNo?: string; // Số báo giá
+  surveyRef?: mongoose.Types.ObjectId; // Reference chuẩn để join nếu cần
+  surveyNo?: string; // Số khảo sát
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -104,8 +106,10 @@ const CustomerCareSchema: Schema = new Schema(
     files: [{ type: Schema.Types.Mixed }],
     interestedServices: [{ type: String, trim: true }],
     careResult: { type: String, trim: true },
+    careResultClassification: { type: String, trim: true },
     careClassification: { type: String, trim: true },
     discussionContent: { type: String, trim: true },
+    rejectReason: { type: String, trim: true },
     needsNote: { type: String, trim: true },
     status: {
       type: String,
@@ -125,10 +129,10 @@ const CustomerCareSchema: Schema = new Schema(
   },
   {
     timestamps: true,
-    // Tên collection có dấu thường gây khó khăn ở một số môi trường quản lý database, 
+    // Tên collection có dấu thường gây khó khăn ở một số môi trường quản lý database,
     // nhưng tôi giữ nguyên theo ý bạn.
     collection: "Chăm sóc khách hàng",
-  }
+  },
 );
 
 // Index để tìm kiếm theo tên khách hàng nhúng nhanh hơn

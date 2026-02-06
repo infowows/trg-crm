@@ -44,6 +44,8 @@ interface CustomerCare {
   discussionContent?: string;
   needsNote?: string;
   interestedServices?: string[];
+  careResult?: string;
+  rejectReason?: string;
   images?: string[];
   files?: FileMetadata[] | string[]; // Support both old and new format
   opportunityRef?: {
@@ -530,6 +532,19 @@ const CustomerCareManagement = () => {
                         <FileText className="w-4 h-4 text-gray-400 mr-2 shrink-0" />
                         <span className="truncate">{item.careType}</span>
                       </div>
+                      {(item.careResult || item.rejectReason) && (
+                        <div className="flex items-center text-[11px]">
+                          {item.careResult ? (
+                            <span className="text-blue-600 font-bold bg-blue-50 px-2 py-0.5 rounded truncate">
+                              KQ: {item.careResult}
+                            </span>
+                          ) : (
+                            <span className="text-red-600 font-bold bg-red-50 px-2 py-0.5 rounded truncate">
+                              Từ chối: {item.rejectReason}
+                            </span>
+                          )}
+                        </div>
+                      )}
                       <div className="flex justify-between items-center pt-1">
                         {getStatusBadge(item.status)}
                         <span className="text-xs font-medium text-gray-500 bg-gray-100 px-2 py-0.5 rounded">
@@ -659,6 +674,14 @@ const CustomerCareManagement = () => {
               setViewingItem(null);
             }}
             item={viewingItem}
+            onUpdate={() =>
+              fetchCareList(
+                currentPage,
+                searchQuery,
+                statusFilter,
+                careTypeFilter,
+              )
+            }
           />
         </div>
       )}

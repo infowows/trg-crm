@@ -29,12 +29,22 @@ interface Opportunity {
     customerId: string;
     phone?: string;
     email?: string;
+    assignedTo?: {
+      _id: string;
+      fullName: string;
+    };
   };
   demands: string[];
   unitPrice?: number;
   opportunityValue: number;
   probability: number;
-  status: "Open" | "Closed" | "Lost";
+  status:
+    | "Mới ghi nhận"
+    | "Đang tư vấn"
+    | "Đã gửi đề xuất"
+    | "Chờ quyết định"
+    | "Thành công"
+    | "Không thành công";
   closingDate?: string;
   actualRevenue?: number;
   careHistory: any[];
@@ -82,24 +92,52 @@ const OpportunityModal = ({
 
   const getStatusBadge = (status: string) => {
     const configs = {
-      Open: {
-        color: "bg-blue-100 text-blue-800",
-        label: "Đang mở",
+      "Mới ghi nhận": {
+        color: "bg-sky-100 text-sky-800",
+        label: "Mới ghi nhận",
         icon: Clock,
       },
-      Closed: {
-        color: "bg-green-100 text-green-800",
+      "Đang tư vấn": {
+        color: "bg-orange-100 text-orange-800",
+        label: "Đang tư vấn",
+        icon: Clock,
+      },
+      "Đã gửi đề xuất": {
+        color: "bg-indigo-100 text-indigo-800",
+        label: "Đã gửi đề xuất",
+        icon: Clock,
+      },
+      "Chờ quyết định": {
+        color: "bg-amber-100 text-amber-800",
+        label: "Chờ quyết định",
+        icon: Clock,
+      },
+      "Thành công": {
+        color: "bg-emerald-100 text-emerald-800",
         label: "Thành công",
         icon: CheckCircle,
       },
-      Lost: {
-        color: "bg-red-100 text-red-800",
-        label: "Thất bại",
+      "Không thành công": {
+        color: "bg-rose-100 text-rose-800",
+        label: "Không thành công",
         icon: AlertCircle,
       },
     };
-    const config = configs[status as keyof typeof configs];
+
+    const normalizedStatus =
+      status === "Open"
+        ? "Mới ghi nhận"
+        : status === "Closed"
+          ? "Thành công"
+          : status === "Lost"
+            ? "Không thành công"
+            : status;
+
+    const config =
+      configs[normalizedStatus as keyof typeof configs] ||
+      configs["Mới ghi nhận"];
     const Icon = config.icon;
+
     return (
       <span
         className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${config.color}`}
@@ -357,10 +395,11 @@ const OpportunityModal = ({
                       </div>
                       <div className="flex justify-between items-center py-2">
                         <span className="text-gray-500 flex items-center text-xs">
-                          <User className="w-3 h-3 mr-2" /> Người tạo:
+                          <User className="w-3 h-3 mr-2" /> Nhân viên:
                         </span>
-                        <span className="font-medium text-gray-900 text-xs truncate max-w-[80px] text-right">
-                          {opportunity.createdBy}
+                        <span className="font-medium text-gray-900 text-xs truncate max-w-[100px] text-right">
+                          {opportunity.customerRef?.assignedTo?.fullName ||
+                            opportunity.createdBy}
                         </span>
                       </div>
                     </div>

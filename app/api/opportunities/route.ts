@@ -7,7 +7,17 @@ import { getAssignedCustomerIds } from "../../../lib/permissions";
 import mongoose from "mongoose";
 
 async function verifyAuth(request: NextRequest) {
-  const token = request.cookies.get("token")?.value;
+  // Ưu tiên lấy token từ Authorization header
+  const authHeader = request.headers.get("Authorization");
+  let token = authHeader?.startsWith("Bearer ")
+    ? authHeader.substring(7)
+    : null;
+
+  // Nếu không có trong header, thử lấy từ cookie
+  if (!token) {
+    token = request.cookies.get("token")?.value || null;
+  }
+
   if (!token) return null;
   const decoded = verifyToken(token);
   if (!decoded) return null;
@@ -34,7 +44,14 @@ export async function GET(request: NextRequest) {
     const customerId = searchParams.get("customerId");
 
     const query: any = {};
-    if (status && status !== "all") query.status = status;
+    if (status && status !== "all") {
+      if (status === "Open") {
+        // "Open" nghĩa là các trạng thái chưa kết thúc
+        query.status = { $nin: ["Thành công", "Không thành công"] };
+      } else {
+        query.status = status;
+      }
+    }
 
     // Áp dụng phân quyền
     const assignedCustomerIds = await getAssignedCustomerIds(auth, Customer);
@@ -60,7 +77,14 @@ export async function GET(request: NextRequest) {
 
     const [opportunities, total] = await Promise.all([
       Opportunity.find(query)
-        .populate("customerRef", "fullName customerId")
+        .populate({
+          path: "customerRef",
+          select: "fullName customerId assignedTo",
+          populate: {
+            path: "assignedTo",
+            select: "fullName",
+          },
+        })
         .sort({ createdAt: -1 })
         .skip(skip)
         .limit(limit),
@@ -100,15 +124,28 @@ export async function POST(request: NextRequest) {
     await dbConnect();
     const body = await request.json();
 
-    // Generate opportunityNo: OPP-YYYYMMDD-XXXX
-    const dateStr = new Date().toISOString().slice(0, 10).replace(/-/g, "");
-    const count = await Opportunity.countDocuments({
-      createdAt: {
-        $gte: new Date(new Date().setHours(0, 0, 0, 0)),
-        $lt: new Date(new Date().setHours(23, 59, 59, 999)),
-      },
+    // Fetch customer to get shortName
+    const customer = await Customer.findById(body.customerRef);
+    const shortName = (customer?.shortName || "KH").toUpperCase();
+
+    // Generate opportunityNo: OP-[ShortName]-[yymmdd]
+    const now = new Date();
+    const yy = String(now.getFullYear()).slice(-2);
+    const mm = String(now.getMonth() + 1).padStart(2, "0");
+    const dd = String(now.getDate()).padStart(2, "0");
+    const dateStr = `${yy}${mm}${dd}`;
+
+    const baseNo = `OP-${shortName}-${dateStr}`;
+    let opportunityNo = baseNo;
+
+    // Check for uniqueness and add sequence if necessary
+    const existingCount = await Opportunity.countDocuments({
+      opportunityNo: { $regex: new RegExp(`^${baseNo}(-.+)?$`) },
     });
-    const opportunityNo = `OPP-${dateStr}-${String(count + 1).padStart(4, "0")}`;
+
+    if (existingCount > 0) {
+      opportunityNo = `${baseNo}-${String(existingCount + 1).padStart(2, "0")}`;
+    }
 
     const opportunity = new Opportunity({
       ...body,

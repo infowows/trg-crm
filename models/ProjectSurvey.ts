@@ -36,6 +36,10 @@ const projectSurveySchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "CustomerCare",
     },
+    opportunityRef: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Opportunity",
+    },
     createdBy: { type: String, required: true },
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },

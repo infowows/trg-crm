@@ -78,6 +78,21 @@ const BaoGiaManagement = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [total, setTotal] = useState(0);
+  const [statusCounts, setStatusCounts] = useState<{
+    all: number;
+    draft: number;
+    sent: number;
+    approved: number;
+    rejected: number;
+    completed: number;
+  }>({
+    all: 0,
+    draft: 0,
+    sent: 0,
+    approved: 0,
+    rejected: 0,
+    completed: 0,
+  });
 
   const [selectedQuotation, setSelectedQuotation] = useState<Quotation | null>(
     null,
@@ -311,12 +326,23 @@ const BaoGiaManagement = () => {
 
       const data = await response.json();
       if (data.success) {
-        setQuotations(data.data);
-        setTotal(data.pagination.total);
-        setTotalPages(data.pagination.pages);
-        setCurrentPage(data.pagination.page);
+        setQuotations(data.data || []);
+        setTotal(data.total || 0);
+        setTotalPages(data.totalPages || 1);
+        setCurrentPage(data.currentPage || 1);
+
+        // Update status counts
+        setStatusCounts({
+          all: data.statusCounts?.all || data.total || 0,
+          draft: data.statusCounts?.draft || 0,
+          sent: data.statusCounts?.sent || 0,
+          approved: data.statusCounts?.approved || 0,
+          rejected: data.statusCounts?.rejected || 0,
+          completed: data.statusCounts?.completed || 0,
+        });
+      } else {
+        setError(data.error || "Không thể tải dữ liệu");
       }
-      console.log("data báo giá kèm chi tiết", data);
     } catch (err) {
       console.error("Error fetching quotations:", err);
       setError(err instanceof Error ? err.message : "Có lỗi xảy ra");
@@ -480,12 +506,12 @@ const BaoGiaManagement = () => {
       {/* Header Section */}
       <div className="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
         <div>
-          <div className="flex items-center gap-2 text-blue-600 mb-2">
+          {/* <div className="flex items-center gap-2 text-blue-600 mb-2">
             <div className="w-8 h-1 bg-blue-600 rounded-full"></div>
             <span className="text-xs font-black uppercase tracking-[0.2em]">
               Hệ thống Quản lý
             </span>
-          </div>
+          </div> */}
           <h1 className="text-4xl font-black text-gray-900 tracking-tight mb-2">
             Hồ sơ{" "}
             <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-600 to-indigo-600">
@@ -531,38 +557,7 @@ const BaoGiaManagement = () => {
       </div>
 
       {/* Tabs & Search Section */}
-      <div className="mb-8 space-y-6">
-        {/* Status Tabs */}
-        <div className="flex border-b border-gray-100 overflow-x-auto hide-scrollbar sticky top-0 bg-white/80 backdrop-blur-md z-20 pt-2">
-          {[
-            { id: "all", label: "Tất cả", icon: FileText },
-            { id: "draft", label: "Bản nháp", icon: Clock },
-            { id: "sent", label: "Đã gửi", icon: AlertCircle },
-            { id: "approved", label: "Đã duyệt", icon: CheckCircle },
-            { id: "rejected", label: "Từ chối", icon: XCircle },
-            { id: "completed", label: "Hoàn thành", icon: CheckCircle },
-          ].map((tab) => {
-            const Icon = tab.icon;
-            const isActive = statusFilter === tab.id;
-            return (
-              <button
-                key={tab.id}
-                onClick={() => handleStatusFilter(tab.id)}
-                className={`flex items-center gap-2 px-6 py-4 border-b-4 font-bold text-sm transition-all whitespace-nowrap ${
-                  isActive
-                    ? "border-blue-600 text-blue-600 bg-blue-50/30"
-                    : "border-transparent text-gray-500 hover:text-gray-600 hover:border-gray-200"
-                }`}
-              >
-                <Icon
-                  className={`w-4 h-4 ${isActive ? "text-blue-600" : "text-gray-400"}`}
-                />
-                {tab.label}
-              </button>
-            );
-          })}
-        </div>
-
+      <div className="mb-4 space-y-6">
         {/* Search Bar */}
         <div className="relative group max-w-2xl">
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5 group-focus-within:text-blue-600 transition-colors" />
@@ -582,6 +577,126 @@ const BaoGiaManagement = () => {
             </button>
           )}
         </div>
+      </div>
+      {/* Status Cards */}
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
+        {[
+          {
+            id: "all",
+            label: "Tất cả",
+            icon: FileText,
+            color: "blue",
+            bgColor: "bg-blue-50",
+            textColor: "text-blue-600",
+            borderColor: "border-blue-200",
+            hoverBg: "hover:bg-blue-100",
+          },
+          {
+            id: "draft",
+            label: "Bản nháp",
+            icon: Clock,
+            color: "gray",
+            bgColor: "bg-gray-50",
+            textColor: "text-gray-600",
+            borderColor: "border-gray-200",
+            hoverBg: "hover:bg-gray-100",
+          },
+          {
+            id: "sent",
+            label: "Đã gửi",
+            icon: AlertCircle,
+            color: "amber",
+            bgColor: "bg-amber-50",
+            textColor: "text-amber-600",
+            borderColor: "border-amber-200",
+            hoverBg: "hover:bg-amber-100",
+          },
+          {
+            id: "approved",
+            label: "Đã duyệt",
+            icon: CheckCircle,
+            color: "green",
+            bgColor: "bg-green-50",
+            textColor: "text-green-600",
+            borderColor: "border-green-200",
+            hoverBg: "hover:bg-green-100",
+          },
+          {
+            id: "rejected",
+            label: "Từ chối",
+            icon: XCircle,
+            color: "red",
+            bgColor: "bg-red-50",
+            textColor: "text-red-600",
+            borderColor: "border-red-200",
+            hoverBg: "hover:bg-red-100",
+          },
+          {
+            id: "completed",
+            label: "Hoàn thành",
+            icon: CheckCircle,
+            color: "purple",
+            bgColor: "bg-purple-50",
+            textColor: "text-purple-600",
+            borderColor: "border-purple-200",
+            hoverBg: "hover:bg-purple-100",
+          },
+        ].map((status) => {
+          const Icon = status.icon;
+          const isActive = statusFilter === status.id;
+          const count = statusCounts[status.id as keyof typeof statusCounts];
+
+          return (
+            <button
+              key={status.id}
+              onClick={() => handleStatusFilter(status.id)}
+              className={`relative rounded-xl border-2 transition-all duration-300 ${
+                isActive
+                  ? `${status.bgColor} ${status.borderColor} shadow-lg scale-105`
+                  : `bg-white border-gray-100 ${status.hoverBg} hover:shadow-md`
+              }`}
+            >
+              <div className="flex flex-col items-center">
+                <div
+                  className={`w-5 h-5 md:w-6 md:h-6 rounded-lg flex items-center justify-center transition-all ${
+                    isActive ? status.bgColor : "bg-gray-50"
+                  }`}
+                >
+                  <Icon
+                    className={`w-3 h-3 md:w-4 md:h-4 ${
+                      isActive ? status.textColor : "text-gray-400"
+                    }`}
+                  />
+                </div>
+                <div className="text-center">
+                  <div
+                    className={`text-xl md:text-2xl font-black mb-0.5 ${
+                      isActive ? status.textColor : "text-gray-900"
+                    }`}
+                  >
+                    {count}
+                  </div>
+                  <div
+                    className={`text-[10px] md:text-xs font-bold uppercase tracking-wider ${
+                      isActive ? status.textColor : "text-gray-500"
+                    }`}
+                  >
+                    {status.label}
+                  </div>
+                </div>
+              </div>
+              {isActive && (
+                <div
+                  className={`absolute -top-1 -right-1 w-5 h-5 ${status.bgColor} ${status.borderColor} border-2 rounded-full flex items-center justify-center`}
+                >
+                  <div
+                    className={`w-1.5 h-1.5 ${status.textColor.replace("text", "bg")} rounded-full`}
+                  ></div>
+                </div>
+              )}
+            </button>
+          );
+        })}
       </div>
 
       {/* Content Section */}
@@ -685,7 +800,9 @@ const BaoGiaManagement = () => {
                               //   setShowViewModal(true);
                               // }}
                               // onclick mở id
-                              onClick={() => router.push(`/quotations/${quotation._id}`)}
+                              onClick={() =>
+                                router.push(`/quotations/${quotation._id}`)
+                              }
                               className="p-2.5 bg-white shadow-sm border border-gray-100 text-blue-600 rounded-xl hover:bg-blue-600 hover:text-white transition-all active:scale-95"
                               title="Xem chi tiết"
                             >

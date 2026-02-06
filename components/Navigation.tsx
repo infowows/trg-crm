@@ -8,6 +8,7 @@ import {
   Home,
   Users,
   Building,
+  AlertCircle,
   Briefcase,
   User,
   FileText,
@@ -36,6 +37,8 @@ import {
   Handshake,
   Birdhouse,
   HousePlug,
+  Activity,
+  HandHelping,
 } from "lucide-react";
 
 interface NavigationItem {
@@ -203,6 +206,24 @@ const navigationItems: NavigationItem[] = [
         text: "Nhân viên",
         icon: User,
         path: "/employees",
+      },
+      {
+        id: "sources",
+        text: "Nguồn khách hàng",
+        icon: Activity,
+        path: "/source-settings",
+      },
+      {
+        id: "care-results",
+        text: "Kết quả chăm sóc",
+        icon: HandHelping,
+        path: "/care-results",
+      },
+      {
+        id: "reject-settings",
+        text: "Lý do từ chối",
+        icon: AlertCircle,
+        path: "/reject-settings",
       },
     ],
   },

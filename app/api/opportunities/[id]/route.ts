@@ -40,7 +40,13 @@ export async function GET(
     }
 
     const opportunity = await Opportunity.findById(id)
-      .populate("customerRef")
+      .populate({
+        path: "customerRef",
+        populate: {
+          path: "assignedTo",
+          select: "fullName",
+        },
+      })
       .populate({
         path: "careHistory",
         populate: [
