@@ -1,4 +1,5 @@
 {
+  "/(dashboard)/customers/create/page": "app/(dashboard)/customers/create/page.js",
   "/(dashboard)/customers/page": "app/(dashboard)/customers/page.js",
   "/(dashboard)/dashboard/page": "app/(dashboard)/dashboard/page.js",
   "/(dashboard)/quotations/create/page": "app/(dashboard)/quotations/create/page.js",
@@ -15,5 +16,6 @@
   "/api/services/route": "app/api/services/route.js",
   "/api/source-settings/route": "app/api/source-settings/route.js",
   "/api/stats/route": "app/api/stats/route.js",
-  "/api/surveys/route": "app/api/surveys/route.js"
+  "/api/surveys/route": "app/api/surveys/route.js",
+  "/page": "app/page.js"
 }

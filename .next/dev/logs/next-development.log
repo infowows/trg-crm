@@ -164,3 +164,669 @@ Use mongoose.model(name, schema)
 [00:20:40.302] Server  LOG     ✓ Compiled in 280ms
 [00:21:49.436] Server  LOG     ✓ Compiled in 243ms
 [00:22:54.398] Server  LOG     ✓ Compiled in 202ms
+[00:29:11.424] Server  LOG     ✓ Compiled in 612ms
+[00:30:36.603] Server  LOG     ✓ Compiled in 358ms
+[00:32:22.407] Server  LOG     API Services - Query params: {}
+[00:32:22.407] Server  LOG     API Services - MongoDB query: {}
+[00:32:22.466] Server  LOG     API Services - Found services: 8
+[00:32:22.574] Browser LOG     Loading services for group: Thiết kế nội thất
+[00:32:22.574] Browser LOG     Services API response: {"data":[{"__v":0,"_id":"6984510ae3432f096e444c74","code":"SVC-0015","createdAt":"2026-02-05T08:12:58.135Z","description":"Thiết kế nội thất chung cư","isActive":true,"serviceGroup":"Thiết kế nội thất","serviceName":"Thiết kế nội thất chung cư","updatedAt":"2026-02-05T08:12:58.135Z"},{"__v":0,"_id":"698450e5e3432f096e444c65","code":"SVC-0014","createdAt":"2026-02-05T08:12:21.673Z","description":"Thiết kế nội thất văn phòng","isActive":true,"serviceGroup":"Thiết kế nội thất","serviceName":"Thiết kế nội thất văn phòng","updatedAt":"2026-02-05T08:12:21.673Z"},{"__v":0,"_id":"698450e0e3432f096e444c62","code":"SVC-0013","createdAt":"2026-02-05T08:12:16.620Z","description":"Thiết kế nội thất biệt thự","isActive":true,"serviceGroup":"Thiết kế nội thất","serviceName":"Thiết kế nội thất biệt thự","updatedAt":"2026-02-05T08:12:16.620Z"},{"__v":0,"_id":"698450dae3432f096e444c5f","code":"SVC-0012","createdAt":"2026-02-05T08:12:10.046Z","description":"Thiết kế nội thất nhà vườn","isActive":true,"serviceGroup":"Thiết kế nội thất","serviceName":"Thiết kế nội thất nhà vườn","updatedAt":"2026-02-05T08:12:10.046Z"},{"__v":0,"_id":"698450d5e3432f096e444c5c","code":"SVC-0011","createdAt":"2026-02-05T08:12:05.191Z","description":"Thiết kế nội thất biệt thự phố","isActive":true,"serviceGroup":"Thiết kế nội thất","serviceName":"Thiết kế nội thất biệt thự phố","updatedAt":"2026-02-05T08:12:05.191Z"},{"__v":0,"_id":"698450d0e3432f096e444c59","code":"SVC-0010","createdAt":"2026-02-05T08:12:00.363Z","description":"Thiết kế nội thất nhà phố","isActive":true,"serviceGroup":"Thiết kế nội thất","serviceName":"Thiết kế nội thất nhà phố","updatedAt":"2026-02-05T08:12:00.363Z"},{"__v":0,"_id":"698450c9e3432f096e444c56","code":"SVC-0009","createdAt":"2026-02-05T08:11:53.888Z","description":"Thiết kế nội thất nhà cấp 4 gác lửng","isActive":true,"serviceGroup":"Thiết kế nội thất","serviceName":"Thiết kế nội thất nhà cấp 4 gác lửng","updatedAt":"2026-02-05T08:11:53.888Z"},{"__v":0,"_id":"698450c2e3432f096e444c53","code":"SVC-0008","createdAt":"2026-02-05T08:11:46.458Z","description":"Thiết kế nội thất nhà cấp 4","isActive":true,"serviceGroup":"Thiết kế nội thất","serviceName":"Thiết kế nội thất nhà cấp 4","updatedAt":"2026-02-05T08:11:46.458Z"}],"pagination":{"limit":10,"page":1,"pages":1,"total":8},"success":true}
+[00:32:22.574] Browser LOG     Updated group: {"__v":0,"_id":"69844e28e3432f096e444bd8","code":"SG-0002","createdAt":"2026-02-05T08:00:40.214Z","description":"Thiết kế nội thất, hài hoà, tuỳ biến theo sở thích của khách hàng","isActive":true,"name":"Thiết kế nội thất","services":[{"__v":0,"_id":"6984510ae3432f096e444c74","code":"SVC-0015","createdAt":"2026-02-05T08:12:58.135Z","description":"Thiết kế nội thất chung cư","isActive":true,"name":"Thiết kế nội thất chung cư","packages":[],"serviceGroup":"Thiết kế nội thất","serviceName":"Thiết kế nội thất chung cư","updatedAt":"2026-02-05T08:12:58.135Z"},{"__v":0,"_id":"698450e5e3432f096e444c65","code":"SVC-0014","createdAt":"2026-02-05T08:12:21.673Z","description":"Thiết kế nội thất văn phòng","isActive":true,"name":"Thiết kế nội thất văn phòng","packages":[],"serviceGroup":"Thiết kế nội thất","serviceName":"Thiết kế nội thất văn phòng","updatedAt":"2026-02-05T08:12:21.673Z"},{"__v":0,"_id":"698450e0e3432f096e444c62","code":"SVC-0013","createdAt":"2026-02-05T08:12:16.620Z","description":"Thiết kế nội thất biệt thự","isActive":true,"name":"Thiết kế nội thất biệt thự","packages":[],"serviceGroup":"Thiết kế nội thất","serviceName":"Thiết kế nội thất biệt thự","updatedAt":"2026-02-05T08:12:16.620Z"},{"__v":0,"_id":"698450dae3432f096e444c5f","code":"SVC-0012","createdAt":"2026-02-05T08:12:10.046Z","description":"Thiết kế nội thất nhà vườn","isActive":true,"name":"Thiết kế nội thất nhà vườn","packages":[],"serviceGroup":"Thiết kế nội thất","serviceName":"Thiết kế nội thất nhà vườn","updatedAt":"2026-02-05T08:12:10.046Z"},{"__v":0,"_id":"698450d5e3432f096e444c5c","code":"SVC-0011","createdAt":"2026-02-05T08:12:05.191Z","description":"Thiết kế nội thất biệt thự phố","isActive":true,"name":"Thiết kế nội thất biệt thự phố","packages":[],"serviceGroup":"Thiết kế nội thất","serviceName":"Thiết kế nội thất biệt thự phố","updatedAt":"2026-02-05T08:12:05.191Z"},{"__v":0,"_id":"698450d0e3432f096e444c59","code":"SVC-0010","createdAt":"2026-02-05T08:12:00.363Z","description":"Thiết kế nội thất nhà phố","isActive":true,"name":"Thiết kế nội thất nhà phố","packages":[],"serviceGroup":"Thiết kế nội thất","serviceName":"Thiết kế nội thất nhà phố","updatedAt":"2026-02-05T08:12:00.363Z"},{"__v":0,"_id":"698450c9e3432f096e444c56","code":"SVC-0009","createdAt":"2026-02-05T08:11:53.888Z","description":"Thiết kế nội thất nhà cấp 4 gác lửng","isActive":true,"name":"Thiết kế nội thất nhà cấp 4 gác lửng","packages":[],"serviceGroup":"Thiết kế nội thất","serviceName":"Thiết kế nội thất nhà cấp 4 gác lửng","updatedAt":"2026-02-05T08:11:53.888Z"},{"__v":0,"_id":"698450c2e3432f096e444c53","code":"SVC-0008","createdAt":"2026-02-05T08:11:46.458Z","description":"Thiết kế nội thất nhà cấp 4","isActive":true,"name":"Thiết kế nội thất nhà cấp 4","packages":[],"serviceGroup":"Thiết kế nội thất","serviceName":"Thiết kế nội thất nhà cấp 4","updatedAt":"2026-02-05T08:11:46.458Z"}],"updatedAt":"2026-02-05T08:00:40.214Z"}
+[00:32:23.622] Server  LOG     Service Pricing Results: {}
+[00:32:23.730] Browser LOG     Selected service: {"__v":0,"_id":"698450c2e3432f096e444c53","code":"SVC-0008","createdAt":"2026-02-05T08:11:46.458Z","description":"Thiết kế nội thất nhà cấp 4","isActive":true,"name":"Thiết kế nội thất nhà cấp 4","packages":[],"serviceGroup":"Thiết kế nội thất","serviceName":"Thiết kế nội thất nhà cấp 4","updatedAt":"2026-02-05T08:11:46.458Z"}
+[00:32:23.730] Browser LOG     Filtered Pricing Data: {"data":[{"__v":0,"_id":"698452d9e3432f096e444d2f","createdAt":"2026-02-05T08:20:41.416Z","effectiveFrom":"2026-02-05T00:00:00.000Z","effectiveTo":"2026-03-05T00:00:00.000Z","isActive":true,"isUsed":true,"packageName":"Gói tốt","serviceName":"Thiết kế nội thất nhà cấp 4","unitPrice":85000000,"updatedAt":"2026-02-05T09:13:36.700Z"},{"__v":0,"_id":"698452d9e3432f096e444d31","createdAt":"2026-02-05T08:20:41.416Z","effectiveFrom":"2026-02-05T00:00:00.000Z","effectiveTo":"2026-03-05T00:00:00.000Z","isActive":true,"isUsed":true,"packageName":"Gói trung bình","serviceName":"Thiết kế nội thất nhà cấp 4","unitPrice":55000000,"updatedAt":"2026-02-05T09:13:36.700Z"},{"__v":0,"_id":"698452d9e3432f096e444d30","createdAt":"2026-02-05T08:20:41.416Z","effectiveFrom":"2026-02-05T00:00:00.000Z","effectiveTo":"2026-03-05T00:00:00.000Z","isActive":true,"isUsed":true,"packageName":"Gói khá","serviceName":"Thiết kế nội thất nhà cấp 4","unitPrice":70000000,"updatedAt":"2026-02-05T09:13:36.700Z"},{"__v":0,"_id":"698452d9e3432f096e444d32","createdAt":"2026-02-05T08:20:41.416Z","effectiveFrom":"2026-02-05T00:00:00.000Z","effectiveTo":"2026-03-05T00:00:00.000Z","isActive":true,"isUsed":true,"packageName":"Gói tối ưu","serviceName":"Thiết kế nội thất nhà cấp 4","unitPrice":30000000,"updatedAt":"2026-02-05T09:13:36.700Z"},{"__v":0,"_id":"698452d9e3432f096e444d2e","createdAt":"2026-02-05T08:20:41.416Z","effectiveFrom":"2026-02-05T00:00:00.000Z","effectiveTo":"2026-03-05T00:00:00.000Z","isActive":true,"isUsed":true,"packageName":"Gói cao cấp","serviceName":"Thiết kế nội thất nhà cấp 4","unitPrice":110000000,"updatedAt":"2026-02-05T09:13:36.700Z"}],"pagination":{"limit":50,"page":1,"pages":1,"total":5},"success":true}
+[00:32:23.730] Browser LOG     Latest Pricing by Package: [{"__v":0,"_id":"698452d9e3432f096e444d2f","createdAt":"2026-02-05T08:20:41.416Z","effectiveFrom":"2026-02-05T00:00:00.000Z","effectiveTo":"2026-03-05T00:00:00.000Z","isActive":true,"isUsed":true,"packageName":"Gói tốt","serviceName":"Thiết kế nội thất nhà cấp 4","unitPrice":85000000,"updatedAt":"2026-02-05T09:13:36.700Z"},{"__v":0,"_id":"698452d9e3432f096e444d31","createdAt":"2026-02-05T08:20:41.416Z","effectiveFrom":"2026-02-05T00:00:00.000Z","effectiveTo":"2026-03-05T00:00:00.000Z","isActive":true,"isUsed":true,"packageName":"Gói trung bình","serviceName":"Thiết kế nội thất nhà cấp 4","unitPrice":55000000,"updatedAt":"2026-02-05T09:13:36.700Z"},{"__v":0,"_id":"698452d9e3432f096e444d30","createdAt":"2026-02-05T08:20:41.416Z","effectiveFrom":"2026-02-05T00:00:00.000Z","effectiveTo":"2026-03-05T00:00:00.000Z","isActive":true,"isUsed":true,"packageName":"Gói khá","serviceName":"Thiết kế nội thất nhà cấp 4","unitPrice":70000000,"updatedAt":"2026-02-05T09:13:36.700Z"},{"__v":0,"_id":"698452d9e3432f096e444d32","createdAt":"2026-02-05T08:20:41.416Z","effectiveFrom":"2026-02-05T00:00:00.000Z","effectiveTo":"2026-03-05T00:00:00.000Z","isActive":true,"isUsed":true,"packageName":"Gói tối ưu","serviceName":"Thiết kế nội thất nhà cấp 4","unitPrice":30000000,"updatedAt":"2026-02-05T09:13:36.700Z"},{"__v":0,"_id":"698452d9e3432f096e444d2e","createdAt":"2026-02-05T08:20:41.416Z","effectiveFrom":"2026-02-05T00:00:00.000Z","effectiveTo":"2026-03-05T00:00:00.000Z","isActive":true,"isUsed":true,"packageName":"Gói cao cấp","serviceName":"Thiết kế nội thất nhà cấp 4","unitPrice":110000000,"updatedAt":"2026-02-05T09:13:36.700Z"}]
+[00:32:23.730] Browser LOG     Final Service Packages: [{"_id":"698452d9e3432f096e444d2f","isSelected":false,"packageName":"Gói tốt","servicePricing":85000000,"totalPrice":0,"unitPrice":85000000},{"_id":"698452d9e3432f096e444d31","isSelected":false,"packageName":"Gói trung bình","servicePricing":55000000,"totalPrice":0,"unitPrice":55000000},{"_id":"698452d9e3432f096e444d30","isSelected":false,"packageName":"Gói khá","servicePricing":70000000,"totalPrice":0,"unitPrice":70000000},{"_id":"698452d9e3432f096e444d32","isSelected":false,"packageName":"Gói tối ưu","servicePricing":30000000,"totalPrice":0,"unitPrice":30000000},{"_id":"698452d9e3432f096e444d2e","isSelected":false,"packageName":"Gói cao cấp","servicePricing":110000000,"totalPrice":0,"unitPrice":110000000}]
+[00:33:51.996] Server  LOG     ✓ Compiled in 143ms
+[00:33:55.952] Server  LOG     ✓ Compiled in 335ms
+[00:34:01.449] Server  LOG     ✓ Compiled in 123ms
+[00:34:03.398] Server  LOG     ✓ Compiled in 270ms
+[00:34:10.014] Server  LOG     ✓ Compiled in 189ms
+[00:34:16.609] Server  LOG     ✓ Compiled in 121ms
+[00:34:18.665] Server  LOG     ✓ Compiled in 133ms
+[00:34:20.198] Server  LOG     ✓ Compiled in 257ms
+[00:34:34.767] Server  LOG     ✓ Compiled in 138ms
+[00:34:37.544] Server  LOG     ✓ Compiled in 289ms
+[00:34:50.116] Server  LOG     ✓ Compiled in 297ms
+[00:34:53.492] Server  LOG     ✓ Compiled in 127ms
+[00:35:09.680] Server  LOG     ✓ Compiled in 316ms
+[00:35:15.631] Server  LOG     ✓ Compiled in 290ms
+[00:35:29.672] Server  LOG     ✓ Compiled in 138ms
+[00:35:34.932] Server  LOG     ✓ Compiled in 132ms
+[00:35:36.275] Server  LOG     ✓ Compiled in 150ms
+[00:35:45.082] Server  LOG     ✓ Compiled in 125ms
+[00:35:46.283] Server  LOG     ✓ Compiled in 130ms
+[00:35:50.466] Server  LOG     ✓ Compiled in 258ms
+[00:38:36.562] Server  LOG     ✓ Compiled in 201ms
+[00:38:38.291] Server  LOG     ✓ Compiled in 158ms
+[00:38:39.388] Server  LOG     ✓ Compiled in 151ms
+[00:38:53.282] Server  LOG     ✓ Compiled in 185ms
+[00:38:55.248] Server  LOG     ✓ Compiled in 225ms
+[00:39:19.976] Server  LOG     ✓ Compiled in 126ms
+[00:39:28.220] Server  LOG     ✓ Compiled in 148ms
+[00:39:33.561] Server  LOG     ✓ Compiled in 136ms
+[00:39:54.247] Server  LOG     ✓ Compiled in 190ms
+[00:39:56.798] Server  LOG     ✓ Compiled in 148ms
+[00:39:58.377] Server  LOG     ✓ Compiled in 139ms
+[00:40:02.468] Server  LOG     ✓ Compiled in 160ms
+[00:40:22.528] Server  LOG     ✓ Compiled in 148ms
+[00:40:24.140] Server  LOG     ✓ Compiled in 174ms
+[00:40:29.246] Server  LOG     ✓ Compiled in 135ms
+[00:40:31.742] Server  LOG     ✓ Compiled in 155ms
+[00:41:46.434] Server  LOG     ✓ Compiled in 140ms
+[00:42:21.986] Server  LOG     ✓ Compiled in 129ms
+[00:42:25.634] Server  LOG     ✓ Compiled in 159ms
+[00:42:43.132] Server  LOG     ✓ Compiled in 151ms
+[00:42:45.079] Server  LOG     ✓ Compiled in 212ms
+[00:43:02.308] Server  LOG     ✓ Compiled in 134ms
+[00:43:04.369] Server  LOG     ✓ Compiled in 136ms
+[00:43:05.579] Server  LOG     ✓ Compiled in 136ms
+[00:43:08.624] Server  LOG     ✓ Compiled in 181ms
+[00:43:11.643] Server  LOG     ✓ Compiled in 122ms
+[00:43:13.444] Server  LOG     ✓ Compiled in 231ms
+[00:43:18.014] Server  LOG     ✓ Compiled in 137ms
+[00:43:22.518] Server  LOG     ✓ Compiled in 157ms
+[00:43:28.023] Server  LOG     ✓ Compiled in 160ms
+[00:43:30.914] Server  LOG     ✓ Compiled in 154ms
+[00:43:32.242] Server  LOG     ✓ Compiled in 179ms
+[00:43:37.262] Server  LOG     ✓ Compiled in 135ms
+[00:43:42.449] Server  LOG     ✓ Compiled in 121ms
+[00:43:45.381] Server  LOG     ✓ Compiled in 145ms
+[00:43:46.695] Server  LOG     ✓ Compiled in 145ms
+[00:43:50.683] Server  LOG     ✓ Compiled in 93ms
+[00:43:56.243] Server  LOG     ✓ Compiled in 140ms
+[00:43:59.692] Server  LOG     ✓ Compiled in 132ms
+[00:44:26.728] Server  LOG     ✓ Compiled in 132ms
+[00:44:28.658] Server  LOG     ✓ Compiled in 127ms
+[00:44:43.930] Server  LOG     ✓ Compiled in 145ms
+[00:45:20.347] Server  LOG     ✓ Compiled in 175ms
+[00:45:25.814] Server  LOG     ✓ Compiled in 135ms
+[00:45:43.225] Server  LOG     ✓ Compiled in 202ms
+[00:45:46.769] Server  LOG     ✓ Compiled in 179ms
+[00:46:10.239] Server  LOG     ✓ Compiled in 158ms
+[00:46:11.512] Server  LOG     ✓ Compiled in 120ms
+[00:46:14.277] Server  LOG     ✓ Compiled in 143ms
+[00:46:16.622] Server  LOG     ✓ Compiled in 192ms
+[00:46:23.365] Server  LOG     ✓ Compiled in 170ms
+[00:46:43.657] Server  LOG     ✓ Compiled in 141ms
+[00:46:48.556] Server  LOG     ✓ Compiled in 121ms
+[00:46:53.679] Server  LOG     ✓ Compiled in 117ms
+[00:46:57.099] Server  LOG     ✓ Compiled in 129ms
+[00:47:11.652] Server  LOG     ✓ Compiled in 200ms
+[00:47:15.724] Server  LOG     ✓ Compiled in 482ms
+[00:47:21.079] Server  LOG     ✓ Compiled in 262ms
+[00:47:25.392] Server  LOG     ✓ Compiled in 157ms
+[00:47:29.241] Server  LOG     ✓ Compiled in 145ms
+[00:47:34.377] Server  LOG     ✓ Compiled in 145ms
+[00:47:36.216] Server  LOG     ✓ Compiled in 138ms
+[00:47:39.293] Server  LOG     ✓ Compiled in 168ms
+[00:47:57.468] Server  LOG     ✓ Compiled in 143ms
+[00:48:00.588] Server  LOG     ✓ Compiled in 116ms
+[00:48:08.515] Server  LOG     ✓ Compiled in 125ms
+[00:48:11.133] Server  LOG     ✓ Compiled in 170ms
+[00:48:12.987] Server  LOG     ✓ Compiled in 178ms
+[00:48:14.305] Server  LOG     ✓ Compiled in 181ms
+[01:10:40.509] Server  LOG     ✓ Compiled in 161ms
+[01:10:42.521] Server  LOG     ✓ Compiled in 153ms
+[01:10:44.611] Server  LOG     ✓ Compiled in 216ms
+[01:11:01.988] Server  LOG     ✓ Compiled in 173ms
+[01:11:03.409] Server  LOG     ✓ Compiled in 222ms
+[01:11:09.444] Server  LOG     ✓ Compiled in 150ms
+[01:11:17.316] Server  LOG     ✓ Compiled in 175ms
+[01:11:20.959] Server  LOG     ✓ Compiled in 219ms
+[01:11:23.858] Server  LOG     ✓ Compiled in 147ms
+[01:11:29.966] Server  LOG     ✓ Compiled in 188ms
+[01:11:32.503] Server  LOG     ✓ Compiled in 145ms
+[01:11:35.391] Server  LOG     ✓ Compiled in 245ms
+[01:11:37.978] Server  LOG     ✓ Compiled in 172ms
+[01:11:51.384] Server  LOG     ✓ Compiled in 138ms
+[01:11:52.762] Server  LOG     ✓ Compiled in 146ms
+[01:11:58.997] Server  LOG     ✓ Compiled in 135ms
+[01:12:00.425] Server  LOG     ✓ Compiled in 194ms
+[01:12:03.233] Server  LOG     ✓ Compiled in 159ms
+[01:12:05.993] Server  LOG     ✓ Compiled in 145ms
+[01:12:14.158] Server  LOG     ✓ Compiled in 161ms
+[01:12:17.715] Server  LOG     ✓ Compiled in 185ms
+[01:12:20.574] Server  LOG     ✓ Compiled in 135ms
+[01:12:24.042] Server  LOG     ✓ Compiled in 228ms
+[01:12:28.783] Server  LOG     ✓ Compiled in 183ms
+[01:12:31.972] Server  LOG     ✓ Compiled in 160ms
+[01:12:57.189] Server  LOG     ✓ Compiled in 146ms
+[01:13:00.271] Server  LOG     ✓ Compiled in 143ms
+[01:13:01.801] Server  LOG     ✓ Compiled in 197ms
+[01:13:30.987] Server  LOG     ✓ Compiled in 493ms
+[01:13:38.958] Server  LOG     ✓ Compiled in 184ms
+[01:14:32.514] Server  LOG     ✓ Compiled in 226ms
+[01:14:34.050] Server  LOG     ✓ Compiled in 213ms
+[01:14:37.368] Server  LOG     ✓ Compiled in 392ms
+[01:14:45.464] Server  LOG     ✓ Compiled in 319ms
+[01:15:01.645] Server  LOG     ✓ Compiled in 162ms
+[01:15:19.235] Server  LOG     ✓ Compiled in 148ms
+[01:15:31.733] Server  LOG     ✓ Compiled in 138ms
+[01:15:44.121] Server  LOG     ✓ Compiled in 127ms
+[01:15:45.698] Server  LOG     ✓ Compiled in 278ms
+[01:15:51.678] Server  LOG     ✓ Compiled in 261ms
+[01:15:57.909] Server  LOG     ✓ Compiled in 127ms
+[01:16:09.568] Server  LOG     ✓ Compiled in 172ms
+[01:16:44.161] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:16:44.391] Server  LOG     🔄 Fetching dashboard stats...
+[01:16:44.459] Server  LOG     ✅ Dashboard stats fetched successfully
+[01:16:44.474] Server  LOG     🔄 Fetching dashboard stats...
+[01:16:44.500] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[01:16:44.528] Server  LOG     ✅ Dashboard stats fetched successfully
+[01:16:48.172] Server  LOG     🔄 Fetching dashboard stats...
+[01:16:48.230] Server  LOG     ✅ Dashboard stats fetched successfully
+[01:16:48.311] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[01:16:53.892] Server  LOG     Querying quotations with populate...
+[01:16:53.907] Server  LOG     Querying quotations with populate...
+[01:16:58.073] Server  LOG     Querying quotations with populate...
+[01:16:58.560] Server  LOG     Querying quotations with populate...
+[01:17:13.529] Server  LOG     API Services - Query params: {}
+[01:17:13.530] Server  LOG     API Services - MongoDB query: {}
+[01:17:13.593] Browser LOG     Loading services for group: Thiết kế xây dựng
+[01:17:13.600] Server  LOG     API Services - Found services: 7
+[01:17:13.707] Browser LOG     Services API response: {"data":[{"__v":0,"_id":"698450b4e3432f096e444c50","code":"SVC-0007","createdAt":"2026-02-05T08:11:32.963Z","description":"Thiết kế văn phòng","isActive":true,"serviceGroup":"Thiết kế xây dựng","serviceName":"Thiết kế văn phòng","updatedAt":"2026-02-05T08:11:32.963Z"},{"__v":0,"_id":"698450afe3432f096e444c4d","code":"SVC-0006","createdAt":"2026-02-05T08:11:27.150Z","description":"Thiết kế biệt thự","isActive":true,"serviceGroup":"Thiết kế xây dựng","serviceName":"Thiết kế biệt thự","updatedAt":"2026-02-05T08:11:27.150Z"},{"__v":0,"_id":"698450a9e3432f096e444c4a","code":"SVC-0005","createdAt":"2026-02-05T08:11:21.353Z","description":"Thiết kế nhà vườn","isActive":true,"serviceGroup":"Thiết kế xây dựng","serviceName":"Thiết kế nhà vườn","updatedAt":"2026-02-05T08:11:21.353Z"},{"__v":0,"_id":"698450a3e3432f096e444c47","code":"SVC-0004","createdAt":"2026-02-05T08:11:15.911Z","description":"Thiết kế biệt thự phố","isActive":true,"serviceGroup":"Thiết kế xây dựng","serviceName":"Thiết kế biệt thự phố","updatedAt":"2026-02-05T08:11:15.911Z"},{"__v":0,"_id":"6984509ce3432f096e444c44","code":"SVC-0003","createdAt":"2026-02-05T08:11:08.269Z","description":"Thiết kế nhà phố","isActive":true,"serviceGroup":"Thiết kế xây dựng","serviceName":"Thiết kế nhà phố","updatedAt":"2026-02-05T08:11:08.269Z"},{"__v":0,"_id":"69845096e3432f096e444c41","code":"SVC-0002","createdAt":"2026-02-05T08:11:02.819Z","description":"Thiết kế nhà cấp 4 gác lửng","isActive":true,"serviceGroup":"Thiết kế xây dựng","serviceName":"Thiết kế nhà cấp 4 gác lửng","updatedAt":"2026-02-05T08:11:02.819Z"},{"__v":0,"_id":"69845001e3432f096e444c19","code":"SVC-0001","createdAt":"2026-02-05T08:08:33.165Z","description":"Thiết kế nhà cấp 4","isActive":true,"serviceGroup":"Thiết kế xây dựng","serviceName":"Thiết kế nhà cấp 4","updatedAt":"2026-02-05T08:10:35.814Z"}],"pagination":{"limit":10,"page":1,"pages":1,"total":7},"success":true}
+[01:17:13.707] Browser LOG     Updated group: {"__v":0,"_id":"69844e03e3432f096e444bd3","code":"SG-0001","createdAt":"2026-02-05T08:00:03.271Z","description":"Thiết kế, phác thảo cho công trình xây dựng","isActive":true,"name":"Thiết kế xây dựng","services":[{"__v":0,"_id":"698450b4e3432f096e444c50","code":"SVC-0007","createdAt":"2026-02-05T08:11:32.963Z","description":"Thiết kế văn phòng","isActive":true,"name":"Thiết kế văn phòng","packages":[],"serviceGroup":"Thiết kế xây dựng","serviceName":"Thiết kế văn phòng","updatedAt":"2026-02-05T08:11:32.963Z"},{"__v":0,"_id":"698450afe3432f096e444c4d","code":"SVC-0006","createdAt":"2026-02-05T08:11:27.150Z","description":"Thiết kế biệt thự","isActive":true,"name":"Thiết kế biệt thự","packages":[],"serviceGroup":"Thiết kế xây dựng","serviceName":"Thiết kế biệt thự","updatedAt":"2026-02-05T08:11:27.150Z"},{"__v":0,"_id":"698450a9e3432f096e444c4a","code":"SVC-0005","createdAt":"2026-02-05T08:11:21.353Z","description":"Thiết kế nhà vườn","isActive":true,"name":"Thiết kế nhà vườn","packages":[],"serviceGroup":"Thiết kế xây dựng","serviceName":"Thiết kế nhà vườn","updatedAt":"2026-02-05T08:11:21.353Z"},{"__v":0,"_id":"698450a3e3432f096e444c47","code":"SVC-0004","createdAt":"2026-02-05T08:11:15.911Z","description":"Thiết kế biệt thự phố","isActive":true,"name":"Thiết kế biệt thự phố","packages":[],"serviceGroup":"Thiết kế xây dựng","serviceName":"Thiết kế biệt thự phố","updatedAt":"2026-02-05T08:11:15.911Z"},{"__v":0,"_id":"6984509ce3432f096e444c44","code":"SVC-0003","createdAt":"2026-02-05T08:11:08.269Z","description":"Thiết kế nhà phố","isActive":true,"name":"Thiết kế nhà phố","packages":[],"serviceGroup":"Thiết kế xây dựng","serviceName":"Thiết kế nhà phố","updatedAt":"2026-02-05T08:11:08.269Z"},{"__v":0,"_id":"69845096e3432f096e444c41","code":"SVC-0002","createdAt":"2026-02-05T08:11:02.819Z","description":"Thiết kế nhà cấp 4 gác lửng","isActive":true,"name":"Thiết kế nhà cấp 4 gác lửng","packages":[],"serviceGroup":"Thiết kế xây dựng","serviceName":"Thiết kế nhà cấp 4 gác lửng","updatedAt":"2026-02-05T08:11:02.819Z"},{"__v":0,"_id":"69845001e3432f096e444c19","code":"SVC-0001","createdAt":"2026-02-05T08:08:33.165Z","description":"Thiết kế nhà cấp 4","isActive":true,"name":"Thiết kế nhà cấp 4","packages":[],"serviceGroup":"Thiết kế xây dựng","serviceName":"Thiết kế nhà cấp 4","updatedAt":"2026-02-05T08:10:35.814Z"}],"updatedAt":"2026-02-05T08:00:03.271Z"}
+[01:17:15.632] Server  LOG     Service Pricing Results: {}
+[01:17:15.740] Browser LOG     Selected service: {"__v":0,"_id":"69845001e3432f096e444c19","code":"SVC-0001","createdAt":"2026-02-05T08:08:33.165Z","description":"Thiết kế nhà cấp 4","isActive":true,"name":"Thiết kế nhà cấp 4","packages":[],"serviceGroup":"Thiết kế xây dựng","serviceName":"Thiết kế nhà cấp 4","updatedAt":"2026-02-05T08:10:35.814Z"}
+[01:17:15.740] Browser LOG     Filtered Pricing Data: {"data":[{"__v":0,"_id":"6984528de3432f096e444d26","createdAt":"2026-02-05T08:19:25.677Z","effectiveFrom":"2026-02-05T00:00:00.000Z","effectiveTo":"2026-03-05T00:00:00.000Z","isActive":true,"isUsed":true,"packageName":"Gói tốt","serviceName":"Thiết kế nhà cấp 4","unitPrice":80000000,"updatedAt":"2026-02-05T10:03:21.317Z"},{"__v":0,"_id":"6984528de3432f096e444d29","createdAt":"2026-02-05T08:19:25.677Z","effectiveFrom":"2026-02-05T00:00:00.000Z","effectiveTo":"2026-03-05T00:00:00.000Z","isActive":true,"isUsed":true,"packageName":"Gói tối ưu","serviceName":"Thiết kế nhà cấp 4","unitPrice":20000000,"updatedAt":"2026-02-05T10:03:21.317Z"},{"__v":0,"_id":"6984528de3432f096e444d27","createdAt":"2026-02-05T08:19:25.677Z","effectiveFrom":"2026-02-05T00:00:00.000Z","effectiveTo":"2026-03-05T00:00:00.000Z","isActive":true,"isUsed":true,"packageName":"Gói khá","serviceName":"Thiết kế nhà cấp 4","unitPrice":60000000,"updatedAt":"2026-02-05T10:03:21.317Z"},{"__v":0,"_id":"6984528de3432f096e444d25","createdAt":"2026-02-05T08:19:25.677Z","effectiveFrom":"2026-02-05T00:00:00.000Z","effectiveTo":"2026-03-05T00:00:00.000Z","isActive":true,"isUsed":true,"packageName":"Gói cao cấp","serviceName":"Thiết kế nhà cấp 4","unitPrice":100000000,"updatedAt":"2026-02-05T10:03:21.317Z"},{"__v":0,"_id":"6984528de3432f096e444d28","createdAt":"2026-02-05T08:19:25.677Z","effectiveFrom":"2026-02-05T00:00:00.000Z","effectiveTo":"2026-03-05T00:00:00.000Z","isActive":true,"isUsed":true,"packageName":"Gói trung bình","serviceName":"Thiết kế nhà cấp 4","unitPrice":40000000,"updatedAt":"2026-02-05T10:03:21.317Z"}],"pagination":{"limit":50,"page":1,"pages":1,"total":5},"success":true}
+[01:17:15.740] Browser LOG     Latest Pricing by Package: [{"__v":0,"_id":"6984528de3432f096e444d26","createdAt":"2026-02-05T08:19:25.677Z","effectiveFrom":"2026-02-05T00:00:00.000Z","effectiveTo":"2026-03-05T00:00:00.000Z","isActive":true,"isUsed":true,"packageName":"Gói tốt","serviceName":"Thiết kế nhà cấp 4","unitPrice":80000000,"updatedAt":"2026-02-05T10:03:21.317Z"},{"__v":0,"_id":"6984528de3432f096e444d29","createdAt":"2026-02-05T08:19:25.677Z","effectiveFrom":"2026-02-05T00:00:00.000Z","effectiveTo":"2026-03-05T00:00:00.000Z","isActive":true,"isUsed":true,"packageName":"Gói tối ưu","serviceName":"Thiết kế nhà cấp 4","unitPrice":20000000,"updatedAt":"2026-02-05T10:03:21.317Z"},{"__v":0,"_id":"6984528de3432f096e444d27","createdAt":"2026-02-05T08:19:25.677Z","effectiveFrom":"2026-02-05T00:00:00.000Z","effectiveTo":"2026-03-05T00:00:00.000Z","isActive":true,"isUsed":true,"packageName":"Gói khá","serviceName":"Thiết kế nhà cấp 4","unitPrice":60000000,"updatedAt":"2026-02-05T10:03:21.317Z"},{"__v":0,"_id":"6984528de3432f096e444d25","createdAt":"2026-02-05T08:19:25.677Z","effectiveFrom":"2026-02-05T00:00:00.000Z","effectiveTo":"2026-03-05T00:00:00.000Z","isActive":true,"isUsed":true,"packageName":"Gói cao cấp","serviceName":"Thiết kế nhà cấp 4","unitPrice":100000000,"updatedAt":"2026-02-05T10:03:21.317Z"},{"__v":0,"_id":"6984528de3432f096e444d28","createdAt":"2026-02-05T08:19:25.677Z","effectiveFrom":"2026-02-05T00:00:00.000Z","effectiveTo":"2026-03-05T00:00:00.000Z","isActive":true,"isUsed":true,"packageName":"Gói trung bình","serviceName":"Thiết kế nhà cấp 4","unitPrice":40000000,"updatedAt":"2026-02-05T10:03:21.317Z"}]
+[01:17:15.740] Browser LOG     Final Service Packages: [{"_id":"6984528de3432f096e444d26","isSelected":false,"packageName":"Gói tốt","servicePricing":80000000,"totalPrice":0,"unitPrice":80000000},{"_id":"6984528de3432f096e444d29","isSelected":false,"packageName":"Gói tối ưu","servicePricing":20000000,"totalPrice":0,"unitPrice":20000000},{"_id":"6984528de3432f096e444d27","isSelected":false,"packageName":"Gói khá","servicePricing":60000000,"totalPrice":0,"unitPrice":60000000},{"_id":"6984528de3432f096e444d25","isSelected":false,"packageName":"Gói cao cấp","servicePricing":100000000,"totalPrice":0,"unitPrice":100000000},{"_id":"6984528de3432f096e444d28","isSelected":false,"packageName":"Gói trung bình","servicePricing":40000000,"totalPrice":0,"unitPrice":40000000}]
+[01:18:22.877] Server  LOG     ✓ Compiled in 171ms
+[01:18:25.097] Server  LOG     ✓ Compiled in 159ms
+[01:18:26.334] Server  LOG     ✓ Compiled in 164ms
+[01:18:39.475] Server  LOG     ✓ Compiled in 186ms
+[01:18:42.598] Server  LOG     ✓ Compiled in 144ms
+[01:18:44.674] Server  LOG     ✓ Compiled in 221ms
+[01:18:52.691] Server  LOG     ✓ Compiled in 217ms
+[01:18:54.082] Server  LOG     ✓ Compiled in 126ms
+[01:18:57.172] Server  LOG     ✓ Compiled in 145ms
+[01:19:02.597] Server  LOG     ✓ Compiled in 146ms
+[01:19:08.780] Server  LOG     ✓ Compiled in 132ms
+[01:19:11.114] Server  LOG     ✓ Compiled in 140ms
+[01:19:13.730] Server  LOG     ✓ Compiled in 161ms
+[01:19:20.122] Server  LOG     ✓ Compiled in 157ms
+[01:19:22.459] Server  LOG     ✓ Compiled in 148ms
+[01:19:25.756] Server  LOG     ✓ Compiled in 217ms
+[01:20:17.728] Server  LOG     ✓ Compiled in 184ms
+[01:20:27.257] Server  LOG     ✓ Compiled in 149ms
+[01:20:28.843] Server  LOG     ✓ Compiled in 130ms
+[01:20:33.299] Server  LOG     ✓ Compiled in 190ms
+[01:20:59.774] Server  LOG     ✓ Compiled in 265ms
+[01:21:08.566] Server  LOG     ✓ Compiled in 643ms
+[01:21:09.032] Browser ERROR   unhandledRejection: Error: No link element found for chunk /_next/static/chunks/%5Broot-of-the-server%5D__ddb3d12c._.css
+[01:21:20.945] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:21:21.647] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  ...
+    <HotReload globalError={[...]} webSocket={WebSocket} staticIndicatorState={{pathname:null, ...}}>
+      <AppDevOverlayErrorBoundary globalError={[...]}>
+        <ReplaySsrOnlyErrors>
+        <DevRootHTTPAccessFallbackBoundary>
+          <HTTPAccessFallbackBoundary notFound={<NotAllowedRootHTTPFallbackError>}>
+            <HTTPAccessFallbackErrorBoundary pathname="/quotation..." notFound={<NotAllowedRootHTTPFallbackError>} ...>
+              <RedirectBoundary>
+                <RedirectErrorBoundary router={{...}}>
+                  <Head>
+                  <__next_root_layout_boundary__>
+                    <SegmentViewNode type="layout" pagePath="layout.tsx">
+                      <SegmentTrieNode>
+                      <link>
+                      <script>
+                      <script>
+                      <RootLayout>
+                        <html lang="vi">
+                          <body
++                           className="inter_dfbb94ae-module__cY9fIW__variable font-sans antialiased"
+-                           className="dark"
+                          >
+                  ...
+
+[01:21:22.447] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[01:21:23.062] Browser ERROR   uncaughtError: Error: Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+https://react.dev/link/hydration-mismatch
+
+  ...
+    <HotReload globalError={[...]} webSocket={WebSocket} staticIndicatorState={{pathname:null, ...}}>
+      <AppDevOverlayErrorBoundary globalError={[...]}>
+        <ReplaySsrOnlyErrors>
+        <DevRootHTTPAccessFallbackBoundary>
+          <HTTPAccessFallbackBoundary notFound={<NotAllowedRootHTTPFallbackError>}>
+            <HTTPAccessFallbackErrorBoundary pathname="/quotation..." notFound={<NotAllowedRootHTTPFallbackError>} ...>
+              <RedirectBoundary>
+                <RedirectErrorBoundary router={{...}}>
+                  <Head headCacheNode={{rsc:<Fragment>, ...}}>
+                    <__next_viewport_boundary__>
+                    <MetadataWrapper>
++                     <div hidden={true}>
+-                     {"\n        "}
+                    ...
+                  ...
+
+[01:21:23.062] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:23.062] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:23.062] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:23.062] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:23.062] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:23.062] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:23.062] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:23.062] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:23.062] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:23.062] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:23.062] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:23.062] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:23.062] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:23.062] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:23.062] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:23.062] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:23.062] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:23.062] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:23.062] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:23.062] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:23.062] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:23.062] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:23.062] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:23.062] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:23.062] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:23.062] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:23.062] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:23.062] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:23.062] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:23.062] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:23.062] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:23.062] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:23.062] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:23.062] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:23.062] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:23.062] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:23.062] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:23.062] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:23.062] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:23.062] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:23.062] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:23.062] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:23.062] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:23.062] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:23.062] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:23.062] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:23.062] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:23.062] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:23.062] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:23.062] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:23.062] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:23.062] Browser ERROR   uncaughtError: Error: Maximum update depth exceeded. This can happen when a component repeatedly calls setState inside componentWillUpdate or componentDidUpdate. React limits the number of nested updates to prevent infinite loops.
+[01:21:23.062] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:23.062] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:23.062] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:27.586] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:21:28.440] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  ...
+    <HotReload globalError={[...]} webSocket={WebSocket} staticIndicatorState={{pathname:null, ...}}>
+      <AppDevOverlayErrorBoundary globalError={[...]}>
+        <ReplaySsrOnlyErrors>
+        <DevRootHTTPAccessFallbackBoundary>
+          <HTTPAccessFallbackBoundary notFound={<NotAllowedRootHTTPFallbackError>}>
+            <HTTPAccessFallbackErrorBoundary pathname="/quotation..." notFound={<NotAllowedRootHTTPFallbackError>} ...>
+              <RedirectBoundary>
+                <RedirectErrorBoundary router={{...}}>
+                  <Head>
+                  <__next_root_layout_boundary__>
+                    <SegmentViewNode type="layout" pagePath="layout.tsx">
+                      <SegmentTrieNode>
+                      <link>
+                      <script>
+                      <script>
+                      <RootLayout>
+                        <html lang="vi">
+                          <body
++                           className="inter_dfbb94ae-module__cY9fIW__variable font-sans antialiased"
+-                           className="dark"
+                          >
+                  ...
+
+[01:21:28.960] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[01:21:31.097] Browser ERROR   uncaughtError: Error: Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+https://react.dev/link/hydration-mismatch
+
+  ...
+    <HotReload globalError={[...]} webSocket={WebSocket} staticIndicatorState={{pathname:null, ...}}>
+      <AppDevOverlayErrorBoundary globalError={[...]}>
+        <ReplaySsrOnlyErrors>
+        <DevRootHTTPAccessFallbackBoundary>
+          <HTTPAccessFallbackBoundary notFound={<NotAllowedRootHTTPFallbackError>}>
+            <HTTPAccessFallbackErrorBoundary pathname="/quotation..." notFound={<NotAllowedRootHTTPFallbackError>} ...>
+              <RedirectBoundary>
+                <RedirectErrorBoundary router={{...}}>
+                  <Head headCacheNode={{rsc:<Fragment>, ...}}>
+                    <__next_viewport_boundary__>
+                    <MetadataWrapper>
++                     <div hidden={true}>
+-                     {"\n        "}
+                    ...
+                  ...
+
+[01:21:31.097] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:31.097] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:31.097] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:31.097] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:31.097] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:31.097] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:31.097] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:31.097] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:31.097] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:31.097] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:31.097] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:31.097] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:31.097] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:31.097] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:31.097] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:31.097] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:31.097] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:31.097] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:31.097] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:31.097] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:31.097] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:31.097] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:31.097] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:31.097] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:31.097] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:31.097] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:31.097] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:31.097] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:31.097] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:31.097] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:31.097] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:31.097] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:31.097] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:31.097] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:31.097] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:31.097] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:31.097] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:31.097] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:31.097] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:31.097] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:31.097] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:31.097] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:31.097] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:31.097] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:31.097] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:31.097] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:31.097] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:31.097] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:31.097] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:31.097] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:31.097] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:31.097] Browser ERROR   uncaughtError: Error: Maximum update depth exceeded. This can happen when a component repeatedly calls setState inside componentWillUpdate or componentDidUpdate. React limits the number of nested updates to prevent infinite loops.
+[01:21:31.097] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:31.097] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:31.097] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:34.419] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:21:35.211] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  ...
+    <HotReload globalError={[...]} webSocket={WebSocket} staticIndicatorState={{pathname:null, ...}}>
+      <AppDevOverlayErrorBoundary globalError={[...]}>
+        <ReplaySsrOnlyErrors>
+        <DevRootHTTPAccessFallbackBoundary>
+          <HTTPAccessFallbackBoundary notFound={<NotAllowedRootHTTPFallbackError>}>
+            <HTTPAccessFallbackErrorBoundary pathname="/quotation..." notFound={<NotAllowedRootHTTPFallbackError>} ...>
+              <RedirectBoundary>
+                <RedirectErrorBoundary router={{...}}>
+                  <Head>
+                  <__next_root_layout_boundary__>
+                    <SegmentViewNode type="layout" pagePath="layout.tsx">
+                      <SegmentTrieNode>
+                      <link>
+                      <script>
+                      <script>
+                      <RootLayout>
+                        <html lang="vi">
+                          <body
++                           className="inter_dfbb94ae-module__cY9fIW__variable font-sans antialiased"
+-                           className="dark"
+                          >
+                  ...
+
+[01:21:35.646] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[01:21:37.742] Browser ERROR   uncaughtError: Error: Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+https://react.dev/link/hydration-mismatch
+
+  ...
+    <HotReload globalError={[...]} webSocket={WebSocket} staticIndicatorState={{pathname:null, ...}}>
+      <AppDevOverlayErrorBoundary globalError={[...]}>
+        <ReplaySsrOnlyErrors>
+        <DevRootHTTPAccessFallbackBoundary>
+          <HTTPAccessFallbackBoundary notFound={<NotAllowedRootHTTPFallbackError>}>
+            <HTTPAccessFallbackErrorBoundary pathname="/quotation..." notFound={<NotAllowedRootHTTPFallbackError>} ...>
+              <RedirectBoundary>
+                <RedirectErrorBoundary router={{...}}>
+                  <Head headCacheNode={{rsc:<Fragment>, ...}}>
+                    <__next_viewport_boundary__>
+                    <MetadataWrapper>
++                     <div hidden={true}>
+-                     {"\n        "}
+                    ...
+                  ...
+
+[01:21:37.742] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:37.742] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:37.742] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:37.742] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:37.742] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:37.742] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:37.742] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:37.742] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:37.742] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:37.742] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:37.742] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:37.742] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:37.742] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:37.742] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:37.742] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:37.742] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:37.742] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:37.742] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:37.742] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:37.742] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:37.742] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:37.742] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:37.742] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:37.742] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:37.742] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:37.742] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:37.742] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:37.742] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:37.742] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:37.742] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:37.742] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:37.742] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:37.742] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:37.742] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:37.742] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:37.742] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:37.742] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:37.742] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:37.742] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:37.742] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:37.742] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:37.742] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:37.742] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:37.742] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:37.742] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:37.742] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:37.742] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:37.742] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:37.742] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:37.742] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:37.742] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:37.742] Browser ERROR   uncaughtError: Error: Maximum update depth exceeded. This can happen when a component repeatedly calls setState inside componentWillUpdate or componentDidUpdate. React limits the number of nested updates to prevent infinite loops.
+[01:21:37.742] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:37.742] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:37.742] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:21:41.770] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:21:41.984] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  ...
+    <HotReload globalError={[...]} webSocket={WebSocket} staticIndicatorState={{pathname:null, ...}}>
+      <AppDevOverlayErrorBoundary globalError={[...]}>
+        <ReplaySsrOnlyErrors>
+        <DevRootHTTPAccessFallbackBoundary>
+          <HTTPAccessFallbackBoundary notFound={<NotAllowedRootHTTPFallbackError>}>
+            <HTTPAccessFallbackErrorBoundary pathname="/quotation..." notFound={<NotAllowedRootHTTPFallbackError>} ...>
+              <RedirectBoundary>
+                <RedirectErrorBoundary router={{...}}>
+                  <Head>
+                  <__next_root_layout_boundary__>
+                    <SegmentViewNode type="layout" pagePath="layout.tsx">
+                      <SegmentTrieNode>
+                      <link>
+                      <script>
+                      <script>
+                      <RootLayout>
+                        <html lang="vi">
+                          <body
++                           className="inter_dfbb94ae-module__cY9fIW__variable font-sans antialiased"
+-                           className="dark"
+                          >
+                  ...
+
+[01:21:42.429] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[01:21:48.868] Server  LOG     Querying quotations with populate...
+[01:21:48.877] Server  LOG     Querying quotations with populate...
+[01:21:57.987] Server  LOG     API Services - Query params: {}
+[01:21:57.988] Server  LOG     API Services - MongoDB query: {}
+[01:21:58.036] Server  LOG     API Services - Found services: 7
+[01:21:58.143] Browser LOG     Loading services for group: Thiết kế xây dựng
+[01:21:58.143] Browser LOG     Services API response: {"data":[{"__v":0,"_id":"698450b4e3432f096e444c50","code":"SVC-0007","createdAt":"2026-02-05T08:11:32.963Z","description":"Thiết kế văn phòng","isActive":true,"serviceGroup":"Thiết kế xây dựng","serviceName":"Thiết kế văn phòng","updatedAt":"2026-02-05T08:11:32.963Z"},{"__v":0,"_id":"698450afe3432f096e444c4d","code":"SVC-0006","createdAt":"2026-02-05T08:11:27.150Z","description":"Thiết kế biệt thự","isActive":true,"serviceGroup":"Thiết kế xây dựng","serviceName":"Thiết kế biệt thự","updatedAt":"2026-02-05T08:11:27.150Z"},{"__v":0,"_id":"698450a9e3432f096e444c4a","code":"SVC-0005","createdAt":"2026-02-05T08:11:21.353Z","description":"Thiết kế nhà vườn","isActive":true,"serviceGroup":"Thiết kế xây dựng","serviceName":"Thiết kế nhà vườn","updatedAt":"2026-02-05T08:11:21.353Z"},{"__v":0,"_id":"698450a3e3432f096e444c47","code":"SVC-0004","createdAt":"2026-02-05T08:11:15.911Z","description":"Thiết kế biệt thự phố","isActive":true,"serviceGroup":"Thiết kế xây dựng","serviceName":"Thiết kế biệt thự phố","updatedAt":"2026-02-05T08:11:15.911Z"},{"__v":0,"_id":"6984509ce3432f096e444c44","code":"SVC-0003","createdAt":"2026-02-05T08:11:08.269Z","description":"Thiết kế nhà phố","isActive":true,"serviceGroup":"Thiết kế xây dựng","serviceName":"Thiết kế nhà phố","updatedAt":"2026-02-05T08:11:08.269Z"},{"__v":0,"_id":"69845096e3432f096e444c41","code":"SVC-0002","createdAt":"2026-02-05T08:11:02.819Z","description":"Thiết kế nhà cấp 4 gác lửng","isActive":true,"serviceGroup":"Thiết kế xây dựng","serviceName":"Thiết kế nhà cấp 4 gác lửng","updatedAt":"2026-02-05T08:11:02.819Z"},{"__v":0,"_id":"69845001e3432f096e444c19","code":"SVC-0001","createdAt":"2026-02-05T08:08:33.165Z","description":"Thiết kế nhà cấp 4","isActive":true,"serviceGroup":"Thiết kế xây dựng","serviceName":"Thiết kế nhà cấp 4","updatedAt":"2026-02-05T08:10:35.814Z"}],"pagination":{"limit":10,"page":1,"pages":1,"total":7},"success":true}
+[01:21:58.143] Browser LOG     Updated group: {"__v":0,"_id":"69844e03e3432f096e444bd3","code":"SG-0001","createdAt":"2026-02-05T08:00:03.271Z","description":"Thiết kế, phác thảo cho công trình xây dựng","isActive":true,"name":"Thiết kế xây dựng","services":[{"__v":0,"_id":"698450b4e3432f096e444c50","code":"SVC-0007","createdAt":"2026-02-05T08:11:32.963Z","description":"Thiết kế văn phòng","isActive":true,"name":"Thiết kế văn phòng","packages":[],"serviceGroup":"Thiết kế xây dựng","serviceName":"Thiết kế văn phòng","updatedAt":"2026-02-05T08:11:32.963Z"},{"__v":0,"_id":"698450afe3432f096e444c4d","code":"SVC-0006","createdAt":"2026-02-05T08:11:27.150Z","description":"Thiết kế biệt thự","isActive":true,"name":"Thiết kế biệt thự","packages":[],"serviceGroup":"Thiết kế xây dựng","serviceName":"Thiết kế biệt thự","updatedAt":"2026-02-05T08:11:27.150Z"},{"__v":0,"_id":"698450a9e3432f096e444c4a","code":"SVC-0005","createdAt":"2026-02-05T08:11:21.353Z","description":"Thiết kế nhà vườn","isActive":true,"name":"Thiết kế nhà vườn","packages":[],"serviceGroup":"Thiết kế xây dựng","serviceName":"Thiết kế nhà vườn","updatedAt":"2026-02-05T08:11:21.353Z"},{"__v":0,"_id":"698450a3e3432f096e444c47","code":"SVC-0004","createdAt":"2026-02-05T08:11:15.911Z","description":"Thiết kế biệt thự phố","isActive":true,"name":"Thiết kế biệt thự phố","packages":[],"serviceGroup":"Thiết kế xây dựng","serviceName":"Thiết kế biệt thự phố","updatedAt":"2026-02-05T08:11:15.911Z"},{"__v":0,"_id":"6984509ce3432f096e444c44","code":"SVC-0003","createdAt":"2026-02-05T08:11:08.269Z","description":"Thiết kế nhà phố","isActive":true,"name":"Thiết kế nhà phố","packages":[],"serviceGroup":"Thiết kế xây dựng","serviceName":"Thiết kế nhà phố","updatedAt":"2026-02-05T08:11:08.269Z"},{"__v":0,"_id":"69845096e3432f096e444c41","code":"SVC-0002","createdAt":"2026-02-05T08:11:02.819Z","description":"Thiết kế nhà cấp 4 gác lửng","isActive":true,"name":"Thiết kế nhà cấp 4 gác lửng","packages":[],"serviceGroup":"Thiết kế xây dựng","serviceName":"Thiết kế nhà cấp 4 gác lửng","updatedAt":"2026-02-05T08:11:02.819Z"},{"__v":0,"_id":"69845001e3432f096e444c19","code":"SVC-0001","createdAt":"2026-02-05T08:08:33.165Z","description":"Thiết kế nhà cấp 4","isActive":true,"name":"Thiết kế nhà cấp 4","packages":[],"serviceGroup":"Thiết kế xây dựng","serviceName":"Thiết kế nhà cấp 4","updatedAt":"2026-02-05T08:10:35.814Z"}],"updatedAt":"2026-02-05T08:00:03.271Z"}
+[01:21:59.367] Server  LOG     Service Pricing Results: {}
+[01:21:59.473] Browser LOG     Selected service: {"__v":0,"_id":"69845001e3432f096e444c19","code":"SVC-0001","createdAt":"2026-02-05T08:08:33.165Z","description":"Thiết kế nhà cấp 4","isActive":true,"name":"Thiết kế nhà cấp 4","packages":[],"serviceGroup":"Thiết kế xây dựng","serviceName":"Thiết kế nhà cấp 4","updatedAt":"2026-02-05T08:10:35.814Z"}
+[01:21:59.473] Browser LOG     Filtered Pricing Data: {"data":[{"__v":0,"_id":"6984528de3432f096e444d26","createdAt":"2026-02-05T08:19:25.677Z","effectiveFrom":"2026-02-05T00:00:00.000Z","effectiveTo":"2026-03-05T00:00:00.000Z","isActive":true,"isUsed":true,"packageName":"Gói tốt","serviceName":"Thiết kế nhà cấp 4","unitPrice":80000000,"updatedAt":"2026-02-05T10:03:21.317Z"},{"__v":0,"_id":"6984528de3432f096e444d29","createdAt":"2026-02-05T08:19:25.677Z","effectiveFrom":"2026-02-05T00:00:00.000Z","effectiveTo":"2026-03-05T00:00:00.000Z","isActive":true,"isUsed":true,"packageName":"Gói tối ưu","serviceName":"Thiết kế nhà cấp 4","unitPrice":20000000,"updatedAt":"2026-02-05T10:03:21.317Z"},{"__v":0,"_id":"6984528de3432f096e444d27","createdAt":"2026-02-05T08:19:25.677Z","effectiveFrom":"2026-02-05T00:00:00.000Z","effectiveTo":"2026-03-05T00:00:00.000Z","isActive":true,"isUsed":true,"packageName":"Gói khá","serviceName":"Thiết kế nhà cấp 4","unitPrice":60000000,"updatedAt":"2026-02-05T10:03:21.317Z"},{"__v":0,"_id":"6984528de3432f096e444d25","createdAt":"2026-02-05T08:19:25.677Z","effectiveFrom":"2026-02-05T00:00:00.000Z","effectiveTo":"2026-03-05T00:00:00.000Z","isActive":true,"isUsed":true,"packageName":"Gói cao cấp","serviceName":"Thiết kế nhà cấp 4","unitPrice":100000000,"updatedAt":"2026-02-05T10:03:21.317Z"},{"__v":0,"_id":"6984528de3432f096e444d28","createdAt":"2026-02-05T08:19:25.677Z","effectiveFrom":"2026-02-05T00:00:00.000Z","effectiveTo":"2026-03-05T00:00:00.000Z","isActive":true,"isUsed":true,"packageName":"Gói trung bình","serviceName":"Thiết kế nhà cấp 4","unitPrice":40000000,"updatedAt":"2026-02-05T10:03:21.317Z"}],"pagination":{"limit":50,"page":1,"pages":1,"total":5},"success":true}
+[01:21:59.473] Browser LOG     Latest Pricing by Package: [{"__v":0,"_id":"6984528de3432f096e444d26","createdAt":"2026-02-05T08:19:25.677Z","effectiveFrom":"2026-02-05T00:00:00.000Z","effectiveTo":"2026-03-05T00:00:00.000Z","isActive":true,"isUsed":true,"packageName":"Gói tốt","serviceName":"Thiết kế nhà cấp 4","unitPrice":80000000,"updatedAt":"2026-02-05T10:03:21.317Z"},{"__v":0,"_id":"6984528de3432f096e444d29","createdAt":"2026-02-05T08:19:25.677Z","effectiveFrom":"2026-02-05T00:00:00.000Z","effectiveTo":"2026-03-05T00:00:00.000Z","isActive":true,"isUsed":true,"packageName":"Gói tối ưu","serviceName":"Thiết kế nhà cấp 4","unitPrice":20000000,"updatedAt":"2026-02-05T10:03:21.317Z"},{"__v":0,"_id":"6984528de3432f096e444d27","createdAt":"2026-02-05T08:19:25.677Z","effectiveFrom":"2026-02-05T00:00:00.000Z","effectiveTo":"2026-03-05T00:00:00.000Z","isActive":true,"isUsed":true,"packageName":"Gói khá","serviceName":"Thiết kế nhà cấp 4","unitPrice":60000000,"updatedAt":"2026-02-05T10:03:21.317Z"},{"__v":0,"_id":"6984528de3432f096e444d25","createdAt":"2026-02-05T08:19:25.677Z","effectiveFrom":"2026-02-05T00:00:00.000Z","effectiveTo":"2026-03-05T00:00:00.000Z","isActive":true,"isUsed":true,"packageName":"Gói cao cấp","serviceName":"Thiết kế nhà cấp 4","unitPrice":100000000,"updatedAt":"2026-02-05T10:03:21.317Z"},{"__v":0,"_id":"6984528de3432f096e444d28","createdAt":"2026-02-05T08:19:25.677Z","effectiveFrom":"2026-02-05T00:00:00.000Z","effectiveTo":"2026-03-05T00:00:00.000Z","isActive":true,"isUsed":true,"packageName":"Gói trung bình","serviceName":"Thiết kế nhà cấp 4","unitPrice":40000000,"updatedAt":"2026-02-05T10:03:21.317Z"}]
+[01:21:59.473] Browser LOG     Final Service Packages: [{"_id":"6984528de3432f096e444d26","isSelected":false,"packageName":"Gói tốt","servicePricing":80000000,"totalPrice":0,"unitPrice":80000000},{"_id":"6984528de3432f096e444d29","isSelected":false,"packageName":"Gói tối ưu","servicePricing":20000000,"totalPrice":0,"unitPrice":20000000},{"_id":"6984528de3432f096e444d27","isSelected":false,"packageName":"Gói khá","servicePricing":60000000,"totalPrice":0,"unitPrice":60000000},{"_id":"6984528de3432f096e444d25","isSelected":false,"packageName":"Gói cao cấp","servicePricing":100000000,"totalPrice":0,"unitPrice":100000000},{"_id":"6984528de3432f096e444d28","isSelected":false,"packageName":"Gói trung bình","servicePricing":40000000,"totalPrice":0,"unitPrice":40000000}]
+[01:22:52.984] Server  LOG     ✓ Compiled in 173ms
+[01:22:53.641] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:22:53.642] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[01:27:41.270] Server  LOG     ✓ Compiled in 210ms
+[01:27:43.026] Server  LOG     ✓ Compiled in 185ms
+[01:27:45.909] Server  LOG     ✓ Compiled in 230ms
+[01:27:54.363] Server  LOG     ✓ Compiled in 222ms
+[01:27:58.575] Server  LOG     ✓ Compiled in 392ms
+[01:27:59.420] Browser ERROR   unhandledRejection: Error: No link element found for chunk /_next/static/chunks/%5Broot-of-the-server%5D__ddb3d12c._.css
+[01:28:27.277] Server  LOG     ✓ Compiled in 201ms
+[01:28:52.451] Server  LOG     ✓ Compiled in 162ms
+[01:28:55.077] Server  LOG     ✓ Compiled in 300ms
+[01:28:55.191] Browser ERROR   unhandledRejection: Error: No link element found for chunk /_next/static/chunks/%5Broot-of-the-server%5D__ddb3d12c._.css
+[01:29:00.550] Server  LOG     ✓ Compiled in 174ms
+[01:29:03.053] Server  LOG     ✓ Compiled in 318ms
+[01:29:03.153] Browser ERROR   unhandledRejection: Error: No link element found for chunk /_next/static/chunks/%5Broot-of-the-server%5D__ddb3d12c._.css
+[01:29:06.614] Server  LOG     ✓ Compiled in 342ms
+[01:29:07.168] Browser ERROR   unhandledRejection: Error: No link element found for chunk /_next/static/chunks/%5Broot-of-the-server%5D__ddb3d12c._.css
+[01:29:35.676] Server  LOG     ✓ Compiled in 153ms
+[01:29:37.154] Server  LOG     ✓ Compiled in 164ms
+[01:29:39.582] Server  LOG     ✓ Compiled in 314ms
+[01:29:39.887] Browser ERROR   unhandledRejection: Error: No link element found for chunk /_next/static/chunks/%5Broot-of-the-server%5D__ddb3d12c._.css
+[01:30:47.164] Server  LOG     ✓ Compiled in 144ms
+[01:30:50.823] Server  LOG     ✓ Compiled in 194ms
+[01:30:53.581] Server  LOG     ✓ Compiled in 203ms
+[01:30:55.538] Server  LOG     ✓ Compiled in 311ms
+[01:30:56.083] Browser ERROR   unhandledRejection: Error: No link element found for chunk /_next/static/chunks/%5Broot-of-the-server%5D__ddb3d12c._.css
+[01:31:11.156] Server  LOG     ✓ Compiled in 188ms
+[01:31:14.271] Server  LOG     ✓ Compiled in 130ms
+[01:31:16.718] Server  LOG     ✓ Compiled in 180ms
+[01:31:21.148] Server  LOG     ✓ Compiled in 168ms
+[01:31:23.010] Server  LOG     ✓ Compiled in 399ms
+[01:31:23.283] Browser ERROR   unhandledRejection: Error: No link element found for chunk /_next/static/chunks/%5Broot-of-the-server%5D__ddb3d12c._.css
+[01:31:47.538] Server  LOG     ✓ Compiled in 183ms
+[01:31:50.115] Server  LOG     ✓ Compiled in 178ms
+[01:31:52.428] Server  LOG     ✓ Compiled in 237ms
+[01:31:56.438] Server  LOG     ✓ Compiled in 367ms
+[01:31:56.865] Browser ERROR   unhandledRejection: Error: No link element found for chunk /_next/static/chunks/%5Broot-of-the-server%5D__ddb3d12c._.css
+[01:32:00.825] Server  LOG     ✓ Compiled in 393ms
+[01:32:01.919] Browser ERROR   unhandledRejection: Error: No link element found for chunk /_next/static/chunks/%5Broot-of-the-server%5D__ddb3d12c._.css
+[01:32:05.946] Server  LOG     ✓ Compiled in 291ms
+[01:32:06.574] Browser ERROR   unhandledRejection: Error: No link element found for chunk /_next/static/chunks/%5Broot-of-the-server%5D__ddb3d12c._.css
+[01:32:19.557] Server  LOG     Querying quotations with populate...
+[01:32:19.569] Server  LOG     Querying quotations with populate...
+[01:32:27.285] Server  LOG     Querying quotations with populate...
+[01:32:27.298] Server  LOG     Querying quotations with populate...
+[01:32:39.742] Server  LOG     ✓ Compiled in 131ms
+[01:32:42.742] Server  LOG     ✓ Compiled in 130ms
+[01:33:31.711] Server  LOG     Querying quotations with populate...
+[01:33:31.723] Server  LOG     Querying quotations with populate...
+[01:33:33.815] Server  LOG     🔄 Fetching dashboard stats...
+[01:33:33.830] Server  LOG     🔄 Fetching dashboard stats...
+[01:33:33.874] Server  LOG     ✅ Dashboard stats fetched successfully
+[01:33:33.884] Server  LOG     ✅ Dashboard stats fetched successfully
+[01:33:37.438] Browser LOG     [{"__v":0,"_id":"6982e21eee67c09be76ad54d","address":"ádfasdfasdf","appraisalNote":"","appraisalStatus":"Cần theo dõi","assignedTo":{"_id":"6982c7e8aaf5687ab5aeef3e","fullName":"Lê Văn Staff 1"},"createdAt":"2026-02-04T06:07:26.619Z","customerId":"KH-YEUVNTT-0001","firstContractValue":0,"fullName":"Lê Trương Trọng Tấn","image":"https://res.cloudinary.com/dprxrbz1z/image/upload/v1770185227/customers/file_zpkjam.jpg","isActive":true,"isDel":false,"latitude":0,"longitude":0,"needsNote":"sdfsdfgsdfgsdfgsdfg","opportunityHistory":[],"phone":"0916467039","potentialLevel":"⭐⭐⭐⭐⭐","referrer":"Tấn Lê","referrerPhone":"","registrationDate":"2026-02-04T00:00:00.000Z","salesPerson":"Phạm Thị Staff 2","shortName":"TANLTT","source":"marketing","updatedAt":"2026-02-06T06:26:25.124Z"}]
+[01:33:37.438] Browser LOG     [{"__v":0,"_id":"6982e21eee67c09be76ad54d","address":"ádfasdfasdf","appraisalNote":"","appraisalStatus":"Cần theo dõi","assignedTo":{"_id":"6982c7e8aaf5687ab5aeef3e","fullName":"Lê Văn Staff 1"},"createdAt":"2026-02-04T06:07:26.619Z","customerId":"KH-YEUVNTT-0001","firstContractValue":0,"fullName":"Lê Trương Trọng Tấn","image":"https://res.cloudinary.com/dprxrbz1z/image/upload/v1770185227/customers/file_zpkjam.jpg","isActive":true,"isDel":false,"latitude":0,"longitude":0,"needsNote":"sdfsdfgsdfgsdfgsdfg","opportunityHistory":[],"phone":"0916467039","potentialLevel":"⭐⭐⭐⭐⭐","referrer":"Tấn Lê","referrerPhone":"","registrationDate":"2026-02-04T00:00:00.000Z","salesPerson":"Phạm Thị Staff 2","shortName":"TANLTT","source":"marketing","updatedAt":"2026-02-06T06:26:25.124Z"}]
+[01:33:42.329] Browser LOG     {"data":[{"__v":0,"_id":"6981a553693b2c5e06095e57","active":true,"code":"C12121","createdAt":"2026-02-03T07:35:47.853Z","name":"marketing","updatedAt":"2026-02-06T05:10:01.081Z"}],"pagination":{"limit":100,"page":1,"pages":1,"total":1},"success":true}
+[01:33:42.329] Browser LOG     {"data":[{"__v":0,"_id":"6981a553693b2c5e06095e57","active":true,"code":"C12121","createdAt":"2026-02-03T07:35:47.853Z","name":"marketing","updatedAt":"2026-02-06T05:10:01.081Z"}],"pagination":{"limit":100,"page":1,"pages":1,"total":1},"success":true}

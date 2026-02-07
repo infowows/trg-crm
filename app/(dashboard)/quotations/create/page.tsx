@@ -684,7 +684,7 @@ const CreateQuotation = () => {
       <div className="bg-white min-h-screen flex flex-col">
         <div className="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-gray-100 pt-8 px-6 pb-0">
           <div className="max-w-[1800px] mx-auto">
-            <div className="mb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div className="mb-6 flex flex-col md:flex-row md:items-center justify-between gap-4 max-sm:flex-row">
               <div>
                 <button
                   onClick={() => router.back()}
@@ -698,7 +698,7 @@ const CreateQuotation = () => {
                 <h1 className="text-2xl font-bold text-gray-900 tracking-tight">
                   Tạo Báo giá Mới
                 </h1>
-                <p className="text-gray-500 mt-1">
+                <p className="text-gray-500 mt-1 max-sm:hidden">
                   Thiết lập thông tin và lựa chọn các gói dịch vụ cho khách hàng
                 </p>
               </div>
@@ -950,323 +950,324 @@ const CreateQuotation = () => {
             )}
 
             {activeTab === "services" && (
-              <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 space-y-8">
-                <div className="bg-white border border-gray-100 rounded-2xl shadow-sm p-8">
-                  <h2 className="text-xl font-bold text-gray-900 mb-8 flex items-center gap-3">
-                    <div className="w-1.5 h-6 bg-blue-600 rounded-full"></div>
-                    Lựa chọn Gói dịch vụ
-                  </h2>
+              <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                  {/* LEFT COLUMN: Service Selection */}
+                  <div className="lg:col-span-2 space-y-8">
+                    <div className="bg-white border border-gray-100 rounded-[2.5rem] shadow-sm p-8">
+                      <h2 className="text-xl font-bold text-gray-900 mb-8 flex items-center gap-3">
+                        <div className="w-1.5 h-6 bg-blue-600 rounded-full"></div>
+                        Lựa chọn Gói dịch vụ
+                      </h2>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
-                    <div className="space-y-2">
-                      <label className="text-[16px] font-bold text-gray-400 uppercase tracking-widest ml-1">
-                        Nhóm ngành hàng
-                      </label>
-                      <select
-                        onChange={(e) =>
-                          handleServiceGroupChange(e.target.value)
-                        }
-                        className="w-full px-5 py-4 bg-gray-50 border border-transparent rounded-2xl focus:bg-white focus:border-blue-600 outline-none appearance-none transition-all font-bold text-gray-900 shadow-sm"
-                        value={selectedServiceGroup?._id || ""}
-                      >
-                        <option value="">-- Chọn nhóm dịch vụ --</option>
-                        {serviceGroups.map((g) => (
-                          <option key={g._id} value={g._id}>
-                            {g.name}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                    <div className="space-y-2">
-                      <label className="text-[16px] font-bold text-gray-400 uppercase tracking-widest ml-1">
-                        Dịch vụ cụ thể
-                      </label>
-                      <select
-                        onChange={(e) => handleServiceChange(e.target.value)}
-                        className="w-full px-5 py-4 bg-gray-50 border border-transparent rounded-2xl focus:bg-white focus:border-blue-600 outline-none appearance-none transition-all font-bold text-gray-900 shadow-sm disabled:opacity-50"
-                        disabled={!selectedServiceGroup}
-                        value={selectedService?.name || ""}
-                      >
-                        <option value="">-- Chọn dịch vụ --</option>
-                        {(selectedServiceGroup?.services || []).map((s) => (
-                          <option key={s._id} value={s.name}>
-                            {s.name}
-                          </option>
-                        ))}
-                      </select>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
+                        <div className="space-y-2">
+                          <label className="text-[16px] font-bold text-gray-400 uppercase tracking-widest ml-1">
+                            Nhóm ngành hàng
+                          </label>
+                          <select
+                            onChange={(e) =>
+                              handleServiceGroupChange(e.target.value)
+                            }
+                            className="w-full px-5 py-4 bg-gray-50 border border-transparent rounded-2xl focus:bg-white focus:border-blue-600 outline-none appearance-none transition-all font-bold text-gray-900 shadow-sm"
+                            value={selectedServiceGroup?._id || ""}
+                          >
+                            <option value="">-- Chọn nhóm dịch vụ --</option>
+                            {serviceGroups.map((g) => (
+                              <option key={g._id} value={g._id}>
+                                {g.name}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                        <div className="space-y-2">
+                          <label className="text-[16px] font-bold text-gray-400 uppercase tracking-widest ml-1">
+                            Dịch vụ cụ thể
+                          </label>
+                          <select
+                            onChange={(e) =>
+                              handleServiceChange(e.target.value)
+                            }
+                            className="w-full px-5 py-4 bg-gray-50 border border-transparent rounded-2xl focus:bg-white focus:border-blue-600 outline-none appearance-none transition-all font-bold text-gray-900 shadow-sm disabled:opacity-50"
+                            disabled={!selectedServiceGroup}
+                            value={selectedService?.name || ""}
+                          >
+                            <option value="">-- Chọn dịch vụ --</option>
+                            {(selectedServiceGroup?.services || []).map((s) => (
+                              <option key={s._id} value={s.name}>
+                                {s.name}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                      </div>
+
+                      {selectedPackages.length > 0 && (
+                        <div className="animate-in fade-in zoom-in-95 duration-500 border-t border-gray-50 pt-10">
+                          {(() => {
+                            const availablePackages = selectedPackages.filter(
+                              (pkg) =>
+                                !quotationPackages.some(
+                                  (qp) =>
+                                    qp.service === selectedService?.name &&
+                                    qp.packages.some(
+                                      (p) => p.packageName === pkg.packageName,
+                                    ),
+                                ),
+                            );
+
+                            if (availablePackages.length > 0) {
+                              return (
+                                <>
+                                  <div className="flex items-center justify-between mb-6 max-sm:flex-col max-sm:gap-2">
+                                    <div className="flex items-center gap-4 max-sm:flex-col max-sm:gap-1">
+                                      <h3 className="font-bold text-gray-900 text-lg">
+                                        Danh sách gói khả dụng
+                                      </h3>
+                                      <button
+                                        type="button"
+                                        onClick={handleToggleAllPackages}
+                                        className="flex items-center gap-2 px-3 py-1.5 bg-gray-50 hover:bg-blue-50 text-gray-500 hover:text-blue-600 rounded-xl text-[16px] font-bold border border-gray-100 hover:border-blue-100 transition-all active:scale-95"
+                                      >
+                                        <div
+                                          className={`w-4 h-4 rounded-md flex items-center justify-center border-2 transition-all ${
+                                            availablePackages.every(
+                                              (p) => p.isSelected,
+                                            )
+                                              ? "bg-blue-600 border-blue-600 text-white"
+                                              : "bg-white border-gray-300"
+                                          }`}
+                                        >
+                                          {availablePackages.every(
+                                            (p) => p.isSelected,
+                                          ) && (
+                                            <CheckSquare className="w-3 h-3" />
+                                          )}
+                                        </div>
+                                        Chọn tất cả
+                                      </button>
+                                    </div>
+                                    {selectedSurvey && (
+                                      <div className="px-4 py-1.5 bg-blue-50 text-blue-600 rounded-xl text-[14px] font-bold border border-blue-100">
+                                        Khối lượng:{" "}
+                                        {selectedSurvey.surveys.reduce(
+                                          (t, s) => t + (s.volume || 0),
+                                          0,
+                                        )}{" "}
+                                        m³
+                                      </div>
+                                    )}
+                                  </div>
+
+                                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+                                    {availablePackages.map((pkg) => (
+                                      <div
+                                        key={pkg._id}
+                                        onClick={() =>
+                                          handlePackageToggle(pkg._id)
+                                        }
+                                        className={`p-5 border-2 rounded-2xl cursor-pointer transition-all ${
+                                          pkg.isSelected
+                                            ? "border-blue-600 bg-blue-50/50 shadow-lg shadow-blue-50"
+                                            : "border-gray-50 bg-gray-50 hover:border-gray-200"
+                                        }`}
+                                      >
+                                        <div className="flex items-center justify-between">
+                                          <div className="flex items-center gap-4">
+                                            <div
+                                              className={`w-5 h-5 rounded flex items-center justify-center border-2 ${
+                                                pkg.isSelected
+                                                  ? "bg-blue-600 border-blue-600 text-white"
+                                                  : "border-gray-300"
+                                              }`}
+                                            >
+                                              {pkg.isSelected && (
+                                                <CheckSquare className="w-4 h-4" />
+                                              )}
+                                            </div>
+                                            <div>
+                                              <div className="font-bold text-gray-900 text-sm">
+                                                {pkg.packageName}
+                                              </div>
+                                              <div className="text-[14px] text-gray-500 font-bold uppercase tracking-wider">
+                                                {formatCurrency(pkg.unitPrice)}
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <div
+                                            className={`font-bold text-sm ${
+                                              pkg.isSelected
+                                                ? "text-blue-600"
+                                                : "text-gray-400"
+                                            }`}
+                                          >
+                                            {formatCurrency(
+                                              pkg.totalPrice || 0,
+                                            )}
+                                          </div>
+                                        </div>
+                                      </div>
+                                    ))}
+                                  </div>
+
+                                  <button
+                                    onClick={addQuotationPackage}
+                                    disabled={
+                                      availablePackages.filter(
+                                        (p) => p.isSelected,
+                                      ).length === 0
+                                    }
+                                    className="flex items-center gap-3 px-10 py-3.5 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 disabled:bg-gray-100 disabled:text-gray-400 transition-all shadow-xl shadow-blue-50 active:scale-95"
+                                  >
+                                    <Plus className="w-5 h-5" />
+                                    Thêm vào hồ sơ
+                                  </button>
+                                </>
+                              );
+                            } else {
+                              return (
+                                <div className="bg-emerald-50 border border-emerald-100 rounded-2xl p-6 flex flex-col items-center text-center">
+                                  <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center mb-4 shadow-sm">
+                                    <CheckSquare className="w-6 h-6 text-emerald-600" />
+                                  </div>
+                                  <h4 className="text-lg font-bold text-emerald-900 mb-1">
+                                    Hoàn tất lựa chọn
+                                  </h4>
+                                  <p className="text-sm text-emerald-700 font-medium max-w-sm">
+                                    Bạn đã thêm tất cả các gói dịch vụ khả dụng
+                                    của <strong>{selectedService?.name}</strong>{" "}
+                                    vào hồ sơ báo giá rồi nhé!
+                                  </p>
+                                </div>
+                              );
+                            }
+                          })()}
+                        </div>
+                      )}
                     </div>
                   </div>
 
-                  {selectedPackages.length > 0 && (
-                    <div className="animate-in fade-in zoom-in-95 duration-500 border-t border-gray-50 pt-10">
-                      {(() => {
-                        const availablePackages = selectedPackages.filter(
-                          (pkg) =>
-                            !quotationPackages.some(
-                              (qp) =>
-                                qp.service === selectedService?.name &&
-                                qp.packages.some(
-                                  (p) => p.packageName === pkg.packageName,
-                                ),
-                            ),
-                        );
+                  {/* RIGHT COLUMN: Selected Packages & Summary */}
+                  <div className="space-y-8 animate-in fade-in slide-in-from-right-4 duration-500 delay-150">
+                    {/* Summary Card */}
+                    {quotationPackages.length > 0 && (
+                      <div className="group relative bg-gray-900 rounded-[2.5rem] p-8 text-white overflow-hidden shadow-2xl shadow-gray-200">
+                        {/* Decorative elements */}
+                        <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 rounded-full blur-2xl -mr-32 -mt-32 transition-all group-hover:bg-blue-500/20"></div>
+                        <div className="absolute bottom-0 left-0 w-64 h-64 bg-indigo-500/10 rounded-full blur-2xl -ml-32 -mb-32"></div>
 
-                        if (availablePackages.length > 0) {
-                          return (
-                            <>
-                              <div className="flex items-center justify-between mb-6">
-                                <div className="flex items-center gap-4">
-                                  <h3 className="font-bold text-gray-900 text-lg">
-                                    Danh sách gói khả dụng
-                                  </h3>
-                                  <button
-                                    type="button"
-                                    onClick={handleToggleAllPackages}
-                                    className="flex items-center gap-2 px-3 py-1.5 bg-gray-50 hover:bg-blue-50 text-gray-500 hover:text-blue-600 rounded-xl text-[16px] font-bold border border-gray-100 hover:border-blue-100 transition-all active:scale-95"
-                                  >
-                                    <div
-                                      className={`w-4 h-4 rounded-md flex items-center justify-center border-2 transition-all ${
-                                        availablePackages.every(
-                                          (p) => p.isSelected,
-                                        )
-                                          ? "bg-blue-600 border-blue-600 text-white"
-                                          : "bg-white border-gray-300"
-                                      }`}
-                                    >
-                                      {availablePackages.every(
-                                        (p) => p.isSelected,
-                                      ) && <CheckSquare className="w-3 h-3" />}
-                                    </div>
-                                    Chọn tất cả
-                                  </button>
-                                </div>
-                                {selectedSurvey && (
-                                  <div className="px-4 py-1.5 bg-blue-50 text-blue-600 rounded-xl text-[14px] font-bold border border-blue-100">
-                                    Khối lượng:{" "}
-                                    {selectedSurvey.surveys.reduce(
-                                      (t, s) => t + (s.volume || 0),
-                                      0,
-                                    )}{" "}
-                                    m³
-                                  </div>
-                                )}
-                              </div>
-
-                              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-                                {availablePackages.map((pkg) => (
-                                  <div
-                                    key={pkg._id}
-                                    onClick={() => handlePackageToggle(pkg._id)}
-                                    className={`p-5 border-2 rounded-2xl cursor-pointer transition-all ${
-                                      pkg.isSelected
-                                        ? "border-blue-600 bg-blue-50/50 shadow-lg shadow-blue-50"
-                                        : "border-gray-50 bg-gray-50 hover:border-gray-200"
-                                    }`}
-                                  >
-                                    <div className="flex items-center justify-between">
-                                      <div className="flex items-center gap-4">
-                                        <div
-                                          className={`w-5 h-5 rounded flex items-center justify-center border-2 ${
-                                            pkg.isSelected
-                                              ? "bg-blue-600 border-blue-600 text-white"
-                                              : "border-gray-300"
-                                          }`}
-                                        >
-                                          {pkg.isSelected && (
-                                            <CheckSquare className="w-4 h-4" />
-                                          )}
-                                        </div>
-                                        <div>
-                                          <div className="font-bold text-gray-900 text-sm">
-                                            {pkg.packageName}
-                                          </div>
-                                          <div className="text-[14px] text-gray-500 font-bold uppercase tracking-wider">
-                                            {formatCurrency(pkg.unitPrice)}
-                                          </div>
-                                        </div>
-                                      </div>
-                                      <div
-                                        className={`font-bold text-sm ${
-                                          pkg.isSelected
-                                            ? "text-blue-600"
-                                            : "text-gray-400"
-                                        }`}
-                                      >
-                                        {formatCurrency(pkg.totalPrice || 0)}
-                                      </div>
-                                    </div>
-                                  </div>
-                                ))}
-                              </div>
-
-                              <button
-                                onClick={addQuotationPackage}
-                                disabled={
-                                  availablePackages.filter((p) => p.isSelected)
-                                    .length === 0
-                                }
-                                className="flex items-center gap-3 px-10 py-3.5 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 disabled:bg-gray-100 disabled:text-gray-400 transition-all shadow-xl shadow-blue-50 active:scale-95"
-                              >
-                                <Plus className="w-5 h-5" />
-                                Thêm vào hồ sơ
-                              </button>
-                            </>
-                          );
-                        } else {
-                          return (
-                            <div className="bg-emerald-50 border border-emerald-100 rounded-2xl p-6 flex flex-col items-center text-center">
-                              <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center mb-4 shadow-sm">
-                                <CheckSquare className="w-6 h-6 text-emerald-600" />
-                              </div>
-                              <h4 className="text-lg font-bold text-emerald-900 mb-1">
-                                Hoàn tất lựa chọn
-                              </h4>
-                              <p className="text-sm text-emerald-700 font-medium max-w-sm">
-                                Bạn đã thêm tất cả các gói dịch vụ khả dụng của{" "}
-                                <strong>{selectedService?.name}</strong> vào hồ
-                                sơ báo giá rồi nhé!
+                        <div className="relative z-10">
+                          <div className="flex items-center gap-4 mb-8">
+                            <div className="w-12 h-12 bg-white/10 rounded-2xl flex items-center justify-center backdrop-blur-md border border-white/10">
+                              <Calculator className="w-6 h-6 text-blue-400" />
+                            </div>
+                            <div>
+                              <h3 className="text-lg font-bold">Tổng hợp</h3>
+                              <p className="text-[14px] text-gray-400 font-medium">
+                                Dự kiến theo gói
                               </p>
                             </div>
-                          );
-                        }
-                      })()}
-                    </div>
-                  )}
-                </div>
-
-                <div className="bg-white border border-gray-100 rounded-2xl shadow-sm p-8 mt-8">
-                  <h2 className="text-xl font-bold text-gray-900 mb-8 flex items-center gap-4">
-                    <div className="w-2 h-8 bg-blue-600 rounded-full shadow-lg shadow-blue-200"></div>
-                    Dấu trình các gói đã chọn
-                  </h2>
-                  {quotationPackages.length > 0 ? (
-                    <div className="space-y-8">
-                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {quotationPackages.map((qp, idx) => (
-                          <div
-                            key={idx}
-                            className="group relative bg-white border border-gray-100 rounded-4xl p-6 hover:shadow-2xl hover:shadow-blue-100/50 transition-all duration-500 hover:-translate-y-1"
-                          >
-                            <button
-                              onClick={() => removeQuotationPackage(idx)}
-                              className="absolute -top-3 -right-3 w-10 h-10 bg-white text-red-500 rounded-2xl flex items-center justify-center shadow-xl opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-red-500 hover:text-white hover:rotate-90 z-10 border border-gray-50"
-                            >
-                              <Trash2 className="w-5 h-5" />
-                            </button>
-
-                            <div className="mb-6">
-                              <span className="inline-block px-3 py-1 bg-blue-50 text-blue-600 text-[14px] font-bold uppercase tracking-widest rounded-lg mb-2">
-                                {qp.serviceGroup}
-                              </span>
-                              <h3 className="text-base font-bold text-gray-900 line-clamp-2">
-                                {qp.service}
-                              </h3>
-                            </div>
-
-                            <div className="space-y-3 mb-6">
-                              {qp.packages.map((pkg, pIdx) => (
-                                <div
-                                  key={pIdx}
-                                  className="flex items-center justify-between p-3 bg-gray-50/50 rounded-xl border border-gray-100/50 group-hover:bg-white group-hover:border-blue-100 transition-colors"
-                                >
-                                  <div className="flex flex-col">
-                                    <span className="text-[16px] font-bold text-gray-700">
-                                      {pkg.packageName}
-                                    </span>
-                                    <span className="text-[14px] text-gray-400">
-                                      Đơn giá: {formatCurrency(pkg.unitPrice)}
-                                    </span>
-                                  </div>
-                                  <span className="font-extrabold text-blue-600 text-[16px]">
-                                    {formatCurrency(pkg.totalPrice)}
-                                  </span>
-                                </div>
-                              ))}
-                            </div>
-
-                            <div className="pt-4 border-t border-dashed border-gray-100 flex items-center justify-between">
-                              <div className="flex items-center gap-2 text-gray-400">
-                                <LayoutList className="w-3.5 h-3.5" />
-                                <span className="text-[14px] font-bold uppercase tracking-wider">
-                                  Khối lượng
-                                </span>
-                              </div>
-                              <span className="text-[16px] font-bold text-gray-900 bg-gray-100 px-3 py-1 rounded-lg">
-                                {qp.volume} m³
-                              </span>
-                            </div>
                           </div>
-                        ))}
-                      </div>
 
-                      <div className="mt-12 group">
-                        <div className="relative bg-gray-900 rounded-[2.5rem] p-6 md:p-10 text-white overflow-hidden shadow-2xl shadow-gray-200">
-                          {/* Decorative elements */}
-                          <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 rounded-full blur-2xl -mr-32 -mt-32 transition-all group-hover:bg-blue-500/20"></div>
-                          <div className="absolute bottom-0 left-0 w-64 h-64 bg-indigo-500/10 rounded-full blur-2xl -ml-32 -mb-32"></div>
-
-                          <div className="relative z-10">
-                            <div className="flex items-center gap-4 mb-8">
-                              <div className="w-12 h-12 bg-white/10 rounded-2xl flex items-center justify-center backdrop-blur-md border border-white/10">
-                                <Calculator className="w-6 h-6 text-blue-400" />
-                              </div>
-                              <div>
-                                <h3 className="text-lg font-bold">
-                                  Tổng hợp phương án
-                                </h3>
-                                <p className="text-[16px] text-gray-400 font-medium">
-                                  Giá trị dự kiến theo từng gói dịch vụ
-                                </p>
-                              </div>
-                            </div>
-
-                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                              {Object.entries(
-                                quotationPackages.reduce((acc: any, qp) => {
-                                  qp.packages.forEach((pkg) => {
-                                    if (!acc[pkg.packageName])
-                                      acc[pkg.packageName] = 0;
-                                    acc[pkg.packageName] += pkg.totalPrice;
-                                  });
-                                  return acc;
-                                }, {}),
-                              ).map(([packageName, total]: any) => (
-                                <div
-                                  key={packageName}
-                                  className="group/item relative bg-white/5 border border-white/10 rounded-2xl p-6 transition-all hover:bg-white/10 hover:scale-105"
-                                >
-                                  <div className="text-[14px] font-bold text-blue-400 uppercase tracking-[0.2em] mb-2 opacity-80">
-                                    {packageName}
-                                  </div>
-                                  <div className="text-2xl font-bold tabular-nums tracking-tighter">
-                                    {formatCurrency(total)}
-                                  </div>
-                                  <div className="mt-4 flex items-center gap-2">
-                                    <div className="h-1 flex-1 bg-white/10 rounded-full overflow-hidden">
-                                      <div className="h-full bg-blue-500 w-full animate-pulse"></div>
-                                    </div>
-                                  </div>
+                          <div className="space-y-4">
+                            {Object.entries(
+                              quotationPackages.reduce((acc: any, qp) => {
+                                qp.packages.forEach((pkg) => {
+                                  if (!acc[pkg.packageName])
+                                    acc[pkg.packageName] = 0;
+                                  acc[pkg.packageName] += pkg.totalPrice;
+                                });
+                                return acc;
+                              }, {}),
+                            ).map(([packageName, total]: any) => (
+                              <div
+                                key={packageName}
+                                className="flex justify-between items-center py-2 border-b border-white/10 last:border-0"
+                              >
+                                <div className="text-[14px] font-bold text-gray-400 uppercase tracking-wider">
+                                  {packageName}
                                 </div>
-                              ))}
-                            </div>
+                                <div className="text-xl font-bold tabular-nums">
+                                  {formatCurrency(total)}
+                                </div>
+                              </div>
+                            ))}
                           </div>
                         </div>
                       </div>
+                    )}
+
+                    {/* Selected List */}
+                    <div className="bg-white border border-gray-100 rounded-[2.5rem] shadow-sm p-6">
+                      <h2 className="text-lg font-bold text-gray-900 mb-6 flex items-center gap-3">
+                        <div className="w-1.5 h-6 bg-emerald-500 rounded-full"></div>
+                        Đã thêm vào hồ sơ
+                        <span className="bg-emerald-100 text-emerald-600 px-2 py-0.5 rounded-lg text-xs font-bold ml-auto">
+                          {quotationPackages.length} dịch vụ
+                        </span>
+                      </h2>
+
+                      {quotationPackages.length > 0 ? (
+                        <div className="space-y-4 max-h-[600px] overflow-y-auto pr-2 custom-scrollbar">
+                          {quotationPackages.map((qp, idx) => (
+                            <div
+                              key={idx}
+                              className="group relative bg-gray-50 border border-gray-100 rounded-3xl p-5 hover:bg-white hover:shadow-xl hover:shadow-blue-50/50 transition-all duration-300"
+                            >
+                              <button
+                                onClick={() => removeQuotationPackage(idx)}
+                                className="absolute top-2 right-2 w-8 h-8 bg-white/50 text-gray-400 hover:text-red-500 rounded-full flex items-center justify-center transition-all hover:bg-white"
+                              >
+                                <Trash2 className="w-4 h-4" />
+                              </button>
+
+                              <div className="mb-3 pr-8">
+                                <span className="inline-block px-2.5 py-1 bg-white border border-gray-100 text-gray-500 text-[10px] font-bold uppercase tracking-widest rounded-lg mb-2">
+                                  {qp.serviceGroup}
+                                </span>
+                                <h3 className="text-sm font-bold text-gray-900 line-clamp-2">
+                                  {qp.service}
+                                </h3>
+                              </div>
+
+                              <div className="space-y-2">
+                                {qp.packages.map((pkg, pIdx) => (
+                                  <div
+                                    key={pIdx}
+                                    className="flex items-center justify-between p-2.5 bg-white rounded-xl border border-gray-100/50"
+                                  >
+                                    <span className="text-[12px] font-bold text-gray-600">
+                                      {pkg.packageName}
+                                    </span>
+                                    <span className="font-bold text-blue-600 text-[12px]">
+                                      {formatCurrency(pkg.totalPrice)}
+                                    </span>
+                                  </div>
+                                ))}
+                              </div>
+                              <div className="mt-3 pt-3 border-t border-dashed border-gray-200 flex justify-between items-center">
+                                <span className="text-[10px] uppercase font-bold text-gray-400">
+                                  Khối lượng
+                                </span>
+                                <span className="text-xs font-bold text-gray-900">
+                                  {qp.volume} m³
+                                </span>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      ) : (
+                        <div className="text-center py-12 px-4">
+                          <div className="w-16 h-16 bg-gray-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                            <Plus className="w-8 h-8 text-gray-300" />
+                          </div>
+                          <p className="text-gray-400 font-bold text-sm">
+                            Chưa có dịch vụ nào
+                          </p>
+                        </div>
+                      )}
                     </div>
-                  ) : (
-                    <div className="text-center py-24 bg-gray-50/50 rounded-[2.5rem] border-2 border-dashed border-gray-200">
-                      <div className="w-20 h-20 bg-white rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-sm">
-                        <Calculator className="w-10 h-10 text-gray-200" />
-                      </div>
-                      <p className="font-bold text-gray-400 text-lg">
-                        Chưa có gói dịch vụ nào được chọn
-                      </p>
-                      <p className="text-sm text-gray-300 mt-2">
-                        Vui lòng chọn các gói khả dụng ở trên để xây dựng báo
-                        giá
-                      </p>
-                    </div>
-                  )}
+                  </div>
                 </div>
 
                 <div className="flex justify-between pt-10">
@@ -1287,117 +1288,116 @@ const CreateQuotation = () => {
                 </div>
               </div>
             )}
-
             {activeTab === "preview" && (
-              <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 space-y-10">
-                <div className="bg-white border border-gray-100 rounded-[2.5rem] shadow-2xl p-10 relative overflow-hidden">
-                  <div className="flex flex-col md:flex-row justify-between items-start gap-10 mb-16">
-                    <div>
-                      <h2 className="text-xl font-bold text-gray-900 tracking-tight mb-2">
-                        Chi tiết Dự thảo Báo giá
-                      </h2>
-                      <div className="flex flex-wrap gap-4 text-sm text-gray-500">
-                        <div className="flex items-center gap-2 bg-gray-50 px-3 py-1.5 rounded-lg border border-gray-100">
-                          <User className="w-4 h-4 text-blue-500" />
-                          <span className="font-bold text-gray-900">
-                            {selectedCustomer?.fullName}
-                          </span>
+              <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 space-y-6">
+                {/* ROW 1: INFO & STATS */}
+                <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
+                  {/* Card 1: Customer Info */}
+                  <div className="xl:col-span-1 bg-yellow-300/30 border border-gray-100 rounded-3xl p-6 shadow-sm flex flex-col justify-center gap-4">
+                    <h3 className="font-bold text-gray-800 uppercase text-xs tracking-widest">
+                      Thông tin chung
+                    </h3>
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center">
+                        <User className="w-6 h-6" />
+                      </div>
+                      <div>
+                        <div className="font-bold text-gray-900 text-lg">
+                          {selectedCustomer?.fullName || "Chưa chọn khách hàng"}
                         </div>
-                        <div className="flex items-center gap-2 bg-gray-50 px-3 py-1.5 rounded-lg border border-gray-100">
-                          <Calendar className="w-4 h-4 text-blue-500" />
-                          <span className="font-bold text-gray-900">
-                            {formData.date}
-                          </span>
+                        <div className="text-gray-800 text-sm font-bold flex items-center gap-2">
+                          <Calendar className="w-4 h-4" />
+                          {formData.date}
                         </div>
                       </div>
                     </div>
-                    {/* <div className="bg-blue-600 rounded-2xl p-8 border border-blue-500 shadow-xl shadow-blue-100 w-full md:w-auto min-w-[300px] text-white">
-                  <div className="space-y-1 mb-4">
-                    <span className="text-[14px] font-bold opacity-70 uppercase tracking-widest">
-                      Tổng giá trị thanh toán
-                    </span>
-                    <div className="text-xl font-bold tracking-tighter tabular-nums">
-                      {formatCurrency(calculateTotal())}
+                  </div>
+
+                  {/* Card 2: Package Summary */}
+                  <div className="xl:col-span-2 bg-purple-500/30 border border-gray-100 rounded-3xl p-6 shadow-sm">
+                    <h3 className="font-bold text-gray-800 uppercase text-xs tracking-widest mb-4">
+                      Tổng quan giá trị theo gói
+                    </h3>
+                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                      {availablePackageHeaders.map((pkgHeader: any) => {
+                        const total = quotationPackages.reduce((sum, qp) => {
+                          const pkg = qp.packages.find(
+                            (p) => p.packageName === pkgHeader.packageName,
+                          );
+                          return sum + (pkg?.totalPrice || 0);
+                        }, 0);
+
+                        if (total === 0) return null;
+
+                        return (
+                          <div
+                            key={pkgHeader._id}
+                            className="bg-gray-50 rounded-xl p-3 border border-gray-100"
+                          >
+                            <div className="text-[10px] font-bold text-gray-800 uppercase tracking-wider mb-1">
+                              {pkgHeader.packageName}
+                            </div>
+                            <div className="text-sm font-bold text-gray-900 truncate">
+                              {formatCurrency(total)}
+                            </div>
+                          </div>
+                        );
+                      })}
                     </div>
                   </div>
-                </div> */}
-                  </div>
+                </div>
 
-                  {/* Package Totals Summary */}
-                  <div className="mb-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {availablePackageHeaders.map((pkgHeader: any) => {
-                      const total = quotationPackages.reduce((sum, qp) => {
-                        const pkg = qp.packages.find(
-                          (p) => p.packageName === pkgHeader.packageName,
-                        );
-                        return sum + (pkg?.totalPrice || 0);
-                      }, 0);
-
-                      if (total === 0) return null;
-
-                      return (
-                        <div
-                          key={pkgHeader._id}
-                          className="bg-gray-50 border border-gray-100 rounded-2xl p-6 flex flex-col justify-center"
-                        >
-                          <div className="text-[14px] font-bold text-gray-400 uppercase tracking-widest mb-1">
-                            {pkgHeader.packageName}
-                          </div>
-                          <div className="text-xl font-bold text-gray-900">
-                            {formatCurrency(total)}
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-
-                  {/* Bảng 1: Cấu hình Đơn giá */}
-                  <div className="bg-white border border-gray-100 rounded-[2.5rem] shadow-sm p-8 mb-8">
-                    <h3 className="text-sm font-bold text-gray-900 uppercase tracking-widest mb-6 flex items-center gap-3">
-                      <div className="w-1.5 h-4 bg-blue-600 rounded-full"></div>
-                      1. Bảng cấu hình Đơn giá chi tiết
-                    </h3>
+                {/* ROW 2: TABLES */}
+                <div className="space-y-6">
+                  {/* Table 1: Don gia */}
+                  <div className="bg-blue-300/30 border border-blue-300 rounded-3xl p-6 shadow-sm overflow-hidden">
+                    <div className="flex items-center gap-3 mb-6">
+                      <div className="w-1.5 h-6 bg-blue-600 rounded-full"></div>
+                      <h3 className="font-bold text-gray-900 text-lg">
+                        Bảng cấu hình Đơn giá chi tiết
+                      </h3>
+                    </div>
                     <div className="overflow-x-auto">
-                      <table className="w-full text-left border-collapse min-w-[1200px]">
-                        <thead>
-                          <tr className="bg-gray-50/50 border-b border-gray-100 uppercase tracking-tighter">
+                      <table className="w-full text-left border-collapse min-w-[1000px] border border-black">
+                        <thead> 
+                          <tr className="bg-white border-b border-black uppercase tracking-tighter">
                             <th
-                              className="px-4 py-4 text-[14px] font-bold text-gray-400 w-12 text-center"
+                              className="px-4 py-4 text-[12px] font-bold text-black w-12 text-center border border-black"
                               rowSpan={2}
                             >
                               STT
                             </th>
                             <th
-                              className="px-5 py-4 text-[14px] font-bold text-gray-400"
+                              className="px-5 py-4 text-[12px] font-bold text-black border border-black"
                               rowSpan={2}
                             >
                               Chi tiết Dịch vụ & Hạng mục
                             </th>
                             <th
-                              className="px-5 py-4 text-[14px] font-bold text-gray-400 w-24 text-center"
+                              className="px-5 py-4 text-[12px] font-bold text-black w-24 text-center border border-black"
                               rowSpan={2}
                             >
                               Khối lượng
                             </th>
                             <th
-                              className="px-5 py-4 text-[14px] font-bold text-gray-400 text-center border-l border-gray-100 bg-blue-50/30"
+                              className="px-5 py-4 text-[12px] font-bold text-black text-center border border-black bg-blue-50/30"
                               colSpan={availablePackageHeaders.length || 1}
                             >
                               Đơn giá chi tiết (VNĐ/m³)
                             </th>
                           </tr>
-                          <tr className="bg-gray-50/50 border-b border-gray-100 uppercase tracking-tighter text-[9px] font-bold">
+                          <tr className="bg-gray-50/50 border-b border-black uppercase tracking-tighter text-[9px] font-bold">
                             {availablePackageHeaders.length > 0 ? (
                               availablePackageHeaders.map((pkgHeader) => (
                                 <th
                                   key={pkgHeader._id}
-                                  className="px-2 py-2 text-blue-600 text-center border-l border-gray-100 italic"
+                                  className="px-2 py-2 text-blue-600 text-center border border-black italic"
                                 >
                                   {pkgHeader.packageName}
                                 </th>
                               ))
                             ) : (
-                              <th className="px-2 py-2 text-blue-600 text-center border-l border-gray-100 italic">
+                              <th className="px-2 py-2 text-blue-600 text-center border-l border-black italic">
                                 Chưa có gói
                               </th>
                             )}
@@ -1407,20 +1407,20 @@ const CreateQuotation = () => {
                           {quotationPackages.map((qp, idx) => (
                             <tr
                               key={idx}
-                              className="group hover:bg-blue-50/5 transition-colors"
+                              className="group hover:bg-blue-50/5 transition-colors border border-black"
                             >
-                              <td className="px-4 py-6 text-sm font-bold text-gray-400 text-center">
+                              <td className="px-4 py-4 text-sm font-bold text-black text-center border border-black">
                                 {idx + 1}
                               </td>
-                              <td className="px-5 py-6">
-                                <div className="text-sm font-bold text-gray-900 uppercase leading-tight">
+                              <td className="px-5 py-4 border border-black">
+                                <div className="text-sm font-bold text-black uppercase leading-tight">
                                   {qp.service}
                                 </div>
-                                <div className="text-[14px] text-gray-400 font-bold mt-1 opacity-70">
+                                <div className="text-[12px] text-gray-800 font-bold mt-0.5 opacity-70">
                                   Nhóm: {qp.serviceGroup}
                                 </div>
                               </td>
-                              <td className="px-3 py-6 text-center text-sm font-bold text-gray-400">
+                              <td className="px-3 py-4 text-center text-sm font-bold text-black border border-black">
                                 <input
                                   type="text"
                                   value={formatNumberInput(qp.volume)}
@@ -1430,7 +1430,7 @@ const CreateQuotation = () => {
                                       e.target.value,
                                     )
                                   }
-                                  className="w-16 bg-gray-50 border border-transparent rounded-lg text-center font-bold focus:bg-white focus:border-blue-600 outline-none transition-all py-1"
+                                  className="w-16 bg-gray-50 border border-transparent rounded-lg text-center font-bold focus:bg-white focus:border-blue-600 outline-none transition-all py-1 text-sm"
                                 />
                               </td>
                               {availablePackageHeaders.map((pkgHeader) => {
@@ -1441,7 +1441,7 @@ const CreateQuotation = () => {
                                 return (
                                   <td
                                     key={pkgHeader._id}
-                                    className="px-3 py-6 text-center border-l border-gray-100 relative"
+                                    className="px-3 py-4 text-center border border-black relative"
                                   >
                                     <input
                                       type="text"
@@ -1456,7 +1456,7 @@ const CreateQuotation = () => {
                                         )
                                       }
                                       placeholder="-"
-                                      className="w-full min-w-[120px] px-3 py-2 bg-gray-50 border border-transparent rounded-lg font-bold text-right focus:bg-white focus:border-blue-600 outline-none transition-all text-sm shadow-inner"
+                                      className="w-full min-w-[100px] px-3 py-1.5 bg-gray-50 border border-transparent rounded-lg font-bold text-right focus:bg-white focus:border-blue-600 outline-none transition-all text-sm shadow-inner"
                                     />
                                   </td>
                                 );
@@ -1468,37 +1468,38 @@ const CreateQuotation = () => {
                     </div>
                   </div>
 
-                  {/* Bảng 2: Tính toán Thành tiền */}
-                  <div className="bg-white border border-gray-100 rounded-[2.5rem] shadow-sm p-8 mb-12">
-                    <h3 className="text-sm font-bold text-gray-900 uppercase tracking-widest mb-6 flex items-center gap-3">
-                      <div className="w-1.5 h-4 bg-emerald-500 rounded-full"></div>
-                      2. Bảng tính toán Thành tiền tổng hợp (Khối lượng x Đơn
-                      giá)
-                    </h3>
+                  {/* Table 2: Thanh tien */}
+                  <div className="bg-green-300/30 border border-green-300 rounded-3xl p-6 shadow-sm overflow-hidden">
+                    <div className="flex items-center gap-3 mb-6">
+                      <div className="w-1.5 h-6 bg-emerald-500 rounded-full"></div>
+                      <h3 className="font-bold text-gray-900 text-lg">
+                        Bảng tính toán Thành tiền tổng hợp
+                      </h3>
+                    </div>
                     <div className="overflow-x-auto">
-                      <table className="w-full text-left border-collapse min-w-[1200px]">
+                      <table className="w-full text-left border-collapse min-w-[1000px] border border-black">
                         <thead>
-                          <tr className="bg-gray-50/50 border-b border-gray-100 uppercase tracking-tighter">
+                          <tr className="bg-white border-b border-black uppercase tracking-tighter">
                             <th
-                              className="px-4 py-4 text-[14px] font-bold text-gray-400 w-12 text-center"
+                              className="px-4 py-4 text-[12px] font-bold text-black w-12 text-center border border-black"
                               rowSpan={2}
                             >
                               STT
                             </th>
                             <th
-                              className="px-5 py-4 text-[14px] font-bold text-gray-400"
+                              className="px-5 py-4 text-[12px] font-bold text-black border border-black"
                               rowSpan={2}
                             >
                               Chi tiết Dịch vụ & Hạng mục
                             </th>
                             <th
-                              className="px-3 py-4 text-[14px] font-bold text-gray-400 w-20 text-center"
+                              className="px-3 py-4 text-[12px] font-bold text-black w-20 text-center border border-black"
                               rowSpan={2}
                             >
                               KL
                             </th>
                             <th
-                              className="px-5 py-4 text-[14px] font-bold text-gray-400 text-center border-l border-gray-100 bg-emerald-50/30"
+                              className="px-5 py-4 text-[12px] font-bold text-black text-center border border-black"
                               colSpan={availablePackageHeaders.length || 1}
                             >
                               Thành tiền dự kiến (VNĐ)
@@ -1509,7 +1510,7 @@ const CreateQuotation = () => {
                               availablePackageHeaders.map((pkgHeader) => (
                                 <th
                                   key={pkgHeader._id}
-                                  className="px-2 py-2 text-emerald-600 text-center border-l border-gray-100 italic"
+                                  className="px-2 py-2 text-emerald-600 text-center border border-black italic"
                                 >
                                   {pkgHeader.packageName}
                                 </th>
@@ -1525,17 +1526,17 @@ const CreateQuotation = () => {
                           {quotationPackages.map((qp, idx) => (
                             <tr
                               key={idx}
-                              className="group hover:bg-emerald-50/5 transition-colors"
+                              className="group hover:bg-emerald-50/5 transition-colors border border-black"
                             >
-                              <td className="px-4 py-6 text-sm font-bold text-gray-400 text-center">
+                              <td className="px-4 py-4 text-sm font-bold text-black text-center border border-black">
                                 {idx + 1}
                               </td>
-                              <td className="px-5 py-6">
+                              <td className="px-5 py-4 border border-black">
                                 <div className="text-sm font-bold text-gray-900 uppercase leading-tight">
                                   {qp.service}
                                 </div>
                               </td>
-                              <td className="px-3 py-6 text-center text-sm font-bold text-gray-400">
+                              <td className="px-3 py-4 text-center text-sm font-bold text-black border border-black">
                                 {qp.volume}
                               </td>
                               {availablePackageHeaders.map((pkgHeader) => {
@@ -1546,7 +1547,7 @@ const CreateQuotation = () => {
                                 return (
                                   <td
                                     key={pkgHeader._id}
-                                    className="px-3 py-6 text-right border-l border-gray-100 font-bold text-[11px] text-gray-900 tabular-nums"
+                                    className="px-3 py-4 text-right border border-black font-bold text-[14px] text-gray-900 tabular-nums"
                                   >
                                     {pkg && pkg.totalPrice > 0 ? (
                                       formatCurrency(pkg.totalPrice)
@@ -1560,10 +1561,10 @@ const CreateQuotation = () => {
                           ))}
                         </tbody>
                         <tfoot>
-                          <tr className="bg-gray-900 text-white">
+                          <tr className="bg-gray-900 text-white border border-black">
                             <td
                               colSpan={3}
-                              className="px-5 py-6 text-right font-bold text-[16px] uppercase tracking-widest"
+                              className="px-5 py-4 text-right font-bold text-[14px] uppercase tracking-widest border border-black"
                             >
                               TỔNG CỘNG THEO PHƯƠNG ÁN
                             </td>
@@ -1581,7 +1582,7 @@ const CreateQuotation = () => {
                               return (
                                 <td
                                   key={pkgHeader._id}
-                                  className="px-3 py-6 text-right border-l border-gray-800 font-bold text-[16px] tabular-nums text-blue-400"
+                                  className="px-3 py-4 text-right border border-black font-bold text-[14px] tabular-nums text-blue-400"
                                 >
                                   {totalForPackage > 0
                                     ? formatCurrency(totalForPackage)
@@ -1594,35 +1595,52 @@ const CreateQuotation = () => {
                       </table>
                     </div>
                   </div>
-
-                  {formData.notes && (
-                    <div className="p-8 bg-amber-50/50 border border-amber-100 rounded-2xl">
-                      <label className="block text-[14px] font-bold text-amber-500 uppercase tracking-widest mb-3">
-                        Ghi chú từ Chuyên viên
-                      </label>
-                      <p className="text-amber-900 font-bold leading-relaxed italic text-sm whitespace-pre-wrap">
-                        "{formData.notes}"
-                      </p>
-                    </div>
-                  )}
                 </div>
 
-                <div className="flex justify-between items-center pt-6">
-                  <button
-                    onClick={() => setActiveTab("services")}
-                    className="flex items-center gap-3 px-8 py-4 text-gray-400 font-bold hover:text-gray-900 transition-colors"
-                  >
-                    <ArrowLeft className="w-5 h-5" />
-                    Quay lại tab Dịch vụ
-                  </button>
-                  <button
-                    onClick={handleSubmit}
-                    disabled={loading}
-                    className="group flex items-center gap-4 px-12 py-4 bg-gray-900 text-white rounded-2xl font-bold hover:bg-black transition-all shadow-2xl active:scale-95"
-                  >
-                    <Save className="w-5 h-5 text-blue-500" />
-                    {loading ? "Đang xử lý..." : "Hoàn tất & Lưu hồ sơ"}
-                  </button>
+                {/* ROW 3: FOOTER */}
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                  {/* Notes */}
+                  <div className="lg:col-span-2 bg-amber-50/50 border border-amber-100 rounded-3xl p-6">
+                    <label className="block text-[12px] font-bold text-amber-500 uppercase tracking-widest mb-2">
+                      Ghi chú từ Chuyên viên
+                    </label>
+                    <p className="text-amber-900 font-bold leading-relaxed italic text-sm whitespace-pre-wrap">
+                      {formData.notes || "Không có ghi chú"}
+                    </p>
+                  </div>
+
+                  {/* Actions */}
+                  <div className="lg:col-span-1 bg-white border border-gray-100 rounded-3xl p-6 shadow-sm flex flex-col justify-between gap-4">
+                    <div>
+                      <label className="block text-[12px] font-bold text-gray-400 uppercase tracking-widest mb-1">
+                        Tổng hợp tất cả phương án
+                      </label>
+                      <div className="text-3xl font-bold text-blue-600 tracking-tight tabular-nums">
+                        {formatCurrency(calculateTotal())}
+                      </div>
+                      <div className="text-xs text-gray-400 mt-1">
+                        Đã bao gồm tất cả các gói dịch vụ
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-3 pt-4 border-t border-gray-50">
+                      <button
+                        onClick={() => setActiveTab("services")}
+                        className="flex items-center justify-center gap-2 px-4 py-3 bg-gray-50 text-gray-500 rounded-xl font-bold hover:bg-gray-100 hover:text-gray-900 transition-colors"
+                      >
+                        <ArrowLeft className="w-4 h-4" />
+                        Quay lại
+                      </button>
+                      <button
+                        onClick={handleSubmit}
+                        disabled={loading}
+                        className="flex items-center justify-center gap-2 px-4 py-3 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition-all shadow-lg shadow-blue-50 active:scale-95 disabled:bg-gray-200"
+                      >
+                        <Save className="w-4 h-4" />
+                        {loading ? "Đang lưu..." : "Lưu hồ sơ"}
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </div>
             )}
