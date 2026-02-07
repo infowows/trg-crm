@@ -1,6 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import dbConnect from "../../../../lib/dbConnect";
 import CustomerCare from "../../../../models/CustomerCare";
+import Opportunity from "../../../../models/Opportunity";
+import Customer from "../../../../models/Customer";
+import ProjectSurvey from "../../../../models/ProjectSurvey";
+import Quotation from "../../../../models/Quotation";
 import { verifyToken } from "../../../../lib/auth";
 
 // Helper function to verify authentication

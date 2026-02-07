@@ -1,8 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import dbConnect from "@/lib/dbConnect";
-import ProjectSurvey from "@/models/ProjectSurvey";
-import Customer from "@/models/Customer";
-import CustomerCare from "@/models/CustomerCare";
+import ProjectSurvey from "../../../models/ProjectSurvey";
+import Customer from "../../../models/Customer";
+import CustomerCare from "../../../models/CustomerCare";
+import Opportunity from "../../../models/Opportunity";
+import "../../../models/Opportunity";
 import { verifyToken } from "@/lib/auth";
 import { getAssignedCustomerIds } from "@/lib/permissions";
 import mongoose from "mongoose";
@@ -30,6 +32,12 @@ export async function GET(request: NextRequest) {
     }
 
     await dbConnect();
+
+    // Force registration of models for population
+    await import("../../../models/Opportunity");
+    await import("../../../models/CustomerCare");
+    await import("../../../models/Customer");
+    await import("../../../models/ProjectSurvey");
 
     const { searchParams } = new URL(request.url);
     const page = parseInt(searchParams.get("page") || "1");

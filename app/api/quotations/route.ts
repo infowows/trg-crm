@@ -4,6 +4,7 @@ import Quotation from "../../../models/Quotation";
 import ProjectSurvey from "../../../models/ProjectSurvey";
 import Customer from "../../../models/Customer";
 import CustomerCare from "../../../models/CustomerCare";
+import Opportunity from "../../../models/Opportunity";
 import ServicePricing from "../../../models/ServicePricing";
 import { verifyToken } from "../../../lib/auth";
 import { getAssignedCustomerIds } from "../../../lib/permissions";
@@ -35,11 +36,12 @@ export async function GET(request: NextRequest) {
     await mongoose.connection.db;
 
     // Force registration of models
-    const _cc = CustomerCare;
-    const _ps = ProjectSurvey;
-    const _sp = ServicePricing;
-    const _c = Customer;
-    const _q = Quotation;
+    await import("../../../models/CustomerCare");
+    await import("../../../models/ProjectSurvey");
+    await import("../../../models/ServicePricing");
+    await import("../../../models/Customer");
+    await import("../../../models/Quotation");
+    await import("../../../models/Opportunity");
 
     const { searchParams } = new URL(request.url);
     const page = parseInt(searchParams.get("page") || "1");

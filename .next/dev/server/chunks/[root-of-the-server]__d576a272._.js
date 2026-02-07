@@ -503,6 +503,10 @@ const CustomerCareSchema = new __TURBOPACK__imported__module__$5b$externals$5d2f
         type: String,
         trim: true
     },
+    rejectReason: {
+        type: String,
+        trim: true
+    },
     needsNote: {
         type: String,
         trim: true

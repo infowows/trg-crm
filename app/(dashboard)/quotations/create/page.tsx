@@ -729,7 +729,7 @@ const CreateQuotation = () => {
                   <button
                     key={tab.id}
                     onClick={() => setActiveTab(tab.id)}
-                    className={`flex-1 flex items-center gap-2 px-4 md:px-8 py-4 md:py-5 border-b-4 font-bold text-xs md:text-sm transition-all whitespace-nowrap ${
+                    className={`flex-1 flex items-center gap-2 px-4 md:px-8 py-4 md:py-5 border-b-4 font-bold text-[16px] md:text-sm transition-all whitespace-nowrap ${
                       isActive
                         ? "border-blue-600 text-blue-600 bg-blue-500/30 rounded-xl"
                         : "border-transparent text-gray-400 hover:text-gray-600 hover:border-gray-200"
@@ -741,7 +741,7 @@ const CreateQuotation = () => {
                     <span className="hidden sm:inline">{tab.label}</span>
                     <span className="sm:hidden">{tab.label.split(" ")[0]}</span>
                     {tab.id === "services" && quotationPackages.length > 0 && (
-                      <span className="ml-2 px-2 py-0.5 text-[10px] bg-blue-100 text-blue-600 rounded-lg">
+                      <span className="ml-2 px-2 py-0.5 text-[14px] bg-blue-100 text-blue-600 rounded-lg">
                         {quotationPackages.length}
                       </span>
                     )}
@@ -765,7 +765,7 @@ const CreateQuotation = () => {
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
                     <div className="space-y-6">
                       <div>
-                        <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2 ml-1">
+                        <label className="block text-[16px] font-bold text-gray-400 uppercase tracking-widest mb-2 ml-1">
                           Khách hàng <span className="text-red-500">*</span>
                         </label>
                         <div className="relative group">
@@ -804,7 +804,7 @@ const CreateQuotation = () => {
                       </div>
 
                       <div>
-                        <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2 ml-1">
+                        <label className="block text-[16px] font-bold text-gray-400 uppercase tracking-widest mb-2 ml-1">
                           Cơ hội kinh doanh (Nguồn)
                         </label>
                         <div className="relative group">
@@ -856,7 +856,7 @@ const CreateQuotation = () => {
                       </div>
 
                       <div>
-                        <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2 ml-1">
+                        <label className="block text-[16px] font-bold text-gray-400 uppercase tracking-widest mb-2 ml-1">
                           Ngày lập báo giá{" "}
                           <span className="text-red-500">*</span>
                         </label>
@@ -877,7 +877,7 @@ const CreateQuotation = () => {
 
                     <div className="space-y-6">
                       <div>
-                        <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2 ml-1">
+                        <label className="block text-[16px] font-bold text-gray-400 uppercase tracking-widest mb-2 ml-1">
                           Hồ sơ khảo sát liên kết
                         </label>
                         <div className="relative group">
@@ -920,7 +920,7 @@ const CreateQuotation = () => {
                       </div>
 
                       <div>
-                        <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2 ml-1">
+                        <label className="block text-[16px] font-bold text-gray-400 uppercase tracking-widest mb-2 ml-1">
                           Ghi chú nghiệp vụ
                         </label>
                         <textarea
@@ -951,7 +951,7 @@ const CreateQuotation = () => {
 
             {activeTab === "services" && (
               <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 space-y-8">
-                <div className="bg-white border border-gray-100 rounded-3xl shadow-sm p-8">
+                <div className="bg-white border border-gray-100 rounded-2xl shadow-sm p-8">
                   <h2 className="text-xl font-bold text-gray-900 mb-8 flex items-center gap-3">
                     <div className="w-1.5 h-6 bg-blue-600 rounded-full"></div>
                     Lựa chọn Gói dịch vụ
@@ -959,7 +959,7 @@ const CreateQuotation = () => {
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
                     <div className="space-y-2">
-                      <label className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-1">
+                      <label className="text-[16px] font-bold text-gray-400 uppercase tracking-widest ml-1">
                         Nhóm ngành hàng
                       </label>
                       <select
@@ -978,7 +978,7 @@ const CreateQuotation = () => {
                       </select>
                     </div>
                     <div className="space-y-2">
-                      <label className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-1">
+                      <label className="text-[16px] font-bold text-gray-400 uppercase tracking-widest ml-1">
                         Dịch vụ cụ thể
                       </label>
                       <select
@@ -1022,7 +1022,7 @@ const CreateQuotation = () => {
                                   <button
                                     type="button"
                                     onClick={handleToggleAllPackages}
-                                    className="flex items-center gap-2 px-3 py-1.5 bg-gray-50 hover:bg-blue-50 text-gray-500 hover:text-blue-600 rounded-xl text-xs font-bold border border-gray-100 hover:border-blue-100 transition-all active:scale-95"
+                                    className="flex items-center gap-2 px-3 py-1.5 bg-gray-50 hover:bg-blue-50 text-gray-500 hover:text-blue-600 rounded-xl text-[16px] font-bold border border-gray-100 hover:border-blue-100 transition-all active:scale-95"
                                   >
                                     <div
                                       className={`w-4 h-4 rounded-md flex items-center justify-center border-2 transition-all ${
@@ -1041,7 +1041,7 @@ const CreateQuotation = () => {
                                   </button>
                                 </div>
                                 {selectedSurvey && (
-                                  <div className="px-4 py-1.5 bg-blue-50 text-blue-600 rounded-xl text-[10px] font-bold border border-blue-100">
+                                  <div className="px-4 py-1.5 bg-blue-50 text-blue-600 rounded-xl text-[14px] font-bold border border-blue-100">
                                     Khối lượng:{" "}
                                     {selectedSurvey.surveys.reduce(
                                       (t, s) => t + (s.volume || 0),
@@ -1080,7 +1080,7 @@ const CreateQuotation = () => {
                                           <div className="font-bold text-gray-900 text-sm">
                                             {pkg.packageName}
                                           </div>
-                                          <div className="text-[10px] text-gray-500 font-bold uppercase tracking-wider">
+                                          <div className="text-[14px] text-gray-500 font-bold uppercase tracking-wider">
                                             {formatCurrency(pkg.unitPrice)}
                                           </div>
                                         </div>
@@ -1134,7 +1134,7 @@ const CreateQuotation = () => {
                   )}
                 </div>
 
-                <div className="bg-white border border-gray-100 rounded-3xl shadow-sm p-8 mt-8">
+                <div className="bg-white border border-gray-100 rounded-2xl shadow-sm p-8 mt-8">
                   <h2 className="text-xl font-bold text-gray-900 mb-8 flex items-center gap-4">
                     <div className="w-2 h-8 bg-blue-600 rounded-full shadow-lg shadow-blue-200"></div>
                     Dấu trình các gói đã chọn
@@ -1155,7 +1155,7 @@ const CreateQuotation = () => {
                             </button>
 
                             <div className="mb-6">
-                              <span className="inline-block px-3 py-1 bg-blue-50 text-blue-600 text-[10px] font-black uppercase tracking-widest rounded-lg mb-2">
+                              <span className="inline-block px-3 py-1 bg-blue-50 text-blue-600 text-[14px] font-bold uppercase tracking-widest rounded-lg mb-2">
                                 {qp.serviceGroup}
                               </span>
                               <h3 className="text-base font-bold text-gray-900 line-clamp-2">
@@ -1170,14 +1170,14 @@ const CreateQuotation = () => {
                                   className="flex items-center justify-between p-3 bg-gray-50/50 rounded-xl border border-gray-100/50 group-hover:bg-white group-hover:border-blue-100 transition-colors"
                                 >
                                   <div className="flex flex-col">
-                                    <span className="text-xs font-bold text-gray-700">
+                                    <span className="text-[16px] font-bold text-gray-700">
                                       {pkg.packageName}
                                     </span>
-                                    <span className="text-[10px] text-gray-400">
+                                    <span className="text-[14px] text-gray-400">
                                       Đơn giá: {formatCurrency(pkg.unitPrice)}
                                     </span>
                                   </div>
-                                  <span className="font-extrabold text-blue-600 text-xs">
+                                  <span className="font-extrabold text-blue-600 text-[16px]">
                                     {formatCurrency(pkg.totalPrice)}
                                   </span>
                                 </div>
@@ -1187,11 +1187,11 @@ const CreateQuotation = () => {
                             <div className="pt-4 border-t border-dashed border-gray-100 flex items-center justify-between">
                               <div className="flex items-center gap-2 text-gray-400">
                                 <LayoutList className="w-3.5 h-3.5" />
-                                <span className="text-[10px] font-bold uppercase tracking-wider">
+                                <span className="text-[14px] font-bold uppercase tracking-wider">
                                   Khối lượng
                                 </span>
                               </div>
-                              <span className="text-xs font-black text-gray-900 bg-gray-100 px-3 py-1 rounded-lg">
+                              <span className="text-[16px] font-bold text-gray-900 bg-gray-100 px-3 py-1 rounded-lg">
                                 {qp.volume} m³
                               </span>
                             </div>
@@ -1202,8 +1202,8 @@ const CreateQuotation = () => {
                       <div className="mt-12 group">
                         <div className="relative bg-gray-900 rounded-[2.5rem] p-6 md:p-10 text-white overflow-hidden shadow-2xl shadow-gray-200">
                           {/* Decorative elements */}
-                          <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl -mr-32 -mt-32 transition-all group-hover:bg-blue-500/20"></div>
-                          <div className="absolute bottom-0 left-0 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl -ml-32 -mb-32"></div>
+                          <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 rounded-full blur-2xl -mr-32 -mt-32 transition-all group-hover:bg-blue-500/20"></div>
+                          <div className="absolute bottom-0 left-0 w-64 h-64 bg-indigo-500/10 rounded-full blur-2xl -ml-32 -mb-32"></div>
 
                           <div className="relative z-10">
                             <div className="flex items-center gap-4 mb-8">
@@ -1214,7 +1214,7 @@ const CreateQuotation = () => {
                                 <h3 className="text-lg font-bold">
                                   Tổng hợp phương án
                                 </h3>
-                                <p className="text-xs text-gray-400 font-medium">
+                                <p className="text-[16px] text-gray-400 font-medium">
                                   Giá trị dự kiến theo từng gói dịch vụ
                                 </p>
                               </div>
@@ -1233,12 +1233,12 @@ const CreateQuotation = () => {
                               ).map(([packageName, total]: any) => (
                                 <div
                                   key={packageName}
-                                  className="group/item relative bg-white/5 border border-white/10 rounded-3xl p-6 transition-all hover:bg-white/10 hover:scale-105"
+                                  className="group/item relative bg-white/5 border border-white/10 rounded-2xl p-6 transition-all hover:bg-white/10 hover:scale-105"
                                 >
-                                  <div className="text-[10px] font-black text-blue-400 uppercase tracking-[0.2em] mb-2 opacity-80">
+                                  <div className="text-[14px] font-bold text-blue-400 uppercase tracking-[0.2em] mb-2 opacity-80">
                                     {packageName}
                                   </div>
-                                  <div className="text-3xl font-black tabular-nums tracking-tighter">
+                                  <div className="text-2xl font-bold tabular-nums tracking-tighter">
                                     {formatCurrency(total)}
                                   </div>
                                   <div className="mt-4 flex items-center gap-2">
@@ -1255,7 +1255,7 @@ const CreateQuotation = () => {
                     </div>
                   ) : (
                     <div className="text-center py-24 bg-gray-50/50 rounded-[2.5rem] border-2 border-dashed border-gray-200">
-                      <div className="w-20 h-20 bg-white rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-sm">
+                      <div className="w-20 h-20 bg-white rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-sm">
                         <Calculator className="w-10 h-10 text-gray-200" />
                       </div>
                       <p className="font-bold text-gray-400 text-lg">
@@ -1311,9 +1311,9 @@ const CreateQuotation = () => {
                         </div>
                       </div>
                     </div>
-                    {/* <div className="bg-blue-600 rounded-3xl p-8 border border-blue-500 shadow-xl shadow-blue-100 w-full md:w-auto min-w-[300px] text-white">
+                    {/* <div className="bg-blue-600 rounded-2xl p-8 border border-blue-500 shadow-xl shadow-blue-100 w-full md:w-auto min-w-[300px] text-white">
                   <div className="space-y-1 mb-4">
-                    <span className="text-[10px] font-bold opacity-70 uppercase tracking-widest">
+                    <span className="text-[14px] font-bold opacity-70 uppercase tracking-widest">
                       Tổng giá trị thanh toán
                     </span>
                     <div className="text-xl font-bold tracking-tighter tabular-nums">
@@ -1340,7 +1340,7 @@ const CreateQuotation = () => {
                           key={pkgHeader._id}
                           className="bg-gray-50 border border-gray-100 rounded-2xl p-6 flex flex-col justify-center"
                         >
-                          <div className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">
+                          <div className="text-[14px] font-bold text-gray-400 uppercase tracking-widest mb-1">
                             {pkgHeader.packageName}
                           </div>
                           <div className="text-xl font-bold text-gray-900">
@@ -1353,7 +1353,7 @@ const CreateQuotation = () => {
 
                   {/* Bảng 1: Cấu hình Đơn giá */}
                   <div className="bg-white border border-gray-100 rounded-[2.5rem] shadow-sm p-8 mb-8">
-                    <h3 className="text-sm font-black text-gray-900 uppercase tracking-widest mb-6 flex items-center gap-3">
+                    <h3 className="text-sm font-bold text-gray-900 uppercase tracking-widest mb-6 flex items-center gap-3">
                       <div className="w-1.5 h-4 bg-blue-600 rounded-full"></div>
                       1. Bảng cấu hình Đơn giá chi tiết
                     </h3>
@@ -1362,31 +1362,31 @@ const CreateQuotation = () => {
                         <thead>
                           <tr className="bg-gray-50/50 border-b border-gray-100 uppercase tracking-tighter">
                             <th
-                              className="px-4 py-4 text-[10px] font-black text-gray-400 w-12 text-center"
+                              className="px-4 py-4 text-[14px] font-bold text-gray-400 w-12 text-center"
                               rowSpan={2}
                             >
                               STT
                             </th>
                             <th
-                              className="px-5 py-4 text-[10px] font-black text-gray-400"
+                              className="px-5 py-4 text-[14px] font-bold text-gray-400"
                               rowSpan={2}
                             >
                               Chi tiết Dịch vụ & Hạng mục
                             </th>
                             <th
-                              className="px-5 py-4 text-[10px] font-black text-gray-400 w-24 text-center"
+                              className="px-5 py-4 text-[14px] font-bold text-gray-400 w-24 text-center"
                               rowSpan={2}
                             >
                               Khối lượng
                             </th>
                             <th
-                              className="px-5 py-4 text-[10px] font-black text-gray-400 text-center border-l border-gray-100 bg-blue-50/30"
+                              className="px-5 py-4 text-[14px] font-bold text-gray-400 text-center border-l border-gray-100 bg-blue-50/30"
                               colSpan={availablePackageHeaders.length || 1}
                             >
                               Đơn giá chi tiết (VNĐ/m³)
                             </th>
                           </tr>
-                          <tr className="bg-gray-50/50 border-b border-gray-100 uppercase tracking-tighter text-[9px] font-black">
+                          <tr className="bg-gray-50/50 border-b border-gray-100 uppercase tracking-tighter text-[9px] font-bold">
                             {availablePackageHeaders.length > 0 ? (
                               availablePackageHeaders.map((pkgHeader) => (
                                 <th
@@ -1413,10 +1413,10 @@ const CreateQuotation = () => {
                                 {idx + 1}
                               </td>
                               <td className="px-5 py-6">
-                                <div className="text-sm font-black text-gray-900 uppercase leading-tight">
+                                <div className="text-sm font-bold text-gray-900 uppercase leading-tight">
                                   {qp.service}
                                 </div>
-                                <div className="text-[10px] text-gray-400 font-bold mt-1 opacity-70">
+                                <div className="text-[14px] text-gray-400 font-bold mt-1 opacity-70">
                                   Nhóm: {qp.serviceGroup}
                                 </div>
                               </td>
@@ -1470,7 +1470,7 @@ const CreateQuotation = () => {
 
                   {/* Bảng 2: Tính toán Thành tiền */}
                   <div className="bg-white border border-gray-100 rounded-[2.5rem] shadow-sm p-8 mb-12">
-                    <h3 className="text-sm font-black text-gray-900 uppercase tracking-widest mb-6 flex items-center gap-3">
+                    <h3 className="text-sm font-bold text-gray-900 uppercase tracking-widest mb-6 flex items-center gap-3">
                       <div className="w-1.5 h-4 bg-emerald-500 rounded-full"></div>
                       2. Bảng tính toán Thành tiền tổng hợp (Khối lượng x Đơn
                       giá)
@@ -1480,31 +1480,31 @@ const CreateQuotation = () => {
                         <thead>
                           <tr className="bg-gray-50/50 border-b border-gray-100 uppercase tracking-tighter">
                             <th
-                              className="px-4 py-4 text-[10px] font-black text-gray-400 w-12 text-center"
+                              className="px-4 py-4 text-[14px] font-bold text-gray-400 w-12 text-center"
                               rowSpan={2}
                             >
                               STT
                             </th>
                             <th
-                              className="px-5 py-4 text-[10px] font-black text-gray-400"
+                              className="px-5 py-4 text-[14px] font-bold text-gray-400"
                               rowSpan={2}
                             >
                               Chi tiết Dịch vụ & Hạng mục
                             </th>
                             <th
-                              className="px-3 py-4 text-[10px] font-black text-gray-400 w-20 text-center"
+                              className="px-3 py-4 text-[14px] font-bold text-gray-400 w-20 text-center"
                               rowSpan={2}
                             >
                               KL
                             </th>
                             <th
-                              className="px-5 py-4 text-[10px] font-black text-gray-400 text-center border-l border-gray-100 bg-emerald-50/30"
+                              className="px-5 py-4 text-[14px] font-bold text-gray-400 text-center border-l border-gray-100 bg-emerald-50/30"
                               colSpan={availablePackageHeaders.length || 1}
                             >
                               Thành tiền dự kiến (VNĐ)
                             </th>
                           </tr>
-                          <tr className="bg-gray-50/50 border-b border-gray-100 uppercase tracking-tighter text-[9px] font-black">
+                          <tr className="bg-gray-50/50 border-b border-gray-100 uppercase tracking-tighter text-[9px] font-bold">
                             {availablePackageHeaders.length > 0 ? (
                               availablePackageHeaders.map((pkgHeader) => (
                                 <th
@@ -1546,7 +1546,7 @@ const CreateQuotation = () => {
                                 return (
                                   <td
                                     key={pkgHeader._id}
-                                    className="px-3 py-6 text-right border-l border-gray-100 font-black text-[11px] text-gray-900 tabular-nums"
+                                    className="px-3 py-6 text-right border-l border-gray-100 font-bold text-[11px] text-gray-900 tabular-nums"
                                   >
                                     {pkg && pkg.totalPrice > 0 ? (
                                       formatCurrency(pkg.totalPrice)
@@ -1563,7 +1563,7 @@ const CreateQuotation = () => {
                           <tr className="bg-gray-900 text-white">
                             <td
                               colSpan={3}
-                              className="px-5 py-6 text-right font-black text-xs uppercase tracking-widest"
+                              className="px-5 py-6 text-right font-bold text-[16px] uppercase tracking-widest"
                             >
                               TỔNG CỘNG THEO PHƯƠNG ÁN
                             </td>
@@ -1581,7 +1581,7 @@ const CreateQuotation = () => {
                               return (
                                 <td
                                   key={pkgHeader._id}
-                                  className="px-3 py-6 text-right border-l border-gray-800 font-black text-xs tabular-nums text-blue-400"
+                                  className="px-3 py-6 text-right border-l border-gray-800 font-bold text-[16px] tabular-nums text-blue-400"
                                 >
                                   {totalForPackage > 0
                                     ? formatCurrency(totalForPackage)
@@ -1596,8 +1596,8 @@ const CreateQuotation = () => {
                   </div>
 
                   {formData.notes && (
-                    <div className="p-8 bg-amber-50/50 border border-amber-100 rounded-3xl">
-                      <label className="block text-[10px] font-black text-amber-500 uppercase tracking-widest mb-3">
+                    <div className="p-8 bg-amber-50/50 border border-amber-100 rounded-2xl">
+                      <label className="block text-[14px] font-bold text-amber-500 uppercase tracking-widest mb-3">
                         Ghi chú từ Chuyên viên
                       </label>
                       <p className="text-amber-900 font-bold leading-relaxed italic text-sm whitespace-pre-wrap">
@@ -1633,7 +1633,7 @@ const CreateQuotation = () => {
       {/* Survey Modal */}
       {showSurveyModal && selectedSurvey && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-100 flex items-center justify-center p-4 transition-all animate-in fade-in duration-300">
-          <div className="bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-hidden shadow-2xl flex flex-col">
+          <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden shadow-2xl flex flex-col">
             <div className="p-8 border-b border-gray-100 flex items-center justify-between shrink-0">
               <div>
                 <h2 className="text-2xl font-bold text-gray-900 tracking-tight">
@@ -1655,7 +1655,7 @@ const CreateQuotation = () => {
               <div className="space-y-8">
                 <div className="grid grid-cols-2 gap-8">
                   <div className="bg-gray-50 rounded-2xl p-4">
-                    <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">
+                    <label className="block text-[14px] font-bold text-gray-400 uppercase tracking-widest mb-1">
                       Ngày lập
                     </label>
                     <p className="text-gray-900 font-bold">
@@ -1667,7 +1667,7 @@ const CreateQuotation = () => {
                     </p>
                   </div>
                   <div className="bg-gray-50 rounded-2xl p-4">
-                    <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">
+                    <label className="block text-[14px] font-bold text-gray-400 uppercase tracking-widest mb-1">
                       Địa chỉ
                     </label>
                     <p className="text-gray-900 font-bold truncate">
@@ -1690,7 +1690,7 @@ const CreateQuotation = () => {
                           <div className="font-bold text-gray-900">
                             {survey.name}
                           </div>
-                          <div className="text-xs text-gray-500">
+                          <div className="text-[16px] text-gray-500">
                             Dimensions: {survey.length}m x {survey.width}m |
                             Coeff: {survey.coefficient}
                           </div>
